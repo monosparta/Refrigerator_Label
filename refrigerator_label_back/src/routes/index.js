@@ -1,10 +1,12 @@
-import { Router } from "express";
+const { searchData } = require("../controller/index.js");
 
-const router = Router();
+module.exports = function(router) {
 
-router.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+    router.get('/', (req, res) => {
+        res.send('Hello World!')
+    })
+    
+    // test api
+    router.get('/api/search', searchData);
 
-
-export default router;
+}
