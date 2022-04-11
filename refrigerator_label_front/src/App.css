@@ -1,38 +1,60 @@
 .App {
+  height: 5vh;
+  width: 80vw;
+  margin: 0 auto ;
+}
+.Body{
+  position: relative;
+  width: 50vw;
+  height: 30vh;
+  margin: 0 auto;
+  top: 30vh;
   text-align: center;
+  /* border: solid 1px black; */
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Tittle{
+  position: relative;
+  margin: 2vh auto;
+  width: 30vw;
+  height: 5vh;
+  /* border: solid 1px rgb(228, 6, 6); */
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Logo{
+  position: relative;
+  margin: 1.5vh auto;
+  width: 25vw;
+  height: 25vh;
+  height: fit-content;
+  /* border: solid 1px rgb(35, 201, 63); */
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Box{
+  border: solid 2px rgb(123, 123, 123);
+  position: relative;
+  margin: 25vh auto;
+  border-radius: 3%;
+  width: 60vw;
+  height: 42vh;
 }
-
-.App-link {
-  color: #61dafb;
+.Keyin{
+  /* border: solid 2px rgb(215, 130, 130); */
+  position: relative;
+  margin: 5vh auto;
+  width: 50vw;
+  height: 20vh;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Account{
+  position: relative;
+  padding-top: 1vh;
+}
+.Password{
+  position: relative;
+  padding-top: 1vh;
+}
+.ButtonLogin{
+  position: relative;
+  padding-top: 1vh;
+}
+.Keeplogin{
+  position: relative;
+  padding-top: 1vh;
 }
