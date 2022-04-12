@@ -3,7 +3,7 @@
 // import Login from './Pages/LoginPage';
 // import Bar from "./Components/AppBar"
 import Home from './Pages/ManagementPage';
-// import Send from './Components/SendMail'
+// import Send from './Components/MailBtn'
 import './App.css';
 
 function App() {

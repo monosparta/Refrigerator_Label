@@ -18,7 +18,7 @@
   margin: 2vh auto;
   width: 30vw;
   height: 5vh;
-  /* border: solid 1px rgb(228, 6, 6); */
+  border: solid 1px rgb(255, 151, 151);
 }
 .Logo{
   position: relative;
@@ -73,8 +73,51 @@
 }
 .Enter{
   position: relative;
-  top: 1vh;
+  top: 1px;
+  left: 10px;
 }
-.Textfield{
-  width: auto;
+.bachu{
+  width: 140px;
+  height: 35px;
+}
+.MailBox{
+  position: relative;
+  width: 435px;
+  height: 210px;
+  /* border: solid chartreuse 1px; */
+}
+.User{
+  position: relative;
+  margin-left: 10px;
+  /* border: solid rgb(242, 34, 180) 1px; */
+}
+.Message{
+  position: relative;
+  top: 2vh;
+}
+.TextBox{
+  position: relative;
+  width: 425px;
+  top: 15px;
+  margin-left: 10px;
+  /* border: solid rgb(242, 34, 180) 1px; */
+}
+.MContent{
+  position: relative;
+  float: left;
+  top: 20px;
+}
+.MText{
+  position: relative;
+  left: 22px;
+  top: 1px;
+  width: 380px;
+  /* border: solid rgb(242, 34, 180) 1px; */
+}
+.ButtonG{
+  position: relative;
+  width: 420px;
+  margin-left:5px ;
+  height: fit-content;
+  /* border: solid rgb(242, 34, 180) 1px; */
 }

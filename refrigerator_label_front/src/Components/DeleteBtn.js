@@ -21,6 +21,10 @@ const handleClickOpen = () => {
 const handleClose = () => {
     setOpen(false);
 };
+// const handleClosedelete = () => {
+//     setOpen(false);
+//     //delete function
+// };
 
 return (
     <div>
