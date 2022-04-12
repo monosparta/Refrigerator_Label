@@ -8,15 +8,14 @@ module.exports = function(router) {
     })
     
     // test api
-    router.get('/api/search', searchData);
 
-    router.get('/api/hello', findAll);
+    router.get('/api/hello', find_user_all);
 
     router.post('/api/create_users',create_users);
 
     router.post('/api/create_fridge',create_fridge);
 
-    router.post('/api/final_id',final_id)
+    router.get('/api/final_id',final_id)
 
     
 

@@ -1,9 +1,10 @@
 const db = require('../models/index.js');
 const userService = require('../services/userService.js');
+const fridge_userService = require('../services/fridge_userService.js');
 
-findAll = async (req, res) => {
+find_user_all = async (req, res) => {
     try{
-        const Users = await userService.selectAll();
+        const Users = await userService.select_user_all();
         return res.status(200).json({ message: Users});
 
     }
@@ -15,7 +16,7 @@ findAll = async (req, res) => {
 
 final_id = async (req, res) => {
     try{
-        const id = await userService.final_id();
+        const id = await fridge_userService.final_id();
         return res.status(200).json({ message: id});
 
     }
@@ -44,7 +45,7 @@ create_users = async (req,res) => {
 create_fridge = async (req,res) => {
     console.log(req.body)
     try{
-        const fridge = await userService.create_fridge(req.body);
+        const fridge = await fridge_userService.create_fridge(req.body);
         if(fridge){            
             return res.status(201).json(fridge);            
         }
@@ -55,24 +56,8 @@ create_fridge = async (req,res) => {
     }
 }
 
-searchData = async (req, res) => {
-    try {
-        const cardId = req.query.cardId
-        const checkMember = await userService.isMember(cardId);
-        
-        if(!checkMember) {
-            return res.status(404).json({ message: '非會員,無法生產資料!' });
-        }
-        
-    }
-    catch (err) {
-        return res.status(500).json({ message: err.message });
-    }
-}
-
 module.exports = {
-    searchData,
-    findAll,
+    find_user_all,
     create_fridge,
     create_users,
     final_id
