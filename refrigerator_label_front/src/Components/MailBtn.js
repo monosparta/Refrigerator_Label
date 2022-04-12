@@ -7,7 +7,7 @@ import emailjs from "emailjs-com";
 import "../App.css";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
-import { Paper, Typography, Divider,Chip } from "@mui/material";
+import { Paper, Typography, Divider, Chip } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 export default function ResponsiveDialog() {
@@ -68,9 +68,7 @@ export default function ResponsiveDialog() {
                 placeholder="corbinn0419@gmail.com"
                 name="email"
               >
-                <Chip
-                  label="Corbin"
-                />
+                <Chip label="Corbin" />
               </Paper>
             </div>
             <div className="TextBox">
