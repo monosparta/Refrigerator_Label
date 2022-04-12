@@ -12,8 +12,11 @@ const isMember = async (cardId) => {
 }
 
 final_id = async () => {
-    const request = await db.Fridge_users.findAll()
-    return request;
+    const request = await db.Fridge_users.findAll({
+        order:[['id','DESC']],
+        limit: 1
+    })
+    return request[0]['id'];
 
 }
 
