@@ -35,7 +35,4 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 
-//db.members = require("./members.js")(sequelize, Sequelize);
-
-
 module.exports = db;
