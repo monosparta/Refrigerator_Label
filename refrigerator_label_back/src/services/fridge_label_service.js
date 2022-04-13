@@ -1,11 +1,11 @@
 const db = require('../models/index.js');
 
-const { Users } = db;
+
 
 
 
 final_id = async () => {
-    const request = await db.Fridge_users.findAll({
+    const request = await db.Fridge_labels.findAll({
         order:[['id','DESC']],
         limit: 1
     })
@@ -13,13 +13,13 @@ final_id = async () => {
 
 }
 
-create_fridge = async (body) => {
-    const return_create_fridge = await Fridge_users.create({
+create_fridge_labels = async (body) => {
+    const create_fridge_labels = await Fridge_labels.create({
         card_id:body.card_id,
         date:date,
         date_id:body.date_id,
     })
-    return return_create_fridge;
+    return create_fridge_labels;
 
 }
 
@@ -27,6 +27,6 @@ create_fridge = async (body) => {
 
 
 module.exports = {
-    create_fridge,
+    create_fridge_labels,
     final_id
 }

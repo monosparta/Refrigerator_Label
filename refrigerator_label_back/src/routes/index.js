@@ -9,11 +9,11 @@ module.exports = function(router) {
     
     // test api
 
-    router.get('/api/hello', find_user_all);
+    router.get('/api/find_user_all', find_user_all);
 
     router.post('/api/create_users',create_users);
 
-    router.post('/api/create_fridge',create_fridge);
+    router.post('/api/create_fridge_labels',create_fridge_labels);
 
     router.get('/api/final_id',final_id)
 
