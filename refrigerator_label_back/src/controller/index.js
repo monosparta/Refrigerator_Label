@@ -14,17 +14,7 @@ find_user_all = async (req, res) => {
 
 }
 
-final_id = async (req, res) => {
-    try{
-        const id = await fridge_labels_service.final_id();
-        return res.status(200).json({ message: id});
 
-    }
-    catch(err){
-        return res.status(500).json({ message: err.message });
-    }
-
-}
 
 
 create_users = async (req,res) => {
@@ -45,9 +35,10 @@ create_users = async (req,res) => {
 create_fridge_labels = async (req,res) => {
     console.log(req.body)
     try{
-        const fridge = await fridge_labels_service.create_fridge_labels(req.body);
-        if(fridge){            
-            return res.status(201).json(fridge);            
+        
+        const fridge_label = await fridge_labels_service.create_fridge_labels(req.body);
+        if(fridge_label){            
+            return res.status(201).json(fridge_label);            
         }
         
     }
@@ -60,5 +51,5 @@ module.exports = {
     find_user_all,
     create_fridge_labels,
     create_users,
-    final_id
+
 }

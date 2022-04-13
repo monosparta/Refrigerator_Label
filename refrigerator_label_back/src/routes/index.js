@@ -15,8 +15,4 @@ module.exports = function(router) {
 
     router.post('/api/create_fridge_labels',create_fridge_labels);
 
-    router.get('/api/final_id',final_id)
-
-    
-
 }
