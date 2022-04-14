@@ -1,8 +1,20 @@
 const db = require('../models/index.js');
 
 
+find_fridge_label_all = async () => {
+    const request = await db.Fridge_labels.findAll()
+    return request;
+}
 
+delete_fridge_label = async (id) =>{
+    const request = await db.Fridge_labels.destroy({
+        where: {
+            id,
+        }
+    })
+    return request;
 
+}
 
 
 create_fridge_labels = async (body) => {
@@ -44,5 +56,7 @@ create_fridge_labels = async (body) => {
 
 module.exports = {
     create_fridge_labels,
+    find_fridge_label_all,
+    delete_fridge_label
     
 }
