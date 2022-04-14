@@ -15,6 +15,8 @@ module.exports = function(router) {
 
     router.delete("/api/delete_fridge_label", delete_fridge_label);
 
+    router.put("/api/update_fridge_label",update_fridge_label)
+
     router.post('/api/create_users',create_users);
 
     router.post('/api/create_fridge_labels',create_fridge_labels);

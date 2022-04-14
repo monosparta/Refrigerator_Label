@@ -43,6 +43,18 @@ find_fridge_label_all = async (req,res) => {
     }
 }
 
+update_fridge_label = async (req,res) => {
+    console.log(req.body)
+    try{
+        const update_label = await fridge_labels_service.update_fridge_label(req.body)
+        return res.status(200).json({message: update_label});
+
+    }
+    catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
 delete_fridge_label = async (req, res) => {
     try{
         const delete_label = await fridge_labels_service.delete_fridge_label(req.body['id'])

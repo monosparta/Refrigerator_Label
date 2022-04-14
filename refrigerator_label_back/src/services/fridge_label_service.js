@@ -6,7 +6,7 @@ find_fridge_label_all = async () => {
     return request;
 }
 
-delete_fridge_label = async (id) =>{
+delete_fridge_label = async (id) => {
     const request = await db.Fridge_labels.destroy({
         where: {
             id,
@@ -15,37 +15,50 @@ delete_fridge_label = async (id) =>{
     return request;
 
 }
-
+update_fridge_label = async (body) => {
+    const request = await db.Fridge_labels.update({
+        card_id: body.card_id,
+        date: body.date,
+        date_id: body.date_id,
+        remark: body.remark,
+    },
+        {
+            where: {
+                id: body.id,
+            }
+        }
+    )
+    return request;
+}
 
 create_fridge_labels = async (body) => {
     const string = "2022-04-13 14:13:35";
     let array = body.date.split(" ")
     let date = array[0].split("-")
     let data_id = ''
-    
+
     const request = await db.Fridge_labels.findAll({
-        order:[['id','DESC']],
+        order: [['id', 'DESC']],
         limit: 1
     })
-    
 
-    if(Number(request[0]['id']+1)>=1000)
-    {
+
+    if (Number(request[0]['id'] + 1) >= 1000) {
         data_id = String(Number(request[0]['id']) + 1).slice(-3)
     }
-    else if(Number(request[0]['id']<10)){
-        data_id = "00"+ String(Number(request[0]['id']) + 1)
-    }else if(Number(request[0]['id']<100)){
+    else if (Number(request[0]['id'] < 10)) {
+        data_id = "00" + String(Number(request[0]['id']) + 1)
+    } else if (Number(request[0]['id'] < 100)) {
         data_id = "0" + String(Number(request[0]['id']) + 1)
     }
-    else{
+    else {
         data_id = String(Number(request[0]['id']) + 1)
     }
-    
-    const create_fridge_labels = await db.Fridge_labels.create({        
-        card_id:body.card_id,
-        date:body.date,
-        date_id:date[1]+date[2] + data_id
+
+    const create_fridge_labels = await db.Fridge_labels.create({
+        card_id: body.card_id,
+        date: body.date,
+        date_id: date[1] + date[2] + data_id
     })
     return create_fridge_labels;
 
@@ -57,6 +70,7 @@ create_fridge_labels = async (body) => {
 module.exports = {
     create_fridge_labels,
     find_fridge_label_all,
-    delete_fridge_label
-    
+    delete_fridge_label,
+    update_fridge_label
+
 }
