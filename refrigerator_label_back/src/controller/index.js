@@ -2,6 +2,7 @@ const db = require('../models/index.js');
 const user_service = require('../services/user_service.js');
 const fridge_labels_service = require('../services/fridge_label_service.js');
 
+
 find_user_all = async (req, res) => {
     try{
         const Users = await user_service.select_user_all();
@@ -44,7 +45,6 @@ find_fridge_label_all = async (req,res) => {
 }
 
 update_fridge_label = async (req,res) => {
-    console.log(req.body)
     try{
         const update_label = await fridge_labels_service.update_fridge_label(req.body)
         return res.status(200).json({message: update_label});
@@ -60,6 +60,18 @@ delete_fridge_label = async (req, res) => {
         const delete_label = await fridge_labels_service.delete_fridge_label(req.body['id'])
         return res.status(200).json({message: delete_label});
 
+    }
+    catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+send_email_to_fridge_user = async (req, res) => {
+    try{
+        const send_email = await fridge_labels_service.send_email_to_fridge_user();
+        if(send_email){
+            return res.status(201).json(send_email);
+        }
     }
     catch(err){
         return res.status(500).json({ message: err.message });
@@ -86,6 +98,7 @@ module.exports = {
     create_fridge_labels,
     create_users,
     find_fridge_label_all,
-    delete_fridge_label
+    delete_fridge_label,
+    send_email_to_fridge_user
 
 }

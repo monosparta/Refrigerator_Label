@@ -1,5 +1,5 @@
 const db = require('../models/index.js');
-
+const nodemailer = require('nodemailer');
 
 find_fridge_label_all = async () => {
     const request = await db.Fridge_labels.findAll()
@@ -15,6 +15,34 @@ delete_fridge_label = async (id) => {
     return request;
 
 }
+
+send_email_to_fridge_user = async () => {
+    
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'username@gmail.com',
+            pass: ''
+        }
+    });
+
+    var mailOptions = {
+        from: 'username@gmail.com',
+        to: 'username@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        console.log("234234")
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
 update_fridge_label = async (body) => {
     const request = await db.Fridge_labels.update({
         card_id: body.card_id,
@@ -32,7 +60,6 @@ update_fridge_label = async (body) => {
 }
 
 create_fridge_labels = async (body) => {
-    const string = "2022-04-13 14:13:35";
     let array = body.date.split(" ")
     let date = array[0].split("-")
     let data_id = ''
@@ -71,6 +98,7 @@ module.exports = {
     create_fridge_labels,
     find_fridge_label_all,
     delete_fridge_label,
-    update_fridge_label
+    update_fridge_label,
+    send_email_to_fridge_user
 
 }

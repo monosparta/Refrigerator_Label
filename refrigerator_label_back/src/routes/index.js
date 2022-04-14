@@ -21,4 +21,6 @@ module.exports = function(router) {
 
     router.post('/api/create_fridge_labels',create_fridge_labels);
 
+    router.post('/api/send_email_to_fridge_user',send_email_to_fridge_user)
+
 }
