@@ -1,10 +1,21 @@
-from PIL import Image,ImageDraw,ImageFont
+import os
+import time
+import curses
+import requests
+from dotenv import load_dotenv
+from PIL import Image
+from datetime import datetime, timezone, timedelta
 from brother_ql.conversion import convert
 from brother_ql.backends.helpers import send
 from brother_ql.raster import BrotherQLRaster
 from pngMaker import pngMake
-import time
-import curses
+
+# load env 
+load_dotenv()
+
+# time setting
+tz = timezone(timedelta(hours=+8))
+dt = datetime.now(tz)
 
 # curses wait(code wait)
 screen = curses.initscr()
@@ -12,29 +23,41 @@ screen = curses.initscr()
 def stop(curse):
     curses.curs_set(0)
     print("Wait a moment...")
-    time.sleep(2)
+    time.sleep(5)
     curses.flushinp()
-
+    
 while True:
     # curses wait(code wait)
     curses.wrapper(stop)
     curses.curs_set(1)
-    print("code start!")
     input_data = input("input data:")
-    curses.wrapper(stop)
-    
-    
-    if input_data[0:2] == '###': # delete
+
+    if input_data[:6] == 'label:': # delete
+        print("delete label start!")
         path = 'output.txt'
         f = open(path, 'w')
-        f.write(input_data.replace('###','')+'已刪除')
-        f.close()
+        f.write(input_data.replace('label:','')+'已刪除')
+        # http delete    
+        response = requests.delete(
+            "{}{}".format(os.getenv("SERVER_URL"), "/api/delete_fridge_label"),
+            headers = {'content-type': 'application/json'},
+            data = {'date_id':input_data.replace('label:','')}
+        )
     else: # add
+        print("print label start!")
+        # now date
+        date_now = dt.strftime("%Y-%m-%d %H:%M:%S")
+        # http post    
+        response = requests.post(
+            "{}{}".format(os.getenv("SERVER_URL"), "/api/create_fridge_labels"),
+            headers = {'content-type': 'application/json'}, 
+            data = {'date':date_now,'card_id':input_data}
+        )
 
-        # label print
-        if(input_data == "1255870309"): # is member
+        if(response.status_code==201): # is member
             # make png
-            pngMake(member_name="Matthieu Bergeron", data_id="###042100")
+            response_json = response.json()
+            pngMake(member_name=response_json['name'], data_id=response_json['data_id'], date=date_now.split(' ')[0])
 
             
             # QL print
@@ -61,6 +84,6 @@ while True:
             )
 
             send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
-            print("print successful")
+            print("print label successful")
         else: # not member
             print("error:not member!")

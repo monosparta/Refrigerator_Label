@@ -1,12 +1,8 @@
 from PIL import Image,ImageDraw,ImageFont
-from datetime import datetime, timezone, timedelta
 import qrcode
 
-# time setting
-tz = timezone(timedelta(hours=+8))
-dt = datetime.now(tz)
 
-def pngMake(member_name, data_id):
+def pngMake(member_name, data_id, date):
 
     label_weight, label_hight = (991,413)
     img=Image.new("RGB", (label_weight, label_hight),(255,255,255))
@@ -21,18 +17,21 @@ def pngMake(member_name, data_id):
 
     draw = ImageDraw.Draw(img)
     # date
-    draw.text((25, 25), dt.strftime("%Y-%m-%d"), (0,0,0), font=font)
+    draw.text((25, 25), date, (0,0,0), font=font)
     # name
-    name_weight, name_hight = draw.textsize(member_name, font=font_name)
+    name_hight = draw.textsize(member_name, font=font_name)[1] # just hight
     draw.text((25,(label_hight-name_hight)/2), member_name, (0,0,0), font=font_name)
     # qr
-    qr = qrcode.QRCode(box_size=7)
-    qr.add_data(dt.strftime("###{data}".format(data = data_id)))
+    qr = qrcode.QRCode(
+        error_correction=qrcode.constants.ERROR_CORRECT_M,
+        box_size=7
+    )
+    qr.add_data("label:{data_id}".format(data_id = data_id))
     qr.make()
     img_qr = qr.make_image()
     pos = (label_weight-img_qr.size[0], label_hight-img_qr.size[1])
     img.paste(img_qr, pos)
     # ID
-    draw.text(((label_weight-img_qr.size[0])+30,  (label_hight-img_qr.size[1])-20), dt.strftime("%m%d001"), (0,0,0), font=font)
+    draw.text(((label_weight-img_qr.size[0])+30,  (label_hight-img_qr.size[1])-20), data_id, (0,0,0), font=font)
 
     img.save("label.png")
