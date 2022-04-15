@@ -5,11 +5,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+
 const theme2 = createTheme({
   palette: {
     Button: {
@@ -46,29 +46,53 @@ export default function ResponsiveDialog() {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title" style={{height:'60px'}}>
-          {"確認刪除該項目？"}
-        </DialogTitle>
-        <DialogActions>
-          <ThemeProvider theme={theme2}>
-            <Button
-              autoFocus
-              onClick={handleClose}
-              variant="contained"
-              color="Button"
-            >
-              <Typography color="white">確認</Typography>
-            </Button>
-            <Button
-              onClick={handleClose}
-              autoFocus
-              variant="outlined"
-              color="Button"
-            >
-              取消
-            </Button>
-          </ThemeProvider>
-        </DialogActions>
+        <div className="Diacontent">
+          <div className="DTittle">
+            <DialogTitle id="responsive-dialog-title">
+              <Typography variant="boby2" sx={{ fontWeight: "700" }}>
+                確認刪除所選項目？
+              </Typography>
+            </DialogTitle>
+          </div>
+          <DialogActions>
+            <div className="BtnGroup">
+              <ThemeProvider theme={theme2}>
+                <div className="BtnOK">
+                  <Button
+                    autoFocus
+                    onClick={handleClose}
+                    variant="contained"
+                    color="Button"
+                    style={{
+                      maxWidth: "108px",
+                      maxHeight: "36px",
+                      minWidth: "108px",
+                      minHeight: "36px",
+                    }}
+                  >
+                    <Typography color="white">確認</Typography>
+                  </Button>
+                </div>
+                <div className="BtnNo">
+                  <Button
+                    onClick={handleClose}
+                    autoFocus
+                    variant="outlined"
+                    color="Button"
+                    style={{
+                      maxWidth: "108px",
+                      maxHeight: "36px",
+                      minWidth: "108px",
+                      minHeight: "36px",
+                    }}
+                  >
+                    取消
+                  </Button>
+                </div>
+              </ThemeProvider>
+            </div>
+          </DialogActions>
+        </div>
       </Dialog>
     </div>
   );

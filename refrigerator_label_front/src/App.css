@@ -89,13 +89,6 @@
   position: relative;
   margin: 2vh 0;
 }
-.DTittle{
-  position: relative;
-  width: 200px;
-  height: 28px;
-  text-align: center;
-  border: solid 1px violet;
-}
 .BtnG{
   position: relative;
   width: 228px;
@@ -164,4 +157,25 @@
   margin-left: 5px;
   height: fit-content;
   /* border: solid rgb(242, 34, 180) 1px; */
+}
+.Diacontent{
+  position: relative;
+  margin: 48px 50px;
+  /* border: solid 1px rgb(27, 12, 235); */
+}
+.DTittle{
+  position: relative;
+  text-align: center;
+  /* border: solid 1px violet; */
+}
+.BtnGroup{
+  display: flex;
+}
+.BtnCancel{
+  position: relative;
+}
+.BtnNo{
+  position: relative;
+  margin-left: 12px;
+  margin-right: 0;
 }
