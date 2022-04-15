@@ -24,8 +24,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    Pink: {
-      main: "rgb(255, 151, 151)",
+    Button: {
+      main: "#363F4E",
     },
   },
 });
@@ -346,7 +346,7 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.fat}</TableCell>
                       <TableCell align="right">
                         <TextField
-                          className="bachu"
+                          className="Remark"
                           placeholder="編輯備註"
                           defaultValue={row.crabs}
                           size="small"
@@ -355,10 +355,16 @@ export default function EnhancedTable() {
                           <Button
                             className="Enter"
                             variant="contained"
-                            color="Pink"
+                            color="Button"
                             disableElevation
                           >
-                            儲存
+                            <Typography
+                              color="white"
+                              variant="h7"
+                              sx={{ fontWeight: "700" }}
+                            >
+                              儲存
+                            </Typography>
                           </Button>
                         </ThemeProvider>
                       </TableCell>
