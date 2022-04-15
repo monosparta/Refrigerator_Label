@@ -40,7 +40,6 @@ while True:
         # http delete    
         response = requests.delete(
             "{}{}".format(os.getenv("SERVER_URL"), "/api/delete_fridge_label"),
-            headers = {'content-type': 'application/json'},
             data = {'date_id':input_data.replace('label:','')}
         )
     else: # add
@@ -50,7 +49,6 @@ while True:
         # http post    
         response = requests.post(
             "{}{}".format(os.getenv("SERVER_URL"), "/api/create_fridge_labels"),
-            headers = {'content-type': 'application/json'}, 
             data = {'date':date_now,'card_id':input_data}
         )
 
@@ -86,4 +84,5 @@ while True:
             send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
             print("print label successful")
         else: # not member
-            print("error:not member!")
+            response_json = response.json()
+            print(response_json)
