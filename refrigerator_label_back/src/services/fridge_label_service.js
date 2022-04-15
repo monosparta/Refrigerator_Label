@@ -6,10 +6,10 @@ find_fridge_label_all = async () => {
     return request;
 }
 
-delete_fridge_label = async (id) => {
+delete_fridge_label = async (date_id) => {
     const request = await db.Fridge_labels.destroy({
         where: {
-            id,
+            date_id,
         }
     })
     return request;
@@ -68,8 +68,12 @@ create_fridge_labels = async (body) => {
         order: [['id', 'DESC']],
         limit: 1
     })
-
-
+    const user = await db.Users.findOne({
+        where: {
+            card_id:body.card_id
+        }
+    })
+    
     if (Number(request[0]['id'] + 1) >= 1000) {
         data_id = String(Number(request[0]['id']) + 1).slice(-3)
     }
@@ -87,6 +91,8 @@ create_fridge_labels = async (body) => {
         date: body.date,
         date_id: date[1] + date[2] + data_id
     })
+    create_fridge_labels.name = user.name
+    console.log(create_fridge_labels)
     return create_fridge_labels;
 
 }
