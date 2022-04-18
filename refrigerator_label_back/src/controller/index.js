@@ -1,7 +1,7 @@
 const db = require('../models/index.js');
+const nodemailer = require('nodemailer');
 const user_service = require('../services/user_service.js');
 const fridge_label_service = require('../services/fridge_label_service.js');
-
 
 find_user_all = async (req, res) => {
     try{
@@ -14,9 +14,6 @@ find_user_all = async (req, res) => {
     }
 
 }
-
-
-
 
 create_users = async (req,res) => {
     console.log(req.body)
@@ -37,6 +34,61 @@ find_fridge_label_all = async (req,res) => {
     try{
         const Users = await fridge_label_service.find_fridge_label_all();
         return res.status(200).json({ message: Users});
+
+    }
+    catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+care_id_find_user = async (req,res) => {
+    try{
+        const Users = await fridge_label_service.care_id_find_user(req.body);
+        return res.status(200).json({ message: Users});
+
+    }
+    catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+time = async (req,res) => {
+    try{
+        const time = await fridge_label_service.time();
+        for(let i = 0; i < time.length; i++){            
+            let array = time[i]['date'].split(" ")
+            var Today=new Date();
+            const date1 = new Date(array[0]);
+            const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            if(diffDays == 5){
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'username@gmail.com',
+                        pass: ''
+                    }
+                });
+            
+                var mailOptions = {
+                    from: 'username@gmail.com',
+                    to: 'username@gmail.com',
+                    subject: 'Sending Email using Node.js',
+                    text: 'That was easy!'
+                };
+            
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            }
+            
+        }
+        return res.status(200).json({ message: time});
 
     }
     catch(err){
@@ -65,6 +117,8 @@ delete_fridge_label = async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 }
+
+
 
 send_email_to_fridge_user = async (req, res) => {
     try{
@@ -102,6 +156,8 @@ module.exports = {
     create_users,
     find_fridge_label_all,
     delete_fridge_label,
-    send_email_to_fridge_user
+    send_email_to_fridge_user,
+    time,
+    care_id_find_user
 
 }

@@ -6,8 +6,23 @@ module.exports = function(router) {
     router.get('/', (req, res) => {
         res.send('Hello World!')
     })
-    
+    router.get('/test', (req, res) => {
+        
+        const date1 = new Date('4/1/2022');
+        const date2 = new Date('3/28/2022');
+
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        console.log(diffTime + " milliseconds");
+        console.log(diffDays + " days");
+
+        
+
+    })
+    router.get('/api/time',time)
     // test api
+
+    router.get('/api/care_id_find_user',care_id_find_user)
 
     router.get('/api/find_user_all', find_user_all);
 
