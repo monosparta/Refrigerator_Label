@@ -1,6 +1,5 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,17 +8,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 import { visuallyHidden } from "@mui/utils";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Delete from "../Components/DeleteBtn";
-import Mail from "../Components/MailBtn";
+import BTNG from './BtnG';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -110,6 +105,12 @@ const headCells = [
     disablePadding: false,
     label: "備註",
   },
+  {
+    id: "",
+    numeric: true,
+    disablePadding: false,
+    label: <BTNG/>,
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -174,71 +175,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          已選擇 {numSelected} 個選項
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          冰箱物品
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <Delete />
-        </Tooltip>
-      ) : (
-        <Tooltip title="">
-          <IconButton></IconButton>
-        </Tooltip>
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Mail">
-          <IconButton>
-            <Mail />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="">
-          <IconButton></IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -291,7 +227,6 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 700 }}
@@ -351,6 +286,8 @@ export default function EnhancedTable() {
                           defaultValue={row.crabs}
                           size="small"
                         />
+                      </TableCell>
+                      <TableCell>
                         <ThemeProvider theme={theme}>
                           <Button
                             className="Enter"
