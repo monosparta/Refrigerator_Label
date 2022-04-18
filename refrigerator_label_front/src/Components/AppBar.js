@@ -32,9 +32,9 @@ export default function ButtonAppBar() {
             </Typography>
             <ThemeProvider theme={theme}>
               <Button
-                variant="contained"
+                variant="outlined"
                 startIcon={<LogoutIcon/>}
-                color="Log"
+                color="white"
               >
                 <Typography color="White">Logout</Typography>
               </Button>
