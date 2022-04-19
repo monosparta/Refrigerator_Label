@@ -8,14 +8,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import BTNG from "./BtnG";
-import BtnSave from './SaveBtn'
+import Btn from './SaveBtn'
 
 function createData(name, ID, Date) {
   return {
@@ -299,7 +297,7 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        <BtnSave/>
+                        <Btn BtnText="儲存" Message = "編輯成功"/>
                       </TableCell>
                     </TableRow>
                   );

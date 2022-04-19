@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import Btn from './SaveBtn'
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
@@ -145,6 +146,7 @@ export default function ResponsiveDialog() {
                   variant="contained"
                   color="Button"
                   className="BtnSend"
+                  disableElevation
                 >
                   <Typography color="white" variant="h7">
                     確認寄送

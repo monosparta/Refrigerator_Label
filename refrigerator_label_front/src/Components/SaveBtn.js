@@ -15,7 +15,10 @@ const theme = createTheme({
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-export default function PositionedSnackbar() {
+export default function PositionedSnackbar(props) {
+  const BtnText = props.BtnText;
+  const Message = props.Message;
+
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
@@ -38,7 +41,7 @@ export default function PositionedSnackbar() {
         <Button
           onClick={handleClick({
             vertical: "top",
-            horizontal: "right",
+            horizontal: "center",
           })}
           className="Enter"
           variant="contained"
@@ -46,7 +49,7 @@ export default function PositionedSnackbar() {
           disableElevation
         >
           <Typography color="white" variant="h7" sx={{ fontWeight: "700" }}>
-            儲存
+            {BtnText}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -58,12 +61,12 @@ export default function PositionedSnackbar() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
         key={vertical + horizontal}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "85%" }}>
-          編輯成功
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          {Message}
         </Alert>
       </Snackbar>
     </div>
