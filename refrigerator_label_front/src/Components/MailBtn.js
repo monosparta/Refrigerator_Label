@@ -42,7 +42,6 @@ export default function ResponsiveDialog() {
   function sendEmail(e) {
     console.log("34", e);
     e.preventDefault();
-
     emailjs
       .sendForm("mailtest", "template_3y67klp", e.target, "B7qzZTQ8Vz_TGmxKl")
       .then(
@@ -55,7 +54,6 @@ export default function ResponsiveDialog() {
       );
     e.target.reset();
   }
-
   const theme = createTheme({
     palette: {
       Button: {
@@ -88,7 +86,7 @@ export default function ResponsiveDialog() {
                 <Paper
                   type="email"
                   className="form-control"
-                  placeholder="corbinn0419@gmail.com" //之後要撈資料
+                  placeholder="garyopen1876@gmail.com" //之後要撈資料
                   name="email"
                   sx={{
                     display: "flex",
@@ -104,7 +102,6 @@ export default function ResponsiveDialog() {
                 >
                   {chipData.map((data) => {
                     let icon;
-
                     return (
                       <ListItem key={data.key}>
                         <Chip
@@ -122,9 +119,7 @@ export default function ResponsiveDialog() {
                 </Paper>
               </div>
             </div>
-            <Divider variant="inset"/>
-
-
+            <Divider variant="inset" />
             <div className="TextBox">
               <div className="MContent">
                 <Typography>提醒內容</Typography>
@@ -140,7 +135,6 @@ export default function ResponsiveDialog() {
               </div>
             </div>
           </div>
-
           <div className="ButtonG">
             <ThemeProvider theme={theme}>
               <DialogActions>

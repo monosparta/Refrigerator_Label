@@ -15,15 +15,7 @@ import { visuallyHidden } from "@mui/utils";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import BTNG from "./BtnG";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    Button: {
-      main: "#363F4E",
-    },
-  },
-});
+import BtnSave from './SaveBtn'
 
 function createData(name, ID, Date) {
   return {
@@ -307,22 +299,7 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        <ThemeProvider theme={theme}>
-                          <Button
-                            className="Enter"
-                            variant="contained"
-                            color="Button"
-                            disableElevation
-                          >
-                            <Typography
-                              color="white"
-                              variant="h7"
-                              sx={{ fontWeight: "700" }}
-                            >
-                              儲存
-                            </Typography>
-                          </Button>
-                        </ThemeProvider>
+                        <BtnSave/>
                       </TableCell>
                     </TableRow>
                   );
