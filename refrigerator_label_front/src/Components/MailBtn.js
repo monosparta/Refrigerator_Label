@@ -2,13 +2,13 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
 import emailjs from "emailjs-com";
 import "../App.css";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
@@ -25,9 +25,9 @@ export default function ResponsiveDialog() {
   // };
 
   const [chipData, setChipData] = React.useState([
-    { key: 0, label: "Corbin -0411001" },
-    { key: 1, label: "Gary -0411002" },
-    { key: 2, label: "Pohan -0411003" }
+    { key: 0, label: "Corbin" },
+    { key: 1, label: "Gary" },
+    { key: 2, label: "Pohan" },
   ]);
 
   const ListItem = styled("li")(({ theme }) => ({
@@ -56,6 +56,13 @@ export default function ResponsiveDialog() {
     e.target.reset();
   }
 
+  const theme = createTheme({
+    palette: {
+      Button: {
+        main: "#363F4E",
+      },
+    },
+  });
   return (
     <div>
       <IconButton onClick={handleClickOpen}>
@@ -67,9 +74,11 @@ export default function ResponsiveDialog() {
         aria-labelledby="responsive-dialog-title"
       >
         <form onSubmit={sendEmail}>
-          <DialogTitle id="responsive-dialog-title" variant="h5">
-            {"寄送到期提醒信件"}
-          </DialogTitle>
+          <div className="MailTittle">
+            <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
+              寄送到期提醒信件
+            </Typography>
+          </div>
           <div className="MailBox">
             <div className="User">
               <div className="Belone">
@@ -88,7 +97,7 @@ export default function ResponsiveDialog() {
                     listStyle: "none",
                     p: 0.5,
                     m: 0,
-                    height: 40
+                    height: 40,
                   }}
                   component="ul"
                   elevation={0}
@@ -113,6 +122,8 @@ export default function ResponsiveDialog() {
                 </Paper>
               </div>
             </div>
+            <Divider variant="inset"/>
+
 
             <div className="TextBox">
               <div className="MContent">
@@ -129,21 +140,33 @@ export default function ResponsiveDialog() {
               </div>
             </div>
           </div>
+
           <div className="ButtonG">
-            <DialogActions>
-              <Button type="submit" autoFocus onClick={handleClose} fullWidth>
-                確認寄送
-              </Button>
-              <Divider
-                orientation="vertical"
-                variant="middle"
-                flexItem
-                style={{ background: "gray" }}
-              />
-              <Button onClick={handleClose} autoFocus fullWidth>
-                取消
-              </Button>
-            </DialogActions>
+            <ThemeProvider theme={theme}>
+              <DialogActions>
+                <Button
+                  type="submit"
+                  autoFocus
+                  onClick={handleClose}
+                  variant="contained"
+                  color="Button"
+                  className="BtnSend"
+                >
+                  <Typography color="white" variant="h7">
+                    確認寄送
+                  </Typography>
+                </Button>
+                <Button
+                  onClick={handleClose}
+                  autoFocus
+                  variant="outlined"
+                  color="Button"
+                  className="BtnNosend"
+                >
+                  <Typography variant="h7">取消</Typography>
+                </Button>
+              </DialogActions>
+            </ThemeProvider>
           </div>
         </form>
       </Dialog>

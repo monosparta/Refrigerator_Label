@@ -98,34 +98,38 @@
 .Enter {
   position: relative;
   top: 1px;
-  left: 10px;
 }
 .Remark {
   width: 140px;
-  height: 35px;
+  height: 35px; 
 }
 .MailBox {
   position: relative;
   width: 435px;
-  height: 210px;
+  height: 200px;
   /* border: solid chartreuse 1px; */
 }
 .User {
   position: relative;
-  margin-left: 10px;
+  width: 425px;
+  margin-left: 4px;
   margin-top: 8px;
   display: flex;
   /* border: solid rgb(242, 34, 180) 1px; */
 }
 .Belone {
   position: relative;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 10px;
+  /* border: solid rgb(9, 106, 197) 1px; */
 }
 .Chips {
   position: relative;
-  width: 330px;
+  width: 320px;
   height: 50px;
-  margin-left: 10px;
-  /* border: solid rgb(34, 48, 242) 1px; */
+  margin-left: 20px;
+  /* border: solid rgb(203, 225, 4) 1px; */
 }
 .Message {
   position: relative;
@@ -135,8 +139,8 @@
   position: relative;
   width: 425px;
   top: 15px;
-  margin-left: 10px;
-  /* border: solid rgb(242, 34, 180) 1px; */
+  margin-left: 4px;
+  /* border: solid rgb(6, 4, 6) 1px; */
 }
 .MContent {
   position: relative;
@@ -146,16 +150,23 @@
 .MText {
   position: relative;
   left: 22px;
-  top: 1px;
   width: 380px;
   /* border: solid rgb(242, 34, 180) 1px; */
 }
 .ButtonG {
   position: relative;
-  width: 420px;
-  margin-left: 5px;
+  width: 220px;
+  left: 80px;
   height: fit-content;
   /* border: solid rgb(242, 34, 180) 1px; */
+}
+.BtnSend{
+  width: 108px;
+  height: 36px;
+}
+.BtnNosend{
+  width: 108px;
+  height: 36px;
 }
 .Diacontent{
   position: relative;

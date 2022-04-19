@@ -27,18 +27,23 @@ export default function ButtonAppBar() {
       <ThemeProvider theme={theme}>
         <AppBar position="static" color="Button">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,fontWeight : 600}} color="White">
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, fontWeight: 600 }}
+              color="White"
+            >
               冰箱物品管理
             </Typography>
-            <ThemeProvider theme={theme}>
-              <Button
-                variant="outlined"
-                startIcon={<LogoutIcon/>}
-                color="white"
-              >
-                <Typography color="White">Logout</Typography>
-              </Button>
-            </ThemeProvider>
+              <ThemeProvider theme={theme}>
+                <Button
+                  variant="outlined"
+                  startIcon={<LogoutIcon />}
+                  color="white"
+                >
+                  <Typography color="White">Logout</Typography>
+                </Button>
+              </ThemeProvider>
           </Toolbar>
         </AppBar>
       </ThemeProvider>

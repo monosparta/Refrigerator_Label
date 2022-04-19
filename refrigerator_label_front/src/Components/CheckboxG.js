@@ -14,7 +14,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import BTNG from './BtnG';
+import BTNG from "./BtnG";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -25,29 +25,28 @@ const theme = createTheme({
   },
 });
 
-function createData(name, calories, fat, carbs) {
+function createData(name, ID, Date) {
   return {
     name,
-    calories,
-    fat,
-    carbs,
+    ID,
+    Date,
   };
 }
 
 const rows = [
-  createData("Cupcake", 305, 3.7, 67),
-  createData("Donut", 452, 25.0, 51),
-  createData("Eclair", 262, 16.0, 24),
-  createData("Frozen yoghurt", 159, 6.0, 24),
-  createData("Gingerbread", 356, 16.0, 49),
-  createData("Honeycomb", 408, 3.2, 87),
-  createData("Ice cream sandwich", 237, 9.0, 37),
-  createData("Jelly Bean", 375, 0.0, 94),
-  createData("KitKat", 518, 26.0, 65),
-  createData("Lollipop", 392, 0.2, 98),
-  createData("Marshmallow", 318, 0, 81),
-  createData("Nougat", 360, 19.0, 9),
-  createData("Oreo", 437, 18.0, 63),
+  createData("Cupcake", 305, 3.7),
+  createData("Donut", 452, 25.0),
+  createData("Eclair", 262, 16.0),
+  createData("Frozen yoghurt", 159, 6.0),
+  createData("Gingerbread", 356, 16.0),
+  createData("Honeycomb", 408, 3.2),
+  createData("Ice cream sandwich", 237, 9.0),
+  createData("Jelly Bean", 375, 0.0),
+  createData("KitKat", 518, 26.0),
+  createData("Lollipop", 392, 0.2),
+  createData("Marshmallow", 318, 0),
+  createData("Nougat", 360, 19.0),
+  createData("Oreo", 437, 18.0),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -88,28 +87,28 @@ const headCells = [
     label: "物品所屬人",
   },
   {
-    id: "calories",
+    id: "ID",
     numeric: true,
     disablePadding: false,
     label: "ID",
   },
   {
-    id: "fat",
+    id: "Date",
     numeric: true,
     disablePadding: false,
     label: "放入日期",
   },
   {
-    id: "carbs",
+    id: "Remark",
     numeric: true,
     disablePadding: false,
     label: "備註",
   },
   {
-    id: "",
+    id: "Action",
     numeric: true,
     disablePadding: false,
-    label: <BTNG/>,
+    label: <BTNG />,
   },
 ];
 
@@ -143,7 +142,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.numeric ? "center" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -177,11 +176,11 @@ EnhancedTableHead.propTypes = {
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("ID");
   const [selected, setSelected] = React.useState([]);
   const [page] = React.useState(0);
   const [dense] = React.useState(false);
-  const [rowsPerPage] = React.useState(100); //改一頁的資料量
+  const [rowsPerPage] = React.useState(15); //改一頁的資料量
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -229,7 +228,7 @@ export default function EnhancedTable() {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 700 }}
+            sx={{ minWidth: 400 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
@@ -277,17 +276,37 @@ export default function EnhancedTable() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                        align="center"
+                        component="th"
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.ID}
+                      </TableCell>
+                      <TableCell align="center">{row.Date}</TableCell>
+                      <TableCell
+                        align="right"
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
                         <TextField
+                          align="right"
                           className="Remark"
                           placeholder="編輯備註"
-                          defaultValue={row.crabs}
+                          defaultValue={row.Reamrk}
                           size="small"
                         />
                       </TableCell>
-                      <TableCell>
+                      <TableCell
+                        align="center"
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
                         <ThemeProvider theme={theme}>
                           <Button
                             className="Enter"
@@ -311,7 +330,7 @@ export default function EnhancedTable() {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (dense ? 23 : 43) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
