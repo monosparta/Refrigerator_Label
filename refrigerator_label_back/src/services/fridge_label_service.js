@@ -16,22 +16,16 @@ delete_fridge_label = async (date_id) => {
 
 }
 
-time = async () => {
+time_out = async () => {
     const request = await db.Fridge_labels.findAll({
-        attributes: ['date']
+        attributes: ['date','card_id']
     })
         
     
     return request;
 }
 
-care_id_find_mail = async (body)=> {
-    const request = await db.Users.findOne({
-        where: { card_id:body.card_id },
-    })
 
-    return request;
-}
 
 
 update_fridge_label = async (body) => {
@@ -96,8 +90,8 @@ module.exports = {
     find_fridge_label_all,
     delete_fridge_label,
     update_fridge_label,
-    time,
-    care_id_find_mail
+    time_out,
+
 
 }
 

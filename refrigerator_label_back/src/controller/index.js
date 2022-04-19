@@ -41,20 +41,40 @@ find_fridge_label_all = async (req,res) => {
     }
 }
 
-care_id_find_user = async (req,res) => {
-    try{
-        const Users = await fridge_label_service.care_id_find_user(req.body);
-        return res.status(200).json({ message: Users});
 
-    }
-    catch(err){
-        return res.status(500).json({ message: err.message });
-    }
+
+manual_send_mail = async (req,res) => {
+    console.log("123")
+    console.log(req.body.mail)
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASSWORD
+        }
+    });
+
+    var mailOptions = {
+        from: process.env.MAIL_USER,
+        to: req.body.mail,
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+    transporter.close();
 }
 
-time = async (req,res) => {
+auto_send_mail = async (req,res) => {
     try{
-        const time = await fridge_label_service.time();
+        const time = await fridge_label_service.time_out();
+        let all_mail = ""
         for(let i = 0; i < time.length; i++){            
             let array = time[i]['date'].split(" ")
             var Today=new Date();
@@ -62,32 +82,38 @@ time = async (req,res) => {
             const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
             const diffTime = Math.abs(date2 - date1);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            if(diffDays == 5){
-                var transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: 'username@gmail.com',
-                        pass: ''
-                    }
-                });
             
-                var mailOptions = {
-                    from: 'username@gmail.com',
-                    to: 'username@gmail.com',
-                    subject: 'Sending Email using Node.js',
-                    text: 'That was easy!'
-                };
-            
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
+            if(diffDays == 6){
+                console.log(time[i]['card_id'])
+                let mail = await user_service.care_id_find_mail(time[i]['card_id'])
+                all_mail = all_mail+mail['dataValues']['mail']+","                
             }
             
         }
+        console.log(all_mail)
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASSWORD
+            }
+        });
+    
+        var mailOptions = {
+            from: process.env.MAIL_USER,
+            to: all_mail,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+        };
+    
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        transporter.close();
         return res.status(200).json({ message: time});
 
     }
@@ -157,7 +183,7 @@ module.exports = {
     find_fridge_label_all,
     delete_fridge_label,
     send_email_to_fridge_user,
-    time,
-    care_id_find_user
+    auto_send_mail,
+    manual_send_mail
 
 }
