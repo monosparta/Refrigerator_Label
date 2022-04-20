@@ -11,10 +11,10 @@ is_user = async (body) => {
     return is_user;
 }
 
-care_id_find_mail = async (card_id)=> {
+care_id_find_mail = async (body)=> {
     const request = await db.Users.findOne({
-        attributes: ['mail','name'],
-        where: { card_id:card_id },
+        attributes: ['mail'],
+        where: { card_id:body },
     })
 
     return request;
