@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 
 const theme2 = createTheme({
   palette: {
@@ -17,8 +17,6 @@ const theme2 = createTheme({
     },
   },
 });
-
-
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
@@ -39,9 +37,11 @@ export default function ResponsiveDialog() {
 
   return (
     <div>
-      <IconButton onClick={handleClickOpen}>
-        <DeleteIcon />
-      </IconButton>
+      <ThemeProvider theme={theme2}>
+        <IconButton onClick={handleClickOpen} >
+          <DeleteIcon color="Button"/>
+        </IconButton>
+      </ThemeProvider>
       <Dialog
         fullScreen={fullScreen}
         open={open}
