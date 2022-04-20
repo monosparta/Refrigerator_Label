@@ -41,7 +41,7 @@ export default function PositionedSnackbar(props) {
         <Button
           onClick={handleClick({
             vertical: "top",
-            horizontal: "center",
+            horizontal: "center",//position of popout
           })}
           className="Enter"
           variant="contained"
@@ -61,7 +61,7 @@ export default function PositionedSnackbar(props) {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={3000}
+        autoHideDuration={1500}
         onClose={handleClose}
         key={vertical + horizontal}
       >

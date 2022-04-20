@@ -87,7 +87,7 @@ export default function ResponsiveDialog() {
                 <Paper
                   type="email"
                   className="form-control"
-                  placeholder="garyopen1876@gmail.com" //之後要撈資料
+                  placeholder="garyopen1876@gmail.com"  
                   name="email"
                   sx={{
                     display: "flex",
