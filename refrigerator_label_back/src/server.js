@@ -18,7 +18,7 @@ server.use('/', router);
 //cron
 var cron = require('node-cron');
 
-cron.schedule('0 22 13 * * *', () => {
+cron.schedule('0 0 0 * * *', () => {
     axios.get(process.env.MAIL_API)
 
 });

@@ -32,8 +32,8 @@ create_users = async (req,res) => {
 
 find_fridge_label_all = async (req,res) => {
     try{
-        const Users = await fridge_label_service.find_fridge_label_all();
-        return res.status(200).json({ message: Users});
+        const label = await fridge_label_service.find_fridge_label_all();
+        return res.status(200).json({ message: label});
 
     }
     catch(err){
