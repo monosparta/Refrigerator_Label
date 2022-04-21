@@ -1,9 +1,9 @@
 // import CheckboxG from './Components/CheckboxG';
 // import Load from './Pages/LoadingPage';
 // import Login from './Pages/LoginPage';
-// import Bar from "./Components/AppBar"
-import Home from './Pages/ManagementPage';
+// import Home from './Pages/ManagementPage';
 // import Send from './Components/MailBtn'
+import LoginError from './Pages/LoginErrorPage';
 import './App.css';
 
 function App() {
@@ -12,7 +12,8 @@ function App() {
     <div className="App">
       {/* <Load/> */}
       {/* <Login/> */}
-      <Home/>
+      {/* <Home/> */}
+      <LoginError/>
     </div>
   );
 }
