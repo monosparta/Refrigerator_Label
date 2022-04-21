@@ -7,14 +7,19 @@ import {
   FormGroup,
   FormControlLabel,
   Paper,
+  IconButton,
+  OutlinedInput,
+  InputAdornment,
+  FormControl,
+  Alert,
 } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Alert from '@mui/material/Alert';
+
 import "../App.css";
 
-
 function Login() {
-  console.log(process.env.REACT_APP_URL);
   const theme = createTheme({
     palette: {
       Button: {
@@ -22,6 +27,25 @@ function Login() {
       },
     },
   });
+  const [values, setValues] = React.useState({
+    password: "",
+    showPassword: false,
+  });
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div className='Login'>
       <Paper className='Box' elevation={3}>
@@ -30,15 +54,12 @@ function Login() {
             <Typography variant='h5' sx={{ fontWeight: "700" }}>
               Sign in
             </Typography>
-              <Alert severity='error' className="Alert">
-                <Typography
-                  color='black'
-                  variant='body2'
-                  sx={{ fontWeight: 700 }}>
-                  非管理員身分，無法登入
-                </Typography>
-              </Alert>
           </div>
+          <Alert severity='error' className='Alert'>
+            <Typography color='black' variant='body2' sx={{ fontWeight: 700 }}>
+              非管理員身分，無法登入
+            </Typography>
+          </Alert>
           <div className='Account'>
             <Typography variant='body2'>帳號 Username or Email</Typography>
             <TextField
@@ -49,13 +70,28 @@ function Login() {
             />
           </div>
           <div className='Password'>
-            <Typography variant='body2'>密碼 Password</Typography>
-            <TextField
-              error
-              placeholder='請輸入密碼'
-              variant='outlined'
-              fullWidth
-            />
+            <FormControl sx={{ width: "480px" }} variant='outlined'>
+              <Typography variant='body2'>密碼 Password</Typography>
+              <OutlinedInput
+                error
+                placeholder='請輸入密碼'
+                id='outlined-adornment-password'
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={handleChange("password")}
+                endAdornment={
+                  <InputAdornment position='end'>
+                    <IconButton
+                      aria-label='toggle password visibility'
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge='end'>
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
           </div>
           <div className='Keeplogin'>
             <FormGroup>

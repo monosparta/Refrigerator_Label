@@ -7,8 +7,7 @@ import LoginError from './Pages/LoginErrorPage';
 import './App.css';
 
 function App() {
-  console.log(process.env.REACT_APP_URL)
-  return (
+    return (
     <div className="App">
       {/* <Load/> */}
       {/* <Login/> */}
