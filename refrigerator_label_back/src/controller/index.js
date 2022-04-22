@@ -1,7 +1,7 @@
 const db = require('../models/index.js');
 const nodemailer = require('nodemailer');
 const user_service = require('../services/user_service.js');
-const fridge_label_service = require('../services/fridge_label_service.js');
+const label_service = require('../services/label_service.js');
 
 find_user_all = async (req, res) => {
     try{
@@ -30,9 +30,9 @@ create_users = async (req,res) => {
 
 }
 
-find_fridge_label_all = async (req,res) => {
+find_label_all = async (req,res) => {
     try{
-        const label = await fridge_label_service.find_fridge_label_all();
+        const label = await label_service.find_label_all();
         return res.status(200).json({ message: label});
 
     }
@@ -73,7 +73,7 @@ manual_send_mail = async (req,res) => {
 
 auto_send_mail = async (req,res) => {
     try{
-        const time = await fridge_label_service.time_out();
+        const time = await label_service.time_out();
         let all_mail = ""
         for(let i = 0; i < time.length; i++){            
             let array = time[i]['date'].split(" ")
@@ -122,9 +122,9 @@ auto_send_mail = async (req,res) => {
     }
 }
 
-update_fridge_label = async (req,res) => {
+update_label = async (req,res) => {
     try{
-        const update_label = await fridge_label_service.update_fridge_label(req.body)
+        const update_label = await label_service.update_label(req.body)
         return res.status(200).json({message: update_label});
 
     }
@@ -133,9 +133,9 @@ update_fridge_label = async (req,res) => {
     }
 }
 
-delete_fridge_label = async (req, res) => {
+delete_label = async (req, res) => {
     try{
-        const delete_label = await fridge_label_service.delete_fridge_label(req.body['date_id'])
+        const delete_label = await label_service.delete_label(req.body['date_id'])
         return res.status(200).json({message: delete_label});
 
     }
@@ -146,9 +146,9 @@ delete_fridge_label = async (req, res) => {
 
 
 
-send_email_to_fridge_user = async (req, res) => {
+send_email_to_user = async (req, res) => {
     try{
-        const send_email = await fridge_label_service.send_email_to_fridge_user();
+        const send_email = await label_service.send_email_to_user();
         if(send_email){
             return res.status(201).json(send_email);
         }
@@ -158,14 +158,28 @@ send_email_to_fridge_user = async (req, res) => {
     }
 }
 
-create_fridge_labels = async (req,res) => {
-    console.log(req.body)
+create_labels = async (req,res) => {
     try{
         const is_user = await user_service.is_user(req.body);
-        if(is_user){
-            const fridge_label = await fridge_label_service.create_fridge_labels(req.body);
-            if(fridge_label){   
-                return res.status(201).json({ data_id: fridge_label['dataValues']['date_id'],name:fridge_label.name});            
+        if(is_user){    
+            const final_id = await label_service.find_final_id();
+            if(!final_id?.id){
+                data_id = "001";
+            }else if(final_id.id > 0 && final_id.id + 1 < 10){
+                data_id = "00" + String(final_id.id + 1)
+            }else if(final_id.id+1 >= 10 && final_id.id+1 <100 ){
+                data_id = "0" + String(final_id.id +1 )
+            }else if(final_id.id + 1 >=100 && final_id.id+1<1000){
+                data_id = String(final_id.id+1)
+            }else{
+                data_id = String(final_id.id +1).slice(-3)
+            }
+
+            req.body.data_id = data_id;
+            console.log(req.body)
+            const label = await label_service.create_labels(req.body);
+            if(label){   
+                return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            
             }
         }else{
             return res.status(401).json({message:"user not find"})
@@ -174,15 +188,30 @@ create_fridge_labels = async (req,res) => {
     catch(err){
         return res.status(500).json({ message: err.message });
     }
+    console.log(req.body)
+    // try{
+        // const is_user = await user_service.is_user(req.body);
+        // if(is_user){
+        //     const label = await label_service.create_labels(req.body);
+        //     if(label){   
+        //         return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            
+        //     }
+        // }else{
+        //     return res.status(401).json({message:"user not find"})
+        // }
+    // }
+    // catch(err){
+    //     return res.status(500).json({ message: err.message });
+    // }
 }
 
 module.exports = {
     find_user_all,
-    create_fridge_labels,
+    create_labels,
     create_users,
-    find_fridge_label_all,
-    delete_fridge_label,
-    send_email_to_fridge_user,
+    find_label_all,
+    delete_label,
+    send_email_to_user,
     auto_send_mail,
     manual_send_mail
 
