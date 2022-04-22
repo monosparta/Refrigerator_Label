@@ -3,6 +3,8 @@ const db = require('../models/index.js');
 
 find_label_all = async () => {
     const request = await db.Labels.findAll({
+        include: { model: db.Users ,attributes: ['name']},
+        attributes: ['id','date','date_id','remark']
     })
     return request;
 }
