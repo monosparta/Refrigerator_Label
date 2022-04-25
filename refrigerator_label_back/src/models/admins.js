@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     token: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Admin',
+    modelName: 'Admins',
   });
   return Admins;
 };

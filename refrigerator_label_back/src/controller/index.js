@@ -1,7 +1,9 @@
 const db = require('../models/index.js');
+const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const user_service = require('../services/user_service.js');
 const label_service = require('../services/label_service.js');
+const admin_service = require('../services/admin_service.js');
 
 find_user_all = async (req, res) => {
     try{
@@ -144,8 +146,6 @@ delete_label = async (req, res) => {
     }
 }
 
-
-
 send_email_to_user = async (req, res) => {
     try{
         const send_email = await label_service.send_email_to_user();
@@ -205,6 +205,25 @@ create_labels = async (req,res) => {
     // }
 }
 
+login = async (req,res) => {
+
+    try{
+        const admin = await admin_service.is_admin(req.body);
+        if(admin) {
+            if (bcrypt.compareSync(req.body.password, admin.password) == true) {
+                const token = await admin_service.token_create(admin);
+                return res.status(201).json({message:"登入成功", token:token})
+            } else {
+                return res.status(401).json({message:"帳號或密碼錯誤"})
+            }
+        }else{
+            return res.status(401).json({message:"帳號或密碼錯誤"})
+        }
+    }
+    catch(err){
+        return res.status(500).json({ message: err.message });
+    }
+}
 module.exports = {
     find_user_all,
     create_labels,
@@ -213,6 +232,6 @@ module.exports = {
     delete_label,
     send_email_to_user,
     auto_send_mail,
-    manual_send_mail
-
+    manual_send_mail,
+    login
 }

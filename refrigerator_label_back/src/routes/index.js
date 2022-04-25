@@ -1,6 +1,5 @@
-const { searchData } = require("../controller/index.js");
-
-
+require("../controller/index.js");
+const token_authentication_middleware = require("../middleware/token_authentication");
 
 module.exports = function(router) {
 
@@ -8,6 +7,10 @@ module.exports = function(router) {
         res.send('Hello World!')
     })
     
+    router.post('/api/login',login)
+
+    router.use(token_authentication_middleware)
+
     router.get('/api/manual_send_mail',manual_send_mail)
 
     router.get('/api/auto_send_mail',auto_send_mail)
@@ -25,5 +28,4 @@ module.exports = function(router) {
     router.post('/api/create_labels',create_labels);
 
     router.post('/api/send_email_to_user',send_email_to_user)
-
 }
