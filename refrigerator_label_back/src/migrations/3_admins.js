@@ -9,15 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
-      },
-      account: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       password: {
         type: Sequelize.STRING
       },
-      root: {
+      token: {
         type: Sequelize.STRING
       },
       createdAt: {
