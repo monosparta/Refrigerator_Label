@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import App from './App.js';
+// import App from './App.js';
+import Load from './Pages/LoadingPage';
+import Login from './Pages/LoginPage';
+import Home from './Pages/ManagementPage';
+
 
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/" element={<App/>}/>
+      <Route path="/Loading" element={<Load/>}/>
+      <Route path="/Login" element={<Login/>}/>
+      <Route path="/" element={<Home/>}/>
     </Routes>
   </Router>,
   document.getElementById('root')

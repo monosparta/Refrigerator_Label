@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import axios from "../Axios.config.js";
 import BtnG from "./BtnG.js";
-import SaveBtn from "./SaveBtn";
+import SaveBtn from "./SnackBar";
 import { TextField } from "@mui/material";
 
 //css
@@ -27,7 +27,7 @@ const localizedTextsMap = {
 
 const columns = [
   {
-    field: "owner",
+    field: "User",
     headerName: "物品所屬者",
     width: 120,
     disableColumnMenu: true,
@@ -77,11 +77,10 @@ export default function DataGridDemo() {
   const [rowData, setRowData] = useState([]);
   useEffect(() => {
     axios
-      .get("api/find_fridge_label_all")
+      .get("api/find_label_all")
       .then((response) => {
         const label_data = response["data"]["message"];
-        setRowData(response["data"]["message"]);
-        label_data.forEach((item) => console.log(item));
+        setRowData(label_data);
       })
       .catch((error) => {
         console.log(error);

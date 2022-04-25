@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import {
   Typography,
   TextField,
@@ -11,12 +11,15 @@ import {
   OutlinedInput,
   InputAdornment,
   FormControl,
-} from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+} from "@mui/material"
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
+import {
+  createTheme,
+  ThemeProvider,
+} from "@mui/material/styles"
 
-import "../App.css";
+import "../App.css"
 
 function Login() {
   const theme = createTheme({
@@ -25,84 +28,121 @@ function Login() {
         main: "#363F4E",
       },
     },
-  });
+  })
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
-  });
+  })
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+    setValues({
+      ...values,
+      [prop]: event.target.value,
+    })
+  }
 
   const handleClickShowPassword = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
-    });
-  };
+    })
+  }
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   return (
-    <div className='Login'>
-      <Paper className='Box' elevation={3}>
-        <div className='Keyin'>
-          <div className='LoginTittle'>
-            <Typography variant='h5' sx={{ fontWeight: "700" }}>
+    <div className="Login">
+      <Paper className="Box" elevation={3}>
+        <div className="Keyin">
+          <div className="LoginTittle">
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "700" }}
+            >
               Sign in
             </Typography>
           </div>
-          <div className='Account'>
-            <Typography variant='body2'>帳號 Username or Email</Typography>
-            <TextField placeholder='請輸入帳號' variant='outlined' fullWidth />
+          <div className="Account">
+            <Typography variant="body2">
+              帳號 Username or Email
+            </Typography>
+            <TextField
+              placeholder="請輸入帳號"
+              variant="outlined"
+              fullWidth
+            />
           </div>
-          <div className='Password'>
-            <FormControl sx={{ width: "480px" }} variant='outlined'>
-              <Typography variant='body2' >密碼 Password</Typography>
+          <div className="Password">
+            <FormControl
+              sx={{ width: "480px" }}
+              variant="outlined"
+            >
+              <Typography variant="body2">
+                密碼 Password
+              </Typography>
               <OutlinedInput
-                placeholder='請輸入密碼'
-                id='outlined-adornment-password'
-                type={values.showPassword ? "text" : "password"}
+                placeholder="請輸入密碼"
+                id="outlined-adornment-password"
+                type={
+                  values.showPassword
+                    ? "text"
+                    : "password"
+                }
                 value={values.password}
-                onChange={handleChange("password")}
+                onChange={handleChange(
+                  "password"
+                )}
                 endAdornment={
-                  <InputAdornment position='end'>
+                  <InputAdornment position="end">
                     <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'>
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                      aria-label="toggle password visibility"
+                      onClick={
+                        handleClickShowPassword
+                      }
+                      onMouseDown={
+                        handleMouseDownPassword
+                      }
+                      edge="end"
+                    >
+                      {values.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 }
               />
             </FormControl>
           </div>
-          <div className='Keeplogin'>
+          <div className="Keeplogin">
             <FormGroup>
-              <FormControlLabel control={<Checkbox />} label='保持登入狀態' />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="保持登入狀態"
+              />
             </FormGroup>
           </div>
-          <div className='ButtonLogin'>
+          <div className="ButtonLogin">
             <ThemeProvider theme={theme}>
               {/* <Link href='./ManagementPage' underline='none'> */}
               <Button
-                variant='contained'
+                variant="contained"
                 fullWidth
-                color='Button'
+                color="Button"
                 style={{
                   maxWidth: "480px",
                   maxHeight: "64px",
                   minWidth: "480px",
                   minHeight: "64px",
-                }}>
+                }}
+              >
                 <Typography
-                  variant='h6'
-                  color='white'
-                  sx={{ fontWeight: "400" }}>
+                  variant="h6"
+                  color="white"
+                  sx={{ fontWeight: "400" }}
+                >
                   立即登入
                 </Typography>
               </Button>
@@ -112,7 +152,7 @@ function Login() {
         </div>
       </Paper>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

@@ -41,7 +41,7 @@ export default function PositionedSnackbar(props) {
         <Button
           onClick={handleClick({
             vertical: "top",
-            horizontal: "center",//position of popout
+            horizontal: "center", //position of popout
           })}
           className="Enter"
           variant="contained"

@@ -30,10 +30,6 @@ export default function ResponsiveDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-  // const handleClosedelete = () => {
-  //     setOpen(false);
-  //     //delete function
-  // };
 
   return (
     <div>
