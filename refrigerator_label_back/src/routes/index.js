@@ -1,6 +1,7 @@
 const { searchData } = require("../controller/index.js");
 
 
+
 module.exports = function(router) {
 
     router.get('/', (req, res) => {
@@ -20,6 +21,8 @@ module.exports = function(router) {
     router.put("/api/update_label",update_label)
 
     router.post('/api/create_users',create_users);
+
+    router.post('/api/auth/login',login);
 
     router.post('/api/create_labels',create_labels);
 

@@ -6,6 +6,11 @@ find_label_all = async () => {
         include: { model: db.Users ,attributes: ['name']},
         attributes: ['id','date','date_id','remark']
     })
+    //request.forEach(item => item['dataValues']['User'] = item['dataValues']['User']['dataValues']['name'])
+    request.forEach(item => {
+        item['dataValues']['User'] = item['dataValues']['User']['dataValues']['name']
+    })
+
     return request;
 }
 
