@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       card_id: {
+        allowNull: false,
         type: Sequelize.STRING,
         references:{
           model: 'Users',
@@ -16,20 +17,23 @@ module.exports = {
         }
       },
       date: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       date_id: {
+        allowNull: false,
         type: Sequelize.STRING,
+        unique: true
       },
       remark: {
         type: Sequelize.STRING
       },
       createdAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       }
     });

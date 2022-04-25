@@ -9,25 +9,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       card_id: {
+        allowNull: false,
         type: Sequelize.STRING,
         unique: true
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       mail: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       phone: {
+        allowNull: false,
         type: Sequelize.STRING,
         unique: true
       },
       createdAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       }
     });
