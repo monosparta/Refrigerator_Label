@@ -4,17 +4,16 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import App from './App.js';
-import Load from './Pages/LoadingPage';
+// import Load from './Pages/LoadingPage';
 import Login from './Pages/LoginPage';
-import Home from './Pages/ManagementPage';
+import ManageMent from './Pages/ManagementPage';
 
 
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/Loading" element={<Load/>}/>
-      <Route path="/Login" element={<Login/>}/>
-      <Route path="/" element={<Home/>}/>
+      <Route path="/ManageMentPage" element={<ManageMent/>}/>
+      <Route path="/" element={<Login/>}/>
     </Routes>
   </Router>,
   document.getElementById('root')

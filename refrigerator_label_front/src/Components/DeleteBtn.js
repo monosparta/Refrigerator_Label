@@ -31,6 +31,7 @@ export default function ResponsiveDialog() {
     setOpen(false);
   };
 
+
   return (
     <div>
       <ThemeProvider theme={theme2}>

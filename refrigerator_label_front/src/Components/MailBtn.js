@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import SnackBar from './SnackBar'
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
@@ -138,16 +139,10 @@ export default function ResponsiveDialog() {
               <DialogActions>
                 <Button
                   type="submit"
-                  autoFocus
                   onClick={handleOpen}
-                  variant="contained"
-                  color="Button"
-                  className="BtnSend"
                   disableElevation
                 >
-                  <Typography color="white" variant="h7">
-                    確認寄送
-                  </Typography>
+                  <SnackBar BtnText="確認" Message="寄信成功" />
                 </Button>
                 <Button
                   onClick={handleClose}

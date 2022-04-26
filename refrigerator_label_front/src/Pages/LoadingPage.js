@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 import Logo from "../Pictures/monologo.jpg";
-
 import "../App.css";
 
+
+
+
 function Loading() {
-  console.log(process.env.REACT_APP_URL);
   return (
     <div className="Loading">
       <div className="Body">
