@@ -18,12 +18,10 @@ find_user_all = async (req, res) => {
 }
 
 create_users = async (req,res) => {
-    console.log(req.body)
-
     try{
         const create_users = await user_service.create_users(req.body);
         if(create_users){            
-            return res.status(201).json(create_users);            
+            return res.status(201).json({message:"成功新增"});            
         }
     }
     catch(err){
@@ -46,8 +44,6 @@ find_label_all = async (req,res) => {
 
 
 manual_send_mail = async (req,res) => {
-    console.log("123")
-    console.log(req.body.mail)
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -58,9 +54,9 @@ manual_send_mail = async (req,res) => {
 
     var mailOptions = {
         from: process.env.MAIL_USER,
-        to: req.body.mail,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
+        to: req.body.users,
+        subject: req.body.subject,
+        text: req.body.text
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -126,8 +122,11 @@ auto_send_mail = async (req,res) => {
 
 update_label = async (req,res) => {
     try{
-        const update_label = await label_service.update_label(req.body)
-        return res.status(200).json({message: update_label});
+        const update_label =await label_service.update_label(req.body)
+        if(update_label){
+            return res.status(200).json({message: "修改成功"}); 
+        }
+        
 
     }
     catch(err){
@@ -138,25 +137,15 @@ update_label = async (req,res) => {
 delete_label = async (req, res) => {
     try{
         const delete_label = await label_service.delete_label(req.body['date_id'])
-        return res.status(200).json({message: delete_label});
-
-    }
-    catch(err){
-        return res.status(500).json({ message: err.message });
-    }
-}
-
-send_email_to_user = async (req, res) => {
-    try{
-        const send_email = await label_service.send_email_to_user();
-        if(send_email){
-            return res.status(201).json(send_email);
+        if(delete_label){
+            return res.status(200).json({message: "刪除成功"});
         }
     }
     catch(err){
         return res.status(500).json({ message: err.message });
     }
 }
+
 
 create_labels = async (req,res) => {
     try{
@@ -188,21 +177,7 @@ create_labels = async (req,res) => {
     catch(err){
         return res.status(500).json({ message: err.message });
     }
-    console.log(req.body)
-    // try{
-        // const is_user = await user_service.is_user(req.body);
-        // if(is_user){
-        //     const label = await label_service.create_labels(req.body);
-        //     if(label){   
-        //         return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            
-        //     }
-        // }else{
-        //     return res.status(401).json({message:"user not find"})
-        // }
-    // }
-    // catch(err){
-    //     return res.status(500).json({ message: err.message });
-    // }
+
 }
 
 login = async (req,res) => {
@@ -230,7 +205,6 @@ module.exports = {
     create_users,
     find_label_all,
     delete_label,
-    send_email_to_user,
     auto_send_mail,
     manual_send_mail,
     login

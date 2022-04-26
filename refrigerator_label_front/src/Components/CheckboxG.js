@@ -86,6 +86,7 @@ export default function DataGridDemo() {
         console.log(error);
       });
   }, []);
+  //console.log(rowData[0])
 
   return (
     <div style={{ height: 800, width: "100%" }}>
@@ -98,6 +99,8 @@ export default function DataGridDemo() {
         checkboxSelection
         disableSelectionOnClick
         localeText={localizedTextsMap}
+       // getRowClassName={(ids)=>{console.log(ids.row.date_id)}}
+        onSelectionModelChange = {(details) =>{ console.log(details) }}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import axios from "../Axios.config";
 
 const theme2 = createTheme({
   palette: {
@@ -30,6 +31,17 @@ export default function ResponsiveDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const handleDelete = () =>{
+    axios
+    .delete("api/delete_label", { data:{date_id: "0413005"}})
+    .then((response) =>{
+        console.log(response);
+        // this.forceUpdate();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }
 
   return (
     <div>
@@ -57,7 +69,7 @@ export default function ResponsiveDialog() {
                 <div className='BtnOK'>
                   <Button
                     autoFocus
-                    onClick={handleClose}
+                    onClick={handleDelete}
                     variant='contained'
                     color='Button'
                     style={{

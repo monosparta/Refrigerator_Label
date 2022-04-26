@@ -4,6 +4,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import MuiAlert from "@mui/material/Alert";
+import axios from "../Axios.config.js";
 
 const theme = createTheme({
   palette: {
@@ -27,7 +28,16 @@ export default function PositionedSnackbar(props) {
 
   const { vertical, horizontal, open } = state;
 
+  //const data = JSON.stringify({card_id:"1255870309",date:"2022-04-13 14:13:35",date_id :"0413002",remark:"汽水",id:"2"});
+
   const handleClick = (newState) => () => {
+    axios
+    .put("api/update_label",{ card_id:"1255870309",date:"2022-04-13 14:13:35",date_id :"0413002",remark:"cola",id:"2"})
+    .then((response) =>{
+      console.log(response);
+      }).catch((error) => {
+      console.log(error);
+      });
     setState({ open: true, ...newState });
   };
 

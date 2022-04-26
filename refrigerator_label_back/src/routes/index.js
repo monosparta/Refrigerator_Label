@@ -27,5 +27,4 @@ module.exports = function(router) {
 
     router.post('/api/create_users',create_users);
 
-    router.post('/api/send_email_to_user',send_email_to_user)
 }
