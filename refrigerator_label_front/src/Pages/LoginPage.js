@@ -76,6 +76,7 @@ function Login() {
       password: values.password
     })
     .then((response) => {
+      localStorage.setItem('login_token', response['data']['token'])
       history("/ManageMentPage")
     })
     .catch((error) => {

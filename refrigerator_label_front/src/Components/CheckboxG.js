@@ -77,14 +77,14 @@ export default function DataGridDemo() {
   const [rowData, setRowData] = useState([]);
   useEffect(() => {
     axios
-      .get("api/find_label_all")
-      .then((response) => {
-        const label_data = response["data"]["message"];
-        setRowData(label_data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .get("api/find_label_all")
+    .then((response) => {
+      const label_data = response["data"]["message"];
+      setRowData(label_data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
   //console.log(rowData[0])
 
