@@ -1,27 +1,33 @@
 import * as React from "react"
+import axios from "../Axios.config";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   TextField,
   Button,
   Checkbox,
-  FormGroup,
   FormControlLabel,
-  Paper,
+  InputLabel,
   IconButton,
   OutlinedInput,
   InputAdornment,
   FormControl,
+  Avatar,
+  CssBaseline,
+  Box,
+  Container,
 } from "@mui/material"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
-import {
-  createTheme,
-  ThemeProvider,
-} from "@mui/material/styles"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 import "../App.css"
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 
 function Login() {
+  let history = useNavigate();
+
   const theme = createTheme({
     palette: {
       Button: {
@@ -29,11 +35,20 @@ function Login() {
       },
     },
   })
+
+  const [username, setUsername] = React.useState("");
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
+  };
+
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
   })
-  const handleChange = (prop) => (event) => {
+
+  const onChangePassword = (prop) => (event) => {
     setValues({
       ...values,
       [prop]: event.target.value,
@@ -51,50 +66,65 @@ function Login() {
     event.preventDefault()
   }
 
+  const onHandleLogin = (e) => {
+
+    e.preventDefault();
+
+    axios
+    .post("api/login",{
+      username: username,
+      password: values.password
+    })
+    .then((response) => {
+      history("/ManageMentPage")
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   return (
     <div className="Login">
-      <Paper className="Box" elevation={3}>
-        <div className="Keyin">
-          <div className="LoginTittle">
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "700" }}
-            >
-              Sign in
-            </Typography>
-          </div>
-          <div className="Account">
-            <Typography variant="body2">
-              帳號 Username or Email
-            </Typography>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={onHandleLogin} noValidate sx={{ mt: 1 }}>
             <TextField
-              placeholder="請輸入帳號"
-              variant="outlined"
+              margin="normal"
               fullWidth
-              type="text"
+              required
+              id="username"
+              label="帳號 Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              onChange={onChangeUsername}
             />
-          </div>
-          <div className="Password">
-            <FormControl
-              sx={{ width: "480px" }}
-              variant="outlined"
-            >
-              <Typography variant="body2">
-                密碼 Password
-              </Typography>
+            <FormControl sx={{ width: "480px" }} variant="outlined">
+              <InputLabel htmlFor="password">密碼 Password</InputLabel>
               <OutlinedInput
-                placeholder="請輸入密碼"
-                id="outlined-adornment-password"
-                
+                id="password"
                 type={
                   values.showPassword
                     ? "text"
                     : "password"
                 }
                 value={values.password}
-                onChange={handleChange(
-                  "password"
-                )}
+                onChange={onChangePassword("password")}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -107,52 +137,32 @@ function Login() {
                       }
                       edge="end"
                     >
-                      {values.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
+                    {values.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                     </IconButton>
                   </InputAdornment>
                 }
               />
-            </FormControl>
-          </div>
-          <div className="Keeplogin">
-            <FormGroup>
+              </FormControl>
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox value="remember" color="primary" />}
                 label="保持登入"
               />
-            </FormGroup>
-          </div>
-          <div className="ButtonLogin">
-            <ThemeProvider theme={theme}>
               <Button
-                variant="contained"
-                fullWidth
-                color="Button"
-                style={{
-                  maxWidth: "480px",
-                  maxHeight: "64px",
-                  minWidth: "480px",
-                  minHeight: "64px",
-                }}
                 type="submit"
-                href="/ManageMentPage"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                <Typography
-                  variant="h6"
-                  color="white"
-                  sx={{ fontWeight: "400" }}
-                >
-                  立即登入
-                </Typography>
+                立刻登入
               </Button>
-            </ThemeProvider>
-          </div>
-        </div>
-      </Paper>
+            </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </div>
   )
 }
