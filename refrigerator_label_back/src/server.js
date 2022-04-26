@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 // server
 const server = express();
@@ -14,7 +15,13 @@ server.use(express.static(__dirname + '/public'));
 const router = express.Router();
 require('./routes/index.js')(router);
 server.use('/', router);
+//cron
+var cron = require('node-cron');
 
+cron.schedule('0 0 0 * * *', () => {
+    axios.get(process.env.MAIL_API)
+
+});
 //port
 const PORT = process.env.PORT||3000;
 
