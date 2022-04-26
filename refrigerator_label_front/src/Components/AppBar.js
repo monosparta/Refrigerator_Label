@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {useState} from 'react'
+
 
 const theme = createTheme({
   palette: {
@@ -22,6 +24,16 @@ const theme = createTheme({
 });
 
 export default function ButtonAppBar() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState();
+
+  const handleLogout = () => {
+    setUser({});
+    setUsername("");
+    setPassword("");
+    localStorage.clear();
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={theme}>
@@ -35,15 +47,17 @@ export default function ButtonAppBar() {
             >
               冰箱物品管理
             </Typography>
-              <ThemeProvider theme={theme}>
-                <Button
-                  variant="outlined"
-                  startIcon={<LogoutIcon />}
-                  color="white"
-                >
-                  <Typography color="White">Logout</Typography>
-                </Button>
-              </ThemeProvider>
+            <ThemeProvider theme={theme}>
+              <Button
+                variant="outlined"
+                startIcon={<LogoutIcon />}
+                color="white"
+                onClick={handleLogout}
+                href="/"
+              >
+                <Typography color="White">Logout</Typography>
+              </Button>
+            </ThemeProvider>
           </Toolbar>
         </AppBar>
       </ThemeProvider>

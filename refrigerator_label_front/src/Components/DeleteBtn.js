@@ -43,6 +43,7 @@ export default function ResponsiveDialog() {
     });
   }
 
+
   return (
     <div>
       <ThemeProvider theme={theme2}>

@@ -71,6 +71,7 @@ function Login() {
               placeholder="請輸入帳號"
               variant="outlined"
               fullWidth
+              type="text"
             />
           </div>
           <div className="Password">
@@ -84,6 +85,7 @@ function Login() {
               <OutlinedInput
                 placeholder="請輸入密碼"
                 id="outlined-adornment-password"
+                
                 type={
                   values.showPassword
                     ? "text"
@@ -120,13 +122,12 @@ function Login() {
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox />}
-                label="保持登入狀態"
+                label="保持登入"
               />
             </FormGroup>
           </div>
           <div className="ButtonLogin">
             <ThemeProvider theme={theme}>
-              {/* <Link href='./ManagementPage' underline='none'> */}
               <Button
                 variant="contained"
                 fullWidth
@@ -137,6 +138,8 @@ function Login() {
                   minWidth: "480px",
                   minHeight: "64px",
                 }}
+                type="submit"
+                href="/ManageMentPage"
               >
                 <Typography
                   variant="h6"
@@ -146,7 +149,6 @@ function Login() {
                   立即登入
                 </Typography>
               </Button>
-              {/* </Link> */}
             </ThemeProvider>
           </div>
         </div>
