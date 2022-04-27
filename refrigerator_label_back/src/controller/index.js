@@ -21,7 +21,7 @@ create_users = async (req,res) => {
     try{
         const create_users = await user_service.create_users(req.body);
         if(create_users){            
-            return res.status(201).json({message:"成功新增"});            
+            return res.status(201).json({message:"新增成功"});            
         }
     }
     catch(err){
