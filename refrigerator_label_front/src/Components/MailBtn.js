@@ -9,13 +9,20 @@ import IconButton from "@mui/material/IconButton";
 import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import SnackBar from './SnackBar'
+import axios from "../Axios.config.js";
 
 export default function ResponsiveDialog() {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const handleOpen = () => {
+    console.log("123")
+  }
   const handleClose = () => {
+
+    
     setOpen(false);
   };
 
@@ -34,21 +41,7 @@ export default function ResponsiveDialog() {
       chips.filter((chip) => chip.key !== chipToDelete.key)
     );
   };
-  function sendEmail(e) {
-    console.log("34", e);
-    e.preventDefault();
-    emailjs
-      .sendForm("mailtest", "template_3y67klp", e.target, "B7qzZTQ8Vz_TGmxKl")
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
-    e.target.reset();
-  }
+
   const theme = createTheme({
     palette: {
       Button: {
@@ -68,7 +61,7 @@ export default function ResponsiveDialog() {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <form onSubmit={sendEmail}>
+        <form>
           <div className="MailTittle">
             <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
               寄送到期提醒信件

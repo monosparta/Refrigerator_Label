@@ -4,7 +4,6 @@ const axios = (baseURL) => {
         baseURL: process.env.REACT_APP_BACK_END,//back-end
         headers: { 
             'Content-Type': 'application/json',
-            'token' : localStorage.getItem('login_token')
         },
         timeout: 5000,
     });
