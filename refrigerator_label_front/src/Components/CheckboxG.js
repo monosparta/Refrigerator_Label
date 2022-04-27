@@ -77,19 +77,25 @@ export default function DataGridDemo() {
   const [rowData, setRowData] = useState([]);
   useEffect(() => {
     axios
-      .get("api/find_label_all")
-      .then((response) => {
-        const label_data = response["data"]["message"];
-        setRowData(label_data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .get("api/find_label_all")
+    .then((response) => {
+      const label_data = response["data"]["message"];
+      setRowData(label_data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
   //console.log(rowData[0])
+  //data
+  const [data, setdata] = useState([]);
+  const handleGetData = () =>{
+    console.log(data)
+  }
 
   return (
     <div style={{ height: 800, width: "100%" }}>
+      <button onClick={handleGetData}>Activate Lasers</button>
       <DataGrid
         className={classes.grid}
         rows={rowData}
@@ -100,7 +106,7 @@ export default function DataGridDemo() {
         disableSelectionOnClick
         localeText={localizedTextsMap}
        // getRowClassName={(ids)=>{console.log(ids.row.date_id)}}
-        onSelectionModelChange = {(details) =>{ console.log(details) }}
+        onSelectionModelChange = {(details) =>{ setdata(details) }}
       />
     </div>
   );

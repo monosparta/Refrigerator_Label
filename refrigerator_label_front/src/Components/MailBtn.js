@@ -128,11 +128,7 @@ export default function ResponsiveDialog() {
           <div className="ButtonG">
             <ThemeProvider theme={theme}>
               <DialogActions>
-                <Button
-                  type="submit"
-                  onClick={handleOpen}
-                  disableElevation
-                >
+                <Button type="submit" onClick={handleClose} disableElevation>
                   <SnackBar BtnText="確認" Message="寄信成功" />
                 </Button>
                 <Button

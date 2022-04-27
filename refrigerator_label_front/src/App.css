@@ -18,6 +18,13 @@
   margin: 0 auto;
   background-color: #f5f5f5;
 }
+.SigninTittle{
+  position: relative;
+  width: 500px;
+  /* border: solid 1px blue; */
+  margin-left: 20px;
+  margin-top: 20px;
+}
 .Body {
   position: relative;
   width: 50vw;
@@ -53,12 +60,10 @@
   height: 600px;
   background-color: #ffff;
 }
-.Keyin {
-  /* border: solid 2px rgb(215, 130, 130); */
+.login{
   position: relative;
-  margin: 77px 40px;
-  width: 480px;
-  height: 304px;
+  top: 250px;
+  right: 70px;
 }
 .Account {
   position: relative;
@@ -74,6 +79,7 @@
 }
 .ButtonLogin {
   position: relative;
+  width: 480px;
   height: 64px;
   padding-top: 28px;
   /* border: solid 1px violet; */

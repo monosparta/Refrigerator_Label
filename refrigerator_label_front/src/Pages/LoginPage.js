@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import axios from "../Axios.config";
 import { useNavigate } from "react-router-dom";
 import {
@@ -7,23 +7,20 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
-  InputLabel,
   IconButton,
   OutlinedInput,
   InputAdornment,
   FormControl,
-  Avatar,
   CssBaseline,
   Box,
   Container,
-} from "@mui/material"
-import Visibility from "@mui/icons-material/Visibility"
-import VisibilityOff from "@mui/icons-material/VisibilityOff"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
+  Paper,
+} from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import "../App.css"
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
+import "../App.css";
 
 function Login() {
   let history = useNavigate();
@@ -34,7 +31,7 @@ function Login() {
         main: "#363F4E",
       },
     },
-  })
+  });
 
   const [username, setUsername] = React.useState("");
 
@@ -46,25 +43,25 @@ function Login() {
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
-  })
+  });
 
   const onChangePassword = (prop) => (event) => {
     setValues({
       ...values,
       [prop]: event.target.value,
-    })
-  }
+    });
+  };
 
   const handleClickShowPassword = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
-    })
-  }
+    });
+  };
 
   const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
 
   const onHandleLogin = (e) => {
 
@@ -76,6 +73,7 @@ function Login() {
       password: values.password
     })
     .then((response) => {
+      localStorage.setItem('login_token', response['data']['token'])
       history("/ManageMentPage")
     })
     .catch((error) => {
@@ -88,83 +86,92 @@ function Login() {
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Box
+          <Paper
+            className="login"
             sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              width: 550,
+              height: 500,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={onHandleLogin} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              fullWidth
-              required
-              id="username"
-              label="帳號 Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={onChangeUsername}
-            />
-            <FormControl sx={{ width: "480px" }} variant="outlined">
-              <InputLabel htmlFor="password">密碼 Password</InputLabel>
-              <OutlinedInput
-                id="password"
-                type={
-                  values.showPassword
-                    ? "text"
-                    : "password"
-                }
-                value={values.password}
-                onChange={onChangePassword("password")}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={
-                        handleClickShowPassword
-                      }
-                      onMouseDown={
-                        handleMouseDownPassword
-                      }
-                      edge="end"
-                    >
-                    {values.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
+            <div className="SigninTittle">
+              <Typography component="h1" variant="h4">
+                Sign in
+              </Typography>
+            </div>
+            <Box
+              component="form"
+              onSubmit={onHandleLogin}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <div className="Account">
+                <Typography>帳號 Username or Email</Typography>
+                <TextField
+                  margin="normal"
+                  fullWidth
+                  required
+                  id="username"
+                  placeholder="User@gmail.com"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  onChange={onChangeUsername}
+                />
+              </div>
+              <FormControl
+                sx={{ width: "480px" }}
+                variant="outlined"
+                className="Password"
+              >
+                <Typography>密碼 Password</Typography>
+                <OutlinedInput
+                  placeholder="Password"
+                  id="password"
+                  type={values.showPassword ? "text" : "password"}
+                  value={values.password}
+                  onChange={onChangePassword("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
               </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="保持登入"
-              />
+              <div className="Keeplogin">
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="保持登入"
+                />
+              </div>
               <Button
                 type="submit"
-                fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                className="ButtonLogin"
+                color="Button"
               >
-                立刻登入
+                <Typography variant="h5" color="white" fontWeight={700}>立即登入</Typography>
               </Button>
             </Box>
-          </Box>
+          </Paper>
         </Container>
       </ThemeProvider>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
