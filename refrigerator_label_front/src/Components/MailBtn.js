@@ -21,8 +21,6 @@ export default function ResponsiveDialog() {
     console.log("123")
   }
   const handleClose = () => {
-
-    
     setOpen(false);
   };
 

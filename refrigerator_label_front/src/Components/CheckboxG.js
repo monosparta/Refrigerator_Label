@@ -91,7 +91,7 @@ export default function DataGridDemo(props) {
   }, []);
 
   //data
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const handleGetData = () =>{
     console.log(data)
   }
@@ -108,7 +108,8 @@ export default function DataGridDemo(props) {
         checkboxSelection
         disableSelectionOnClick
         localeText={localizedTextsMap}
-        onSelectionModelChange = {(details) =>{ setdata(details) }}
+       // getRowClassName={(ids)=>{console.log(ids.row.date_id)}}
+        onSelectionModelChange = {(details) =>{ setData(details) }}
       />
     </div>
   );
