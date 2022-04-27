@@ -23,7 +23,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "../App.css";
 
 function Login() {
-  let history = useNavigate();
+  let navigate = useNavigate();
 
   const theme = createTheme({
     palette: {
@@ -74,7 +74,7 @@ function Login() {
     })
     .then((response) => {
       localStorage.setItem('login_token', response['data']['token'])
-      history("/ManageMentPage")
+      navigate("/ManageMentPage")
     })
     .catch((error) => {
       console.log(error);

@@ -5,8 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
 
 const theme = createTheme({
   palette: {
@@ -23,15 +23,11 @@ const theme = createTheme({
 });
 
 export default function ButtonAppBar() {
-  const [setUsername] = useState("");
-  const [setPassword] = useState("");
-  const [setUser] = useState();
+  let navigate = useNavigate();
 
   const handleLogout = () => {
-    setUser({});
-    setUsername("");
-    setPassword("");
-    localStorage.clear();
+    localStorage.removeItem('login_token')
+    navigate("/")
   };
 
   return (
