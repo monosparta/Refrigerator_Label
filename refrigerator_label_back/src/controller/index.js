@@ -54,19 +54,20 @@ manual_send_mail = async (req,res) => {
 
     var mailOptions = {
         from: process.env.MAIL_USER,
-        to: req.body.users,
-        subject: req.body.subject,
-        text: req.body.text
+        to: req.query.users,
+        subject: req.query.subject,
+        text: req.query.text
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
+            return res.status(500).json({ message: error });
         } else {
-            console.log('Email sent: ' + info.response);
+            return res.status(200).json({ message: "寄信成功" });
         }
     });
     transporter.close();
+    
 }
 
 auto_send_mail = async (req,res) => {
