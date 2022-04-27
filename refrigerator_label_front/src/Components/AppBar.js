@@ -24,9 +24,9 @@ const theme = createTheme({
 });
 
 export default function ButtonAppBar() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState();
+  const [ setUsername] = useState("");
+  const [ setPassword] = useState("");
+  const [ setUser] = useState();
 
   const handleLogout = () => {
     setUser({});

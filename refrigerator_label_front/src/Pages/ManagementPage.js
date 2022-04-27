@@ -2,7 +2,7 @@ import Bar from "../Components/AppBar";
 import Checkbox from "../Components/CheckboxG";
 import "../App.css";
 
-function HomePage() {
+function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
@@ -11,4 +11,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default ManagementPage;
