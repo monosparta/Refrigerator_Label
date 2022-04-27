@@ -4,10 +4,10 @@ const db = require('../models/index.js');
 find_label_all = async () => {
     const request = await db.Labels.findAll({
         include: { model: db.Users ,attributes: ['name']},
-        order: [['id', 'DESC' ]],
+        order: [['id', 'ASC']],
         attributes: ['id','date','date_id','remark']
     })
-    //request.forEach(item => item['dataValues']['User'] = item['dataValues']['User']['dataValues']['name'])
+    
     request.forEach(item => {
         item['dataValues']['User'] = item['dataValues']['User']['dataValues']['name']
     })

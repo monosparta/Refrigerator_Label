@@ -87,9 +87,15 @@ export default function DataGridDemo() {
     });
   }, []);
   //console.log(rowData[0])
+  //data
+  const [data, setdata] = useState([]);
+  const handleGetData = () =>{
+    console.log(data)
+  }
 
   return (
     <div style={{ height: 800, width: "100%" }}>
+      <button onClick={handleGetData}>Activate Lasers</button>
       <DataGrid
         className={classes.grid}
         rows={rowData}
@@ -100,7 +106,7 @@ export default function DataGridDemo() {
         disableSelectionOnClick
         localeText={localizedTextsMap}
        // getRowClassName={(ids)=>{console.log(ids.row.date_id)}}
-        onSelectionModelChange = {(details) =>{ console.log(details) }}
+        onSelectionModelChange = {(details) =>{ setdata(details) }}
       />
     </div>
   );
