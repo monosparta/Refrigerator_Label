@@ -126,8 +126,26 @@ export default function ResponsiveDialog() {
           <div className="ButtonG">
             <ThemeProvider theme={theme}>
               <DialogActions>
-                <Button type="submit" onClick={handleClose} disableElevation>
-                  <SnackBar BtnText="確認" Message="寄信成功" />
+                <Button
+                  type="submit"
+                  onClick={handleClose}
+                  disableElevation
+                  variant="contained"
+                  color="Button"
+                  style={{
+                    maxWidth: "88px",
+                    maxHeight: "36px",
+                    minWidth: "88px",
+                    minHeight: "36px",
+                  }}
+                >
+                  <Typography
+                    variant="h7"
+                    color="white"
+                    sx={{ fontWeight: 500 }}
+                  >
+                    確認
+                  </Typography>
                 </Button>
                 <Button
                   onClick={handleClose}
@@ -135,6 +153,12 @@ export default function ResponsiveDialog() {
                   variant="outlined"
                   color="Button"
                   className="BtnNosend"
+                  style={{
+                    maxWidth: "88px",
+                    maxHeight: "36px",
+                    minWidth: "88px",
+                    minHeight: "36px",
+                  }}
                 >
                   <Typography variant="h7">取消</Typography>
                 </Button>
