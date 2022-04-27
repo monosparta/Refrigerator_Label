@@ -21,7 +21,7 @@ export default function ResponsiveDialog() {
   const sendMail = (e) => {
     e.preventDefault();    
     axios
-    .get("api/manual_send_mail",{params:{users:"4A790162@stust.edu.tw",subject:"test",text:"串接寄信功能"}})
+    .get("api/manual_send_mail",{params:{users:"corbinn0419@gmail.com",subject:"test",text:"串接寄信功能"}})
     .then((response) =>{
       console.log(response);
       }).catch((error) => {
