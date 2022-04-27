@@ -17,8 +17,16 @@ export default function ResponsiveDialog() {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleOpen = () => {
-    console.log("123")
+
+  const sendMail = (e) => {
+    e.preventDefault();    
+    axios
+    .get("api/manual_send_mail",{params:{users:"4A790162@stust.edu.tw",subject:"test",text:"串接寄信功能"}})
+    .then((response) =>{
+      console.log(response);
+      }).catch((error) => {
+      console.log(error);
+      });
   }
   const handleClose = () => {
     setOpen(false);
@@ -128,7 +136,7 @@ export default function ResponsiveDialog() {
               <DialogActions>
                 <Button
                   type="submit"
-                  onClick={handleClose}
+                  onClick={sendMail}
                   disableElevation
                   variant="contained"
                   color="Button"
