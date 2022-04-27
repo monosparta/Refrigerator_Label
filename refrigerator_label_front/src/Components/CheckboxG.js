@@ -75,9 +75,12 @@ export default function DataGridDemo() {
 
   //data
   const [rowData, setRowData] = useState([]);
+  
   useEffect(() => {
     axios
-    .get("api/find_label_all")
+    .get("api/find_label_all",{
+      headers: { 'token' : localStorage.getItem('login_token') }
+    })
     .then((response) => {
       const label_data = response["data"]["message"];
       setRowData(label_data);
@@ -86,7 +89,7 @@ export default function DataGridDemo() {
       console.log(error);
     });
   }, []);
-  //console.log(rowData[0])
+
   //data
   const [data, setData] = useState([]);
   const handleGetData = () =>{
