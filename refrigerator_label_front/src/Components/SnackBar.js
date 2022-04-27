@@ -12,6 +12,7 @@ const theme = createTheme({
     },
   },
 });
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -29,6 +30,7 @@ export default function PositionedSnackbar(props) {
 
   const handleClick = (newState) => () => {
     setState({ open: true, ...newState });
+    console.log("yee");
   };
 
   const handleClose = () => {

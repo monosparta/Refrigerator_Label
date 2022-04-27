@@ -164,7 +164,7 @@ function Login() {
                 className="ButtonLogin"
                 color="Button"
               >
-                <Typography variant="h5" color="white" fontWeight={700}>立即登入</Typography>
+                <Typography variant="h5" color="white" fontWeight={500}>立即登入</Typography>
               </Button>
             </Box>
           </Paper>

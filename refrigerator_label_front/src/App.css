@@ -137,7 +137,8 @@
 }
 .Message {
   position: relative;
-  top: 2vh;
+  top: 2.5vh;
+  margin-left: 5px;
 }
 .TextBox {
   position: relative;

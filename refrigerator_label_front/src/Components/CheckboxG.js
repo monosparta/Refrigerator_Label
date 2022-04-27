@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import axios from "../Axios.config.js";
-import BtnG from "./BtnG.js";
+import BtnG from "./BtnDelete&Mail.js";
 import SaveBtn from "./SnackBar";
 import { TextField } from "@mui/material";
 
@@ -70,7 +70,7 @@ const columns = [
   },
 ];
 
-export default function DataGridDemo() {
+export default function DataGridDemo(props) {
   const classes = useStyles();
 
   //data

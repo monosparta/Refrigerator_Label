@@ -6,8 +6,7 @@ import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {useState} from 'react'
-
+import { useState } from "react";
 
 const theme = createTheme({
   palette: {
@@ -24,9 +23,9 @@ const theme = createTheme({
 });
 
 export default function ButtonAppBar() {
-  const [ setUsername] = useState("");
-  const [ setPassword] = useState("");
-  const [ setUser] = useState();
+  const [setUsername] = useState("");
+  const [setPassword] = useState("");
+  const [setUser] = useState();
 
   const handleLogout = () => {
     setUser({});
@@ -34,6 +33,7 @@ export default function ButtonAppBar() {
     setPassword("");
     localStorage.clear();
   };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={theme}>

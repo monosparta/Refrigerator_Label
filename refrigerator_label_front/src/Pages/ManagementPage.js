@@ -5,8 +5,8 @@ import "../App.css";
 function ManagementPage() {
   return (
     <div className="Home">
-      <Bar />
-      <Checkbox />
+      <Bar/>
+      <Checkbox/>
     </div>
   );
 }

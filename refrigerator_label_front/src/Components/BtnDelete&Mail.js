@@ -7,7 +7,7 @@ import Mail from './MailBtn'
 export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }} display="flex">
-      <Delete/>
+      <Delete />
       <Mail/>
     </Box>
   );
