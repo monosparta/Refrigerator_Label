@@ -11,7 +11,6 @@ import {
   OutlinedInput,
   InputAdornment,
   FormControl,
-  CssBaseline,
   Box,
   Container,
   Paper,
@@ -64,33 +63,28 @@ function Login() {
   };
 
   const onHandleLogin = (e) => {
-
     e.preventDefault();
 
     axios
-    .post("api/login",{
-      username: username,
-      password: values.password
-    })
-    .then((response) => {
-      localStorage.setItem('login_token', response['data']['token'])
-      navigate("/ManageMentPage")
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .post("api/login", {
+        username: username,
+        password: values.password,
+      })
+      .then((response) => {
+        localStorage.setItem("login_token", response["data"]["token"]);
+        navigate("/ManageMentPage");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <div className="Login">
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
           <Paper
             className="login"
             sx={{
-              width: 550,
-              height: 500,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -164,11 +158,12 @@ function Login() {
                 className="ButtonLogin"
                 color="Button"
               >
-                <Typography variant="h5" color="white" fontWeight={500}>立即登入</Typography>
+                <Typography variant="h5" color="white" fontWeight={500}>
+                  立即登入
+                </Typography>
               </Button>
             </Box>
           </Paper>
-        </Container>
       </ThemeProvider>
     </div>
   );

@@ -3,11 +3,13 @@ import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
-import SaveBtn from "../Components/SnackBar";
-import { TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import MailBtn from "../Components/MailBtn";
+import MuiAlert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 //css
 const useStyles = makeStyles({
@@ -16,7 +18,13 @@ const useStyles = makeStyles({
     flexDirection: "column-reverse",
   },
 });
-
+const theme = createTheme({
+  palette: {
+    Button: {
+      main: "#363F4E",
+    },
+  },
+});
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
@@ -27,10 +35,40 @@ const localizedTextsMap = {
   columnMenuShowColumns: "顯示此列",
   footerRowSelected: (count) => `已選擇 ${count} 項 `,
 };
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-function ManagementPage() {
+export default function ManagementPage() {
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const handleClick = (newState) => () => {
+    axios
+      .put("api/update_label", {
+        card_id: "1255870309",
+        date: "2022-04-13 14:13:35",
+        date_id: "0413002",
+        remark: "cola",
+        id: "2",
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setState({ open: true, ...newState });
+    console.log("yee");
+  };
 
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+  const { vertical, horizontal, open } = state;
   // token_check
   const token_check = () => {
     let token = "";
@@ -155,16 +193,32 @@ function ManagementPage() {
     {
       field: "actions",
       type: "actions",
-      headerName:
+      headerName: (
         <Box sx={{ flexGrow: 1 }} display="flex">
           <DeleteBtn handleDelete={handleDelete} />
           <MailBtn handleMail={handleMail} />
         </Box>
-      ,
+      ),
       width: 100,
       cellClassName: "actions",
       getActions: () => {
-        return [<SaveBtn BtnText="儲存" Message="編輯成功" />];
+        return [
+          <ThemeProvider theme={theme}>
+            <Button
+              onClick={handleClick({
+                vertical: "top",
+                horizontal: "center", //position of popout
+              })}
+              color="Button"
+              variant="contained"
+              disableElevation
+            >
+              <Typography color="white" variant="h7" sx={{ fontWeight: "500" }}>
+                儲存
+              </Typography>
+            </Button>
+          </ThemeProvider>,
+        ];
       },
     },
   ];
@@ -187,8 +241,17 @@ function ManagementPage() {
           }}
         />
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        autoHideDuration={1500} 
+        onClose={handleClose}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          編輯成功
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
-
-export default ManagementPage;
