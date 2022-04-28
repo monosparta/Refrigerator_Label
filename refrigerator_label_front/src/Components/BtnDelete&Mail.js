@@ -4,10 +4,10 @@ import Delete from "./DeleteBtn"
 import Mail from './MailBtn'
 
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   return (
     <Box sx={{ flexGrow: 1 }} display="flex">
-      <Delete />
+      <Delete handleDelete={ props.handleDelete } />
       <Mail/>
     </Box>
   );

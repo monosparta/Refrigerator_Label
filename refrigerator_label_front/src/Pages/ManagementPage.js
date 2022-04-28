@@ -26,50 +26,6 @@ const localizedTextsMap = {
   footerRowSelected: (count) => `已選擇 ${count} 項 `,
 };
 
-const columns = [
-  {
-    field: "User",
-    headerName: "物品所屬者",
-    width: 120,
-    disableColumnMenu: true,
-    sortable: false,
-  },
-  {
-    field: "date_id",
-    headerName: "ID",
-    width: 150,
-    disableColumnMenu: true,
-    sortable: false,
-  },
-  {
-    field: "date",
-    headerName: "放入日期",
-    type: "date",
-    width: 180,
-    disableColumnMenu: true,
-  },
-  {
-    field: "remark",
-    type: "actions",
-    headerName: "備註",
-    width: 150,
-    disableColumnMenu: true,
-    sortable: false,
-    getActions: () => {
-      return [<TextField size='small' placeholder='編輯備註'/>];
-    },
-  },
-  {
-    field: "actions",
-    type: "actions",
-    headerName: <BtnG/>,
-    width: 100,
-    cellClassName: "actions",
-    getActions: () => {
-      return [<SaveBtn BtnText='儲存' Message="編輯成功"/>];
-    },
-  },
-];
 
 function ManagementPage() {
 
@@ -124,11 +80,55 @@ function ManagementPage() {
     loadingData();
   }
 
+  const columns = [
+    {
+      field: "User",
+      headerName: "物品所屬者",
+      width: 120,
+      disableColumnMenu: true,
+      sortable: false,
+    },
+    {
+      field: "date_id",
+      headerName: "ID",
+      width: 150,
+      disableColumnMenu: true,
+      sortable: false,
+    },
+    {
+      field: "date",
+      headerName: "放入日期",
+      type: "date",
+      width: 180,
+      disableColumnMenu: true,
+    },
+    {
+      field: "remark",
+      type: "actions",
+      headerName: "備註",
+      width: 150,
+      disableColumnMenu: true,
+      sortable: false,
+      getActions: () => {
+        return [<TextField size='small' placeholder='編輯備註'/>];
+      },
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: <BtnG handleDelete={handleDelete}/>,
+      width: 100,
+      cellClassName: "actions",
+      getActions: () => {
+        return [<SaveBtn BtnText='儲存' Message="編輯成功"/>];
+      },
+    },
+  ];
+
   return (
     <div className="Home">
       <Bar/>
       <div style={{ height: 800, width: "100%" }}>
-        <button onClick={ handleDelete }>Delete</button>
         <DataGrid
           className={classes.grid}
           rows={rowData}

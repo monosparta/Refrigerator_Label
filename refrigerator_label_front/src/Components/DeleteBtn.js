@@ -9,7 +9,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
-import axios from "../Axios.config";
 
 const theme2 = createTheme({
   palette: {
@@ -19,7 +18,7 @@ const theme2 = createTheme({
   },
 });
 
-export default function ResponsiveDialog() {
+export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -33,14 +32,8 @@ export default function ResponsiveDialog() {
   };
   
   const handleDelete = () =>{
-    axios
-    .delete("api/delete_label", { data:{date_id: "0413005"}})
-    .then((response) =>{
-        console.log(response);
-        // this.forceUpdate();
-    }).catch((error) => {
-        console.log(error);
-    });
+    props.handleDelete();
+    setOpen(false);
   }
 
 
