@@ -83,13 +83,13 @@ auto_send_mail = async (req,res) => {
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
             
             if(diffDays == 6){
-                console.log(time[i]['card_id'])
+
                 let mail = await user_service.care_id_find_mail(time[i]['card_id'])
                 all_mail = all_mail+mail['dataValues']['mail']+","                
             }
             
         }
-        console.log(all_mail)
+
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -166,7 +166,7 @@ create_labels = async (req,res) => {
             }
 
             req.body.data_id = data_id;
-            console.log(req.body)
+  
             const label = await label_service.create_labels(req.body);
             if(label){   
                 return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            

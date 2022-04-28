@@ -70,7 +70,7 @@ create_labels = async (body) => {
             card_id:body.card_id
         }
     })
-    console.log(body)
+
     const create_labels = await db.Labels.create({
         card_id: body.card_id,
         date: body.date,
