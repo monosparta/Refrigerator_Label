@@ -103,11 +103,11 @@ function ManagementPage() {
   const handleMail = () => {  
     let token = token_check();
     const mail_data = getData('mail');
-    console.log(mail_data)
+   
     axios
     .get("api/manual_send_mail",{
       headers: { 'token' : token },
-      params:{users:"corbinn0419@gmail.com",subject:"test",text:"串接寄信功能"}
+      params:{users: mail_data, subject:"test", text:"串接寄信功能"}
     })
     .then((response) =>{
       console.log(response);
@@ -119,7 +119,7 @@ function ManagementPage() {
   // data grid columns definition
   const columns = [
     {
-      field: "User",
+      field: "name",
       headerName: "物品所屬者",
       width: 120,
       disableColumnMenu: true,

@@ -6,14 +6,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import App from './App.js';
 // import Load from './Pages/LoadingPage';
 import Login from './Pages/LoginPage';
-import ManageMent from './Pages/ManagementPage';
+import Management from './Pages/ManagementPage';
 import NoFoundPage from './Pages/NotFoundPage';
 
 ReactDOM.render(
   <Router>
     <Routes>
       <Route path="/" element={<Login/>}/>
-      <Route path="/ManageMentPage" element={<ManageMent/>}/>
+      <Route path="/ManageMentPage" element={<Management/>}/>
       <Route path="*" element={<NoFoundPage/>}/>
     </Routes>
   </Router>,
