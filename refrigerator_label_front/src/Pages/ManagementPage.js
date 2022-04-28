@@ -1,11 +1,13 @@
-import * as React from "react"
+import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
-import BtnG from "../Components/BtnDelete&Mail.js";
 import SaveBtn from "../Components/SnackBar";
 import { TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import DeleteBtn from "../Components/DeleteBtn";
+import MailBtn from "../Components/MailBtn";
 
 //css
 const useStyles = makeStyles({
@@ -26,95 +28,95 @@ const localizedTextsMap = {
   footerRowSelected: (count) => `已選擇 ${count} 項 `,
 };
 
-
 function ManagementPage() {
-
   const classes = useStyles();
 
   // token_check
-  const token_check = () =>{
-    let token = '';
+  const token_check = () => {
+    let token = "";
 
-    if(localStorage.getItem('login_token')!=null){
-      token = localStorage.getItem('login_token')
+    if (localStorage.getItem("login_token") != null) {
+      token = localStorage.getItem("login_token");
     }
-    return token
-  }
-  
+    return token;
+  };
+
   // label_data
   const [rowData, setRowData] = React.useState([]);
-  
-  const loadingData = async() =>{
-    let token = '';
-    
-    if(localStorage.getItem('login_token')!=null){
-      token = localStorage.getItem('login_token')
+
+  const loadingData = async () => {
+    let token = "";
+
+    if (localStorage.getItem("login_token") != null) {
+      token = localStorage.getItem("login_token");
     }
 
     await axios
-    .get("api/find_label_all",{
-      headers: { 'token' : token }
-    })
-    .then((response) => {
-      const label_data = response["data"]["message"];
-      setRowData(label_data);
-    })
-    .catch((error) => {
-      console.log(error.response.data["message"])
-    });
-  }
+      .get("api/find_label_all", {
+        headers: { token: token },
+      })
+      .then((response) => {
+        const label_data = response["data"]["message"];
+        setRowData(label_data);
+      })
+      .catch((error) => {
+        console.log(error.response.data["message"]);
+      });
+  };
 
   React.useEffect(() => {
     loadingData();
   }, []);
-  
+
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
 
-  const getData = (field) =>{
+  const getData = (field) => {
     const select_data = [];
-    rowData.forEach(function(each_label){
-      select_data_id.forEach(function(select_label_id){
-        if(each_label['id'] === select_label_id){
+    rowData.forEach(function (each_label) {
+      select_data_id.forEach(function (select_label_id) {
+        if (each_label["id"] === select_label_id) {
           select_data.push(each_label[field]);
         }
-      })
-    })
-    return select_data
-  }
-
-  const handleDelete = () =>{
-    let token = token_check();
-    const delete_data = getData('date_id');
-    
-    axios
-    .delete("api/delete_label", { 
-      headers: { 'token' : token },
-      data:{date_id: delete_data}
-    })
-    .then((response) =>{
-        console.log(response);
-    }).catch((error) => {
-        console.log(error.response.data["message"]);
-    });
-    loadingData();
-  }
-
-  const handleMail = () => {  
-    let token = token_check();
-    const mail_data = getData('mail');
-   
-    axios
-    .get("api/manual_send_mail",{
-      headers: { 'token' : token },
-      params:{users: mail_data, subject:"test", text:"串接寄信功能"}
-    })
-    .then((response) =>{
-      console.log(response);
-      }).catch((error) => {
-      console.log(error.response.data["message"]);
       });
-  }
+    });
+    return select_data;
+  };
+
+  const handleDelete = () => {
+    let token = token_check();
+    const delete_data = getData("date_id");
+
+    axios
+      .delete("api/delete_label", {
+        headers: { token: token },
+        data: { date_id: delete_data },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response.data["message"]);
+      });
+    loadingData();
+  };
+
+  const handleMail = () => {
+    let token = token_check();
+    const mail_data = getData("mail");
+
+    axios
+      .get("api/manual_send_mail", {
+        headers: { token: token },
+        params: { users: mail_data, subject: "test", text: "串接寄信功能" },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response.data["message"]);
+      });
+  };
 
   // data grid columns definition
   const columns = [
@@ -128,7 +130,7 @@ function ManagementPage() {
     {
       field: "date_id",
       headerName: "ID",
-      width: 150,
+      width: 110,
       disableColumnMenu: true,
       sortable: false,
     },
@@ -136,35 +138,40 @@ function ManagementPage() {
       field: "date",
       headerName: "放入日期",
       type: "date",
-      width: 180,
+      width: 220,
       disableColumnMenu: true,
     },
     {
       field: "remark",
       type: "actions",
       headerName: "備註",
-      width: 150,
+      width: 200,
       disableColumnMenu: true,
       sortable: false,
       getActions: () => {
-        return [<TextField size='small' placeholder='編輯備註'/>];
+        return [<TextField size="small" placeholder="編輯備註" />];
       },
     },
     {
       field: "actions",
       type: "actions",
-      headerName: <BtnG handleDelete={handleDelete} handleMail={handleMail}/>,
+      headerName:
+        <Box sx={{ flexGrow: 1 }} display="flex">
+          <DeleteBtn handleDelete={handleDelete} />
+          <MailBtn handleMail={handleMail} />
+        </Box>
+      ,
       width: 100,
       cellClassName: "actions",
       getActions: () => {
-        return [<SaveBtn BtnText='儲存' Message="編輯成功"/>];
+        return [<SaveBtn BtnText="儲存" Message="編輯成功" />];
       },
     },
   ];
 
   return (
     <div className="Home">
-      <Bar/>
+      <Bar />
       <div style={{ height: 800, width: "100%" }}>
         <DataGrid
           className={classes.grid}
@@ -175,7 +182,9 @@ function ManagementPage() {
           checkboxSelection
           disableSelectionOnClick
           localeText={localizedTextsMap}
-          onSelectionModelChange = {(details) =>{ setSelectDataId(details) }}
+          onSelectionModelChange={(details) => {
+            setSelectDataId(details);
+          }}
         />
       </div>
     </div>

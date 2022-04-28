@@ -9,6 +9,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import { useState } from "react";
+import Notification from "./Notification";
 
 const theme2 = createTheme({
   palette: {
@@ -21,6 +23,7 @@ const theme2 = createTheme({
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' })
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleClickOpen = () => {
@@ -30,63 +33,65 @@ export default function ResponsiveDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  const handleDelete = () =>{
+
+  const handleDelete = () => {
     props.handleDelete();
     setOpen(false);
-  }
-
+  };
 
   return (
     <div>
       <ThemeProvider theme={theme2}>
-        <IconButton onClick={handleClickOpen} >
-          <DeleteIcon color="Button"/>
+        <IconButton onClick={handleClickOpen}>
+          <DeleteIcon color="Button" />
         </IconButton>
       </ThemeProvider>
       <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
-        aria-labelledby='responsive-dialog-title'>
-        <div className='Diacontent'>
-          <div className='DTittle'>
-            <DialogTitle id='responsive-dialog-title'>
-              <Typography variant='boby2' sx={{ fontWeight: "700" }}>
+        aria-labelledby="responsive-dialog-title"
+      >
+        <div className="Diacontent">
+          <div className="DTittle">
+            <DialogTitle id="responsive-dialog-title">
+              <Typography variant="boby2" sx={{ fontWeight: "700" }}>
                 確認刪除所選項目？
               </Typography>
             </DialogTitle>
           </div>
           <DialogActions>
-            <div className='BtnGroup'>
+            <div className="BtnGroup">
               <ThemeProvider theme={theme2}>
-                <div className='BtnOK'>
+                <div className="BtnOK">
                   <Button
                     autoFocus
                     onClick={handleDelete}
-                    variant='contained'
-                    color='Button'
+                    variant="contained"
+                    color="Button"
                     style={{
                       maxWidth: "108px",
                       maxHeight: "36px",
                       minWidth: "108px",
                       minHeight: "36px",
-                    }}>
-                    <Typography color='white'>確認</Typography>
+                    }}
+                  >
+                    <Typography color="white">確認</Typography>
                   </Button>
                 </div>
-                <div className='BtnNo'>
+                <div className="BtnNo">
                   <Button
                     onClick={handleClose}
                     autoFocus
-                    variant='outlined'
-                    color='Button'
+                    variant="outlined"
+                    color="Button"
                     style={{
                       maxWidth: "108px",
                       maxHeight: "36px",
                       minWidth: "108px",
                       minHeight: "36px",
-                    }}>
+                    }}
+                  >
                     取消
                   </Button>
                 </div>
@@ -95,6 +100,7 @@ export default function ResponsiveDialog(props) {
           </DialogActions>
         </div>
       </Dialog>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 }
