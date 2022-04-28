@@ -33,6 +33,13 @@ create_users = async (req,res) => {
 find_label_all = async (req,res) => {
     try{
         const label = await label_service.find_label_all();
+        label.forEach(item => {
+            const name = item['dataValues']['User']['dataValues']['name']
+            const mail = item['dataValues']['User']['dataValues']['mail']
+            item['dataValues']['name'] = name;
+            item['dataValues']['mail'] = mail;
+            delete item['dataValues']['User'];
+        })
         return res.status(200).json({ message: label });
 
     }
