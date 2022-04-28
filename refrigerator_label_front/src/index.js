@@ -7,13 +7,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Load from './Pages/LoadingPage';
 import Login from './Pages/LoginPage';
 import ManageMent from './Pages/ManagementPage';
-
+import NoFoundPage from './Pages/NotFoundPage';
 
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/ManageMentPage" element={<ManageMent/>}/>
       <Route path="/" element={<Login/>}/>
+      <Route path="/ManageMentPage" element={<ManageMent/>}/>
+      <Route path="*" element={<NoFoundPage/>}/>
     </Routes>
   </Router>,
   document.getElementById('root')

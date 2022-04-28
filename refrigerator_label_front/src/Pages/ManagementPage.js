@@ -62,7 +62,7 @@ const columns = [
   {
     field: "actions",
     type: "actions",
-    headerName: <BtnG />,
+    headerName: <BtnG/>,
     width: 100,
     cellClassName: "actions",
     getActions: () => {
@@ -72,20 +72,14 @@ const columns = [
 ];
 
 function ManagementPage() {
-  
-  const classes = useStyles();
 
-  //datashow
-  const [data, setData] = React.useState([]);
-  const handleGetData = () =>{
-    console.log(data)
-  }
+  const classes = useStyles();
 
   //label_data
   const [rowData, setRowData] = React.useState([]);
   
-  React.useEffect(() => {
-    axios
+  const loadingData = async() =>{
+    await axios
     .get("api/find_label_all",{
       headers: { 'token' : localStorage.getItem('login_token') }
     })
@@ -94,15 +88,47 @@ function ManagementPage() {
       setRowData(label_data);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error)
     });
+  }
+
+  React.useEffect(() => {
+    loadingData();
   }, []);
-   
+  
+  //select_data_id
+  const [select_data_id, setSelectDataId] = React.useState([]);
+
+  const getData = (field) =>{
+    const select_data = [];
+    rowData.forEach(function(each_label){
+      select_data_id.forEach(function(select_label_id){
+        if(each_label['id'] === select_label_id){
+          select_data.push(each_label[field]);
+        }
+      })
+    })
+    return select_data
+  }
+
+  const handleDelete = () =>{
+    const delete_data = getData('date_id');
+    axios
+    .delete("api/delete_label", { data:{date_id: delete_data}})
+    .then((response) =>{
+        console.log(response);
+        // this.forceUpdate();
+    }).catch((error) => {
+        console.log(error);
+    });
+    loadingData();
+  }
+
   return (
     <div className="Home">
       <Bar/>
       <div style={{ height: 800, width: "100%" }}>
-        <button onClick={handleGetData}>Activate Lasers</button>
+        <button onClick={ handleDelete }>Delete</button>
         <DataGrid
           className={classes.grid}
           rows={rowData}
@@ -112,7 +138,7 @@ function ManagementPage() {
           checkboxSelection
           disableSelectionOnClick
           localeText={localizedTextsMap}
-          onSelectionModelChange = {(details) =>{ setData(details) }}
+          onSelectionModelChange = {(details) =>{ setSelectDataId(details) }}
         />
       </div>
     </div>
