@@ -2,31 +2,23 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import emailjs from "emailjs-com";
 import "../App.css";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
 import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SnackBar from './SnackBar'
-import axios from "../Axios.config.js";
 
-export default function ResponsiveDialog() {
+export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const sendMail = (e) => {
-    e.preventDefault();    
-    axios
-    .get("api/manual_send_mail",{params:{users:"corbinn0419@gmail.com",subject:"test",text:"串接寄信功能"}})
-    .then((response) =>{
-      console.log(response);
-      }).catch((error) => {
-      console.log(error);
-      });
+    e.preventDefault();
+    props.handleMail();
+    setOpen(false);
   }
   const handleClose = () => {
     setOpen(false);

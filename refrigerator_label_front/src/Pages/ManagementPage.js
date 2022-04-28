@@ -31,20 +31,36 @@ function ManagementPage() {
 
   const classes = useStyles();
 
-  //label_data
+  // token_check
+  const token_check = () =>{
+    let token = '';
+
+    if(localStorage.getItem('login_token')!=null){
+      token = localStorage.getItem('login_token')
+    }
+    return token
+  }
+  
+  // label_data
   const [rowData, setRowData] = React.useState([]);
   
   const loadingData = async() =>{
+    let token = '';
+    
+    if(localStorage.getItem('login_token')!=null){
+      token = localStorage.getItem('login_token')
+    }
+
     await axios
     .get("api/find_label_all",{
-      headers: { 'token' : localStorage.getItem('login_token') }
+      headers: { 'token' : token }
     })
     .then((response) => {
       const label_data = response["data"]["message"];
       setRowData(label_data);
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error.response.data["message"])
     });
   }
 
@@ -52,7 +68,7 @@ function ManagementPage() {
     loadingData();
   }, []);
   
-  //select_data_id
+  // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
 
   const getData = (field) =>{
@@ -68,18 +84,39 @@ function ManagementPage() {
   }
 
   const handleDelete = () =>{
+    let token = token_check();
     const delete_data = getData('date_id');
+    
     axios
-    .delete("api/delete_label", { data:{date_id: delete_data}})
+    .delete("api/delete_label", { 
+      headers: { 'token' : token },
+      data:{date_id: delete_data}
+    })
     .then((response) =>{
         console.log(response);
-        // this.forceUpdate();
     }).catch((error) => {
-        console.log(error);
+        console.log(error.response.data["message"]);
     });
     loadingData();
   }
 
+  const handleMail = () => {  
+    let token = token_check();
+    const mail_data = getData('mail');
+    console.log(mail_data)
+    axios
+    .get("api/manual_send_mail",{
+      headers: { 'token' : token },
+      params:{users:"corbinn0419@gmail.com",subject:"test",text:"串接寄信功能"}
+    })
+    .then((response) =>{
+      console.log(response);
+      }).catch((error) => {
+      console.log(error.response.data["message"]);
+      });
+  }
+
+  // data grid columns definition
   const columns = [
     {
       field: "User",
@@ -116,7 +153,7 @@ function ManagementPage() {
     {
       field: "actions",
       type: "actions",
-      headerName: <BtnG handleDelete={handleDelete}/>,
+      headerName: <BtnG handleDelete={handleDelete} handleMail={handleMail}/>,
       width: 100,
       cellClassName: "actions",
       getActions: () => {

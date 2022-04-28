@@ -8,7 +8,7 @@ export default function ButtonAppBar(props) {
   return (
     <Box sx={{ flexGrow: 1 }} display="flex">
       <Delete handleDelete={ props.handleDelete } />
-      <Mail/>
+      <Mail handleMail={ props.handleMail }/>
     </Box>
   );
 }

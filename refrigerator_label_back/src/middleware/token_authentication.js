@@ -6,14 +6,14 @@ const token_authentication = (req, res, next) => {
     if(token){
         jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
             if(err) {
-                return res.json({success: false, message: 'Failed to authenticate token.'});
+                return  res.status(402).json({ message: 'Failed to authenticate token.' });
             }else{
                 req.decoded = decoded;
                 next();
             }
         })
     }else{
-        return res.status(403).send({message: 'No token provided.'});
+        return res.status(403).json({ message: 'No token provided.' });
     }
 }
 
