@@ -7,24 +7,24 @@ module.exports = function(router) {
         res.send('Hello World!')
     })
     
-    router.post('/api/login',login)
+    router.get('/api/auto_send_mail', auto_send_mail)
 
-    router.post('/api/label',create_label);
+    router.post('/api/login', login)
 
-    router.delete("/api/label", delete_label);
+    router.post('/api/label', create_label);
 
-    router.get('/api/auto_send_mail',auto_send_mail)
+    router.delete('/api/label', delete_label);
 
     router.use(token_authentication_middleware)
 
-    router.get('/api/manual_send_mail',manual_send_mail)
+    router.get('/api/manual_send_mail', manual_send_mail)
 
     router.get('/api/find_user_all', find_user_all);
 
     router.get('/api/find_label_all', find_label_all);
 
-    router.put("/api/update_label",update_label)
+    router.post('/api/create_user', create_user);
 
-    router.post('/api/create_user',create_user);
+    router.put('/api/update_label', update_label);
 
 }
