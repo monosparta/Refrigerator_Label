@@ -49,13 +49,13 @@ find_label_all = async (req,res) => {
             const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
             const diffTime = Math.abs(date2 - date1);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            const data = array[0]+" - " + diffDays+" day ago"
+            const date = array[0]+" - " + diffDays+" day ago"
 
             const name = item['dataValues']['User']['dataValues']['name']
             const mail = item['dataValues']['User']['dataValues']['mail']
             item['dataValues']['name'] = name;
             item['dataValues']['mail'] = mail;
-            item['dataValues']['data'] = data;
+            item['dataValues']['date'] = date;
             delete item['dataValues']['User'];
         })
         return res.status(200).json({ message: label });
