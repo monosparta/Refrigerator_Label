@@ -6,6 +6,7 @@ find_label_all = async (req, res) => {
     const label = await label_service.find_label_all();
     label.forEach((item) => {
       let array = item["dataValues"]["date"].split(" ");
+      let Today = new Date();
       const date1 = new Date(array[0]);
       const date2 = new Date(
         Today.getFullYear() +
