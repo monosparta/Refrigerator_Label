@@ -1,6 +1,5 @@
 const db = require('../models/index.js');
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
 const user_service = require('../services/user_service.js');
 const label_service = require('../services/label_service.js');
 const admin_service = require('../services/admin_service.js');
@@ -18,10 +17,10 @@ find_user_all = async (req, res) => {
 
 }
 
-create_users = async (req,res) => {
+create_user = async (req,res) => {
     try{
-        const create_users = await user_service.create_users(req.body);
-        if(create_users){            
+        const user = await user_service.create_user(req.body);
+        if(user){            
             return res.status(201).json({message:"新增成功"});            
         }
     }
@@ -115,7 +114,7 @@ delete_label = async (req, res) => {
 }
 
 
-create_labels = async (req,res) => {
+create_label = async (req,res) => {
     try{
         const is_user = await user_service.is_user(req.body);
         if(is_user){    
@@ -134,7 +133,7 @@ create_labels = async (req,res) => {
 
             req.body.data_id = data_id;
   
-            const label = await label_service.create_labels(req.body);
+            const label = await label_service.create_label(req.body);
             if(label){   
                 return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            
             }
@@ -152,13 +151,9 @@ login = async (req,res) => {
 
     try{
         const admin = await admin_service.is_admin(req.body);
-        if(admin) {
-            if (bcrypt.compareSync(req.body.password, admin.password) == true) {
-                const token = await admin_service.token_create(admin);
-                return res.status(201).json({message:"登入成功", token:token})
-            } else {
-                return res.status(401).json({message:"帳號或密碼錯誤"})
-            }
+        if(admin && bcrypt.compareSync(req.body.password, admin.password)) {
+            const token = await admin_service.token_create(admin);
+            return res.status(201).json({message:"登入成功", token:token})
         }else{
             return res.status(401).json({message:"帳號或密碼錯誤"})
         }
@@ -169,8 +164,8 @@ login = async (req,res) => {
 }
 module.exports = {
     find_user_all,
-    create_labels,
-    create_users,
+    create_label,
+    create_user,
     find_label_all,
     delete_label,
     auto_send_mail,

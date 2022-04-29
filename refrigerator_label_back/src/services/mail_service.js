@@ -43,8 +43,7 @@ auto_send_mail = async (req,res) => {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         
         if(diffDays == 7){
-
-            let mail = await user_service.care_id_find_mail(time[i]['card_id'])
+            let mail = await user_service.card_id_find_mail(time[i]['card_id'])
             all_mail = all_mail+mail['dataValues']['mail']+","                
         }
         
