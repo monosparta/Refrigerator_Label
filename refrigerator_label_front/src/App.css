@@ -68,7 +68,7 @@
   height: 500px;
   top: 20vh;
   margin: 0 auto;
-  border: solid 1px darkmagenta;
+  /* border: solid 1px darkmagenta; */
 }
 .Account {
   position: relative;
@@ -93,6 +93,12 @@
   position: relative;
   width: 100%;
   height: 100%;
+}
+.DataGrid{
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  /* border: solid 1px chartreuse; */
 }
 .Bar {
   width: 100%;
