@@ -124,13 +124,13 @@ export default function ManagementPage() {
     loadingData();
   };
 
-  const handleMail = () => {
+  const handleSendMail = (mail_content) => {
     const mail_data = getData("mail");
 
     axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
-        params: { users: mail_data, subject: "test", text: "串接寄信功能" },
+        params: { users: mail_data, subject: "Mono冰箱主動提醒通知", text: mail_content },
       })
       .then((response) => {
         console.log(response);
@@ -138,6 +138,15 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error.response.data["message"]);
       });
+  };
+
+  const handleMailPeople = () => {
+    const get_mail_people = getData("name");
+    const people = []
+    for (let count = 0; count < get_mail_people.length; count++) {
+      people.push({ key: count, label: get_mail_people[count] },)
+    }
+    return people
   };
 
   // data grid columns definition
@@ -180,7 +189,7 @@ export default function ManagementPage() {
       headerName: (
         <Box sx={{ flexGrow: 1 }} display="flex">
           <DeleteBtn handleDelete={handleDelete} />
-          <MailBtn handleMail={handleMail} />
+          <MailBtn handleSendMail={handleSendMail} handleMailPeople={handleMailPeople}/>
         </Box>
       ),
       width: 100,
