@@ -1,23 +1,30 @@
-require('dotenv').config();
+require("dotenv").config();
 module.exports = {
     "development": {
-        "use_env_variable": "DATABASE_URL",
-        "protocol": "postgres",
-        "dialect": "postgres",
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "logging": process.env.DB_LOGGING,
+        "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
-        //"logging": false
     },
     "test": {
-        "use_env_variable": "DATABASE_URL",
-        "protocol": "postgres",
-        "dialect": "postgres",
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "logging": process.env.DB_LOGGING,
+        "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}} 
     },
     "production": {
-        "use_env_variable": "DATABASE_URL",
-        "protocol": "postgres",
-        "dialect": "postgres",
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "logging": process.env.DB_LOGGING,
+        "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}} 
     }
 };
-
