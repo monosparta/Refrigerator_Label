@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
-      remark: {
+      note: {
         type: Sequelize.STRING
       },
       createdAt: {

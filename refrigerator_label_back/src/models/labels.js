@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     card_id: DataTypes.STRING,
     date: DataTypes.STRING,
     date_id: DataTypes.STRING,
-    remark: DataTypes.STRING
+    note: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Labels',
