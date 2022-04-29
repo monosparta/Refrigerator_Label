@@ -7,13 +7,20 @@ export default function Notification(props) {
     vertical: "top",
     horizontal: "center",
   });
+  const { vertical, horizontal, open } = state;
 
   const { Message } = props;
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   return (
-    <Snackbar>
+    <Snackbar
+      anchorOrigin={{ vertical, horizontal }}
+      open={open}
+      autoHideDuration={1500}
+      onClose={handleClose}
+      key={vertical + horizontal}
+    >
       <Alert severity="success" sx={{ width: "100%" }} onClose={handleClose}>
         {Message}
       </Alert>
