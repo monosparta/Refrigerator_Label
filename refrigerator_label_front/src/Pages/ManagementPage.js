@@ -46,6 +46,7 @@ export default function ManagementPage() {
     vertical: "top",
     horizontal: "center",
   });
+
   const handleClick = (newState) => () => {
     axios
       .put("api/update_label", {
@@ -69,29 +70,14 @@ export default function ManagementPage() {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
-  // token_check
-  const token_check = () => {
-    let token = "";
-
-    if (localStorage.getItem("login_token") != null) {
-      token = localStorage.getItem("login_token");
-    }
-    return token;
-  };
 
   // label_data
   const [rowData, setRowData] = React.useState([]);
 
   const loadingData = async () => {
-    let token = "";
-
-    if (localStorage.getItem("login_token") != null) {
-      token = localStorage.getItem("login_token");
-    }
-
     await axios
       .get("api/find_label_all", {
-        headers: { token: token },
+        headers: { token: localStorage.getItem("login_token") },
       })
       .then((response) => {
         const label_data = response["data"]["message"];
@@ -122,12 +108,11 @@ export default function ManagementPage() {
   };
 
   const handleDelete = () => {
-    let token = token_check();
     const delete_data = getData("date_id");
-
+    
     axios
       .delete("api/delete_label", {
-        headers: { token: token },
+        headers: { token: localStorage.getItem("login_token") },
         data: { date_id: delete_data },
       })
       .then((response) => {
@@ -140,12 +125,11 @@ export default function ManagementPage() {
   };
 
   const handleMail = () => {
-    let token = token_check();
     const mail_data = getData("mail");
 
     axios
       .get("api/manual_send_mail", {
-        headers: { token: token },
+        headers: { token: localStorage.getItem("login_token") },
         params: { users: mail_data, subject: "test", text: "串接寄信功能" },
       })
       .then((response) => {
