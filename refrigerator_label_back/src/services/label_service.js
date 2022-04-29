@@ -5,16 +5,16 @@ find_label_all = async () => {
     const request = await db.Labels.findAll({
         include: { model: db.Users ,attributes: ['name', 'mail']},
         order: [['id', 'ASC']],
-        attributes: [ 'id', 'date', 'date_id', 'remark']
+        attributes: [ 'id', 'date', 'label_id', 'remark']
     })
     
     return request;
 }
 
-delete_label = async (date_id) => {
+delete_label = async (label_id) => {
     const request = await db.Labels.destroy({
         where: {
-            date_id: date_id,
+            label_id: label_id,
         }
     })
     return request;
@@ -34,7 +34,7 @@ update_label = async (body) => {
     const request = await db.Labels.update({
         card_id: body.card_id,
         date: body.date,
-        date_id: body.date_id,
+        label_id: body.label_id,
         remark: body.remark,
     },
         {
@@ -67,7 +67,7 @@ create_label = async (body) => {
     const create_label = await db.Labels.create({
         card_id: body.card_id,
         date: body.date,
-        date_id: date[1] + date[2] + body.data_id
+        label_id: date[1] + date[2] + body.data_id
     })
 
     create_label.name = user.name

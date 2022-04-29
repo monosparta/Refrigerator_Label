@@ -103,7 +103,7 @@ update_label = async (req,res) => {
 
 delete_label = async (req, res) => {
     try{
-        const delete_label = await label_service.delete_label(req.body['date_id'])
+        const delete_label = await label_service.delete_label(req.body['label_id'])
         if(delete_label){
             return res.status(200).json({message: "刪除成功"});
         }
@@ -135,7 +135,7 @@ create_label = async (req,res) => {
   
             const label = await label_service.create_label(req.body);
             if(label){   
-                return res.status(201).json({ data_id: label['dataValues']['date_id'],name:label.name});            
+                return res.status(201).json({ data_id: label['dataValues']['label_id'],name:label.name});            
             }
         }else{
             return res.status(401).json({message:"user not find"})
