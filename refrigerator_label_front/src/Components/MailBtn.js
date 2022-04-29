@@ -5,9 +5,21 @@ import DialogActions from "@mui/material/DialogActions";
 import "../App.css";
 import EmailIcon from "@mui/icons-material/Email";
 import IconButton from "@mui/material/IconButton";
-import { Paper, Typography, Divider, Chip, styled } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Divider,
+  Chip,
+  styled,
+  Snackbar,
+} from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -18,14 +30,25 @@ export default function ResponsiveDialog(props) {
     const mail_people = props.handleMailPeople()
     setChipData(mail_people)
   };
+  
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal } = state;
 
   const sendMail = (e) => {
     e.preventDefault();
     props.handleSendMail(mailContent);
     setOpen(false);
-  }
+  };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleClose2 = () => {
+    setState({ ...state, open: false });
   };
 
   const onChangeContent = (e) => {
@@ -173,6 +196,17 @@ export default function ResponsiveDialog(props) {
           </div>
         </form>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        autoHideDuration={1500}
+        onClose={handleClose2}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose2} severity="success" sx={{ width: "100%" }}>
+          寄信成功
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const user_service = require('../services/user_service.js');
 const label_service = require('../services/label_service.js');
 const admin_service = require('../services/admin_service.js');
+const mail_service = require('../services/mail_service.js');
 
 find_user_all = async (req, res) => {
     try{
@@ -32,12 +33,29 @@ create_users = async (req,res) => {
 
 find_label_all = async (req,res) => {
     try{
+        const time = await label_service.time_out();
+        for(let i = 0; i < time.length; i++){            
+        let array = time[i]['date'].split(" ")
+        var Today=new Date();
+        const date1 = new Date(array[0]);
+        const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); }
+
         const label = await label_service.find_label_all();
         label.forEach(item => {
+            let array = item['dataValues']['date'].split(" ")
+            const date1 = new Date(array[0]);
+            const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const data = array[0]+" - " + diffDays+" day ago"
+
             const name = item['dataValues']['User']['dataValues']['name']
             const mail = item['dataValues']['User']['dataValues']['mail']
             item['dataValues']['name'] = name;
             item['dataValues']['mail'] = mail;
+            item['dataValues']['data'] = data;
             delete item['dataValues']['User'];
         })
         return res.status(200).json({ message: label });
@@ -51,80 +69,22 @@ find_label_all = async (req,res) => {
 
 
 manual_send_mail = async (req,res) => {
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASSWORD
-        }
-    });
-
-    var mailOptions = {
-        from: process.env.MAIL_USER,
-        to: req.query.users,
-        subject: req.query.subject,
-        text: req.query.text
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            return res.status(500).json({ message: error });
-        } else {
-            return res.status(200).json({ message: "寄信成功" });
-        }
-    });
-    transporter.close();
+    try{        
+        await mail_service.manual_send_mail(req.query);
+        return res.status(200).json({ message: "寄信成功" });
+    }catch(err){
+        return res.status(500).json({ message: err.message });
+    }
     
 }
 
 auto_send_mail = async (req,res) => {
     try{
-        const time = await label_service.time_out();
-        let all_mail = ""
-        for(let i = 0; i < time.length; i++){            
-            let array = time[i]['date'].split(" ")
-            var Today=new Date();
-            const date1 = new Date(array[0]);
-            const date2 = new Date(Today.getFullYear()+"-"+(Today.getMonth()+1)+"-"+Today.getDate())
-            const diffTime = Math.abs(date2 - date1);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            
-            if(diffDays == 6){
-
-                let mail = await user_service.care_id_find_mail(time[i]['card_id'])
-                all_mail = all_mail+mail['dataValues']['mail']+","                
-            }
-            
-        }
-
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.MAIL_USER,
-                pass: process.env.MAIL_PASSWORD
-            }
-        });
-    
-        var mailOptions = {
-            from: process.env.MAIL_USER,
-            to: all_mail,
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
-        };
-    
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        });
-        transporter.close();
-        return res.status(200).json({ message: time});
-
-    }
-    catch(err){
+        await mail_service.auto_send_mail()
+        return res.status(200).json({ message: "寄信成功" });
+    }catch(err){
         return res.status(500).json({ message: err.message });
+
     }
 }
 

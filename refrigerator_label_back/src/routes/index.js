@@ -13,11 +13,12 @@ module.exports = function(router) {
 
     router.delete("/api/delete_label", delete_label);
 
+    router.get('/api/auto_send_mail',auto_send_mail)
+
     router.use(token_authentication_middleware)
 
     router.get('/api/manual_send_mail',manual_send_mail)
 
-    router.get('/api/auto_send_mail',auto_send_mail)
 
     router.get('/api/find_user_all', find_user_all);
 

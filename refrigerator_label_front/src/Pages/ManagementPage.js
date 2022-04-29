@@ -63,7 +63,7 @@ export default function ManagementPage() {
         console.log(error);
       });
     setState({ open: true, ...newState });
-    console.log("yee");
+    console.log("SAVE");
   };
 
   const handleClose = () => {
@@ -219,7 +219,7 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <div style={{ height: 800, width: "100%" }}>
+      <div style={{ height: 1100, width: "100%" }} className="DataGrid">
         <DataGrid
           className={classes.grid}
           rows={rowData}
