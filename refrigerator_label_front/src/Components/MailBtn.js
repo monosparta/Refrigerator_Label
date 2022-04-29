@@ -11,24 +11,29 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [mailContent, setMailContent] =  React.useState();
+
   const handleClickOpen = () => {
     setOpen(true);
+    const mail_people = props.handleMailPeople()
+    setChipData(mail_people)
   };
 
   const sendMail = (e) => {
     e.preventDefault();
-    props.handleMail();
+    props.handleSendMail(mailContent);
     setOpen(false);
   }
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: "Corbin" },
-    { key: 1, label: "Gary" },
-    { key: 2, label: "Pohan" },
-  ]);
+  const onChangeContent = (e) => {
+    const mail_content = e.target.value;
+    setMailContent(mail_content);
+  };
+
+  const [chipData, setChipData] = React.useState([]);
 
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
@@ -114,10 +119,11 @@ export default function ResponsiveDialog(props) {
               </div>
               <div className="MText">
                 <TextareaAutosize
-                  className="Message"
-                  id=""
+                  className="mail_content"
+                  id="mail_content"
                   placeholder="請輸入提醒內容"
-                  name="message"
+                  onChange={onChangeContent}
+                  name="mail_content"
                   style={{ height: 100, width: 300 }}
                 />
               </div>

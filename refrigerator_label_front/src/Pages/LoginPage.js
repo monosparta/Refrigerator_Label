@@ -12,13 +12,11 @@ import {
   InputAdornment,
   FormControl,
   Box,
-  Container,
   Paper,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import "../App.css";
 
 function Login() {
@@ -31,6 +29,8 @@ function Login() {
       },
     },
   });
+
+  const [errorMessage, setErrorMessage] =  React.useState();
 
   const [username, setUsername] = React.useState("");
 
@@ -72,10 +72,10 @@ function Login() {
       })
       .then((response) => {
         localStorage.setItem("login_token", response["data"]["token"]);
-        navigate("/ManageMentPage");
+        navigate("/ManagementPage");
       })
       .catch((error) => {
-        console.log(error);
+        setErrorMessage(error.response.data["message"]);
       });
   };
 
@@ -162,6 +162,9 @@ function Login() {
                   立即登入
                 </Typography>
               </Button>
+              <div className="error" style={{ color: "red" }}> 
+                {errorMessage}
+              </div>
             </Box>
           </Paper>
       </ThemeProvider>
