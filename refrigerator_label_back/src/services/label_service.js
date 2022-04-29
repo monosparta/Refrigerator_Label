@@ -5,7 +5,7 @@ find_label_all = async () => {
     const request = await db.Labels.findAll({
         include: { model: db.Users ,attributes: ['name', 'mail']},
         order: [['id', 'ASC']],
-        attributes: [ 'id', 'date', 'label_id', 'remark']
+        attributes: [ 'id', 'date', 'label_id', 'note']
     })
     
     return request;
@@ -35,7 +35,7 @@ update_label = async (body) => {
         card_id: body.card_id,
         date: body.date,
         label_id: body.label_id,
-        remark: body.remark,
+        note: body.note,
     },
         {
             where: {
@@ -49,7 +49,6 @@ update_label = async (body) => {
 find_final_id = async () =>{
     const request = await db.Labels.findOne({
         order: [['id', 'DESC']],
-        limit: 1
     })
     return request;
 }
