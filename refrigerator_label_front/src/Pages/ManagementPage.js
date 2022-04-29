@@ -52,8 +52,8 @@ export default function ManagementPage() {
       .put("api/update_label", {
         card_id: "1255870309",
         date: "2022-04-13 14:13:35",
-        date_id: "0413002",
-        remark: "cola",
+        label_id: "0413002",
+        note: "cola",
         id: "2",
       })
       .then((response) => {
@@ -108,12 +108,12 @@ export default function ManagementPage() {
   };
 
   const handleDelete = () => {
-    const delete_data = getData("date_id");
+    const delete_data = getData("label_id");
     
     axios
-      .delete("api/delete_label", {
+      .delete("api/label", {
         headers: { token: localStorage.getItem("login_token") },
-        data: { date_id: delete_data },
+        data: { label_id: delete_data },
       })
       .then((response) => {
         console.log(response);
@@ -159,7 +159,7 @@ export default function ManagementPage() {
       sortable: false,
     },
     {
-      field: "date_id",
+      field: "label_id",
       headerName: "ID",
       width: 110,
       disableColumnMenu: true,
