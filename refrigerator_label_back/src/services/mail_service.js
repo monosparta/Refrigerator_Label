@@ -62,7 +62,7 @@ auto_send_mail = async (req,res) => {
         from: process.env.MAIL_USER,
         to: all_mail,
         subject: '冰箱物品管理系統提醒',
-        text: '您的物品已經在mono共同工作室冰箱中放置超過七天，提醒您請盡快取回。'
+        text: '\n\n\n'+'您的物品已經在mono共同工作室冰箱中放置超過七天，提醒您請盡快取回。'+'\n\n\n\n'+'此封信件為冰箱小精靈自動發送，請勿直接回覆。'
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
