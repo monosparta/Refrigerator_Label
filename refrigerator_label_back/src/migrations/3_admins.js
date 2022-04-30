@@ -17,6 +17,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      mail: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       token: {
         type: Sequelize.STRING,
       },

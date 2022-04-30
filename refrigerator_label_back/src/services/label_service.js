@@ -5,16 +5,16 @@ find_label_all = async () => {
     const request = await db.Labels.findAll({
         include: { model: db.Users ,attributes: ['name', 'mail']},
         order: [['id', 'ASC']],
-        attributes: [ 'id', 'date', 'date_id', 'remark']
+        attributes: [ 'id', 'date', 'label_id', 'note']
     })
     
     return request;
 }
 
-delete_label = async (date_id) => {
+delete_label = async (label_id) => {
     const request = await db.Labels.destroy({
         where: {
-            date_id: date_id,
+            label_id: label_id,
         }
     })
     return request;
@@ -30,15 +30,12 @@ time_out = async () => {
     return request;
 }
 
-
-
-
 update_label = async (body) => {
     const request = await db.Labels.update({
         card_id: body.card_id,
         date: body.date,
-        date_id: body.date_id,
-        remark: body.remark,
+        label_id: body.label_id,
+        note: body.note,
     },
         {
             where: {
@@ -52,12 +49,11 @@ update_label = async (body) => {
 find_final_id = async () =>{
     const request = await db.Labels.findOne({
         order: [['id', 'DESC']],
-        limit: 1
     })
     return request;
 }
 
-create_labels = async (body) => {
+create_label = async (body) => {
     let array = body.date.split(" ")
     let date = array[0].split("-")
 
@@ -67,14 +63,14 @@ create_labels = async (body) => {
         }
     })
 
-    const create_labels = await db.Labels.create({
+    const create_label = await db.Labels.create({
         card_id: body.card_id,
         date: body.date,
-        date_id: date[1] + date[2] + body.data_id
+        label_id: date[1] + date[2] + body.data_id
     })
 
-    create_labels.name = user.name
-    return create_labels;
+    create_label.name = user.name
+    return create_label;
 
 }
 
@@ -82,13 +78,11 @@ create_labels = async (body) => {
 
 
 module.exports = {
-    create_labels,
+    create_label,
     find_label_all,
     delete_label,
     update_label,
     time_out,
     find_final_id
-
-
 }
 

@@ -11,7 +11,7 @@ is_user = async (body) => {
     return is_user;
 }
 
-care_id_find_mail = async (body)=> {
+card_id_find_mail = async (body)=> {
     const request = await db.Users.findOne({
         attributes: ['mail'],
         where: { card_id:body },
@@ -20,15 +20,14 @@ care_id_find_mail = async (body)=> {
     return request;
 }
 
-create_users = async (body) => {
-    const return_create_users = await db.Users.create({
+create_user = async (body) => {
+    const user = await db.Users.create({
         card_id:body.card_id,
         name:body.name,
         mail:body.mail,
         phone:body.phone,
     })
-    return return_create_users;
-
+    return user;
 }
 
 select_user_all = async () => {
@@ -40,7 +39,7 @@ select_user_all = async () => {
 
 module.exports = {
     select_user_all,
-    create_users,
+    create_user,
     is_user,
-    care_id_find_mail
+    card_id_find_mail
 }

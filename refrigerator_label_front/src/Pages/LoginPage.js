@@ -94,15 +94,10 @@ function Login() {
               Sign in
             </Typography>
           </div>
-          <Box
-            component="form"
-            onSubmit={onHandleLogin}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={onHandleLogin} noValidate>
             <div className="Account">
               <Typography>帳號 Username or Email</Typography>
-              <TextField
+              <OutlinedInput
                 margin="normal"
                 fullWidth
                 required
@@ -112,34 +107,42 @@ function Login() {
                 autoComplete="username"
                 autoFocus
                 onChange={onChangeUsername}
+                sx={{
+                  marginTop: 1,
+                }}
               />
             </div>
-            <FormControl
-              sx={{ width: "480px" }}
-              variant="outlined"
-              className="Password"
-            >
-              <Typography>密碼 Password</Typography>
-              <TextField
-                placeholder="password"
-                id="password"
-                type={values.showPassword ? "text" : "password"}
-                value={values.password}
-                onChange={onChangePassword("password")}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            <div className="Password">
+              <FormControl sx={{ width: "480px" }} variant="outlined">
+                <Typography>密碼 Password</Typography>
+                <OutlinedInput
+                  sx={{
+                    marginTop: 1,
+                  }}
+                  placeholder="password"
+                  id="password"
+                  type={values.showPassword ? "text" : "password"}
+                  value={values.password}
+                  onChange={onChangePassword("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {values.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </div>
             <div className="Keeplogin">
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -149,12 +152,11 @@ function Login() {
             <Button
               type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
               className="ButtonLogin"
               color="Button"
               disableElevation
             >
-              <Typography variant="h5" color="white" fontWeight={500}>
+              <Typography variant="h5" color="white" fontWeight={540}>
                 立即登入
               </Typography>
             </Button>

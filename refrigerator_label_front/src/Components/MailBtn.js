@@ -16,8 +16,6 @@ import {
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { blue } from "@mui/material/colors";
-import { height } from "@mui/system";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -39,9 +37,6 @@ export default function ResponsiveDialog(props) {
   };
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleClose2 = () => {
-    setState({ ...state, open: false });
   };
 
   const [chipData, setChipData] = React.useState([
