@@ -81,88 +81,85 @@ function Login() {
   return (
     <div className="Login">
       <ThemeProvider theme={theme}>
-          <Paper
-            className="login"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+        <Paper
+          className="login"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div className="SigninTittle">
+            <Typography component="h1" variant="h4">
+              Sign in
+            </Typography>
+          </div>
+          <Box
+            component="form"
+            onSubmit={onHandleLogin}
+            noValidate
+            sx={{ mt: 1 }}
           >
-            <div className="SigninTittle">
-              <Typography component="h1" variant="h4">
-                Sign in
-              </Typography>
+            <div className="Account">
+              <Typography>帳號 Username or Email</Typography>
+              <TextField
+                margin="normal"
+                fullWidth
+                required
+                id="username"
+                placeholder="user@example.com"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                onChange={onChangeUsername}
+              />
             </div>
-            <Box
-              component="form"
-              onSubmit={onHandleLogin}
-              noValidate
-              sx={{ mt: 1 }}
+            <FormControl
+              sx={{ width: "480px" }}
+              variant="outlined"
+              className="Password"
             >
-              <div className="Account">
-                <Typography>帳號 Username or Email</Typography>
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  required
-                  id="username"
-                  placeholder="User@gmail.com"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  onChange={onChangeUsername}
-                />
-              </div>
-              <FormControl
-                sx={{ width: "480px" }}
-                variant="outlined"
-                className="Password"
-              >
-                <Typography>密碼 Password</Typography>
-                <OutlinedInput
-                  placeholder="Password"
-                  id="password"
-                  type={values.showPassword ? "text" : "password"}
-                  value={values.password}
-                  onChange={onChangePassword("password")}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <div className="Keeplogin">
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="保持登入"
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                className="ButtonLogin"
-                color="Button"
-              >
-                <Typography variant="h5" color="white" fontWeight={500}>
-                  立即登入
-                </Typography>
-              </Button>
-            </Box>
-          </Paper>
+              <Typography>密碼 Password</Typography>
+              <TextField
+                placeholder="password"
+                id="password"
+                type={values.showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={onChangePassword("password")}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <div className="Keeplogin">
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="保持登入"
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              className="ButtonLogin"
+              color="Button"
+              disableElevation
+            >
+              <Typography variant="h5" color="white" fontWeight={500}>
+                立即登入
+              </Typography>
+            </Button>
+          </Box>
+        </Paper>
       </ThemeProvider>
     </div>
   );

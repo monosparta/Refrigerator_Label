@@ -4,7 +4,7 @@ import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import { Button, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, textAlign } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
@@ -109,7 +109,7 @@ export default function ManagementPage() {
 
   const handleDelete = () => {
     const delete_data = getData("date_id");
-    
+
     axios
       .delete("api/delete_label", {
         headers: { token: localStorage.getItem("login_token") },
@@ -228,7 +228,7 @@ export default function ManagementPage() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={1500} 
+        autoHideDuration={1500}
         onClose={handleClose}
         key={vertical + horizontal}
       >
