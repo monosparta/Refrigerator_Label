@@ -71,7 +71,7 @@ function Login() {
       })
       .then((response) => {
         localStorage.setItem("login_token", response["data"]["token"]);
-        navigate("/ManageMentPage");
+        navigate("/ManagementPage");
       })
       .catch((error) => {
         console.log(error);

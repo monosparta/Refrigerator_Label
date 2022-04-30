@@ -95,7 +95,7 @@ export default function ManagementPage() {
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
 
-  const getData = (field) => {
+  const getSelectData = (field) => {
     const select_data = [];
     rowData.forEach(function (each_label) {
       select_data_id.forEach(function (select_label_id) {
@@ -108,7 +108,7 @@ export default function ManagementPage() {
   };
 
   const handleDelete = () => {
-    const delete_data = getData("label_id");
+    const delete_data = getSelectData("label_id");
 
     axios
       .delete("api/label", {
@@ -124,14 +124,25 @@ export default function ManagementPage() {
     loadingData();
   };
 
-  const handleSendMail = (mail_content) => {
-    const mail_data = getData("mail");
+  const handleMailPeople = () => {
+    const get_mail_people = getSelectData("name");
+    const get_mail_label_id = getSelectData("label_id");
+    const get_mail_data = getSelectData("mail");
+    const people = [];
 
+    for (let count = 0; count < get_mail_people.length; count++) {
+      people.push({ key: count, label: get_mail_people[count]+get_mail_label_id[count], mail:get_mail_data[count]});
+    }
+    return people;
+  };
+
+  const handleSendMail = (mail_users,mail_content) => {
+   
     axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
         params: {
-          users: mail_data,
+          users: mail_users,
           subject: "Mono冰箱主動提醒通知",
           text: mail_content,
         },
@@ -142,15 +153,6 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error.response.data["message"]);
       });
-  };
-
-  const handleMailPeople = () => {
-    const get_mail_people = getData("name");
-    const people = [];
-    for (let count = 0; count < get_mail_people.length; count++) {
-      people.push({ key: count, label: get_mail_people[count] });
-    }
-    return people;
   };
 
   // data grid columns definition
@@ -177,7 +179,7 @@ export default function ManagementPage() {
       disableColumnMenu: true,
     },
     {
-      field: "remark",
+      field: "note",
       type: "actions",
       headerName: "備註",
       width: 200,

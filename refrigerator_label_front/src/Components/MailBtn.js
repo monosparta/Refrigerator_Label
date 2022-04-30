@@ -19,31 +19,33 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [mailContent, setMailContent] = React.useState();
+  const [chipData, setChipData] = React.useState([]);
+
   const handleClickOpen = () => {
     setOpen(true);
+    const mail_people = props.handleMailPeople();
+    setChipData(mail_people);
   };
-  const [state, setState] = React.useState({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
 
-  const sendMail = (e, newState) => {
+  const sendMail = (e) => {
     e.preventDefault();
-    props.handleMail();
-    setState({ open: true, ...newState });
+    let mail_users = "";
+    chipData.forEach(function (item) {
+      mail_users += item["mail"] + ",";
+    });
+    props.handleSendMail(mail_users, mailContent);
     setOpen(false);
-    console.log("SEND");
   };
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: "Corbin" },
-    { key: 1, label: "Gary" },
-    { key: 2, label: "Pohan" },
-  ]);
+  const onChangeContent = (e) => {
+    const mail_content = e.target.value;
+    setMailContent(mail_content);
+  };
 
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
@@ -135,10 +137,11 @@ export default function ResponsiveDialog(props) {
                 </Typography>
                 <div className="contentBox">
                   <TextareaAutosize
-                    className="Message"
-                    id=""
+                    className="mail_content"
+                    id="mail_content"
                     placeholder="請輸入提醒內容"
-                    name="message"
+                    onChange={onChangeContent}
+                    name="mail_content"
                     style={{ height: 100, width: 300 }}
                   />
                 </div>
