@@ -8,7 +8,7 @@ module.exports = {
         "port": process.env.DB_PORT,
         "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
-        "logging": true,
+        //"logging": false,
     },
     "test": {
         "username": process.env.DB_USERNAME,
@@ -18,7 +18,7 @@ module.exports = {
         "port": process.env.DB_PORT,
         "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
-        "logging": true, 
+        //"logging": false, 
     },
     "production": {
         "username": process.env.DB_USERNAME,
@@ -28,6 +28,6 @@ module.exports = {
         "port": process.env.DB_PORT,
         "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
-        "logging": true,
+        //"logging": false,
     }
 };

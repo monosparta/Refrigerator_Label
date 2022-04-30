@@ -21,15 +21,15 @@ manual_send_mail = async (mail) => {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      return res.status(500).json({ message: error });
+      console.log(error);
     } else {
-      return res.status(200).json({ message: "寄信成功" });
+      console.log(info);
     }
   });
   transporter.close();
 };
 
-auto_send_mail = async (req, res) => {
+auto_send_mail = async () => {
   const time = await label_service.time_out();
   let mail_users = "";
   for (let i = 0; i < time.length; i++) {
@@ -69,9 +69,9 @@ auto_send_mail = async (req, res) => {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      return res.status(500).json({ message: error });
+      console.log(error);
     } else {
-      return res.status(200).json({ message: "寄信成功" });
+      console.log(info);
     }
   });
   transporter.close();
