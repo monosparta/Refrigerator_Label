@@ -6,9 +6,9 @@ module.exports = {
         "database": process.env.DB_DATABASE,
         "host": process.env.DB_HOST,
         "port": process.env.DB_PORT,
-        "logging": process.env.DB_LOGGING,
         "dialect": process.env.DB_DIALECT,
         "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
+        "logging": true,
     },
     "test": {
         "username": process.env.DB_USERNAME,
@@ -16,9 +16,9 @@ module.exports = {
         "database": process.env.DB_DATABASE,
         "host": process.env.DB_HOST,
         "port": process.env.DB_PORT,
-        "logging": process.env.DB_LOGGING,
         "dialect": process.env.DB_DIALECT,
-        "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}} 
+        "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
+        "logging": true, 
     },
     "production": {
         "username": process.env.DB_USERNAME,
@@ -26,8 +26,8 @@ module.exports = {
         "database": process.env.DB_DATABASE,
         "host": process.env.DB_HOST,
         "port": process.env.DB_PORT,
-        "logging": process.env.DB_LOGGING,
         "dialect": process.env.DB_DIALECT,
-        "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}} 
+        "dialectOptions": {"ssl": {"require": true,"rejectUnauthorized": false}},
+        "logging": true,
     }
 };
