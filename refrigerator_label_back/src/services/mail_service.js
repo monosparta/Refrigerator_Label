@@ -30,7 +30,7 @@ manual_send_mail = async (mail) => {
 };
 
 auto_send_mail = async (req, res) => {
-  const time = await label_service.time_out();
+  const time = await label_service.time();
   let mail_users = "";
   for (let i = 0; i < time.length; i++) {
     let array = time[i]["date"].split(" ");
