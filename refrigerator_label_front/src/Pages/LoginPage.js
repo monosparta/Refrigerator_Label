@@ -17,6 +17,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import "../App.css";
 
 function Login() {
@@ -29,8 +30,6 @@ function Login() {
       },
     },
   });
-
-  const [errorMessage, setErrorMessage] =  React.useState();
 
   const [username, setUsername] = React.useState("");
 
@@ -75,54 +74,52 @@ function Login() {
         navigate("/ManagementPage");
       })
       .catch((error) => {
-        setErrorMessage(error.response.data["message"]);
+        console.log(error);
       });
   };
 
   return (
     <div className="Login">
       <ThemeProvider theme={theme}>
-          <Paper
-            className="login"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div className="SigninTittle">
-              <Typography component="h1" variant="h4">
-                Sign in
-              </Typography>
+        <Paper
+          className="login"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div className="SigninTittle">
+            <Typography component="h1" variant="h4">
+              Sign in
+            </Typography>
+          </div>
+          <Box component="form" onSubmit={onHandleLogin} noValidate>
+            <div className="Account">
+              <Typography>帳號 Username or Email</Typography>
+              <OutlinedInput
+                margin="normal"
+                fullWidth
+                required
+                id="username"
+                placeholder="user@example.com"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                onChange={onChangeUsername}
+                sx={{
+                  marginTop: 1,
+                }}
+              />
             </div>
-            <Box
-              component="form"
-              onSubmit={onHandleLogin}
-              noValidate
-              sx={{ mt: 1 }}
-            >
-              <div className="Account">
-                <Typography>帳號 Username or Email</Typography>
-                <TextField
-                  margin="normal"
-                  fullWidth
-                  required
-                  id="username"
-                  placeholder="User@gmail.com"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  onChange={onChangeUsername}
-                />
-              </div>
-              <FormControl
-                sx={{ width: "480px" }}
-                variant="outlined"
-                className="Password"
-              >
+            <div className="Password">
+              <FormControl sx={{ width: "480px" }} variant="outlined">
                 <Typography>密碼 Password</Typography>
                 <OutlinedInput
-                  placeholder="Password"
+                  sx={{
+                    marginTop: 1,
+                  }}
+                  placeholder="password"
                   id="password"
                   type={values.showPassword ? "text" : "password"}
                   value={values.password}
@@ -145,28 +142,26 @@ function Login() {
                   }
                 />
               </FormControl>
-              <div className="Keeplogin">
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="保持登入"
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                className="ButtonLogin"
-                color="Button"
-              >
-                <Typography variant="h5" color="white" fontWeight={500}>
-                  立即登入
-                </Typography>
-              </Button>
-              <div className="error" style={{ color: "red" }}> 
-                {errorMessage}
-              </div>
-            </Box>
-          </Paper>
+            </div>
+            <div className="Keeplogin">
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="保持登入"
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              className="ButtonLogin"
+              color="Button"
+              disableElevation
+            >
+              <Typography variant="h5" color="white" fontWeight={540}>
+                立即登入
+              </Typography>
+            </Button>
+          </Box>
+        </Paper>
       </ThemeProvider>
     </div>
   );

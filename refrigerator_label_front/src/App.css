@@ -1,3 +1,9 @@
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 .App {
   height: 100%;
   width: 100%;
@@ -19,7 +25,7 @@
   background-color: #f5f5f5;
 }
 
-.SigninTittle{
+.SigninTittle {
   position: relative;
   width: 500px;
   /* border: solid 1px blue; */
@@ -62,7 +68,7 @@
   background-color: #ffff;
 }
 
-.login{
+.login {
   position: relative;
   width: 550px;
   height: 500px;
@@ -94,7 +100,23 @@
   width: 100%;
   height: 100%;
 }
-.DataGrid{
+.owner{
+  /* border:solid 1px blue; */
+  display: flex;
+}
+.ownertext{
+  position: relative;
+  padding-top: 10px;
+  /* border: solid 1px khaki; */
+}
+.mailcontent{
+  position: relative;
+  display: flex;
+  width: 400px;
+  height: 150px;
+  /* border: solid 1px green; */
+}
+.DataGrid {
   position: relative;
   width: 100vw;
   height: 80vh;
@@ -106,7 +128,7 @@
 .HomeBody {
   position: relative;
 }
-.BtnG{
+.BtnG {
   position: relative;
   width: 228px;
   height: 36px;
@@ -116,7 +138,7 @@
 
 .Remark {
   width: 140px;
-  height: 35px; 
+  height: 35px;
 }
 .MailBox {
   position: relative;
@@ -139,76 +161,63 @@
   margin-top: 10px;
   /* border: solid rgb(9, 106, 197) 1px; */
 }
-.Chips {
+.chips {
   position: relative;
-  width: 320px;
+  width: 280px;
   height: 50px;
-  margin-left: 20px;
+  margin-left: 25px;
   /* border: solid rgb(203, 225, 4) 1px; */
 }
-.Message {
+.contentBox {
   position: relative;
-  top: 2.5vh;
-  margin-left: 5px;
-}
-.TextBox {
-  position: relative;
-  width: 425px;
-  top: 15px;
+  width: 320px;
+  height: 120px;
+  top: 10px;
   margin-left: 4px;
   /* border: solid rgb(6, 4, 6) 1px; */
 }
-.MContent {
+.Message{
   position: relative;
-  float: left;
-  top: 20px;
+  top: 10px;
+  left: 10px;
 }
-.MText {
+.ButtonGroup {
   position: relative;
-  left: 22px;
-  width: 380px;
-  /* border: solid rgb(242, 34, 180) 1px; */
-}
-.ButtonG {
-  position: relative;
-  width: 220px;
-  left: 80px;
+  display: flex;
+  left: -80px;
+  width: 250px;
   height: fit-content;
   /* border: solid rgb(242, 34, 180) 1px; */
 }
-.BtnSend{
-  width: 108px;
-  height: 36px;
+.BtnNosend {
+  position: relative;
+  left: 10px;
 }
-.BtnNosend{
-  width: 108px;
-  height: 36px;
-}
-.Diacontent{
+.Diacontent {
   position: relative;
   margin: 48px 50px;
   /* border: solid 1px rgb(27, 12, 235); */
 }
-.DTittle{
+.DTittle {
   position: relative;
   text-align: center;
   /* border: solid 1px violet; */
 }
-.BtnGroup{
+.BtnGroup {
   display: flex;
 }
-.BtnCancel{
+.BtnCancel {
   position: relative;
 }
-.BtnNo{
+.BtnNo {
   position: relative;
   margin-left: 12px;
   margin-right: 0;
 }
-.Alert{
+.Alert {
   position: relative;
   margin-top: 12px;
 }
-.BtnOK{
+.BtnOK {
   position: relative;
 }

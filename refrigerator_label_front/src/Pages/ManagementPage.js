@@ -4,7 +4,7 @@ import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import { Button, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, textAlign } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
@@ -95,7 +95,7 @@ export default function ManagementPage() {
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
 
-  const getData = (field) => {
+  const getSelectData = (field) => {
     const select_data = [];
     rowData.forEach(function (each_label) {
       select_data_id.forEach(function (select_label_id) {
@@ -108,8 +108,8 @@ export default function ManagementPage() {
   };
 
   const handleDelete = () => {
-    const delete_data = getData("label_id");
-    
+    const delete_data = getSelectData("label_id");
+
     axios
       .delete("api/label", {
         headers: { token: localStorage.getItem("login_token") },
@@ -124,13 +124,28 @@ export default function ManagementPage() {
     loadingData();
   };
 
-  const handleSendMail = (mail_content) => {
-    const mail_data = getData("mail");
+  const handleMailPeople = () => {
+    const get_mail_people = getSelectData("name");
+    const get_mail_label_id = getSelectData("label_id");
+    const get_mail_data = getSelectData("mail");
+    const people = [];
 
+    for (let count = 0; count < get_mail_people.length; count++) {
+      people.push({ key: count, label: get_mail_people[count]+get_mail_label_id[count], mail:get_mail_data[count]});
+    }
+    return people;
+  };
+
+  const handleSendMail = (mail_users,mail_content) => {
+   
     axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
-        params: { users: mail_data, subject: "Mono冰箱主動提醒通知", text: mail_content },
+        params: {
+          users: mail_users,
+          subject: "Mono冰箱主動提醒通知",
+          text: mail_content,
+        },
       })
       .then((response) => {
         console.log(response);
@@ -138,15 +153,6 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error.response.data["message"]);
       });
-  };
-
-  const handleMailPeople = () => {
-    const get_mail_people = getData("name");
-    const people = []
-    for (let count = 0; count < get_mail_people.length; count++) {
-      people.push({ key: count, label: get_mail_people[count] },)
-    }
-    return people
   };
 
   // data grid columns definition
@@ -173,7 +179,7 @@ export default function ManagementPage() {
       disableColumnMenu: true,
     },
     {
-      field: "remark",
+      field: "note",
       type: "actions",
       headerName: "備註",
       width: 200,
@@ -189,7 +195,10 @@ export default function ManagementPage() {
       headerName: (
         <Box sx={{ flexGrow: 1 }} display="flex">
           <DeleteBtn handleDelete={handleDelete} />
-          <MailBtn handleSendMail={handleSendMail} handleMailPeople={handleMailPeople}/>
+          <MailBtn
+            handleSendMail={handleSendMail}
+            handleMailPeople={handleMailPeople}
+          />
         </Box>
       ),
       width: 100,
@@ -237,7 +246,7 @@ export default function ManagementPage() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={1500} 
+        autoHideDuration={1500}
         onClose={handleClose}
         key={vertical + horizontal}
       >

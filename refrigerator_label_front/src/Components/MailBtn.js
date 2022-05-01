@@ -11,52 +11,41 @@ import {
   Divider,
   Chip,
   styled,
-  Snackbar,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MuiAlert from "@mui/material/Alert";
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [mailContent, setMailContent] =  React.useState();
+  const [mailContent, setMailContent] = React.useState();
+  const [chipData, setChipData] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
-    const mail_people = props.handleMailPeople()
-    setChipData(mail_people)
+    const mail_people = props.handleMailPeople();
+    setChipData(mail_people);
   };
-  
-  const [state, setState] = React.useState({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
-
-  const { vertical, horizontal } = state;
 
   const sendMail = (e) => {
     e.preventDefault();
-    props.handleSendMail(mailContent);
+    let mail_users = "";
+    chipData.forEach(function (item) {
+      mail_users += item["mail"] + ",";
+    });
+    props.handleSendMail(mail_users, mailContent);
     setOpen(false);
   };
+
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleClose2 = () => {
-    setState({ ...state, open: false });
   };
 
   const onChangeContent = (e) => {
     const mail_content = e.target.value;
     setMailContent(mail_content);
   };
-
-  const [chipData, setChipData] = React.useState([]);
 
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
@@ -82,131 +71,127 @@ export default function ResponsiveDialog(props) {
           <EmailIcon color="Button" />
         </IconButton>
       </ThemeProvider>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <form>
-          <div className="MailTittle">
-            <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
-              寄送到期提醒信件
-            </Typography>
-          </div>
-          <div className="MailBox">
-            <div className="User">
-              <div className="Belone">
-                <Typography>物品所屬人</Typography>
-              </div>
-              <div className="Chips">
-                <Paper
-                  type="email"
-                  className="form-control"
-                  placeholder="garyopen1876@gmail.com"
-                  name="email"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                    listStyle: "none",
-                    p: 0.5,
-                    m: 0,
-                    height: 40,
-                  }}
-                  component="ul"
-                  elevation={0}
+      <Dialog open={open} onClose={handleClose}>
+        <Paper sx={{ width: 440, height: 300 }}>
+          <form>
+            <DialogTitle>
+              <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
+                寄送到期提醒信件
+              </Typography>
+            </DialogTitle>
+            <DialogContent sx={{ height: 160 }}>
+              <div className="owner" display="flex">
+                <Typography
+                  variant="h7"
+                  sx={{ fontWeight: 700 }}
+                  className="ownertext"
                 >
-                  {chipData.map((data) => {
-                    let icon;
-                    return (
-                      <ListItem key={data.key}>
-                        <Chip
-                          icon={icon}
-                          label={data.label}
-                          onDelete={
-                            data.label === "React"
-                              ? undefined
-                              : handleDelete(data)
-                          }
-                        />
-                      </ListItem>
-                    );
-                  })}
-                </Paper>
-              </div>
-            </div>
-            <Divider variant="inset" />
-            <div className="TextBox">
-              <div className="MContent">
-                <Typography>提醒內容</Typography>
-              </div>
-              <div className="MText">
-                <TextareaAutosize
-                  className="mail_content"
-                  id="mail_content"
-                  placeholder="請輸入提醒內容"
-                  onChange={onChangeContent}
-                  name="mail_content"
-                  style={{ height: 100, width: 300 }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="ButtonG">
-            <ThemeProvider theme={theme}>
-              <DialogActions>
-                <Button
-                  type="submit"
-                  onClick={sendMail}
-                  disableElevation
-                  variant="contained"
-                  color="Button"
-                  style={{
-                    maxWidth: "88px",
-                    maxHeight: "36px",
-                    minWidth: "88px",
-                    minHeight: "36px",
-                  }}
-                >
-                  <Typography
-                    variant="h7"
-                    color="white"
-                    sx={{ fontWeight: 500 }}
+                  物品所屬人
+                </Typography>
+                <div className="chips">
+                  <Paper
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    sx={{
+                      display: "flex",
+                      justifyContent: "left",
+                      flexWrap: "wrap",
+                      listStyle: "none",
+                      p: 0.5,
+                      m: 0,
+                      height: 40,
+                      width: 300,
+                      // border: 1,
+                    }}
+                    component="ul"
+                    elevation={0}
                   >
-                    確認
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={handleClose}
-                  autoFocus
-                  variant="outlined"
-                  color="Button"
-                  className="BtnNosend"
-                  style={{
-                    maxWidth: "88px",
-                    maxHeight: "36px",
-                    minWidth: "88px",
-                    minHeight: "36px",
-                  }}
+                    {chipData.map((data) => {
+                      let icon;
+                      return (
+                        <ListItem key={data.key}>
+                          <Chip
+                            icon={icon}
+                            label={data.label}
+                            onDelete={
+                              data.label === "React"
+                                ? undefined
+                                : handleDelete(data)
+                            }
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </Paper>
+                  <Divider sx={{ width: 300 }} />
+                </div>
+              </div>
+              <div className="mailcontent" display="flex">
+                <Typography
+                  variant="h7"
+                  sx={{ fontWeight: 700 }}
+                  className="ownertext"
                 >
-                  <Typography variant="h7">取消</Typography>
-                </Button>
-              </DialogActions>
-            </ThemeProvider>
-          </div>
-        </form>
+                  提醒內容
+                </Typography>
+                <div className="contentBox">
+                  <TextareaAutosize
+                    className="mail_content"
+                    id="mail_content"
+                    placeholder="請輸入提醒內容"
+                    onChange={onChangeContent}
+                    name="mail_content"
+                    style={{ height: 100, width: 300 }}
+                  />
+                </div>
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <div className="ButtonGroup">
+                <ThemeProvider theme={theme}>
+                  <Button
+                    type="submit"
+                    onClick={sendMail}
+                    disableElevation
+                    variant="contained"
+                    color="Button"
+                    style={{
+                      maxWidth: "108px",
+                      maxHeight: "36px",
+                      minWidth: "108px",
+                      minHeight: "36px",
+                    }}
+                  >
+                    <Typography
+                      variant="h7"
+                      color="white"
+                      sx={{ fontWeight: 500 }}
+                    >
+                      確認
+                    </Typography>
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    className="BtnNosend"
+                    disableElevation
+                    variant="outlined"
+                    color="Button"
+                    style={{
+                      maxWidth: "108px",
+                      maxHeight: "36px",
+                      minWidth: "108px",
+                      minHeight: "36px",
+                    }}
+                  >
+                    取消
+                  </Button>
+                </ThemeProvider>
+              </div>
+            </DialogActions>
+          </form>
+        </Paper>
       </Dialog>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        autoHideDuration={1500}
-        onClose={handleClose2}
-        key={vertical + horizontal}
-      >
-        <Alert onClose={handleClose2} severity="success" sx={{ width: "100%" }}>
-          寄信成功
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
