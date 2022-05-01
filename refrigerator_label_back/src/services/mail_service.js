@@ -29,13 +29,8 @@ manual_send_mail = async (mail) => {
   transporter.close();
 };
 
-<<<<<<< HEAD
 auto_send_mail = async (req, res) => {
   const time = await label_service.time();
-=======
-auto_send_mail = async () => {
-  const time = await label_service.time_out();
->>>>>>> 5512a115bd7cfaf2eb7936cd443bb10098506e9e
   let mail_users = "";
   for (let i = 0; i < time.length; i++) {
     let array = time[i]["date"].split(" ");
