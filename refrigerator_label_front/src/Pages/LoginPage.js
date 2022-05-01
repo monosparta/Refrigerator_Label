@@ -14,6 +14,7 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
+import Grow from "@mui/material/Grow";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -44,6 +45,7 @@ function Login() {
     const username = e.target.value;
     setUsername(username);
   };
+  const [checked, setChecked] = React.useState(false);
 
   const [values, setValues] = React.useState({
     password: "",
@@ -75,6 +77,7 @@ function Login() {
       sethelperTextErrorP("密碼 Password");
       setInputError(true);
       setHidden(false);
+      setChecked((prev) => !prev);
     }
     axios
       .post("api/login", {
@@ -106,17 +109,19 @@ function Login() {
               Sign in
             </Typography>
           </div>
-          {!hidden?
-            <Alert severity="error" className="Alert" show="false">
-              <Typography
-                color="black"
-                variant="body2"
-                sx={{ fontWeight: 700, width: 420, height: 2 }}
-              >
-                非管理員身分，無法登入
-              </Typography>
-            </Alert>
-          :null}
+          {!hidden ? (
+            <Grow in={checked} {...(checked ? { timeout: 400 } : {})}>
+              <Alert severity="error" className="Alert" show="false">
+                <Typography
+                  color="black"
+                  variant="body2"
+                  sx={{ fontWeight: 700, width: 420, height: 2 }}
+                >
+                  非管理員身分，無法登入
+                </Typography>
+              </Alert>
+            </Grow>
+          ) : null}
           <Box component="form" onSubmit={onHandleLogin} noValidate>
             <div className="Account">
               <Typography>{helperTextCorrectA}</Typography>

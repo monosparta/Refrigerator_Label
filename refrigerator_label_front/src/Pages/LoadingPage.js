@@ -2,9 +2,6 @@ import { Typography } from "@mui/material";
 import Logo from "../Pictures/monologo.jpg";
 import "../App.css";
 
-
-
-
 function Loading() {
   return (
     <div className="Loading">
