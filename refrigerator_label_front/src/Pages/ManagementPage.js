@@ -4,7 +4,7 @@ import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
 import { Button, TextField, Typography } from "@mui/material";
-import { Box, textAlign } from "@mui/system";
+import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
@@ -131,13 +131,16 @@ export default function ManagementPage() {
     const people = [];
 
     for (let count = 0; count < get_mail_people.length; count++) {
-      people.push({ key: count, label: get_mail_people[count]+get_mail_label_id[count], mail:get_mail_data[count]});
+      people.push({
+        key: count,
+        label: get_mail_people[count] + get_mail_label_id[count],
+        mail: get_mail_data[count],
+      });
     }
     return people;
   };
 
-  const handleSendMail = (mail_users,mail_content) => {
-   
+  const handleSendMail = (mail_users, mail_content) => {
     axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },

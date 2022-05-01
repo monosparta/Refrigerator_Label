@@ -71,7 +71,7 @@
 .login {
   position: relative;
   width: 550px;
-  height: 500px;
+  height: 510px;
   top: 20vh;
   margin: 0 auto;
   /* border: solid 1px darkmagenta; */
@@ -173,7 +173,7 @@
   width: 320px;
   height: 120px;
   top: 10px;
-  margin-left: 4px;
+  margin-left: 12px;
   /* border: solid rgb(6, 4, 6) 1px; */
 }
 .Message{
