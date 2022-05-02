@@ -18,6 +18,9 @@ import Grow from "@mui/material/Grow";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Logo from "../Pictures/monologo.jpg";
+import LoadingScreen from "react-loading-screen";
+import { useEffect } from "react";
 
 import "../App.css";
 
@@ -78,6 +81,9 @@ function Login() {
       setInputError(true);
       setHidden(false);
       setChecked((prev) => !prev);
+    } else {
+      setInputError(false);
+      setHidden(true);
     }
     axios
       .post("api/login", {
@@ -92,106 +98,123 @@ function Login() {
         console.log(error);
       });
   };
+  const [isLoading, setisLoading] = React.useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setisLoading(false);
+    }, 2500);
+  }, []);
 
   return (
     <div className="Login">
-      <ThemeProvider theme={theme}>
-        <Paper
-          className="login"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <div className="SigninTittle">
-            <Typography component="h1" variant="h4">
-              Sign in
-            </Typography>
-          </div>
-          {!hidden ? (
-            <Grow in={checked} {...(checked ? { timeout: 400 } : {})}>
-              <Alert severity="error" className="Alert" show="false">
-                <Typography
-                  color="black"
-                  variant="body2"
-                  sx={{ fontWeight: 700, width: 420, height: 2 }}
-                >
-                  非管理員身分，無法登入
-                </Typography>
-              </Alert>
-            </Grow>
-          ) : null}
-          <Box component="form" onSubmit={onHandleLogin} noValidate>
-            <div className="Account">
-              <Typography>{helperTextCorrectA}</Typography>
-              <OutlinedInput
-                error={InputError}
-                fullWidth
-                required
-                id="username"
-                placeholder="user@example.com"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                onChange={onChangeUsername}
-                sx={{
-                  marginTop: 1,
-                }}
-              />
+      {isLoading ? (
+        <LoadingScreen
+          loading={true}
+          bgColor="#363f4e"
+          textColor="#ffff"
+          text="冰箱物品管理系統"
+          logoSrc={Logo}
+        />
+      ) : (
+        <ThemeProvider theme={theme}>
+          <Paper
+            className="login"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div className="SigninTittle">
+              <Typography component="h1" variant="h4">
+                Sign in
+              </Typography>
             </div>
-            <div className="Password">
-              <FormControl sx={{ width: "480px" }} variant="outlined">
-                <Typography>{helperTextCorrectP}</Typography>
+            {!hidden ? (
+              <Grow in={checked} {...(checked ? { timeout: 400 } : {})}>
+                <Alert severity="error" className="Alert" show="false">
+                  <Typography
+                    color="black"
+                    variant="body2"
+                    sx={{ fontWeight: 700, width: 420, height: 2 }}
+                  >
+                    非管理員身分，無法登入
+                  </Typography>
+                </Alert>
+              </Grow>
+            ) : null}
+            <Box component="form" onSubmit={onHandleLogin} noValidate>
+              <div className="Account">
+                <Typography>{helperTextCorrectA}</Typography>
                 <OutlinedInput
                   error={InputError}
+                  fullWidth
+                  required
+                  type="string"
+                  id="username"
+                  placeholder="user@example.com"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  onChange={onChangeUsername}
                   sx={{
                     marginTop: 1,
                   }}
-                  placeholder="password"
-                  id="password"
-                  type={values.showPassword ? "text" : "password"}
-                  value={values.password}
-                  onChange={onChangePassword("password")}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? (
-                          <VisibilityOff />
-                        ) : (
-                          <Visibility />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
                 />
-              </FormControl>
-            </div>
-            <div className="Keeplogin">
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="保持登入"
-              />
-            </div>
-            <Button
-              type="submit"
-              variant="contained"
-              className="ButtonLogin"
-              color="Button"
-              disableElevation
-            >
-              <Typography variant="h5" color="white" fontWeight={540}>
-                立即登入
-              </Typography>
-            </Button>
-          </Box>
-        </Paper>
-      </ThemeProvider>
+              </div>
+              <div className="Password">
+                <FormControl sx={{ width: "480px" }} variant="outlined">
+                  <Typography>{helperTextCorrectP}</Typography>
+                  <OutlinedInput
+                    error={InputError}
+                    sx={{
+                      marginTop: 1,
+                    }}
+                    placeholder="password"
+                    id="password"
+                    type={values.showPassword ? "text" : "password"}
+                    value={values.password}
+                    onChange={onChangePassword("password")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </div>
+              <div className="Keeplogin">
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="保持登入"
+                />
+              </div>
+              <Button
+                type="submit"
+                variant="contained"
+                className="ButtonLogin"
+                color="Button"
+                disableElevation
+              >
+                <Typography variant="h5" color="white" fontWeight={540}>
+                  立即登入
+                </Typography>
+              </Button>
+            </Box>
+          </Paper>
+        </ThemeProvider>
+      )}
     </div>
   );
 }

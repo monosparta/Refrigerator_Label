@@ -14,7 +14,7 @@ const token = localStorage.getItem("login_token");
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/" element={ <Load/> }/>
+      <Route path="/" element={ <Login/> }/>
       <Route path="/ManagementPage" element={ token ? ( <Management/> ) : ( <Navigate replace to="/" /> ) }/>
       <Route path="*" element={<NoFoundPage/>}/>
     </Routes>
