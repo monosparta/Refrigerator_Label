@@ -21,7 +21,7 @@ delete_label = async (label_id) => {
 
 }
 
-time_out = async () => {
+time = async () => {
     const request = await db.Labels.findAll({
         attributes: ['date','card_id']
     })
@@ -46,7 +46,7 @@ update_label = async (body) => {
     return request;
 }
 
-find_final_id = async () =>{
+last_id = async () =>{
     const request = await db.Labels.findOne({
         order: [['id', 'DESC']],
     })
@@ -82,7 +82,7 @@ module.exports = {
     find_label_all,
     delete_label,
     update_label,
-    time_out,
-    find_final_id
+    time,
+    last_id
 }
 

@@ -3,7 +3,6 @@ import axios from "../Axios.config";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
-  TextField,
   Button,
   Checkbox,
   FormControlLabel,
@@ -13,7 +12,9 @@ import {
   FormControl,
   Box,
   Paper,
+  Alert,
 } from "@mui/material";
+import Grow from "@mui/material/Grow";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -32,11 +33,19 @@ function Login() {
   });
 
   const [username, setUsername] = React.useState("");
-
+  const [helperTextCorrectA, sethelperTextErrorA] = React.useState(
+    "帳號 Username or Email"
+  );
+  const [helperTextCorrectP, sethelperTextErrorP] =
+    React.useState("密碼 Password");
+  const [num] = React.useState("");
+  const [InputError, setInputError] = React.useState(false);
+  const [hidden, setHidden] = React.useState(true);
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
   };
+  const [checked, setChecked] = React.useState(false);
 
   const [values, setValues] = React.useState({
     password: "",
@@ -63,7 +72,13 @@ function Login() {
 
   const onHandleLogin = (e) => {
     e.preventDefault();
-
+    if (num === "") {
+      sethelperTextErrorA("帳號 Username or Email");
+      sethelperTextErrorP("密碼 Password");
+      setInputError(true);
+      setHidden(false);
+      setChecked((prev) => !prev);
+    }
     axios
       .post("api/login", {
         username: username,
@@ -94,11 +109,24 @@ function Login() {
               Sign in
             </Typography>
           </div>
+          {!hidden ? (
+            <Grow in={checked} {...(checked ? { timeout: 400 } : {})}>
+              <Alert severity="error" className="Alert" show="false">
+                <Typography
+                  color="black"
+                  variant="body2"
+                  sx={{ fontWeight: 700, width: 420, height: 2 }}
+                >
+                  非管理員身分，無法登入
+                </Typography>
+              </Alert>
+            </Grow>
+          ) : null}
           <Box component="form" onSubmit={onHandleLogin} noValidate>
             <div className="Account">
-              <Typography>帳號 Username or Email</Typography>
+              <Typography>{helperTextCorrectA}</Typography>
               <OutlinedInput
-                margin="normal"
+                error={InputError}
                 fullWidth
                 required
                 id="username"
@@ -114,8 +142,9 @@ function Login() {
             </div>
             <div className="Password">
               <FormControl sx={{ width: "480px" }} variant="outlined">
-                <Typography>密碼 Password</Typography>
+                <Typography>{helperTextCorrectP}</Typography>
                 <OutlinedInput
+                  error={InputError}
                   sx={{
                     marginTop: 1,
                   }}
