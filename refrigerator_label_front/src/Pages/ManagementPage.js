@@ -6,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
+import { useNavigate } from "react-router-dom";
 import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
     flexDirection: "column-reverse",
   },
 });
+
 const theme = createTheme({
   palette: {
     Button: {
@@ -25,6 +27,7 @@ const theme = createTheme({
     },
   },
 });
+
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
@@ -35,27 +38,41 @@ const localizedTextsMap = {
   columnMenuShowColumns: "顯示此列",
   footerRowSelected: (count) => `已選擇 ${count} 項 `,
 };
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function ManagementPage() {
   const classes = useStyles();
+  let navigate = React.useRef(useNavigate());
+
+  // label_data
+  const [rowData, setRowData] = React.useState([]);
+  // select_data_id
+  const [select_data_id, setSelectDataId] = React.useState([]);
+
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
 
-  const handleClick = (newState) => () => {
-    axios
-      .put("api/update_label", {
-        card_id: "1255870309",
-        date: "2022-04-13 14:13:35",
-        label_id: "0413002",
-        note: "cola",
-        id: "2",
-      })
+  const [note, setNote] = React.useState("");
+
+  const handleUpdate = (id, newState) => async () => {
+    await axios
+      .put(
+        "api/update_label",
+        {
+          card_id: "1255870309",
+          date: "2022-04-13 14:13:35",
+          label_id: "0413002",
+          note: note,
+          id: id,
+        },
+        { headers: { token: localStorage.getItem("login_token") } }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -66,13 +83,15 @@ export default function ManagementPage() {
     console.log("SAVE");
   };
 
+  const onChangeNote = (e) => {
+    const note = e.target.value;
+    setNote(note);
+  };
+
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
-
-  // label_data
-  const [rowData, setRowData] = React.useState([]);
 
   const loadingData = async () => {
     await axios
@@ -85,15 +104,17 @@ export default function ManagementPage() {
       })
       .catch((error) => {
         console.log(error.response.data["message"]);
+        //overtime
+        if (error.response.status === 402) {
+          localStorage.removeItem("login_token");
+          navigate("/");
+        }
       });
   };
 
   React.useEffect(() => {
     loadingData();
   }, []);
-
-  // select_data_id
-  const [select_data_id, setSelectDataId] = React.useState([]);
 
   const getSelectData = (field) => {
     const select_data = [];
@@ -107,10 +128,10 @@ export default function ManagementPage() {
     return select_data;
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const delete_data = getSelectData("label_id");
 
-    axios
+    await axios
       .delete("api/label", {
         headers: { token: localStorage.getItem("login_token") },
         data: { label_id: delete_data },
@@ -120,8 +141,13 @@ export default function ManagementPage() {
       })
       .catch((error) => {
         console.log(error.response.data["message"]);
+        //overtime
+        if (error.response.status === 402) {
+          localStorage.removeItem("login_token");
+          navigate("/");
+        }
       });
-    loadingData();
+    await loadingData();
   };
 
   const handleMailPeople = () => {
@@ -133,15 +159,15 @@ export default function ManagementPage() {
     for (let count = 0; count < get_mail_people.length; count++) {
       people.push({
         key: count,
-        label: get_mail_people[count] + get_mail_label_id[count],
+        label: get_mail_people[count] + "-" + get_mail_label_id[count],
         mail: get_mail_data[count],
       });
     }
     return people;
   };
 
-  const handleSendMail = (mail_users, mail_content) => {
-    axios
+  const handleSendMail = async (mail_users, mail_content) => {
+    await axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
         params: {
@@ -155,7 +181,13 @@ export default function ManagementPage() {
       })
       .catch((error) => {
         console.log(error.response.data["message"]);
+        //overtime
+        if (error.response.status === 402) {
+          localStorage.removeItem("login_token");
+          navigate("/");
+        }
       });
+    setSelectDataId([]);
   };
 
   // data grid columns definition
@@ -180,6 +212,11 @@ export default function ManagementPage() {
       type: "date",
       width: 220,
       disableColumnMenu: true,
+      cellClassName: (params) => {
+        if (params.value.split("- ").pop().split(" day ago")[0] >= 7) {
+          return "over-seven-day";
+        }
+      },
     },
     {
       field: "note",
@@ -188,8 +225,14 @@ export default function ManagementPage() {
       width: 200,
       disableColumnMenu: true,
       sortable: false,
-      getActions: () => {
-        return [<TextField size="small" placeholder="編輯備註" />];
+      getActions: (params) => {
+        return [
+          <TextField
+            size="small"
+            placeholder={params.value}
+            onChange={onChangeNote}
+          />,
+        ];
       },
     },
     {
@@ -206,11 +249,11 @@ export default function ManagementPage() {
       ),
       width: 100,
       cellClassName: "actions",
-      getActions: () => {
+      getActions: (params) => {
         return [
           <ThemeProvider theme={theme}>
             <Button
-              onClick={handleClick({
+              onClick={handleUpdate(params.id, {
                 vertical: "top",
                 horizontal: "center", //position of popout
               })}
@@ -231,7 +274,15 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <div style={{ height: 1100, width: "100%" }} className="DataGrid">
+      <Box
+        style={{ height: 1100, width: "100%" }}
+        className="DataGrid"
+        sx={{
+          "& .over-seven-day": {
+            color: "#c74e4e",
+          },
+        }}
+      >
         <DataGrid
           className={classes.grid}
           rows={rowData}
@@ -244,8 +295,9 @@ export default function ManagementPage() {
           onSelectionModelChange={(details) => {
             setSelectDataId(details);
           }}
+          selectionModel={select_data_id}
         />
-      </div>
+      </Box>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
