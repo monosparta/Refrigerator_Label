@@ -31,8 +31,8 @@ export default function ResponsiveDialog(props) {
     setOpen(false);
   };
   
-  const handleDelete = () =>{
-    props.handleDelete();
+  const handleDelete = async () =>{
+    await props.handleDelete();
     setOpen(false);
   }
 
