@@ -131,13 +131,16 @@ export default function ManagementPage() {
     const people = [];
 
     for (let count = 0; count < get_mail_people.length; count++) {
-      people.push({ key: count, label: get_mail_people[count]+get_mail_label_id[count], mail:get_mail_data[count]});
+      people.push({
+        key: count,
+        label: get_mail_people[count] + "-" + get_mail_label_id[count],
+        mail: get_mail_data[count],
+      });
     }
     return people;
   };
 
-  const handleSendMail = (mail_users,mail_content) => {
-   
+  const handleSendMail = (mail_users, mail_content) => {
     axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
@@ -177,6 +180,11 @@ export default function ManagementPage() {
       type: "date",
       width: 220,
       disableColumnMenu: true,
+      cellClassName: (params) => {
+        if (params.value.split("- ").pop().split(" day ago")[0]>=7) {
+          return "over-seven-day";
+        }
+      },
     },
     {
       field: "note",
@@ -228,7 +236,15 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <div style={{ height: 1100, width: "100%" }} className="DataGrid">
+      <Box
+        style={{ height: 1100, width: "100%" }}
+        className="DataGrid"
+        sx={{
+          "& .over-seven-day": {
+            color: "#c74e4e",
+          },
+        }}
+      >
         <DataGrid
           className={classes.grid}
           rows={rowData}
@@ -242,7 +258,7 @@ export default function ManagementPage() {
             setSelectDataId(details);
           }}
         />
-      </div>
+      </Box>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
