@@ -16,7 +16,15 @@ manual_send_mail = async (mail) => {
     bcc: mail.users,
     from: process.env.NODEMAILER_USER,
     subject: "冰箱物品管理系統提醒",
-    html: "<h1>" + mail.text + "</h1>",
+    html: '<h2>親愛的會員您好：</h2>\n<h2>' + mail.text + '</h2><h4>此封信件為冰箱小精靈自動發送，請勿直接回覆。</h4><br />\
+    管理員 Rosa<br /> \
+    Trunk Studio |<a href="https://trunk-studio.com/"> trunk-studio.com</a><br />\
+    創科資訊股份有限公司<br /> \
+    T.04-22019020  #123<br /> \
+    F.04-22012870<br /> \
+    A.台中市西區台灣大道二段2號16樓之1<br /> \
+    Rm. 1, 16F., No.2, Sec. 2, Taiwan Blvd., West Dist., Taichung City 40354, Taiwan (R.O.C.)<br /> \
+    <img src="https://imgur.com/7JsC9xl.png" with="400" heigh="300">',
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
