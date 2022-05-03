@@ -2,6 +2,7 @@ import os
 import time
 import curses
 import requests
+import jwt
 from dotenv import load_dotenv
 from PIL import Image
 from datetime import datetime, timezone, timedelta
@@ -34,21 +35,22 @@ while True:
 
     if input_data[:6] == 'label:': # delete
         print("delete label start!")
-        path = 'output.txt'
-        f = open(path, 'w')
-        f.write(input_data.replace('label:','')+'已刪除')
         # http delete    
         response = requests.delete(
-            "{}{}".format(os.getenv("SERVER_URL"), "/api/delete_fridge_label"),
+            "{}{}".format(os.getenv("SERVER_URL"), "/api/label"),
+            headers = {'token': jwt.encode({"IoT": "delete"}, os.getenv("JWT_SECRET"), algorithm="HS256") },
             data = {'date_id':input_data.replace('label:','')}
         )
+        print(response.json())
     else: # add
         print("print label start!")
         # now date
         date_now = dt.strftime("%Y-%m-%d %H:%M:%S")
+
         # http post    
         response = requests.post(
-            "{}{}".format(os.getenv("SERVER_URL"), "/api/create_fridge_labels"),
+            "{}{}".format(os.getenv("SERVER_URL"), "/api/label"),
+            headers = {'token': jwt.encode({"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256") },
             data = {'date':date_now,'card_id':input_data}
         )
 
@@ -84,5 +86,4 @@ while True:
             send(instructions=instructions, printer_identifier=printer, backend_identifier=backend, blocking=True)
             print("print label successful")
         else: # not member
-            response_json = response.json()
-            print(response_json)
+            print(response.json())
