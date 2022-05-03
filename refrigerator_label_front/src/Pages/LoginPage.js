@@ -74,9 +74,9 @@ function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const onHandleLogin = (e) => {
-    e.preventDefault();
+  
+  const onHandleLogin = async(event) => {
+    event.preventDefault();
     if (num === "") {
       sethelperTextErrorA("帳號 Username or Email");
       sethelperTextErrorP("密碼 Password");
@@ -90,19 +90,22 @@ function Login() {
       setInputError(false);
       setHidden(true);
     }
-    axios
+    await axios
       .post("api/login", {
         username: username,
         password: values.password,
       })
       .then((response) => {
         localStorage.setItem("login_token", response["data"]["token"]);
+      })
+      .then(() => {
         navigate("/ManagementPage");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   const [isLoading, setisLoading] = React.useState(true);
   useEffect(() => {
     setTimeout(() => {

@@ -2,7 +2,6 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import { makeStyles } from "@mui/styles";
 import { Button, TextField, Typography, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
@@ -13,14 +12,6 @@ import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 // import DeleteConfirmDialog from "../Components/DeleteConfirmDialog";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-//css
-const useStyles = makeStyles({
-  grid: {
-    display: "flex",
-    flexDirection: "column-reverse",
-  },
-});
 
 const theme = createTheme({
   palette: {
@@ -46,7 +37,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function ManagementPage() {
-  const classes = useStyles();
   let navigate = React.useRef(useNavigate());
 
   // label_data
@@ -317,7 +307,7 @@ export default function ManagementPage() {
           </Box>
         </ThemeProvider>
         <DataGrid
-          className={classes.grid}
+          sx={{ display: "flex", flexDirection: "column-reverse" }}
           rows={rowData}
           columns={columns}
           pageSize={100}
