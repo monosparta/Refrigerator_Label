@@ -63,6 +63,7 @@ auto_send_mail = async (req, res) => {
     html:'<h2>親愛的會員您好：</h2>\n\
     <h2>提醒您，您的物品已經在 Monospace 冰箱放置滿七天，為維護其他會員的使用權益，請您盡快取回物品，取出時請記得掃描條碼，謝謝您的配合</h2>\
     <h4>此封信件為冰箱小精靈自動發送，請勿直接回覆。</h4><br />\
+    管理員 Rosa<br /> \
     Trunk Studio |<a href="https://trunk-studio.com/"> trunk-studio.com</a><br />\
     創科資訊股份有限公司<br /> \
     T.04-22019020  #123<br /> \
