@@ -3,7 +3,7 @@ import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { makeStyles } from "@mui/styles";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography, Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
@@ -63,13 +63,10 @@ export default function ManagementPage() {
   const handleUpdate = (id, newState) => async () => {
     await axios
       .put(
-        "api/update_label",
+        "api/label",
         {
-          card_id: "1255870309",
-          date: "2022-04-13 14:13:35",
-          label_id: "0413002",
-          note: note,
           id: id,
+          note: note,
         },
         { headers: { token: localStorage.getItem("login_token") } }
       )
@@ -212,10 +209,23 @@ export default function ManagementPage() {
       type: "date",
       width: 220,
       disableColumnMenu: true,
-      cellClassName: (params) => {
+      renderCell: (params) => {
+        const string = params.value.split("- ");
+        let chip_color = "#4caf50";
         if (params.value.split("- ").pop().split(" day ago")[0] >= 7) {
-          return "over-seven-day";
+          chip_color = "#ff9800";
         }
+        return (
+          <div>
+            {string[0]}
+            <Chip
+              size="small"
+              label={string[1]}
+              color="primary"
+              sx={{ backgroundColor: chip_color, borderRadius:"8px" , ml:1}}
+            />
+          </div>
+        );
       },
     },
     {
@@ -229,7 +239,8 @@ export default function ManagementPage() {
         return [
           <TextField
             size="small"
-            placeholder={params.value}
+            placeholder="編輯備註"
+            value={params.row.note}
             onChange={onChangeNote}
           />,
         ];
