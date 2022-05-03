@@ -32,9 +32,6 @@ time = async () => {
 
 update_label = async (body) => {
     const request = await db.Labels.update({
-        card_id: body.card_id,
-        date: body.date,
-        label_id: body.label_id,
         note: body.note,
     },
         {
