@@ -13,11 +13,11 @@ module.exports = function (router) {
 
   router.post("/api/login", admin_controller.login);
 
+  router.use(token_authentication_middleware);
+
   router.post("/api/label", label_controller.create_label);
 
   router.delete("/api/label", label_controller.delete_label);
-
-  router.use(token_authentication_middleware);
 
   router.get("/api/find_user_all", user_controller.find_user_all);
 
