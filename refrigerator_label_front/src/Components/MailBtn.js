@@ -3,8 +3,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import "../App.css";
-import EmailIcon from "@mui/icons-material/Email";
-import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 import {
   Paper,
   Typography,
@@ -67,9 +66,14 @@ export default function ResponsiveDialog(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <IconButton onClick={handleClickOpen}>
-          <EmailIcon color="Button" />
-        </IconButton>
+        <Button
+          onClick={handleClickOpen}
+          endIcon={<SendIcon />}
+          color="Button"
+          variant="outlined"
+        >
+          寄信提醒
+        </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
         <Paper sx={{ width: 440, height: 300 }}>

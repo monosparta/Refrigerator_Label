@@ -168,10 +168,11 @@
 }
 .contentBox {
   position: relative;
-  width: 320px;
+  width: fit-content;
   height: 120px;
   top: 10px;
   margin-left: 12px;
+  /* color: #ee9852; */
   /* border: solid rgb(6, 4, 6) 1px; */
 }
 .Message {

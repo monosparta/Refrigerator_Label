@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import SendIcon from "@mui/icons-material/Send";
+// import DeleteConfirmDialog from "../Components/DeleteConfirmDialog";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 //css
@@ -51,16 +53,21 @@ export default function ManagementPage() {
   const [rowData, setRowData] = React.useState([]);
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
-
+  //snackbar
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
-
-  const [note, setNote] = React.useState("");
-
-  const handleUpdate = (id, newState) => async () => {
+  //Alert的文字
+  const [AlertText, setAlertText] = React.useState("");
+  //關掉Alert
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+  const { vertical, horizontal, open } = state;
+  //儲存功能
+  const handleUpdate = (id) => async () => {
     await axios
       .put(
         "api/label",
@@ -76,19 +83,22 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error);
       });
-    setState({ open: true, ...newState });
-    console.log("SAVE");
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center", //position of popout
+      },
+    });
+    setAlertText("儲存成功");
   };
-
+  //備註
+  const [note, setNote] = React.useState("");
+  //備註寫入
   const onChangeNote = (e) => {
     const note = e.target.value;
     setNote(note);
   };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-  const { vertical, horizontal, open } = state;
 
   const loadingData = async () => {
     await axios
@@ -124,8 +134,8 @@ export default function ManagementPage() {
     });
     return select_data;
   };
-
-  const handleDelete = async () => {
+  //刪除功能
+  const handleDelete = async (newState) => {
     const delete_data = getSelectData("label_id");
 
     await axios
@@ -145,8 +155,16 @@ export default function ManagementPage() {
         }
       });
     await loadingData();
+    setAlertText("刪除成功");
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
   };
-
+  //讀取要寄信的人
   const handleMailPeople = () => {
     const get_mail_people = getSelectData("name");
     const get_mail_label_id = getSelectData("label_id");
@@ -162,8 +180,8 @@ export default function ManagementPage() {
     }
     return people;
   };
-
-  const handleSendMail = async (mail_users, mail_content) => {
+  //寄信功能
+  const handleSendMail = async (mail_users, mail_content, newState) => {
     await axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
@@ -184,6 +202,14 @@ export default function ManagementPage() {
           navigate("/");
         }
       });
+    setAlertText("寄信成功");
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
     setSelectDataId([]);
   };
 
@@ -211,9 +237,9 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       renderCell: (params) => {
         const string = params.value.split("- ");
-        let chip_color = "#4caf50";
+        let chip_color = "#6cba6f";
         if (params.value.split("- ").pop().split(" day ago")[0] >= 7) {
-          chip_color = "#ff9800";
+          chip_color = "#ee9852";
         }
         return (
           <div>
@@ -222,7 +248,7 @@ export default function ManagementPage() {
               size="small"
               label={string[1]}
               color="primary"
-              sx={{ backgroundColor: chip_color, borderRadius:"8px" , ml:1}}
+              sx={{ backgroundColor: chip_color, borderRadius: "8px", ml: 1 }}
             />
           </div>
         );
@@ -249,25 +275,13 @@ export default function ManagementPage() {
     {
       field: "actions",
       type: "actions",
-      headerName: (
-        <Box sx={{ flexGrow: 1 }} display="flex">
-          <DeleteBtn handleDelete={handleDelete} />
-          <MailBtn
-            handleSendMail={handleSendMail}
-            handleMailPeople={handleMailPeople}
-          />
-        </Box>
-      ),
       width: 100,
       cellClassName: "actions",
       getActions: (params) => {
         return [
           <ThemeProvider theme={theme}>
             <Button
-              onClick={handleUpdate(params.id, {
-                vertical: "top",
-                horizontal: "center", //position of popout
-              })}
+              onClick={handleUpdate(params.id)}
               color="Button"
               variant="contained"
               disableElevation
@@ -285,15 +299,23 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <Box
-        style={{ height: 1100, width: "100%" }}
-        className="DataGrid"
-        sx={{
-          "& .over-seven-day": {
-            color: "#c74e4e",
-          },
-        }}
-      >
+      <Box style={{ height: 1100, width: "100%" }} className="DataGrid">
+        <ThemeProvider theme={theme}>
+          <Box
+            variant="outlined"
+            color="Button"
+            sx={{ margin: 2, marginLeft: 70 }}
+            display="flex"
+          >
+            <DeleteBtn handleDelete={handleDelete} className="DeleteBtn" />
+            <MailBtn
+              endIcon={<SendIcon />}
+              handleSendMail={handleSendMail}
+              handleMailPeople={handleMailPeople}
+              className="MailBtn"
+            />
+          </Box>
+        </ThemeProvider>
         <DataGrid
           className={classes.grid}
           rows={rowData}
@@ -317,9 +339,10 @@ export default function ManagementPage() {
         key={vertical + horizontal}
       >
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          編輯成功
+          {AlertText}
         </Alert>
       </Snackbar>
+      {/* <DeleteConfirmDialog open={open} /> */}
     </div>
   );
 }

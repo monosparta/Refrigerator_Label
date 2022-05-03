@@ -41,6 +41,7 @@ function Login() {
   );
   const [helperTextCorrectP, sethelperTextErrorP] =
     React.useState("密碼 Password");
+  const [AlertText,setAlertText]=React.useState("")
   const [num] = React.useState("");
   const [InputError, setInputError] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
@@ -69,6 +70,7 @@ function Login() {
     });
   };
 
+  
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -78,10 +80,13 @@ function Login() {
     if (num === "") {
       sethelperTextErrorA("帳號 Username or Email");
       sethelperTextErrorP("密碼 Password");
+      setAlertText("請輸入帳號密碼!");
       setInputError(true);
       setHidden(false);
       setChecked((prev) => !prev);
-    } else {
+    }
+    else {
+      setAlertText("請輸入帳號密碼!");
       setInputError(false);
       setHidden(true);
     }
@@ -102,7 +107,7 @@ function Login() {
   useEffect(() => {
     setTimeout(() => {
       setisLoading(false);
-    }, 2500);
+    }, 500);
   }, []);
 
   return (
@@ -131,14 +136,14 @@ function Login() {
               </Typography>
             </div>
             {!hidden ? (
-              <Grow in={checked} {...(checked ? { timeout: 400 } : {})}>
+              <Grow in={checked} {...(checked ? { timeout: 100 } : {})}>
                 <Alert severity="error" className="Alert" show="false">
                   <Typography
                     color="black"
                     variant="body2"
                     sx={{ fontWeight: 700, width: 420, height: 2 }}
                   >
-                    非管理員身分，無法登入
+                    {AlertText}
                   </Typography>
                 </Alert>
               </Grow>
@@ -166,14 +171,15 @@ function Login() {
                 <FormControl sx={{ width: "480px" }} variant="outlined">
                   <Typography>{helperTextCorrectP}</Typography>
                   <OutlinedInput
-                    error={InputError}
                     sx={{
                       marginTop: 1,
                     }}
                     placeholder="password"
                     id="password"
+                    error={InputError}
                     type={values.showPassword ? "text" : "password"}
                     value={values.password}
+                    onSubmit={onHandleLogin}
                     onChange={onChangePassword("password")}
                     endAdornment={
                       <InputAdornment position="end">
