@@ -19,7 +19,7 @@ server.use("/", router);
 //cron
 var cron = require("node-cron");
 
-cron.schedule("0 0 0 * * *", () => {
+cron.schedule("0 14 16 * * *", () => {
   axios.get("http://127.0.0.1:3000/api/auto_send_mail");
 });
 

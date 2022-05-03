@@ -13,10 +13,10 @@ manual_send_mail = async (mail) => {
   });
 
   var mailOptions = {
+    bcc: mail.users,
     from: process.env.NODEMAILER_USER,
-    to: mail.users,
-    subject: mail.subject,
-    text: mail.text,
+    subject: "冰箱物品管理系統提醒",
+    html: "<h1>" + mail.text + "</h1>",
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -58,13 +58,18 @@ auto_send_mail = async (req, res) => {
 
   var mailOptions = {
     from: process.env.NODEMAILER_USER,
-    to: mail_users,
+    bcc: mail_users,
     subject: "冰箱物品管理系統提醒",
-    text:
-      "\n\n\n" +
-      "您的物品已經在mono共同工作室冰箱中放置超過七天，提醒您請盡快取回。" +
-      "\n\n\n\n" +
-      "此封信件為冰箱小精靈自動發送，請勿直接回覆。",
+    html:'<h2>親愛的會員您好：</h2>\n\
+    <h2>提醒您，您的物品已經在 Monospace 冰箱放置滿七天，為維護其他會員的使用權益，請您盡快取回物品，取出時請記得掃描條碼，謝謝您的配合</h2>\
+    <h4>此封信件為冰箱小精靈自動發送，請勿直接回覆。</h4><br />\
+    Trunk Studio |<a href="https://trunk-studio.com/"> trunk-studio.com</a><br />\
+    創科資訊股份有限公司<br /> \
+    T.04-22019020  #123<br /> \
+    F.04-22012870<br /> \
+    A.台中市西區台灣大道二段2號16樓之1<br /> \
+    Rm. 1, 16F., No.2, Sec. 2, Taiwan Blvd., West Dist., Taichung City 40354, Taiwan (R.O.C.)<br /> \
+    <img src="https://imgur.com/7JsC9xl.png" with="400" heigh="300">',
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
