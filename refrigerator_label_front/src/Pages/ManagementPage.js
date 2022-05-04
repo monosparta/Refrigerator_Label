@@ -2,7 +2,16 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, TextField, Typography, Chip } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  Chip,
+  Paper,
+  InputBase,
+  IconButton,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +19,8 @@ import MailBtn from "../Components/MailBtn";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
-// import DeleteConfirmDialog from "../Components/DeleteConfirmDialog";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LOGO from "../Pictures/monologo.jpg";
 
 const theme = createTheme({
   palette: {
@@ -150,6 +159,7 @@ export default function ManagementPage() {
     loadingData();
     setAlertText("刪除成功");
     setState({
+      isLoading: true,
       open: true,
       ...{
         vertical: "top",
@@ -292,25 +302,57 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <Box style={{ height: 1100, width: "100%" }} className="DataGrid">
+      <Box
+        className="DataGrid"
+        style={{
+          width: "100%",
+        }}
+      >
         <ThemeProvider theme={theme}>
-          <Box
-            variant="outlined"
-            color="Button"
-            sx={{ margin: 2, marginLeft: 70 }}
-            display="flex"
-          >
-            <DeleteBtn handleDelete={handleDelete} className="DeleteBtn" />
-            <MailBtn
-              endIcon={<SendIcon />}
-              handleSendMail={handleSendMail}
-              handleMailPeople={handleMailPeople}
-              className="MailBtn"
-            />
-          </Box>
+          <div className="Header">
+            <div className="Search">
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: 420,
+                  height: 32,
+                  border: 1,
+                }}
+                elevation={0}
+              >
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="搜尋物品"
+                  inputProps={{ "aria-label": "search google maps" }}
+                  disableElevation
+                />
+                <IconButton
+                  type="submit"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+            </div>
+            <div className="ButtonDeleteandMail">
+              <div className="DeleteBtn">
+                <DeleteBtn handleDelete={handleDelete} />
+              </div>
+              <div className="MailBtn">
+                <MailBtn
+                  endIcon={<SendIcon />}
+                  handleSendMail={handleSendMail}
+                  handleMailPeople={handleMailPeople}
+                />
+              </div>
+            </div>
+          </div>
         </ThemeProvider>
         <DataGrid
-          sx={{ display: "flex", flexDirection: "column-reverse" }}
           rows={rowData}
           columns={columns}
           pageSize={100}
@@ -327,7 +369,7 @@ export default function ManagementPage() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={1500}
+        autoHideDuration={2000}
         onClose={handleClose}
         key={vertical + horizontal}
       >
@@ -335,7 +377,6 @@ export default function ManagementPage() {
           {AlertText}
         </Alert>
       </Snackbar>
-      {/* <DeleteConfirmDialog open={open} /> */}
     </div>
   );
 }

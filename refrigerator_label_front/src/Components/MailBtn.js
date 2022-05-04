@@ -12,9 +12,14 @@ import {
   styled,
   DialogTitle,
   DialogContent,
+  // IconButton,
+  // Modal,
+  // Box,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { height, width } from "@mui/system";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -27,7 +32,7 @@ export default function ResponsiveDialog(props) {
     setChipData(mail_people);
   };
 
-  const sendMail = async(e) => {
+  const sendMail = async (e) => {
     e.preventDefault();
     let mail_users = "";
     chipData.forEach(function (item) {
@@ -76,14 +81,12 @@ export default function ResponsiveDialog(props) {
         </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
-        <Paper sx={{ width: 440, height: 300 }}>
+        <Paper sx={{ width: 500 }}>
           <form>
-            <DialogTitle>
+            <DialogContent>
               <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
                 寄送到期提醒信件
               </Typography>
-            </DialogTitle>
-            <DialogContent sx={{ height: 160 }}>
               <div className="owner" display="flex">
                 <Typography
                   variant="h7"
@@ -93,41 +96,43 @@ export default function ResponsiveDialog(props) {
                   物品所屬人
                 </Typography>
                 <div className="chips">
-                  <Paper
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "left",
-                      flexWrap: "wrap",
-                      listStyle: "none",
-                      p: 0.5,
-                      m: 0,
-                      height: 40,
-                      width: 300,
-                      // border: 1,
-                    }}
-                    component="ul"
-                    elevation={0}
-                  >
-                    {chipData.map((data) => {
-                      let icon;
-                      return (
-                        <ListItem key={data.key}>
-                          <Chip
-                            icon={icon}
-                            label={data.label}
-                            onDelete={
-                              data.label === "React"
-                                ? undefined
-                                : handleDelete(data)
-                            }
-                          />
-                        </ListItem>
-                      );
-                    })}
-                  </Paper>
+                  <div className="Choosen">
+                    <Paper
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "left",
+                        flexWrap: "wrap",
+                        listStyle: "none",
+                        p: 0.5,
+                        m: 0,
+                        width: 300,
+                        minHeight: 36,
+                        // border: 1,
+                      }}
+                      component="ul"
+                      elevation={0}
+                    >
+                      {chipData.map((data) => {
+                        let icon;
+                        return (
+                          <ListItem key={data.key}>
+                            <Chip
+                              icon={icon}
+                              label={data.label}
+                              onDelete={
+                                data.label === "React"
+                                  ? undefined
+                                  : handleDelete(data)
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </Paper>
+                  </div>
                   <Divider sx={{ width: 300 }} />
                 </div>
               </div>
@@ -150,8 +155,6 @@ export default function ResponsiveDialog(props) {
                   />
                 </div>
               </div>
-            </DialogContent>
-            <DialogActions>
               <div className="ButtonGroup">
                 <ThemeProvider theme={theme}>
                   <Button
@@ -192,7 +195,7 @@ export default function ResponsiveDialog(props) {
                   </Button>
                 </ThemeProvider>
               </div>
-            </DialogActions>
+            </DialogContent>
           </form>
         </Paper>
       </Dialog>

@@ -4,27 +4,6 @@
 ::-webkit-scrollbar {
   display: none;
 }
-.App {
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  background-color: #363f4e;
-  /* background-color: #363F4E; */
-  /* border: solid 1px fuchsia; */
-}
-.Loading {
-  height: 100vh;
-  width: 100%;
-  margin: 0 auto;
-  background-color: #363f4e;
-}
-.Tittle {
-  position: relative;
-  margin: 0 auto;
-  width: fit-content;
-  height: 5vh;
-  /* border: solid 1px rgb(236, 208, 208); */
-}
 .Body {
   position: relative;
   width: fit-content;
@@ -33,14 +12,6 @@
   top: 40vh;
   text-align: center;
   /* border: solid 1px rgb(251, 250, 250); */
-}
-.Logo {
-  position: relative;
-  margin: 0 auto;
-  width: fit-content;
-  height: 95vh;
-  height: fit-content;
-  /* border: solid 1px rgb(168, 234, 179); */
 }
 .Login {
   height: 100vh;
@@ -101,23 +72,34 @@
 .owner {
   /* border:solid 1px blue; */
   display: flex;
+  margin-left: 15px;
 }
 .ownertext {
   position: relative;
   padding-top: 10px;
+  width: fit-content;
+  height: fit-content;
   /* border: solid 1px khaki; */
 }
 .mailcontent {
   position: relative;
   display: flex;
-  width: 400px;
-  height: 150px;
+  width: 420px;
+  height: 120px;
+  margin-top: 5px;
+  margin-left: 15px;
   /* border: solid 1px green; */
+}
+.mail_content {
+  position: relative;
+  margin-left: 25px;
 }
 .DataGrid {
   position: relative;
   width: 100vw;
   height: 80vh;
+  /* background-image: url("../src/Pictures/monologo.jpg");
+  background-repeat: no-repeat; */
   /* border: solid 1px chartreuse; */
 }
 .Bar {
@@ -131,7 +113,7 @@
   width: 228px;
   height: 36px;
   margin: 0 auto;
-  border: solid 1px violet;
+  /* border: solid 1px violet; */
 }
 
 .Remark {
@@ -161,16 +143,16 @@
 }
 .chips {
   position: relative;
-  width: 280px;
-  height: 50px;
-  margin-left: 25px;
+  width: 330px;
+  margin-left: 18px;
+  display: block;
   /* border: solid rgb(203, 225, 4) 1px; */
 }
 .contentBox {
   position: relative;
   width: fit-content;
   height: 120px;
-  top: 10px;
+  top: 12px;
   margin-left: 12px;
   /* color: #ee9852; */
   /* border: solid rgb(6, 4, 6) 1px; */
@@ -183,7 +165,8 @@
 .ButtonGroup {
   position: relative;
   display: flex;
-  left: -80px;
+  margin-top: 5px;
+  left: 116px;
   width: 250px;
   height: fit-content;
   /* border: solid rgb(242, 34, 180) 1px; */
@@ -219,4 +202,33 @@
 }
 .BtnOK {
   position: relative;
+}
+.ButtonDeleteandMail {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  padding: 1vh 0;
+  /* border: solid 1px chartreuse; */
+}
+.Header {
+  position: relative;
+  display: flex;
+  /* border: solid 1px darkgoldenrod; */
+}
+.DeleteBtn {
+  position: relative;
+  margin: 0 2vw 0 6vw;
+}
+.MailBtn {
+  position: relative;
+  margin: 0 0.5vw;
+}
+.Search {
+  position: relative;
+  padding: 1vh 0;
+  margin-left: 8vw;
+}
+.Choosen {
+  position: relative;
+  display: flex;
 }
