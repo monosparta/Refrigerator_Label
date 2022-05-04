@@ -9,11 +9,11 @@ module.exports = function (router) {
     res.send("Hello World!");
   });
 
-  router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
-
   router.post("/api/login", admin_controller.login);
 
   router.use(token_authentication_middleware);
+
+  router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
 
   router.post("/api/label", label_controller.create_label);
 
