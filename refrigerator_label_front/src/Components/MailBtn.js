@@ -22,7 +22,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mailContent, setMailContent] = React.useState();
-  const [loading, setLoading] = React.useState(false);
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const [chipData, setChipData] = React.useState([]);
 
   const handleClickOpen = () => {
@@ -33,14 +33,14 @@ export default function ResponsiveDialog(props) {
 
   const sendMail = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setBtnLoading(true);
     let mail_users = "";
     chipData.forEach(function (item) {
       mail_users += item["mail"] + ",";
     });
     await props.handleSendMail(mail_users, mailContent);
     setOpen(false);
-    setLoading(false);
+    setBtnLoading(false);
   };
 
   const handleClose = () => {
@@ -161,7 +161,7 @@ export default function ResponsiveDialog(props) {
                   <LoadingButton
                     type="submit"
                     onClick={sendMail}
-                    loading={loading}
+                    loading={btnLoading}
                     disableElevation
                     variant="contained"
                     color="Button"

@@ -23,7 +23,7 @@ const theme2 = createTheme({
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [btnLoading, setBtnLoading] = React.useState(false);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -37,10 +37,10 @@ export default function ResponsiveDialog(props) {
   };
 
   const handleDelete = async () => {
-    setLoading(true);
+    setBtnLoading(true);
     await props.handleDelete();
     setOpen(false);
-    setLoading(false);
+    setBtnLoading(false);
   };
 
   return (
@@ -79,7 +79,7 @@ export default function ResponsiveDialog(props) {
                   <LoadingButton
                     autoFocus
                     onClick={handleDelete}
-                    loading={loading}
+                    loading={btnLoading}
                     variant="contained"
                     color="Button"
                     style={{

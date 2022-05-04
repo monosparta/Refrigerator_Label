@@ -3,7 +3,6 @@ import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  Button,
   TextField,
   Typography,
   Chip,
@@ -20,6 +19,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme = createTheme({
   palette: {
@@ -59,6 +59,7 @@ export default function ManagementPage() {
   });
   //Alert的文字
   const [AlertText, setAlertText] = React.useState("");
+  const [btnLoading, setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -66,6 +67,7 @@ export default function ManagementPage() {
   const { vertical, horizontal, open } = state;
   //儲存功能
   const handleUpdate = (id) => async () => {
+    setBtnLoading(true);
     await axios
       .put(
         "api/label",
@@ -89,6 +91,7 @@ export default function ManagementPage() {
       },
     });
     setAlertText("儲存成功");
+    setBtnLoading(false);
   };
   //備註
   const [note, setNote] = React.useState("");
@@ -292,8 +295,9 @@ export default function ManagementPage() {
       getActions: (params) => {
         return [
           <ThemeProvider theme={theme}>
-            <Button
+            <LoadingButton
               onClick={handleUpdate(params.id)}
+              loading={btnLoading}
               color="Button"
               variant="contained"
               disableElevation
@@ -301,7 +305,7 @@ export default function ManagementPage() {
               <Typography color="white" variant="h7" sx={{ fontWeight: "500" }}>
                 儲存
               </Typography>
-            </Button>
+            </LoadingButton>
           </ThemeProvider>,
         ];
       },
