@@ -1,7 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import "../App.css";
 import SendIcon from "@mui/icons-material/Send";
 import {
@@ -10,7 +9,6 @@ import {
   Divider,
   Chip,
   styled,
-  DialogTitle,
   DialogContent,
   // IconButton,
   // Modal,
@@ -18,7 +16,6 @@ import {
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { height, width } from "@mui/system";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ResponsiveDialog(props) {

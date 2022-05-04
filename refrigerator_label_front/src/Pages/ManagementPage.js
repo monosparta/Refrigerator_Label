@@ -220,14 +220,16 @@ export default function ManagementPage() {
     {
       field: "name",
       headerName: "物品所屬者",
-      width: 120,
+      minWidth: 120,
+      flex: 1,
       disableColumnMenu: true,
       sortable: false,
     },
     {
       field: "label_id",
       headerName: "ID",
-      width: 110,
+      minWidth: 110,
+      flex: 1,
       disableColumnMenu: true,
       sortable: false,
     },
@@ -235,7 +237,8 @@ export default function ManagementPage() {
       field: "date",
       headerName: "放入日期",
       type: "date",
-      width: 220,
+      minWidth: 220,
+      flex: 2,
       disableColumnMenu: true,
       renderCell: (params) => {
         const string = params.value.split("- ");
@@ -260,9 +263,11 @@ export default function ManagementPage() {
       field: "note",
       type: "actions",
       headerName: "備註",
-      width: 200,
+      minWidth: 200,
+      flex: 2,
       disableColumnMenu: true,
       sortable: false,
+      headerAlign: "left",
       getActions: (params) => {
         return [
           <TextField
@@ -278,7 +283,8 @@ export default function ManagementPage() {
     {
       field: "actions",
       type: "actions",
-      width: 100,
+      minWidth: 100,
+      flex: 1,
       cellClassName: "actions",
       getActions: (params) => {
         return [
