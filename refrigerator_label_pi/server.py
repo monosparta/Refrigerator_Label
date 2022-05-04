@@ -33,23 +33,23 @@ while True:
     curses.curs_set(1)
     input_data = input("input data:")
 
-    if input_data[:6] == 'label:': # delete
+    if input_data[:6] == 'label:':
         print("delete label start!")
         # http delete    
         response = requests.delete(
-            "{}{}".format(os.getenv("SERVER_URL"), "/api/label"),
+            "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
             headers = {'token': jwt.encode({"IoT": "delete"}, os.getenv("JWT_SECRET"), algorithm="HS256") },
             data = {'date_id':input_data.replace('label:','')}
         )
         print(response.json())
-    else: # add
+    else: 
         print("print label start!")
         # now date
         date_now = dt.strftime("%Y-%m-%d %H:%M:%S")
 
         # http post    
         response = requests.post(
-            "{}{}".format(os.getenv("SERVER_URL"), "/api/label"),
+            "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
             headers = {'token': jwt.encode({"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256") },
             data = {'date':date_now,'card_id':input_data}
         )
