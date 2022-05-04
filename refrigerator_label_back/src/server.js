@@ -18,9 +18,13 @@ server.use("/", router);
 
 //cron
 var cron = require("node-cron");
-
-cron.schedule("0 14 15 * * *", () => {
-  axios.get("http://127.0.0.1:3000/api/auto_send_mail");
+const jwt = require("jsonwebtoken");
+cron.schedule("0 0 0 * * *", () => {
+  axios.get(process.env.WEB_URL + "api/auto_send_mail", {
+    headers: {
+      token: jwt.sign({ "auto-send": "mail" }, process.env.JWT_SECRET),
+    },
+  });
 });
 
 //port

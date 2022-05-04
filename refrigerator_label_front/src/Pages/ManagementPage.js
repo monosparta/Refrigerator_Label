@@ -95,8 +95,7 @@ export default function ManagementPage() {
   const [note, setNote] = React.useState("");
   //備註寫入
   const onChangeNote = (e) => {
-    const note = e.target.value;
-    setNote(note);
+    setNote(e.target.value);
   };
 
   const loadingData = React.useCallback(() => {
@@ -137,7 +136,7 @@ export default function ManagementPage() {
     return select_data;
   };
   //刪除功能
-  const handleDelete = async (newState) => {
+  const handleDelete = async () => {
     const delete_data = getSelectData("label_id");
 
     await axios
@@ -185,13 +184,12 @@ export default function ManagementPage() {
     return people;
   };
   //寄信功能
-  const handleSendMail = async (mail_users, mail_content, newState) => {
+  const handleSendMail = async (mail_users, mail_content) => {
     await axios
       .get("api/manual_send_mail", {
         headers: { token: localStorage.getItem("login_token") },
         params: {
           users: mail_users,
-          subject: "Mono冰箱主動提醒通知",
           text: mail_content,
         },
       })
@@ -269,9 +267,10 @@ export default function ManagementPage() {
       getActions: (params) => {
         return [
           <TextField
+            id={params.row.id}
             size="small"
             placeholder="編輯備註"
-            value={params.row.note}
+            defaultValue={params.row.note}
             onChange={onChangeNote}
           />,
         ];
