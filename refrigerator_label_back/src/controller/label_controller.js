@@ -34,31 +34,36 @@ find_label_all = async (req, res) => {
 
 create_label = async (req, res) => {
   try {
-    const is_user = await user_service.is_user(req.body);
-    if (is_user) {
-      const final_id = await label_service.last_id();
-      if (!final_id?.id) {
-        data_id = "001";
-      } else if (final_id.id > 0 && final_id.id + 1 < 10) {
-        data_id = "00" + String(final_id.id + 1);
-      } else if (final_id.id + 1 >= 10 && final_id.id + 1 < 100) {
-        data_id = "0" + String(final_id.id + 1);
-      } else if (final_id.id + 1 >= 100 && final_id.id + 1 < 1000) {
-        data_id = String(final_id.id + 1);
-      } else {
-        data_id = String(final_id.id + 1).slice(-3);
-      }
-
-      req.body.data_id = data_id;
-
-      const label = await label_service.create_label(req.body);
-      if (label) {
-        return res
-          .status(201)
-          .json({ data_id: label["dataValues"]["label_id"], name: label.name });
-      }
+    if (req.body.date === "") {
+      return res.status(401).json({ message: "沒有日期" });
     } else {
-      return res.status(401).json({ message: "user not find" });
+      const is_user = await user_service.is_user(req.body);
+      if (is_user) {
+        const final_id = await label_service.last_id();
+        if (!final_id?.id) {
+          data_id = "001";
+        } else if (final_id.id > 0 && final_id.id + 1 < 10) {
+          data_id = "00" + String(final_id.id + 1);
+        } else if (final_id.id + 1 >= 10 && final_id.id + 1 < 100) {
+          data_id = "0" + String(final_id.id + 1);
+        } else if (final_id.id + 1 >= 100 && final_id.id + 1 < 1000) {
+          data_id = String(final_id.id + 1);
+        } else {
+          data_id = String(final_id.id + 1).slice(-3);
+        }
+
+        req.body.data_id = data_id;
+
+        const label = await label_service.create_label(req.body);
+        if (label) {
+          return res.status(201).json({
+            data_id: label["dataValues"]["label_id"],
+            name: label.name
+          });
+        }
+      } else {
+        return res.status(401).json({ message: "沒有使用者" });
+      }
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -78,9 +83,15 @@ update_label = async (req, res) => {
 
 delete_label = async (req, res) => {
   try {
-    const delete_label = await label_service.delete_label(req.body["label_id"]);
-    if (delete_label) {
-      return res.status(200).json({ message: "刪除成功" });
+    if (req.body.label_id === "") {
+      return res.status(404).json({ message: "沒有標籤ID" });
+    } else {
+      const delete_label = await label_service.delete_label(
+        req.body["label_id"]
+      );
+      if (delete_label) {
+        return res.status(200).json({ message: "刪除成功" });
+      }
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
