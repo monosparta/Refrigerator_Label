@@ -109,6 +109,7 @@ function Login() {
         setInputErrorA(true);
         setInputErrorP(true);
         setHidden(false);
+        setBtnLoading(false);
       });
     setBtnLoading(false);
   };
