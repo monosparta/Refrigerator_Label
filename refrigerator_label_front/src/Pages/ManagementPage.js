@@ -2,7 +2,6 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import { makeStyles } from "@mui/styles";
 import {
   Button,
   TextField,
@@ -21,14 +20,6 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-//css
-const useStyles = makeStyles({
-  grid: {
-    display: "flex",
-    flexDirection: "column-reverse",
-  },
-});
 
 const theme = createTheme({
   palette: {
@@ -54,8 +45,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function ManagementPage() {
-  const classes = useStyles();
-  let navigate = React.useRef(useNavigate());
+  let navigate = useNavigate();
 
   // label_data
   const [rowData, setRowData] = React.useState([]);
@@ -108,28 +98,31 @@ export default function ManagementPage() {
     setNote(note);
   };
 
-  const loadingData = async () => {
-    await axios
-      .get("api/find_label_all", {
-        headers: { token: localStorage.getItem("login_token") },
-      })
-      .then((response) => {
-        const label_data = response["data"]["message"];
-        setRowData(label_data);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
-      });
-  };
+  const loadingData = React.useCallback(() => {
+    const loadData = async () => {
+      await axios
+        .get("api/find_label_all", {
+          headers: { token: localStorage.getItem("login_token") },
+        })
+        .then((response) => {
+          const label_data = response["data"]["message"];
+          setRowData(label_data);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            navigate("/");
+          }
+        });
+    };
+    loadData();
+  }, [navigate]);
 
   React.useEffect(() => {
     loadingData();
-  }, []);
+  }, [loadingData]);
 
   const getSelectData = (field) => {
     const select_data = [];
@@ -157,12 +150,13 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error.response.data["message"]);
         //overtime
-        if (error.response.status === 402) {
+        if (error.response.status === 402 || 403) {
           localStorage.removeItem("login_token");
           navigate("/");
         }
       });
-    await loadingData();
+
+    loadingData();
     setAlertText("刪除成功");
     setState({
       isLoading: true,
@@ -206,7 +200,7 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error.response.data["message"]);
         //overtime
-        if (error.response.status === 402) {
+        if (error.response.status === 402 || 403) {
           localStorage.removeItem("login_token");
           navigate("/");
         }
@@ -351,7 +345,7 @@ export default function ManagementPage() {
           </div>
         </ThemeProvider>
         <DataGrid
-          className={classes.grid}
+          sx={{ display: "flex", flexDirection: "column-reverse" }}
           rows={rowData}
           columns={columns}
           pageSize={100}

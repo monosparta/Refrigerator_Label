@@ -31,13 +31,13 @@ export default function ResponsiveDialog(props) {
     setChipData(mail_people);
   };
 
-  const sendMail = (e) => {
+  const sendMail = async(e) => {
     e.preventDefault();
     let mail_users = "";
     chipData.forEach(function (item) {
       mail_users += item["mail"] + ",";
     });
-    props.handleSendMail(mail_users, mailContent);
+    await props.handleSendMail(mail_users, mailContent);
     setOpen(false);
   };
 

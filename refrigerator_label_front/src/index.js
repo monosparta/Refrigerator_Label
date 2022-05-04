@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 // import App from './App.js';
 // import Load from './Pages/LoadingPage';
 import Login from './Pages/LoginPage';
 import Management from './Pages/ManagementPage';
 import NoFoundPage from './Pages/NotFoundPage';
 
-// const token = localStorage.getItem("login_token");
+const token = localStorage.getItem("login_token");
 
 ReactDOM.render(
   <Router>
