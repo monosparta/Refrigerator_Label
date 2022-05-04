@@ -265,6 +265,7 @@ export default function ManagementPage() {
       width: 200,
       disableColumnMenu: true,
       sortable: false,
+      headerAlign: "left",
       getActions: (params) => {
         return [
           <TextField
