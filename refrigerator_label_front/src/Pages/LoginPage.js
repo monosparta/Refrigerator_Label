@@ -41,7 +41,7 @@ function Login() {
   );
   const [helperTextCorrectP, sethelperTextErrorP] =
     React.useState("密碼 Password");
-  const [AlertText,setAlertText]=React.useState("")
+  const [AlertText, setAlertText] = React.useState("");
   const [num] = React.useState("");
   const [InputError, setInputError] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
@@ -70,12 +70,11 @@ function Login() {
     });
   };
 
-  
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
-  const onHandleLogin = async(event) => {
+
+  const onHandleLogin = async (event) => {
     event.preventDefault();
     if (num === "") {
       sethelperTextErrorA("帳號 Username or Email");
@@ -84,12 +83,12 @@ function Login() {
       setInputError(true);
       setHidden(false);
       setChecked((prev) => !prev);
-    }
-    else {
+    } else {
       setAlertText("請輸入帳號密碼!");
       setInputError(false);
       setHidden(true);
     }
+    
     await axios
       .post("api/login", {
         username: username,
@@ -97,8 +96,6 @@ function Login() {
       })
       .then((response) => {
         localStorage.setItem("login_token", response["data"]["token"]);
-      })
-      .then(() => {
         navigate("/ManagementPage");
       })
       .catch((error) => {
