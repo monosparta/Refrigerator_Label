@@ -16,11 +16,13 @@ import {
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LoadingButton from "@mui/lab/LoadingButton";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [mailContent, setMailContent] = React.useState();
+  const [loading, setLoading] = React.useState(false);
   const [chipData, setChipData] = React.useState([]);
 
   const handleClickOpen = () => {
@@ -31,12 +33,14 @@ export default function ResponsiveDialog(props) {
 
   const sendMail = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let mail_users = "";
     chipData.forEach(function (item) {
       mail_users += item["mail"] + ",";
     });
     await props.handleSendMail(mail_users, mailContent);
     setOpen(false);
+    setLoading(false);
   };
 
   const handleClose = () => {
@@ -154,9 +158,10 @@ export default function ResponsiveDialog(props) {
               </div>
               <div className="ButtonGroup">
                 <ThemeProvider theme={theme}>
-                  <Button
+                  <LoadingButton
                     type="submit"
                     onClick={sendMail}
+                    loading={loading}
                     disableElevation
                     variant="contained"
                     color="Button"
@@ -174,7 +179,7 @@ export default function ResponsiveDialog(props) {
                     >
                       確認
                     </Typography>
-                  </Button>
+                  </LoadingButton>
                   <Button
                     onClick={handleClose}
                     className="BtnNosend"

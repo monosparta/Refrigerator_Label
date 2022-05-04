@@ -20,7 +20,6 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LOGO from "../Pictures/monologo.jpg";
 
 const theme = createTheme({
   palette: {
@@ -138,35 +137,37 @@ export default function ManagementPage() {
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("label_id");
+    if (delete_data.length !== 0) {
+      await axios
+        .delete("api/label", {
+          headers: { token: localStorage.getItem("login_token") },
+          data: { label_id: delete_data },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            navigate("/");
+          }
+        });
 
-    await axios
-      .delete("api/label", {
-        headers: { token: localStorage.getItem("login_token") },
-        data: { label_id: delete_data },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
+      loadingData();
+      setAlertText("刪除成功");
+      setState({
+        isLoading: true,
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
+        },
       });
-
-    loadingData();
-    setAlertText("刪除成功");
-    setState({
-      isLoading: true,
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
+    }
   };
+
   //讀取要寄信的人
   const handleMailPeople = () => {
     const get_mail_people = getSelectData("name");
@@ -185,34 +186,36 @@ export default function ManagementPage() {
   };
   //寄信功能
   const handleSendMail = async (mail_users, mail_content) => {
-    await axios
-      .get("api/manual_send_mail", {
-        headers: { token: localStorage.getItem("login_token") },
-        params: {
-          users: mail_users,
-          text: mail_content,
+    if (mail_users.length !== 0) {
+      await axios
+        .get("api/manual_send_mail", {
+          headers: { token: localStorage.getItem("login_token") },
+          params: {
+            users: mail_users,
+            text: mail_content,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            navigate("/");
+          }
+        });
+      setAlertText("寄信成功");
+      setState({
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
         },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
       });
-    setAlertText("寄信成功");
-    setState({
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
-    setSelectDataId([]);
+      setSelectDataId([]);
+    }
   };
 
   // data grid columns definition
