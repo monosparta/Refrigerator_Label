@@ -14,7 +14,6 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
-import Grow from "@mui/material/Grow";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -36,37 +35,33 @@ function Login() {
   });
 
   const [username, setUsername] = React.useState("");
-  const [helperTextCorrectA, sethelperTextErrorA] = React.useState(
-    "帳號 Username or Email"
-  );
-  const [helperTextCorrectP, sethelperTextErrorP] =
-    React.useState("密碼 Password");
+  const [password, setPassword] = React.useState({
+    password: "",
+    showPassword: false,
+  });
+
   const [AlertText, setAlertText] = React.useState("");
-  const [num] = React.useState("");
-  const [InputError, setInputError] = React.useState(false);
+
+  const [inputErrorA, setInputErrorA] = React.useState(false);
+  const [inputErrorP, setInputErrorP] = React.useState(false);
+
   const [hidden, setHidden] = React.useState(true);
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
   };
-  const [checked, setChecked] = React.useState(false);
-
-  const [values, setValues] = React.useState({
-    password: "",
-    showPassword: false,
-  });
 
   const onChangePassword = (prop) => (event) => {
-    setValues({
-      ...values,
+    setPassword({
+      ...password,
       [prop]: event.target.value,
     });
   };
 
   const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
+    setPassword({
+      ...password,
+      showPassword: !password.showPassword,
     });
   };
 
@@ -76,30 +71,44 @@ function Login() {
 
   const onHandleLogin = async (event) => {
     event.preventDefault();
-    if (num === "") {
-      sethelperTextErrorA("帳號 Username or Email");
-      sethelperTextErrorP("密碼 Password");
+    if (username === "" && password.password === "") {
       setAlertText("請輸入帳號密碼!");
-      setInputError(true);
+      setInputErrorA(true);
+      setInputErrorP(true);
       setHidden(false);
-      setChecked((prev) => !prev);
+      process.exit();
+    } else if (username === "") {
+      setAlertText("請輸入帳號!");
+      setInputErrorA(true);
+      setInputErrorP(false);
+      setHidden(false);
+      process.exit();
+    } else if (password.password === "") {
+      setAlertText("請輸入密碼!");
+      setInputErrorA(false);
+      setInputErrorP(true);
+      setHidden(false);
+      process.exit();
     } else {
-      setAlertText("請輸入帳號密碼!");
-      setInputError(false);
+      setInputErrorA(false);
+      setInputErrorP(false);
       setHidden(true);
     }
-    
+
     await axios
       .post("api/login", {
         username: username,
-        password: values.password,
+        password: password.password,
       })
       .then((response) => {
         localStorage.setItem("login_token", response["data"]["token"]);
         navigate("/ManagementPage");
       })
       .catch((error) => {
-        console.log(error);
+        setAlertText(error.response.data["message"]);
+        setInputErrorA(true);
+        setInputErrorP(true);
+        setHidden(false);
       });
   };
 
@@ -136,23 +145,21 @@ function Login() {
               </Typography>
             </div>
             {!hidden ? (
-              <Grow in={checked} {...(checked ? { timeout: 100 } : {})}>
-                <Alert severity="error" className="Alert" show="false">
-                  <Typography
-                    color="black"
-                    variant="body2"
-                    sx={{ fontWeight: 700, width: 420, height: 2 }}
-                  >
-                    {AlertText}
-                  </Typography>
-                </Alert>
-              </Grow>
+              <Alert severity="error" className="Alert" show="false">
+                <Typography
+                  color="black"
+                  variant="body2"
+                  sx={{ fontWeight: 700, width: 420, height: 2 }}
+                >
+                  {AlertText}
+                </Typography>
+              </Alert>
             ) : null}
             <Box component="form" onSubmit={onHandleLogin} noValidate>
               <div className="Account">
-                <Typography>{helperTextCorrectA}</Typography>
+                <Typography>帳號 Username or Email</Typography>
                 <OutlinedInput
-                  error={InputError}
+                  error={inputErrorA}
                   fullWidth
                   required
                   type="string"
@@ -169,16 +176,16 @@ function Login() {
               </div>
               <div className="Password">
                 <FormControl sx={{ width: "480px" }} variant="outlined">
-                  <Typography>{helperTextCorrectP}</Typography>
+                  <Typography>密碼 Password</Typography>
                   <OutlinedInput
                     sx={{
                       marginTop: 1,
                     }}
                     placeholder="password"
                     id="password"
-                    error={InputError}
-                    type={values.showPassword ? "text" : "password"}
-                    value={values.password}
+                    error={inputErrorP}
+                    type={password.showPassword ? "text" : "password"}
+                    value={password.password}
                     onSubmit={onHandleLogin}
                     onChange={onChangePassword("password")}
                     endAdornment={
@@ -189,7 +196,7 @@ function Login() {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {values.showPassword ? (
+                          {password.showPassword ? (
                             <VisibilityOff />
                           ) : (
                             <Visibility />
