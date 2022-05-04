@@ -123,7 +123,9 @@ export default function ManagementPage() {
   }, [navigate]);
 
   React.useEffect(() => {
-    loadingData();
+    setInterval(() => {
+      loadingData();
+    }, 1000);
   }, [loadingData]);
 
   const getSelectData = (field) => {
