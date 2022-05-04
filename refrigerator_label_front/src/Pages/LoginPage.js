@@ -3,7 +3,6 @@ import axios from "../Axios.config";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
-  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -18,6 +17,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Logo from "../Pictures/monologo.jpg";
+import LoadingButton from "@mui/lab/LoadingButton";
 import LoadingScreen from "react-loading-screen";
 import { useEffect } from "react";
 
@@ -39,13 +39,13 @@ function Login() {
     password: "",
     showPassword: false,
   });
-
+  const [btnLoading, setBtnLoading] = React.useState(false);
   const [AlertText, setAlertText] = React.useState("");
 
   const [inputErrorA, setInputErrorA] = React.useState(false);
   const [inputErrorP, setInputErrorP] = React.useState(false);
-
   const [hidden, setHidden] = React.useState(true);
+
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -94,7 +94,7 @@ function Login() {
       setInputErrorP(false);
       setHidden(true);
     }
-
+    setBtnLoading(true);
     await axios
       .post("api/login", {
         username: username,
@@ -110,6 +110,7 @@ function Login() {
         setInputErrorP(true);
         setHidden(false);
       });
+    setBtnLoading(false);
   };
 
   const [isLoading, setisLoading] = React.useState(true);
@@ -213,7 +214,8 @@ function Login() {
                   label="保持登入"
                 />
               </div>
-              <Button
+              <LoadingButton
+                loading={btnLoading}
                 type="submit"
                 variant="contained"
                 className="ButtonLogin"
@@ -223,7 +225,7 @@ function Login() {
                 <Typography variant="h5" color="white" fontWeight={540}>
                   立即登入
                 </Typography>
-              </Button>
+              </LoadingButton>
             </Box>
           </Paper>
         </ThemeProvider>

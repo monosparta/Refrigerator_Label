@@ -3,7 +3,6 @@ import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  Button,
   TextField,
   Typography,
   Chip,
@@ -20,7 +19,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LOGO from "../Pictures/monologo.jpg";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme = createTheme({
   palette: {
@@ -60,6 +59,7 @@ export default function ManagementPage() {
   });
   //Alert的文字
   const [AlertText, setAlertText] = React.useState("");
+  const [btnLoading, setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -67,6 +67,7 @@ export default function ManagementPage() {
   const { vertical, horizontal, open } = state;
   //儲存功能
   const handleUpdate = (id) => async () => {
+    setBtnLoading(true);
     await axios
       .put(
         "api/label",
@@ -90,6 +91,7 @@ export default function ManagementPage() {
       },
     });
     setAlertText("儲存成功");
+    setBtnLoading(false);
   };
   //備註
   const [note, setNote] = React.useState("");
@@ -138,35 +140,37 @@ export default function ManagementPage() {
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("label_id");
+    if (delete_data.length !== 0) {
+      await axios
+        .delete("api/label", {
+          headers: { token: localStorage.getItem("login_token") },
+          data: { label_id: delete_data },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            navigate("/");
+          }
+        });
 
-    await axios
-      .delete("api/label", {
-        headers: { token: localStorage.getItem("login_token") },
-        data: { label_id: delete_data },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
+      loadingData();
+      setAlertText("刪除成功");
+      setState({
+        isLoading: true,
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
+        },
       });
-
-    loadingData();
-    setAlertText("刪除成功");
-    setState({
-      isLoading: true,
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
+    }
   };
+
   //讀取要寄信的人
   const handleMailPeople = () => {
     const get_mail_people = getSelectData("name");
@@ -185,34 +189,36 @@ export default function ManagementPage() {
   };
   //寄信功能
   const handleSendMail = async (mail_users, mail_content) => {
-    await axios
-      .get("api/manual_send_mail", {
-        headers: { token: localStorage.getItem("login_token") },
-        params: {
-          users: mail_users,
-          text: mail_content,
+    if (mail_users.length !== 0) {
+      await axios
+        .get("api/manual_send_mail", {
+          headers: { token: localStorage.getItem("login_token") },
+          params: {
+            users: mail_users,
+            text: mail_content,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            navigate("/");
+          }
+        });
+      setAlertText("寄信成功");
+      setState({
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
         },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
       });
-    setAlertText("寄信成功");
-    setState({
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center",
-      },
-    });
-    setSelectDataId([]);
+      setSelectDataId([]);
+    }
   };
 
   // data grid columns definition
@@ -289,8 +295,9 @@ export default function ManagementPage() {
       getActions: (params) => {
         return [
           <ThemeProvider theme={theme}>
-            <Button
+            <LoadingButton
               onClick={handleUpdate(params.id)}
+              loading={btnLoading}
               color="Button"
               variant="contained"
               disableElevation
@@ -298,7 +305,7 @@ export default function ManagementPage() {
               <Typography color="white" variant="h7" sx={{ fontWeight: "500" }}>
                 儲存
               </Typography>
-            </Button>
+            </LoadingButton>
           </ThemeProvider>,
         ];
       },

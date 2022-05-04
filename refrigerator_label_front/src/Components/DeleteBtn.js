@@ -8,6 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const theme2 = createTheme({
   palette: {
@@ -22,6 +23,8 @@ const theme2 = createTheme({
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const [btnLoading, setBtnLoading] = React.useState(false);
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -34,8 +37,10 @@ export default function ResponsiveDialog(props) {
   };
 
   const handleDelete = async () => {
+    setBtnLoading(true);
     await props.handleDelete();
     setOpen(false);
+    setBtnLoading(false);
   };
 
   return (
@@ -71,9 +76,10 @@ export default function ResponsiveDialog(props) {
             <div className="BtnGroup">
               <ThemeProvider theme={theme2}>
                 <div className="BtnOK">
-                  <Button
+                  <LoadingButton
                     autoFocus
                     onClick={handleDelete}
+                    loading={btnLoading}
                     variant="contained"
                     color="Button"
                     style={{
@@ -84,7 +90,7 @@ export default function ResponsiveDialog(props) {
                     }}
                   >
                     <Typography color="white">確認</Typography>
-                  </Button>
+                  </LoadingButton>
                 </div>
                 <div className="BtnNo">
                   <Button
