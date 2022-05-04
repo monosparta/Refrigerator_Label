@@ -208,6 +208,7 @@
   display: flex;
   width: fit-content;
   padding: 1vh 0;
+  margin-left: 12vw;
   /* border: solid 1px chartreuse; */
 }
 .Header {
@@ -217,7 +218,7 @@
 }
 .DeleteBtn {
   position: relative;
-  margin: 0 2vw 0 6vw;
+  margin: 0 2vw 0 0;
 }
 .MailBtn {
   position: relative;
@@ -226,7 +227,7 @@
 .Search {
   position: relative;
   padding: 1vh 0;
-  margin-left: 8vw;
+  margin-left: 2vw;
 }
 .Choosen {
   position: relative;
