@@ -101,18 +101,27 @@
 .owner {
   /* border:solid 1px blue; */
   display: flex;
+  margin-left: 15px;
 }
 .ownertext {
   position: relative;
   padding-top: 10px;
+  width: fit-content;
+  height: fit-content;
   /* border: solid 1px khaki; */
 }
 .mailcontent {
   position: relative;
   display: flex;
-  width: 400px;
-  height: 150px;
+  width: 420px;
+  height: 120px;
+  margin-top: 5px;
+  margin-left: 15px;
   /* border: solid 1px green; */
+}
+.mail_content{
+  position: relative;
+  margin-left: 25px;
 }
 .DataGrid {
   position: relative;
@@ -161,9 +170,9 @@
 }
 .chips {
   position: relative;
-  width: 280px;
-  height: 50px;
-  margin-left: 25px;
+  width: 330px;
+  margin-left: 18px;
+  display: block;
   /* border: solid rgb(203, 225, 4) 1px; */
 }
 .contentBox {
@@ -183,7 +192,7 @@
 .ButtonGroup {
   position: relative;
   display: flex;
-  left: -80px;
+  left: -106px;
   width: 250px;
   height: fit-content;
   /* border: solid rgb(242, 34, 180) 1px; */
@@ -219,4 +228,27 @@
 }
 .BtnOK {
   position: relative;
+}
+.ButtonDeleteandMail {
+  position: relative;
+  display: flex;
+  width: 99vw;
+  padding: 1vh 0;
+  /* border: solid 1px chartreuse; */
+}
+.DeleteBtn {
+  position: relative;
+  margin-left: 64px;
+}
+.MailBtn {
+  position: relative;
+  margin-left: 16px;
+}
+.Search {
+  position: relative;
+  margin-left: 64px;
+}
+.Choosen{
+  position: relative;
+  display: flex;
 }

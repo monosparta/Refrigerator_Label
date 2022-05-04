@@ -12,9 +12,13 @@ import {
   styled,
   DialogTitle,
   DialogContent,
+  IconButton,
+  Modal,
+  Box,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -63,6 +67,22 @@ export default function ResponsiveDialog(props) {
       },
     },
   });
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 200,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const handleopenModal = () => {
+    setOpen(true);
+  };
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -76,7 +96,7 @@ export default function ResponsiveDialog(props) {
         </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
-        <Paper sx={{ width: 440, height: 300 }}>
+        <Paper sx={{ width: 500, height: 300 }}>
           <form>
             <DialogTitle>
               <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
@@ -93,41 +113,46 @@ export default function ResponsiveDialog(props) {
                   物品所屬人
                 </Typography>
                 <div className="chips">
-                  <Paper
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    sx={{
-                      display: "flex",
-                      justifyContent: "left",
-                      flexWrap: "wrap",
-                      listStyle: "none",
-                      p: 0.5,
-                      m: 0,
-                      height: 40,
-                      width: 300,
-                      // border: 1,
-                    }}
-                    component="ul"
-                    elevation={0}
-                  >
-                    {chipData.map((data) => {
-                      let icon;
-                      return (
-                        <ListItem key={data.key}>
-                          <Chip
-                            icon={icon}
-                            label={data.label}
-                            onDelete={
-                              data.label === "React"
-                                ? undefined
-                                : handleDelete(data)
-                            }
-                          />
-                        </ListItem>
-                      );
-                    })}
-                  </Paper>
+                  <div className="Choosen">
+                    <Paper
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "left",
+                        flexWrap: "wrap",
+                        listStyle: "none",
+                        p: 0.5,
+                        m: 0,
+                        height: 40,
+                        width: 300,
+                        // border: 1,
+                      }}
+                      component="ul"
+                      elevation={0}
+                    >
+                      {chipData.map((data) => {
+                        let icon;
+                        return (
+                          <ListItem key={data.key}>
+                            <Chip
+                              icon={icon}
+                              label={data.label}
+                              onDelete={
+                                data.label === "React"
+                                  ? undefined
+                                  : handleDelete(data)
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </Paper>
+                    <IconButton onClick={handleopenModal}>
+                      <MoreVertIcon />
+                    </IconButton>
+                  </div>
                   <Divider sx={{ width: 300 }} />
                 </div>
               </div>
@@ -195,6 +220,24 @@ export default function ResponsiveDialog(props) {
             </DialogActions>
           </form>
         </Paper>
+        <Modal onClose={handleClose} open={open}>
+          <Box sx={style}>
+            {chipData.map((data) => {
+              let icon;
+              return (
+                <ListItem key={data.key}>
+                  <Chip
+                    icon={icon}
+                    label={data.label}
+                    onDelete={
+                      data.label === "React" ? undefined : handleDelete(data)
+                    }
+                  />
+                </ListItem>
+              );
+            })}
+          </Box>
+        </Modal>
       </Dialog>
     </div>
   );
