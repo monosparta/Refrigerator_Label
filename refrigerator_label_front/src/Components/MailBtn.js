@@ -12,13 +12,14 @@ import {
   styled,
   DialogTitle,
   DialogContent,
-  IconButton,
-  Modal,
-  Box,
+  // IconButton,
+  // Modal,
+  // Box,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { height, width } from "@mui/system";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ResponsiveDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +32,7 @@ export default function ResponsiveDialog(props) {
     setChipData(mail_people);
   };
 
-  const sendMail = async(e) => {
+  const sendMail = async (e) => {
     e.preventDefault();
     let mail_users = "";
     chipData.forEach(function (item) {
@@ -67,22 +68,6 @@ export default function ResponsiveDialog(props) {
       },
     },
   });
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 200,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const handleopenModal = () => {
-    setOpen(true);
-  };
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -96,14 +81,12 @@ export default function ResponsiveDialog(props) {
         </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
-        <Paper sx={{ width: 500, height: 300 }}>
+        <Paper sx={{ width: 500 }}>
           <form>
-            <DialogTitle>
+            <DialogContent>
               <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
                 寄送到期提醒信件
               </Typography>
-            </DialogTitle>
-            <DialogContent sx={{ height: 160 }}>
               <div className="owner" display="flex">
                 <Typography
                   variant="h7"
@@ -125,8 +108,8 @@ export default function ResponsiveDialog(props) {
                         listStyle: "none",
                         p: 0.5,
                         m: 0,
-                        height: 40,
                         width: 300,
+                        minHeight: 36,
                         // border: 1,
                       }}
                       component="ul"
@@ -149,9 +132,6 @@ export default function ResponsiveDialog(props) {
                         );
                       })}
                     </Paper>
-                    <IconButton onClick={handleopenModal}>
-                      <MoreVertIcon />
-                    </IconButton>
                   </div>
                   <Divider sx={{ width: 300 }} />
                 </div>
@@ -175,8 +155,6 @@ export default function ResponsiveDialog(props) {
                   />
                 </div>
               </div>
-            </DialogContent>
-            <DialogActions>
               <div className="ButtonGroup">
                 <ThemeProvider theme={theme}>
                   <Button
@@ -217,27 +195,9 @@ export default function ResponsiveDialog(props) {
                   </Button>
                 </ThemeProvider>
               </div>
-            </DialogActions>
+            </DialogContent>
           </form>
         </Paper>
-        <Modal onClose={handleClose} open={open}>
-          <Box sx={style}>
-            {chipData.map((data) => {
-              let icon;
-              return (
-                <ListItem key={data.key}>
-                  <Chip
-                    icon={icon}
-                    label={data.label}
-                    onDelete={
-                      data.label === "React" ? undefined : handleDelete(data)
-                    }
-                  />
-                </ListItem>
-              );
-            })}
-          </Box>
-        </Modal>
       </Dialog>
     </div>
   );

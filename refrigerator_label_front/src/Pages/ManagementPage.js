@@ -20,6 +20,7 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LOGO from "../Pictures/monologo.jpg";
 
 const theme = createTheme({
   palette: {
@@ -302,9 +303,14 @@ export default function ManagementPage() {
   return (
     <div className="Home">
       <Bar />
-      <Box style={{ height: 900, width: "100%" }} className="DataGrid">
+      <Box
+        className="DataGrid"
+        style={{
+          width: "100%",
+        }}
+      >
         <ThemeProvider theme={theme}>
-          <div className="ButtonDeleteandMail">
+          <div className="Header">
             <div className="Search">
               <Paper
                 component="form"
@@ -314,8 +320,9 @@ export default function ManagementPage() {
                   alignItems: "center",
                   width: 420,
                   height: 32,
+                  border: 1,
                 }}
-                elevation={1}
+                elevation={0}
               >
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
@@ -332,20 +339,21 @@ export default function ManagementPage() {
                 </IconButton>
               </Paper>
             </div>
-            <div className="DeleteBtn">
-              <DeleteBtn handleDelete={handleDelete} />
-            </div>
-            <div className="MailBtn">
-              <MailBtn
-                endIcon={<SendIcon />}
-                handleSendMail={handleSendMail}
-                handleMailPeople={handleMailPeople}
-              />
+            <div className="ButtonDeleteandMail">
+              <div className="DeleteBtn">
+                <DeleteBtn handleDelete={handleDelete} />
+              </div>
+              <div className="MailBtn">
+                <MailBtn
+                  endIcon={<SendIcon />}
+                  handleSendMail={handleSendMail}
+                  handleMailPeople={handleMailPeople}
+                />
+              </div>
             </div>
           </div>
         </ThemeProvider>
         <DataGrid
-          sx={{ display: "flex", flexDirection: "column-reverse" }}
           rows={rowData}
           columns={columns}
           pageSize={100}
@@ -362,7 +370,7 @@ export default function ManagementPage() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={1500}
+        autoHideDuration={2000}
         onClose={handleClose}
         key={vertical + horizontal}
       >
