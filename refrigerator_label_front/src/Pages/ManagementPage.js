@@ -82,6 +82,12 @@ export default function ManagementPage() {
       })
       .catch((error) => {
         console.log(error);
+        setBtnLoading(false);
+         //overtime
+         if (error.response.status === 402 || 403) {
+          localStorage.removeItem("login_token");
+          navigate("/");
+        }
       });
     setState({
       open: true,
@@ -153,6 +159,7 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
+          setBtnLoading(false);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
@@ -205,6 +212,7 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
+          setBtnLoading(false);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
@@ -276,6 +284,7 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       sortable: false,
       headerAlign: "left",
+      align: "left",
       getActions: (params) => {
         return [
           <TextField
@@ -294,6 +303,7 @@ export default function ManagementPage() {
       minWidth: 100,
       flex: 1,
       cellClassName: "actions",
+      align: "left",
       getActions: (params) => {
         return [
           <ThemeProvider theme={theme}>
