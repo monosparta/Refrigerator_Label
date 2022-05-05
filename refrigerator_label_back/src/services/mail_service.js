@@ -34,8 +34,7 @@ manual_send_mail = async (mail) => {
 };
 
 auto_send_mail = async (req, res) => {
-  const time = await label_service.time();
-  let mail_users = "";
+  const time = await label_service.owner_information();
   for (let i = 0; i < time.length; i++) {
     let array = time[i]["date"].split(" ");
     let Today = new Date();
@@ -48,33 +47,32 @@ auto_send_mail = async (req, res) => {
 
     if (diff_day === 7) {
       let mail = await user_service.card_id_find_mail(time[i]["card_id"]);
-      mail_users = mail_users + mail["dataValues"]["mail"] + ",";
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.NODEMAILER_USER,
+          pass: process.env.NODEMAILER_PASSWORD,
+        },
+      });
+    
+      var mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: mail["dataValues"]["mail"],
+        subject: "冰箱物品管理系統提醒",
+        html:  mail_template_header + "您的物品 <b>#" + time[i]["label_id"] + " </b>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！" + mail_template_footer
+      };
+    
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(info);
+        }
+      });
+      transporter.close();
     }
+
   }
-
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASSWORD,
-    },
-  });
-
-  var mailOptions = {
-    from: process.env.NODEMAILER_USER,
-    bcc: mail_users,
-    subject: "冰箱物品管理系統提醒",
-    html:  mail_template_header + "您的物品已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！" + mail_template_footer
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(info);
-    }
-  });
-  transporter.close();
 };
 
 
