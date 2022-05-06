@@ -118,7 +118,7 @@ function Login() {
   useEffect(() => {
     setTimeout(() => {
       setisLoading(false);
-    }, 2500);
+    }, 500);
   }, []);
 
   return (

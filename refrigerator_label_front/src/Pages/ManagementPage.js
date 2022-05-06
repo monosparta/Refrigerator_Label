@@ -59,6 +59,7 @@ export default function ManagementPage() {
   });
   //Alert的文字
   const [AlertText, setAlertText] = React.useState("");
+  const [Severity, setSeverity] = React.useState("");
   const [btnLoading, setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
@@ -83,8 +84,8 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error);
         setBtnLoading(false);
-         //overtime
-         if (error.response.status === 402 || 403) {
+        //overtime
+        if (error.response.status === 402 || 403) {
           localStorage.removeItem("login_token");
           navigate("/");
         }
@@ -97,6 +98,7 @@ export default function ManagementPage() {
       },
     });
     setAlertText("儲存成功");
+    setSeverity("success");
     setBtnLoading(false);
   };
   //備註
@@ -168,6 +170,7 @@ export default function ManagementPage() {
         });
 
       loadingData();
+      setSeverity("success");
       setAlertText("刪除成功");
       setState({
         isLoading: true,
@@ -220,6 +223,7 @@ export default function ManagementPage() {
           }
         });
       setAlertText("寄信成功");
+      setSeverity("success");
       setState({
         open: true,
         ...{
@@ -398,7 +402,7 @@ export default function ManagementPage() {
         onClose={handleClose}
         key={vertical + horizontal}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+        <Alert onClose={handleClose} severity={Severity} sx={{ width: "100%" }}>
           {AlertText}
         </Alert>
       </Snackbar>

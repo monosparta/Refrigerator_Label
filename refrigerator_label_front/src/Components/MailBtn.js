@@ -69,6 +69,7 @@ export default function ResponsiveDialog(props) {
       },
     },
   });
+  // const Choosen_limit = 2;
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -134,7 +135,7 @@ export default function ResponsiveDialog(props) {
                       })}
                     </Paper>
                   </div>
-                  <Divider sx={{ width: 300 }} />
+                  <Divider sx={{ width: 320 }} />
                 </div>
               </div>
               <div className="mailcontent" display="flex">
