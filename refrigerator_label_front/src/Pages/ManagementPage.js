@@ -83,8 +83,8 @@ export default function ManagementPage() {
       .catch((error) => {
         console.log(error);
         setBtnLoading(false);
-         //overtime
-         if (error.response.status === 402 || 403) {
+        //overtime
+        if (error.response.status === 402 || 403) {
           localStorage.removeItem("login_token");
           navigate("/");
         }
@@ -192,6 +192,7 @@ export default function ManagementPage() {
         key: count,
         label: get_mail_people[count] + "-" + get_mail_label_id[count],
         mail: get_mail_data[count],
+        label_id: get_mail_label_id[count],
       });
     }
     return people;
@@ -378,6 +379,11 @@ export default function ManagementPage() {
           </div>
         </ThemeProvider>
         <DataGrid
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus": {
+              outline: "none",
+            },
+          }}
           rows={rowData}
           columns={columns}
           pageSize={100}

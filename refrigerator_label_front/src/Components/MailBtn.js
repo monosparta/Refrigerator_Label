@@ -34,11 +34,11 @@ export default function ResponsiveDialog(props) {
   const sendMail = async (e) => {
     e.preventDefault();
     setBtnLoading(true);
-    let mail_users = "";
+    const mail_user_data = [];
     chipData.forEach(function (item) {
-      mail_users += item["mail"] + ",";
+      mail_user_data.push([item["mail"], item["label_id"]]);
     });
-    await props.handleSendMail(mail_users, mailContent);
+    await props.handleSendMail( mail_user_data, mailContent);
     setOpen(false);
     setBtnLoading(false);
   };
