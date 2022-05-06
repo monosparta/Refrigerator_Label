@@ -11,7 +11,7 @@ auto_send_mail = async (req, res) => {
 
 manual_send_mail = async (req, res) => {
   try {
-    await mail_service.manual_send_mail(req.query);
+    await mail_service.manual_send_mail(req.body);
     return res.status(200).json({ message: "寄信成功" });
   } catch (err) {
     return res.status(500).json({ message: err.message });
