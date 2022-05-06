@@ -195,6 +195,7 @@ export default function ManagementPage() {
         key: count,
         label: get_mail_people[count] + "-" + get_mail_label_id[count],
         mail: get_mail_data[count],
+        label_id: get_mail_label_id[count],
       });
     }
     return people;
@@ -203,13 +204,16 @@ export default function ManagementPage() {
   const handleSendMail = async (mail_users, mail_content) => {
     if (mail_users.length !== 0) {
       await axios
-        .get("api/manual_send_mail", {
-          headers: { token: localStorage.getItem("login_token") },
-          params: {
+        .post(
+          "api/manual_send_mail",
+          {
             users: mail_users,
             text: mail_content,
           },
-        })
+          {
+            headers: { token: localStorage.getItem("login_token") },
+          }
+        )
         .then((response) => {
           console.log(response);
         })
@@ -382,6 +386,12 @@ export default function ManagementPage() {
           </div>
         </ThemeProvider>
         <DataGrid
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus, &.MuiDataGrid-root .MuiDataGrid-cell:focus":
+              {
+                outline: "none",
+              },
+          }}
           rows={rowData}
           columns={columns}
           pageSize={100}
