@@ -38,7 +38,7 @@ export default function ResponsiveDialog(props) {
     chipData.forEach(function (item) {
       mail_user_data.push([item["mail"], item["label_id"]]);
     });
-    await props.handleSendMail( mail_user_data, mailContent);
+    await props.handleSendMail(mail_user_data, mailContent);
     setOpen(false);
     setBtnLoading(false);
   };
