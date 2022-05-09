@@ -20,7 +20,7 @@ import Logo from "../Pictures/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import LoadingScreen from "react-loading-screen";
 import { useEffect } from "react";
-
+import { TokenContext } from "../App.js";
 import "../App.css";
 
 function Login() {
@@ -34,6 +34,7 @@ function Login() {
     },
   });
 
+  const { setTokenContext } = React.useContext(TokenContext);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState({
     password: "",
@@ -41,7 +42,6 @@ function Login() {
   });
   const [btnLoading, setBtnLoading] = React.useState(false);
   const [AlertText, setAlertText] = React.useState("");
-
   const [inputErrorA, setInputErrorA] = React.useState(false);
   const [inputErrorP, setInputErrorP] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
@@ -101,7 +101,9 @@ function Login() {
         password: password.password,
       })
       .then((response) => {
-        localStorage.setItem("login_token", response["data"]["token"]);
+        const token = response["data"]["token"];
+        localStorage.setItem("login_token", token);
+        setTokenContext(token);
         navigate("/ManagementPage");
       })
       .catch((error) => {

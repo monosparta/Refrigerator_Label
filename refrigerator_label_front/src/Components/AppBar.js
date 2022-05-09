@@ -7,6 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TokenContext } from "../App.js";
 
 const theme = createTheme({
   palette: {
@@ -25,9 +26,12 @@ const theme = createTheme({
 export default function ButtonAppBar() {
   let navigate = useNavigate();
 
+  const { setTokenContext } = React.useContext(TokenContext);
+
   const handleLogout = () => {
-    localStorage.removeItem('login_token')
-    navigate("/")
+    localStorage.removeItem("login_token");
+    setTokenContext(null);
+    navigate("/");
   };
 
   return (
