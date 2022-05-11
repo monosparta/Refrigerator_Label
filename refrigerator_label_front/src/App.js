@@ -12,7 +12,9 @@ import NoFoundPage from "./Pages/NotFoundPage";
 export const TokenContext = React.createContext(null);
 
 export default function App() {
-  const [tokenContext, setTokenContext] = React.useState(null);
+  const [tokenContext, setTokenContext] = React.useState(
+    localStorage.getItem("login_token")
+  );
 
   return (
     <TokenContext.Provider value={{ tokenContext, setTokenContext }}>
