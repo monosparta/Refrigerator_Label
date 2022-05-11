@@ -107,7 +107,6 @@ function Login() {
         navigate("/ManagementPage");
       })
       .catch((error) => {
-        console.log(error);
         setAlertText(error.response.data["message"]);
         setInputErrorA(true);
         setInputErrorP(true);

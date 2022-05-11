@@ -5,7 +5,7 @@ const axios = (baseURL) => {
         headers: { 
             'Content-Type': 'application/json',
         },
-        timeout: 5000,
+        timeout: 8000,
     });
 return instance;
 }
