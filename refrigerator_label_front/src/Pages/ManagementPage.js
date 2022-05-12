@@ -306,35 +306,7 @@ export default function ManagementPage() {
         }}
       >
         <ThemeProvider theme={theme}>
-          <div className="Header">
-            <div className="Search">
-              <Paper
-                component="form"
-                sx={{
-                  p: "2px 4px",
-                  display: "flex",
-                  alignItems: "center",
-                  width: 420,
-                  height: 32,
-                  border: 1,
-                }}
-                elevation={0}
-              >
-                <InputBase
-                  sx={{ ml: 1, flex: 1 }}
-                  placeholder="搜尋物品"
-                  inputProps={{ "aria-label": "search google maps" }}
-                  disableElevation
-                />
-                <IconButton
-                  type="submit"
-                  sx={{ p: "10px" }}
-                  aria-label="search"
-                >
-                  <SearchIcon />
-                </IconButton>
-              </Paper>
-            </div>
+          <Paper className="Header">
             <div className="ButtonDeleteandMail">
               <div className="DeleteBtn">
                 <DeleteBtn handleDelete={handleDelete} />
@@ -347,7 +319,7 @@ export default function ManagementPage() {
                 />
               </div>
             </div>
-          </div>
+          </Paper>
         </ThemeProvider>
         <DataGrid
           sx={{

@@ -208,26 +208,22 @@
   display: flex;
   width: fit-content;
   padding: 1vh 0;
-  margin-left: 12vw;
+  margin-left: 2vw;
   /* border: solid 1px chartreuse; */
 }
 .Header {
   position: relative;
   display: flex;
+  margin-top: 8px;
+  margin-bottom: 8px;
   /* border: solid 1px darkgoldenrod; */
 }
 .DeleteBtn {
   position: relative;
-  margin: 0 2vw 0 0;
 }
 .MailBtn {
   position: relative;
-  margin: 0 0.5vw;
-}
-.Search {
-  position: relative;
-  padding: 1vh 0;
-  margin-left: 2vw;
+  margin-left: 16px;
 }
 .Choosen {
   position: relative;
