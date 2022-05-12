@@ -10,6 +10,14 @@ find_label_all = async () => {
     
     return request;
 }
+is_id = async (id) => {
+    const is_id = await db.Labels.findOne({
+        raw:true,
+        attributes: ['id'],
+        where: {id:id}
+    })
+    return is_id;
+} 
 
 delete_label = async (label_id) => {
     const request = await db.Labels.destroy({
@@ -80,6 +88,7 @@ module.exports = {
     delete_label,
     update_label,
     owner_information,
-    last_id
+    last_id,
+    is_id
 }
 

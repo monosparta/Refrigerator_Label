@@ -71,11 +71,18 @@ create_label = async (req, res) => {
 };
 
 update_label = async (req, res) => {
+  const r =  /^[0-9]*[1-9][0-9]*$/
+  const id = await label_service.is_id(req.body.id)
   try {
-    const update_label = await label_service.update_label(req.body);
-    if (update_label) {
-      return res.status(200).json({ message: "修改成功" });
+    if(r.test(req.body.id) && id){
+      const update_label = await label_service.update_label(req.body);
+      if (update_label) {
+        return res.status(200).json({ message: "修改成功" });
+      }
+    }else{
+      return res.status(417).json({ message: "執行失敗" });
     }
+    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
