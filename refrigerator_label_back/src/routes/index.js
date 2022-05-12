@@ -17,7 +17,7 @@ module.exports = function (router) {
 
   router.get("/api/find_label_all", label_controller.find_label_all);
 
-  router.get("/api/manual_send_mail", mail_controller.manual_send_mail);
+  router.post("/api/manual_send_mail", mail_controller.manual_send_mail);
 
   router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
 

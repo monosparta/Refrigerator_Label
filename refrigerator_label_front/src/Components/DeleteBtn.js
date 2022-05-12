@@ -21,7 +21,7 @@ const theme2 = createTheme({
   },
 });
 
-export default function ResponsiveDialog(props) {
+export default function DeleteBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [btnLoading, setBtnLoading] = React.useState(false);
 

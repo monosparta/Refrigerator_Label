@@ -2,24 +2,17 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  TextField,
-  Typography,
-  Chip,
-  Paper,
-  InputBase,
-  IconButton,
-} from "@mui/material";
+import { Chip, Paper, InputBase, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
 import MailBtn from "../Components/MailBtn";
+import EditBtn from "../Components/EditBtn";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme = createTheme({
   palette: {
@@ -60,30 +53,29 @@ export default function ManagementPage() {
   //Alert的文字
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  const [btnLoading, setBtnLoading] = React.useState(false);
+  const [ setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
+
   //儲存功能
-  const handleUpdate = (id) => async () => {
-    setBtnLoading(true);
+  const handleEdit = async (label_id, update_note) => {
     await axios
       .put(
         "api/label",
         {
-          id: id,
-          note: note,
+          id: label_id,
+          note: update_note,
         },
         { headers: { token: localStorage.getItem("login_token") } }
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data["message"]);
       })
       .catch((error) => {
-        console.log(error);
-        setBtnLoading(false);
+        console.log(error.response.data["message"]);
         //overtime
         if (error.response.status === 402 || 403) {
           localStorage.removeItem("login_token");
@@ -102,11 +94,11 @@ export default function ManagementPage() {
     setBtnLoading(false);
   };
   //備註
-  const [note, setNote] = React.useState("");
-  //備註寫入
-  const onChangeNote = (e) => {
-    setNote(e.target.value);
-  };
+  // const [note, setNote] = React.useState("");
+  // //備註寫入
+  // // const onChangeNote = (e) => {
+  // //   setNote(e.target.value);
+  // // };
 
   const loadingData = React.useCallback(() => {
     const loadData = async () => {
@@ -161,7 +153,6 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
-          setBtnLoading(false);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
@@ -219,7 +210,6 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
-          setBtnLoading(false);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
@@ -285,25 +275,11 @@ export default function ManagementPage() {
     },
     {
       field: "note",
-      type: "actions",
       headerName: "備註",
       minWidth: 200,
       flex: 2,
       disableColumnMenu: true,
       sortable: false,
-      headerAlign: "left",
-      align: "left",
-      getActions: (params) => {
-        return [
-          <TextField
-            id={params.row.id}
-            size="small"
-            placeholder="編輯備註"
-            defaultValue={params.row.note}
-            onChange={onChangeNote}
-          />,
-        ];
-      },
     },
     {
       field: "actions",
@@ -314,19 +290,7 @@ export default function ManagementPage() {
       align: "left",
       getActions: (params) => {
         return [
-          <ThemeProvider theme={theme}>
-            <LoadingButton
-              onClick={handleUpdate(params.id)}
-              loading={btnLoading}
-              color="Button"
-              variant="contained"
-              disableElevation
-            >
-              <Typography color="white" variant="h7" sx={{ fontWeight: "500" }}>
-                儲存
-              </Typography>
-            </LoadingButton>
-          </ThemeProvider>,
+          <EditBtn id={params.row.id} textValue={params.row.note} handleEdit={handleEdit} />,
         ];
       },
     },

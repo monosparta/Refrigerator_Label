@@ -19,7 +19,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function ResponsiveDialog(props) {
+export default function MailBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [mailContent, setMailContent] = React.useState();
   const [btnLoading, setBtnLoading] = React.useState(false);
