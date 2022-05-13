@@ -10,6 +10,7 @@ find_label_all = async () => {
     
     return request;
 }
+
 is_id = async (id) => {
     const is_id = await db.Labels.findOne({
         raw:true,

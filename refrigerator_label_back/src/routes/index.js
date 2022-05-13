@@ -17,15 +17,15 @@ module.exports = function (router) {
 
   router.get("/api/find_label_all", label_controller.find_label_all);
 
-  router.post("/api/manual_send_mail", mail_controller.manual_send_mail);
-
   router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
+
+  router.post("/api/manual_send_mail", mail_controller.manual_send_mail);
 
   router.post("/api/label", label_controller.create_label);
 
-  router.delete("/api/label", label_controller.delete_label);
-
   router.post("/api/create_user", user_controller.create_user);
+  
+  router.delete("/api/label", label_controller.delete_label);
 
   router.put("/api/label", label_controller.update_label);
 };
