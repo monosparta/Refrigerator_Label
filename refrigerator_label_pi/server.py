@@ -51,13 +51,13 @@ while True:
         response = requests.post(
             "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
             headers = {'token': jwt.encode({"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256") },
-            data = {'date':date_now,'card_id':input_data}
+            data = {'card_id':input_data}
         )
 
         if(response.status_code==201): # is member
             # make png
             response_json = response.json()
-            pngMake(member_name=response_json['name'], data_id=response_json['data_id'], date=date_now.split(' ')[0])
+            pngMake(member_name=response_json['name'], label_id=response_json['label_id'], date=date_now.split(' ')[0])
 
             
             # QL print
