@@ -1,4 +1,4 @@
-const admin_service = require("../services/admin_service.js");
+const admin_service = require("../services/admin.js")
 const bcrypt = require("bcrypt");
 
 login = async (req, res) => {

@@ -1,4 +1,4 @@
-const mail_service = require("../services/mail_service.js");
+const mail_service = require("../services/mail.js");
 
 auto_send_mail = async (req, res) => {
   try {

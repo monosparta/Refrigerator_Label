@@ -1,8 +1,8 @@
 const token_authentication_middleware = require("../middleware/token_authentication");
-const user_controller = require("../controller/user_controller.js");
-const label_controller = require("../controller/label_controller.js");
-const admin_controller = require("../controller/admin_controller.js");
-const mail_controller = require("../controller/mail_controller.js");
+const user_controller = require("../controller/user.js");
+const label_controller = require("../controller/label.js");
+const admin_controller = require("../controller/admin.js");
+const mail_controller = require("../controller/mail.js");
 
 module.exports = function (router) {
   router.get("/", (req, res) => {
