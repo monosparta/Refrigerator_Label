@@ -10,20 +10,62 @@ import {
   Chip,
   styled,
   DialogContent,
-  // IconButton,
-  // Modal,
-  // Box,
+  IconButton,
+  Box,
+  Modal,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+function ChildModal(props) {
+  const { Chips } = props;
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <React.Fragment>
+      <IconButton sx={{ width: "25px", height: "25px" }} onClick={handleOpen}>
+        <MoreVertIcon />
+      </IconButton>
+      <Modal
+        hideBackdrop
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box
+          sx={{
+            width: 200,
+            minHeight: 200,
+            bgcolor: "white",
+            pt: 2,
+            px: 4,
+            pb: 3,
+            marginLeft: "35vw",
+            marginTop: "10vh",
+          }}
+        >
+          {Chips}
+          <Button onClick={handleClose}>關閉</Button>
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
 
 export default function MailBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [mailContent, setMailContent] = React.useState();
   const [btnLoading, setBtnLoading] = React.useState(false);
   const [chipData, setChipData] = React.useState([]);
+  const [hidden, setHidden] = React.useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,7 +111,7 @@ export default function MailBtn(props) {
       },
     },
   });
-  // const Choosen_limit = 2;
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -134,6 +176,25 @@ export default function MailBtn(props) {
                         );
                       })}
                     </Paper>
+                    {/* {!hidden ? () : null} */}
+                      <ChildModal
+                        Chips={chipData.map((data) => {
+                          let icon;
+                          return (
+                            <ListItem key={data.key}>
+                              <Chip
+                                icon={icon}
+                                label={data.label}
+                                onDelete={
+                                  data.label === "React"
+                                    ? undefined
+                                    : handleDelete(data)
+                                }
+                              />
+                            </ListItem>
+                          );
+                        })}
+                      />
                   </div>
                   <Divider sx={{ width: 320 }} />
                 </div>

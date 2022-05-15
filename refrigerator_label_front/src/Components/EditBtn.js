@@ -98,7 +98,7 @@ export default function EditBtn(props) {
                   width: "10%",
                   marginLeft: "auto",
                   marginRight: "auto",
-                  marginTop: "4px",
+                  marginTop: "6px",
                 }}
               >
                 <Typography variant="h7" color="white" sx={{ fontWeight: 500 }}>
@@ -114,7 +114,7 @@ export default function EditBtn(props) {
                   width: "10%",
                   marginLeft: "8px",
                   marginRight: "8px",
-                  marginTop: "4px",
+                  marginTop: "6px",
                 }}
               >
                 取消

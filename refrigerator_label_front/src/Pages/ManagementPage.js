@@ -2,8 +2,7 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import { Chip, Paper, InputBase, IconButton } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Chip, Paper } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
@@ -50,10 +49,10 @@ export default function ManagementPage() {
     vertical: "top",
     horizontal: "center",
   });
-  //Alert的文字
+
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  const [ setBtnLoading] = React.useState(false);
+  const [setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
