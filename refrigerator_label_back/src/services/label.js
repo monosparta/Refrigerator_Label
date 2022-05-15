@@ -10,7 +10,7 @@ find_label_all = async () => {
     
     return request;
 }
-is_id = async (id) => {
+have_id = async (id) => {
     const is_id = await db.Labels.findOne({
         raw:true,
         attributes: ['id'],
@@ -89,6 +89,6 @@ module.exports = {
     update_label,
     owner_information,
     last_id,
-    is_id
+    have_id
 }
 

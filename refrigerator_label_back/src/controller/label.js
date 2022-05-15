@@ -1,5 +1,5 @@
-const label_service = require("../services/label_service.js");
-const user_service = require("../services/user_service.js");
+const label_service = require("../services/label.js");
+const user_service = require("../services/user.js");
 
 find_label_all = async (req, res) => {
   try {
@@ -72,7 +72,7 @@ create_label = async (req, res) => {
 
 update_label = async (req, res) => {
   const r =  /^[0-9]*[1-9][0-9]*$/
-  const id = await label_service.is_id(req.body.id)
+  const id = await label_service.have_id(req.body.id)
   try {
     if(r.test(req.body.id) && id){
       const update_label = await label_service.update_label(req.body);

@@ -1,7 +1,7 @@
 const db = require("../models/index.js");
 const nodemailer = require("nodemailer");
-const label_service = require("../services/label_service.js");
-const user_service = require("../services/user_service.js");
+const label_service = require("./label.js");
+const user_service = require("./user.js");
 
 
 manual_send_mail = async (mail) => {
