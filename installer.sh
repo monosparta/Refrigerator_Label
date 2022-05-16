@@ -9,12 +9,12 @@ CLEAR='\033[0m'   # Clear color and formatting
 echo -e "${GREEN}Start Install Label Management System...${CLEAR}"
 
 sudo apt-get -y update
-sudo apt-get install curl
+sudo apt-get install -y curl
 
 # install node.js
 echo -e "${YELLOW}Install Node.js${CLEAR}"
-curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt install nodejs
+curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+sudo apt install -y nodejs
 node -v
 
 # install npm
