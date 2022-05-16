@@ -18,6 +18,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CloseIcon from "@mui/icons-material/Close";
 
 function ChildModal(props) {
   const { Chips } = props;
@@ -28,6 +29,13 @@ function ChildModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const theme = createTheme({
+    palette: {
+      Button: {
+        main: "#363F4E",
+      },
+    },
+  });
   return (
     <React.Fragment>
       <IconButton sx={{ width: "25px", height: "25px" }} onClick={handleOpen}>
@@ -42,18 +50,31 @@ function ChildModal(props) {
       >
         <Box
           sx={{
-            width: 200,
-            minHeight: 200,
-            bgcolor: "white",
+            width: "150px",
+            minHeight: "150px",
+            bgcolor: "#F5F5F5	",
             pt: 2,
             px: 4,
             pb: 3,
-            marginLeft: "35vw",
+            marginLeft: "40vw",
             marginTop: "10vh",
           }}
         >
-          {Chips}
-          <Button onClick={handleClose}>關閉</Button>
+          <ThemeProvider theme={theme}>
+            <IconButton
+              onClick={handleClose}
+              color="Button"
+              variant="outlined"
+              sx={{
+                marginLeft: "145px",
+                width: "25px",
+                height: "25px",
+              }}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </ThemeProvider>
+          <div className="ChipData">{Chips}</div>
         </Box>
       </Modal>
     </React.Fragment>
@@ -177,24 +198,24 @@ export default function MailBtn(props) {
                       })}
                     </Paper>
                     {/* {!hidden ? () : null} */}
-                      <ChildModal
-                        Chips={chipData.map((data) => {
-                          let icon;
-                          return (
-                            <ListItem key={data.key}>
-                              <Chip
-                                icon={icon}
-                                label={data.label}
-                                onDelete={
-                                  data.label === "React"
-                                    ? undefined
-                                    : handleDelete(data)
-                                }
-                              />
-                            </ListItem>
-                          );
-                        })}
-                      />
+                    <ChildModal
+                      Chips={chipData.map((data) => {
+                        let icon;
+                        return (
+                          <ListItem key={data.key} sx={{ listStyle: "none" }}>
+                            <Chip
+                              icon={icon}
+                              label={data.label}
+                              onDelete={
+                                data.label === "React"
+                                  ? undefined
+                                  : handleDelete(data)
+                              }
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    />
                   </div>
                   <Divider sx={{ width: 320 }} />
                 </div>

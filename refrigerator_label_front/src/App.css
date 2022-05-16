@@ -27,7 +27,7 @@
   margin-top: 20px;
 }
 .Box {
-  border: solid 2px rgb(254, 250, 250);
+  border: solid 2px rgb(255, 255, 255);
   position: relative;
   margin: 0 104px;
   top: 212px;
@@ -229,4 +229,10 @@
   position: relative;
   display: flex;
 }
-
+.ChipData {
+  position: relative;
+  /* border: solid 1px black; */
+  width: 170px;
+  min-height: 150px;
+  margin-top: 15px;
+}
