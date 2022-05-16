@@ -90,7 +90,6 @@ export default function ManagementPage() {
     });
     setAlertText("儲存成功");
     setSeverity("success");
-    setBtnLoading(false);
   };
   //備註
   // const [note, setNote] = React.useState("");

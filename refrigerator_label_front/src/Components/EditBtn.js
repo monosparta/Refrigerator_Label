@@ -31,6 +31,7 @@ export default function EditBtn(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setBtnLoading(false);
   };
 
   const theme = createTheme({
