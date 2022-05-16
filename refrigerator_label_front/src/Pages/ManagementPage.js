@@ -2,7 +2,7 @@ import * as React from "react";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
-import { Chip, Paper } from "@mui/material";
+import { Chip } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
@@ -90,7 +90,6 @@ export default function ManagementPage() {
     });
     setAlertText("儲存成功");
     setSeverity("success");
-    setBtnLoading(false);
   };
   //備註
   // const [note, setNote] = React.useState("");
@@ -122,9 +121,10 @@ export default function ManagementPage() {
   }, [navigate]);
 
   React.useEffect(() => {
-    setInterval(() => {
+    const update = setInterval(() => {
       loadingData();
     }, 1000);
+    return () => clearInterval(update);
   }, [loadingData]);
 
   const getSelectData = (field) => {
@@ -289,7 +289,11 @@ export default function ManagementPage() {
       align: "left",
       getActions: (params) => {
         return [
-          <EditBtn id={params.row.id} textValue={params.row.note} handleEdit={handleEdit} />,
+          <EditBtn
+            id={params.row.id}
+            textValue={params.row.note}
+            handleEdit={handleEdit}
+          />,
         ];
       },
     },
@@ -305,20 +309,18 @@ export default function ManagementPage() {
         }}
       >
         <ThemeProvider theme={theme}>
-          <Paper className="Header">
-            <div className="ButtonDeleteandMail">
-              <div className="DeleteBtn">
-                <DeleteBtn handleDelete={handleDelete} />
-              </div>
-              <div className="MailBtn">
-                <MailBtn
-                  endIcon={<SendIcon />}
-                  handleSendMail={handleSendMail}
-                  handleMailPeople={handleMailPeople}
-                />
-              </div>
+          <div className="ButtonDeleteandMail">
+            <div className="DeleteBtn">
+              <DeleteBtn handleDelete={handleDelete} />
             </div>
-          </Paper>
+            <div className="MailBtn">
+              <MailBtn
+                endIcon={<SendIcon />}
+                handleSendMail={handleSendMail}
+                handleMailPeople={handleMailPeople}
+              />
+            </div>
+          </div>
         </ThemeProvider>
         <DataGrid
           sx={{

@@ -211,13 +211,6 @@
   margin-left: 2vw;
   /* border: solid 1px chartreuse; */
 }
-.Header {
-  position: relative;
-  display: flex;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  /* border: solid 1px darkgoldenrod; */
-}
 .DeleteBtn {
   position: relative;
 }
@@ -232,7 +225,7 @@
 .ChipData {
   position: relative;
   /* border: solid 1px black; */
-  width: 170px;
+  width: 95%;
   min-height: 150px;
   margin-top: 15px;
 }
