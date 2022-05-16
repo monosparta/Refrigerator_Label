@@ -9,16 +9,18 @@ CLEAR='\033[0m'   # Clear color and formatting
 echo -e "${GREEN}Start Install Label Management System...${CLEAR}"
 
 sudo apt-get -y update
+sudo apt-get install curl
 
 # install node.js
 echo -e "${YELLOW}Install Node.js${CLEAR}"
-sudo apt-get install -y nodejs
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install nodejs
 node -v
 
 # install npm
 echo -e "${YELLOW}Install Npm${CLEAR}"
 sudo apt-get install -y npm
-npm
+npm -v
 
 
 # install mysql
