@@ -13,6 +13,7 @@ import {
   IconButton,
   Box,
   Modal,
+  Backdrop,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -38,45 +39,71 @@ function ChildModal(props) {
   });
   return (
     <React.Fragment>
-      <IconButton sx={{ width: "25px", height: "25px" }} onClick={handleOpen}>
+      <IconButton
+        sx={{ width: "25px", height: "25px", mt: "10px" }}
+        onClick={handleOpen}
+      >
         <MoreVertIcon />
       </IconButton>
-      <Modal
-        hideBackdrop
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-        onClose={handleClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
+        onClick={handleClose}
       >
-        <Box
-          sx={{
-            width: "150px",
-            minHeight: "150px",
-            bgcolor: "#F5F5F5	",
-            pt: 2,
-            px: 4,
-            pb: 3,
-            marginLeft: "40vw",
-            marginTop: "10vh",
-          }}
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
         >
-          <ThemeProvider theme={theme}>
-            <IconButton
-              onClick={handleClose}
-              color="Button"
-              variant="outlined"
+          <Box
+            sx={{
+              width: "350px",
+              minHeight: "450px",
+              bgcolor: "#F5F5F5	",
+              pt: 2,
+              px: 4,
+              pb: 3,
+              margin: "30vh auto",
+              borderRadius: "8px",
+            }}
+          >
+            <ThemeProvider theme={theme}>
+              <IconButton
+                onClick={handleClose}
+                color="Button"
+                sx={{
+                  marginLeft: "98%",
+                  width: "25px",
+                  height: "25px",
+                }}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </ThemeProvider>
+            <Paper
+              className="ChipData"
               sx={{
-                marginLeft: "145px",
-                width: "25px",
-                height: "25px",
+                display: "flex",
+                justifyContent: "left",
+                flexWrap: "wrap",
+                listStyle: "none",
+                p: 0.5,
+                m: 2,
+                width: 320,
+                minHeight: 450,
+                maxHeight: 450,
+                overflow: "scroll",
+                // border: 1,
               }}
+              elevation={0}
             >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </ThemeProvider>
-          <div className="ChipData">{Chips}</div>
-        </Box>
-      </Modal>
+              {Chips}
+            </Paper>
+          </Box>
+        </Modal>
+      </Backdrop>
     </React.Fragment>
   );
 }
@@ -92,6 +119,11 @@ export default function MailBtn(props) {
     setOpen(true);
     const mail_people = props.handleMailPeople();
     setChipData(mail_people);
+    if (mail_people.length > 2) {
+      setHidden(false);
+    } else {
+      setHidden(true);
+    }
   };
 
   const sendMail = async (e) => {
@@ -180,7 +212,7 @@ export default function MailBtn(props) {
                       component="ul"
                       elevation={0}
                     >
-                      {chipData.map((data) => {
+                      {chipData.slice(0, 2).map((data) => {
                         let icon;
                         return (
                           <ListItem key={data.key}>
@@ -197,25 +229,30 @@ export default function MailBtn(props) {
                         );
                       })}
                     </Paper>
-                    {/* {!hidden ? () : null} */}
-                    <ChildModal
-                      Chips={chipData.map((data) => {
-                        let icon;
-                        return (
-                          <ListItem key={data.key} sx={{ listStyle: "none" }}>
-                            <Chip
-                              icon={icon}
-                              label={data.label}
-                              onDelete={
-                                data.label === "React"
-                                  ? undefined
-                                  : handleDelete(data)
-                              }
-                            />
-                          </ListItem>
-                        );
-                      })}
-                    />
+                    {!hidden ? (
+                      <ChildModal
+                        Chips={chipData.map((data) => {
+                          let icon;
+                          return (
+                            <ListItem
+                              key={data.key}
+                              sx={{ listStyle: "none" }}
+                              display="flex"
+                            >
+                              <Chip
+                                icon={icon}
+                                label={data.label}
+                                onDelete={
+                                  data.label === "React"
+                                    ? undefined
+                                    : handleDelete(data)
+                                }
+                              />
+                            </ListItem>
+                          );
+                        })}
+                      />
+                    ) : null}
                   </div>
                   <Divider sx={{ width: 320 }} />
                 </div>

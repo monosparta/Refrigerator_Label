@@ -66,7 +66,7 @@ export default function EditBtn(props) {
             horizontal: "right",
           }}
           PaperProps={{
-            style: { width: "320px", height: "50px" },
+            style: { width: "40vw", height: "50px" },
           }}
         >
           <Grid
@@ -77,6 +77,7 @@ export default function EditBtn(props) {
           >
             <TextField
               sx={{
+                
                 width: "50%",
                 marginTop: "6px",
                 marginLeft: "auto",
@@ -86,6 +87,7 @@ export default function EditBtn(props) {
               placeholder="編輯備註"
               defaultValue={props.textValue}
               onChange={onChangeNote}
+              fullWidth
             />
             <div>
               <LoadingButton
@@ -95,7 +97,6 @@ export default function EditBtn(props) {
                 variant="contained"
                 color="Button"
                 style={{
-                  width: "10%",
                   marginLeft: "auto",
                   marginRight: "auto",
                   marginTop: "6px",
