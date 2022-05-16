@@ -15,6 +15,11 @@ echo -e "${YELLOW}Install Node.js${CLEAR}"
 sudo apt-get install -y nodejs
 node -v
 
+# install npm
+echo -e "${YELLOW}Install Npm${CLEAR}"
+sudo apt-get install -y npm
+npm
+
 
 # install mysql
 echo -e "${YELLOW}Install Mysql${CLEAR}"
