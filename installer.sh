@@ -70,7 +70,12 @@ DB_HOST='ec2-35-168-194-15.compute-1.amazonaws.com'
 DB_PORT='5432'
 DB_DIALECT='postgres'
 EOF
+# sequelize
+echo -e "${YELLOW}Sequelize set${CLEAR}"
+npx sequelize db:migrate
+npx sequelize db:seed:all
 cd ..
+
 echo -e "${YELLOW}Front .env Create${CLEAR}"
 cd refrigerator_label_front
 cat <<\EOF >.env
