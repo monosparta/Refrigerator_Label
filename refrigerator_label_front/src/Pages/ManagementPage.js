@@ -52,7 +52,6 @@ export default function ManagementPage() {
 
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  const [setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -90,7 +89,6 @@ export default function ManagementPage() {
     });
     setAlertText("儲存成功");
     setSeverity("success");
-    setBtnLoading(false);
   };
   //備註
   // const [note, setNote] = React.useState("");
