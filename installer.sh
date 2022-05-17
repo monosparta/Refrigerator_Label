@@ -38,13 +38,6 @@ npm --prefix ./refrigerator_label_back/ install
 echo -e "${YELLOW}Install Project Front${CLEAR}"
 npm --prefix ./refrigerator_label_front/ install
 
-# sequelize
-echo -e "${YELLOW}Sequelize set${CLEAR}"
-cd refrigerator_label_back
-npx sequelize db:migrate
-npx sequelize db:seed:all
-cd ..
-
 #.env
 echo -e "${YELLOW}End .env Create${CLEAR}"
 cd refrigerator_label_back
@@ -54,21 +47,21 @@ APP_HOST=''
 WEB_URL=''
 
 CORN_SCHEDULE='0 0 8 * * *'
-NODEMAILER_USER='qazwsx147866@gmail.com'
-NODEMAILER_PASSWORD='skllyfsnlszatsns'
+NODEMAILER_USER=''
+NODEMAILER_PASSWORD=''
 
-SUPER_USER_USERNAME='root'
-SUPER_USER_PASSWORD='root'
-SUPER_USER_MAIL='root@gmail.com'
+SUPER_USER_USERNAME=''
+SUPER_USER_PASSWORD=''
+SUPER_USER_MAIL=''
 
-JWT_SECRET='thisismynewproject'
+JWT_SECRET=''
 
-DB_USERNAME='bxlsmntsiebcmo'
-DB_PASSWORD='85cc654c57930209472966827528fc5cf6b97120069ce9e9ff3a418487c77335'
-DB_DATABASE='dam55h25c79f8h'
-DB_HOST='ec2-35-168-194-15.compute-1.amazonaws.com'
-DB_PORT='5432'
-DB_DIALECT='postgres'
+DB_USERNAME=''
+DB_PASSWORD=''
+DB_DATABASE=''
+DB_HOST=''
+DB_PORT=''
+DB_DIALECT=''
 EOF
 # sequelize
 echo -e "${YELLOW}Sequelize set${CLEAR}"
@@ -79,7 +72,7 @@ cd ..
 echo -e "${YELLOW}Front .env Create${CLEAR}"
 cd refrigerator_label_front
 cat <<\EOF >.env
-REACT_APP_BACK_END='http://localhost:3000/'
+REACT_APP_BACK_END=''
 EOF
 cd ..
 # start project
