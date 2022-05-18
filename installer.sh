@@ -29,7 +29,10 @@ export DEBIAN_FRONTEND="noninteractive"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password root"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password root"
 sudo apt-get install -y mysql-server
-# sudo mysql_secure_installation
+
+mysql -uroot -proot -e 'CREATE DATABASE IF NOT EXISTS db DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;'
+mysql -uroot -proot -e 'GRANT ALL PRIVILEGES ON root.* TO 'root'@'localhost' IDENTIFIED BY 'root';'
+mysql -uroot -proot -e 'FLUSH PRIVILEGES;'
 
 # install project
 echo -e "${YELLOW}Install Project End${CLEAR}"
@@ -56,12 +59,12 @@ SUPER_USER_MAIL=''
 
 JWT_SECRET=''
 
-DB_USERNAME=''
-DB_PASSWORD=''
-DB_DATABASE=''
-DB_HOST=''
-DB_PORT=''
-DB_DIALECT=''
+DB_USERNAME='root'
+DB_PASSWORD='root'
+DB_DATABASE='db'
+DB_HOST='127.0.0.1'
+DB_PORT='3306'
+DB_DIALECT='mysql'
 EOF
 # sequelize
 echo -e "${YELLOW}Sequelize set${CLEAR}"
