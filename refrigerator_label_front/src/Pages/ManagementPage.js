@@ -52,7 +52,6 @@ export default function ManagementPage() {
 
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  const [setBtnLoading] = React.useState(false);
   //關掉Alert
   const handleClose = () => {
     setState({ ...state, open: false });
