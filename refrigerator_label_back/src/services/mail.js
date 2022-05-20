@@ -17,12 +17,14 @@ manual_send_mail = async (mail) => {
           pass: process.env.NODEMAILER_PASSWORD,
         },
       });
+
+      !mail['text']?content = "":content = mail['text']
     
       var mailOptions = {
         to: mail['users'][i][0],
         from: process.env.NODEMAILER_USER,
         subject: "冰箱物品管理系統提醒",
-        html: mail_template_header + "<font color='black'>別忘了您的物品  <font color='blue'><b>#" + mail['users'][i][1] + " </b></font> 還在 Monospace 公共冰箱哦！<br>為維護空間會員使用權益，暫存冰箱物品以七日為限，逾保存期限、放置超過七日之物品將依空間管理規範清除。<br><br>提醒您請儘速於 <font color='red'><b>" + expiry_date + "</b></font> 前取回物品，逾期未取將由值班人員協助清除。<br>謝謝您的配合！<br><br>" + mail['text'] + "</font>" + mail_template_footer
+        html: mail_template_header + "<font color='black'>別忘了您的物品  <font color='blue'><b>#" + mail['users'][i][1] + " </b></font> 還在 Monospace 公共冰箱哦！<br>為維護空間會員使用權益，暫存冰箱物品以七日為限，逾保存期限、放置超過七日之物品將依空間管理規範清除。<br><br>提醒您請儘速於 <font color='red'><b>" + expiry_date + "</b></font> 前取回物品，逾期未取將由值班人員協助清除。<br>謝謝您的配合！<br><br>" + content + "</font>" + mail_template_footer
     
       };
     
