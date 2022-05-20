@@ -22,6 +22,10 @@ echo -e "${YELLOW}Install Npm${CLEAR}"
 sudo apt-get install -y npm
 npm -v
 
+# install pm2
+echo -e "${YELLOW}Install Pm2${CLEAR}"
+sudo npm install --global pm2
+pm2 -v
 
 # install mysql
 echo -e "${YELLOW}Install Mysql${CLEAR}"
@@ -44,28 +48,7 @@ npm --prefix ./refrigerator_label_front/ install
 #.env
 echo -e "${YELLOW}End .env Create${CLEAR}"
 cd refrigerator_label_back
-cat <<\EOF >.env
-PORT=''
-APP_HOST=''
-WEB_URL=''
-
-CORN_SCHEDULE='0 0 8 * * *'
-NODEMAILER_USER=''
-NODEMAILER_PASSWORD=''
-
-SUPER_USER_USERNAME=''
-SUPER_USER_PASSWORD=''
-SUPER_USER_MAIL=''
-
-JWT_SECRET=''
-
-DB_USERNAME='root'
-DB_PASSWORD='root'
-DB_DATABASE='db'
-DB_HOST='127.0.0.1'
-DB_PORT='3306'
-DB_DIALECT='mysql'
-EOF
+cp .env.example .env
 # sequelize
 echo -e "${YELLOW}Sequelize set${CLEAR}"
 npx sequelize db:migrate
@@ -74,12 +57,13 @@ cd ..
 
 echo -e "${YELLOW}Front .env Create${CLEAR}"
 cd refrigerator_label_front
-cat <<\EOF >.env
-REACT_APP_BACK_END=''
-EOF
+cp .env.example .env
 cd ..
+
 # start project
 echo -e "${YELLOW}Start Project${CLEAR}"
-npm --prefix ./refrigerator_label_back/ run start & npm --prefix ./refrigerator_label_front/ run start
+pm2 start npm --name 'Back' -- start --prefix ./refrigerator_label_back/ 
+pm2 start npm --name 'Front' -- start --prefix ./refrigerator_label_front/
+
 
 
