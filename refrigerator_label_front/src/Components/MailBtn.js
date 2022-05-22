@@ -170,11 +170,11 @@ export default function MailBtn(props) {
       <ThemeProvider theme={theme}>
         <Button
           onClick={handleClickOpen}
-          endIcon={<SendIcon />}
+          startIcon={<SendIcon />}
           color="Button"
           variant="outlined"
         >
-          寄信提醒
+          寄信
         </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>

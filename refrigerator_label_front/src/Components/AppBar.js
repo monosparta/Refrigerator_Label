@@ -45,7 +45,7 @@ export default function ButtonAppBar() {
               sx={{ flexGrow: 1, fontWeight: 600 }}
               color="White"
             >
-              冰箱物品管理
+              雲端智慧標籤系統
             </Typography>
             <ThemeProvider theme={theme}>
               <Button

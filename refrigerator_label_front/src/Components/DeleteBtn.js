@@ -54,7 +54,7 @@ export default function DeleteBtn(props) {
           disableElevation
         >
           <Typography color="white" variant="h7">
-            刪除物品
+            刪除
           </Typography>
         </Button>
       </ThemeProvider>
