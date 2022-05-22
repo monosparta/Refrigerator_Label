@@ -130,7 +130,7 @@ function Login() {
           loading={true}
           bgColor="#363f4e"
           textColor="#ffff"
-          text="冰箱物品管理系統"
+          text="雲端智慧標籤系統"
           logoSrc={Logo}
         />
       ) : (
