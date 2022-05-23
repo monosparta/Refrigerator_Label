@@ -60,7 +60,6 @@ function ChildModal(props) {
           <Box
             sx={{
               width: "350px",
-              minHeight: "450px",
               bgcolor: "#F5F5F5	",
               pt: 2,
               px: 4,
@@ -88,11 +87,9 @@ function ChildModal(props) {
                 display: "flex",
                 justifyContent: "left",
                 flexWrap: "wrap",
-                listStyle: "none",
                 p: 0.5,
                 m: 2,
                 width: 320,
-                minHeight: 450,
                 maxHeight: 450,
                 overflow: "scroll",
                 // border: 1,
@@ -174,7 +171,9 @@ export default function MailBtn(props) {
           color="Button"
           variant="outlined"
         >
-          寄信
+          <Typography variant="h7" sx={{ pt: "2px" }}>
+            寄信
+          </Typography>
         </Button>
       </ThemeProvider>
       <Dialog open={open} onClose={handleClose}>
@@ -236,7 +235,9 @@ export default function MailBtn(props) {
                           return (
                             <ListItem
                               key={data.key}
-                              sx={{ listStyle: "none" }}
+                              sx={{
+                                listStyle: "none",
+                              }}
                               display="flex"
                             >
                               <Chip

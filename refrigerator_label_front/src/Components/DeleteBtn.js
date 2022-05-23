@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme2 = createTheme({
   palette: {
@@ -53,7 +53,7 @@ export default function DeleteBtn(props) {
           variant="contained"
           disableElevation
         >
-          <Typography color="white" variant="h7">
+          <Typography color="white" variant="h7" sx={{ pt: "2px" }}>
             刪除
           </Typography>
         </Button>
