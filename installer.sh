@@ -25,6 +25,7 @@ npm -v
 # install pm2
 echo -e "${YELLOW}Install Pm2${CLEAR}"
 sudo npm install --global pm2
+pm2 update
 pm2 -v
 
 # install mysql
@@ -62,8 +63,8 @@ cd ..
 
 # start project
 echo -e "${YELLOW}Start Project${CLEAR}"
-pm2 start npm --name 'Back' -- start --prefix ./refrigerator_label_back/ 
-pm2 start npm --name 'Front' -- start --prefix ./refrigerator_label_front/
+pm2 start npm --name 'Back' -- start --watch --ignore-watch='node_modules' --prefix ./refrigerator_label_back/ 
+pm2 start npm --name 'Front' -- start --watch --ignore-watch='node_modules' --prefix ./refrigerator_label_front/
 
 
 
