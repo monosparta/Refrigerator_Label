@@ -107,7 +107,7 @@ while True:
                         "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
                         headers={"token": jwt.encode(
                             {"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256")},
-                        data={"label_id": response_json["data_id"]}
+                        data={"label_id": response_json["label_id"]}
                     )
             except PermissionError:
                 print("please checkout you have insert the label printer")
