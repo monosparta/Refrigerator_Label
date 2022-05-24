@@ -57,7 +57,7 @@ create_label = async (req, res) => {
         const label = await label_service.create_label(req.body);
         if (label) {
           return res.status(201).json({
-            data_id: label["dataValues"]["label_id"],
+            label_id: label["dataValues"]["label_id"],
             name: label.name
           });
         }

@@ -120,7 +120,7 @@ function Login() {
   useEffect(() => {
     setTimeout(() => {
       setisLoading(false);
-    }, 500);
+    }, 2500);
   }, []);
 
   return (
