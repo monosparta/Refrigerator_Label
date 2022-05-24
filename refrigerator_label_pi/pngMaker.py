@@ -2,7 +2,7 @@ from PIL import Image,ImageDraw,ImageFont
 import qrcode
 
 
-def pngMake(member_name, data_id, date):
+def pngMake(member_name, label_id, date):
 
     label_weight, label_hight = (991,413)
     img=Image.new("RGB", (label_weight, label_hight),(255,255,255))
@@ -26,12 +26,12 @@ def pngMake(member_name, data_id, date):
         error_correction=qrcode.constants.ERROR_CORRECT_M,
         box_size=7
     )
-    qr.add_data("label:{data_id}".format(data_id = data_id))
+    qr.add_data("label:{label_id}".format(label_id = label_id))
     qr.make()
     img_qr = qr.make_image()
     pos = (label_weight-img_qr.size[0], label_hight-img_qr.size[1])
     img.paste(img_qr, pos)
     # ID
-    draw.text(((label_weight-img_qr.size[0])+30,  (label_hight-img_qr.size[1])-20), data_id, (0,0,0), font=font)
+    draw.text(((label_weight-img_qr.size[0])+30,  (label_hight-img_qr.size[1])-20), label_id, (0,0,0), font=font)
 
     img.save("label.png")
