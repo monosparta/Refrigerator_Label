@@ -21,6 +21,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm --prefix ./refrigerator_label_back/ ci
-    - run: npm --prefix ./refrigerator_label_back/ run build --if-present
-    - run: npm --prefix ./refrigerator_label_back/ test
+    - name: back ci
+      run: npm --prefix ./refrigerator_label_back/ ci
+    - name: back build
+      run: npm --prefix ./refrigerator_label_back/ run build --if-present
+    - name: front ci
+      run: npm --prefix ./refrigerator_label_front/ ci
+    - name: front build
+      run: npm --prefix ./refrigerator_label_front/ run build --if-present
+    - name: front test
+      run: npm --prefix ./refrigerator_label_front/ test
