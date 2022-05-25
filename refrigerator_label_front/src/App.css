@@ -40,9 +40,10 @@
 .login {
   position: relative;
   width: 550px;
-  height: 500px;
+  height: fit-content;
   top: 25vh;
   margin: 0 auto;
+  padding-bottom: 24px;
   /* border: solid 1px darkmagenta; */
 }
 .Account {
