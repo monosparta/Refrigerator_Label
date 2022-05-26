@@ -23,11 +23,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: back ci
       run: npm --prefix ./refrigerator_label_back/ ci
-    - name: back build
-      run: npm --prefix ./refrigerator_label_back/ run build --if-present
     - name: front ci
       run: npm --prefix ./refrigerator_label_front/ ci
-    - name: front build
-      run: npm --prefix ./refrigerator_label_front/ run build --if-present
     - name: front test
       run: npm --prefix ./refrigerator_label_front/ test
+    - name: front build
+      run: npm --prefix ./refrigerator_label_front/ run build --if-present
+    - run: rsync -avz -e 'ssh' build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
