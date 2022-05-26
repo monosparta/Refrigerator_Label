@@ -87,7 +87,7 @@ export default function ManagementPage() {
         horizontal: "center", //position of popout
       },
     });
-    setAlertText("儲存成功");
+    setAlertText("編輯成功");
     setSeverity("success");
   };
   //備註
@@ -160,7 +160,7 @@ export default function ManagementPage() {
 
       loadingData();
       setSeverity("success");
-      setAlertText("刪除成功");
+      setAlertText("所選項目已刪除");
       setState({
         isLoading: true,
         open: true,
@@ -232,7 +232,7 @@ export default function ManagementPage() {
     {
       field: "name",
       headerName: "物品所屬者",
-      minWidth: 120,
+      minWidth: 110,
       flex: 1,
       disableColumnMenu: true,
       sortable: false,
@@ -274,7 +274,7 @@ export default function ManagementPage() {
     {
       field: "note",
       headerName: "備註",
-      minWidth: 200,
+      minWidth: 180,
       flex: 2,
       disableColumnMenu: true,
       sortable: false,
@@ -285,7 +285,7 @@ export default function ManagementPage() {
       minWidth: 100,
       flex: 1,
       cellClassName: "actions",
-      align: "left",
+      align: "center",
       getActions: (params) => {
         return [
           <EditBtn
@@ -303,8 +303,9 @@ export default function ManagementPage() {
       <Bar />
       <Box
         className="DataGrid"
-        style={{
+        sx={{
           width: "100%",
+          height:"88vh"
         }}
       >
         <ThemeProvider theme={theme}>
@@ -327,6 +328,7 @@ export default function ManagementPage() {
               {
                 outline: "none",
               },
+            margin: "0 16px",
           }}
           rows={rowData}
           columns={columns}
@@ -344,7 +346,7 @@ export default function ManagementPage() {
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={open}
-        autoHideDuration={2000}
+        autoHideDuration={1500}
         onClose={handleClose}
         key={vertical + horizontal}
       >
