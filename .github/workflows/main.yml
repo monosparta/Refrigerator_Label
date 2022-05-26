@@ -30,4 +30,4 @@ jobs:
     - name: front build
       run: npm --prefix ./refrigerator_label_front/ run build --if-present
     - name: front ssh
-      run: rsync -avz -e 'ssh' /refrigerator_label_front/build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+      run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
