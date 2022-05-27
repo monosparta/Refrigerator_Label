@@ -163,6 +163,7 @@ function Login() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              margin: "auto ",
             }}
           >
             <div className="SigninTittle">
@@ -183,7 +184,9 @@ function Login() {
             ) : null}
             <Box component="form" onSubmit={onHandleLogin} noValidate>
               <div className="Account">
-                <Typography>帳號 Username or Email</Typography>
+                <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                  帳號 Username or Email
+                </Typography>
                 <OutlinedInput
                   error={inputErrorA}
                   fullWidth
@@ -202,7 +205,9 @@ function Login() {
               </div>
               <div className="Password">
                 <FormControl sx={{ width: "480px" }} variant="outlined">
-                  <Typography>密碼 Password</Typography>
+                  <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                    密碼 Password
+                  </Typography>
                   <OutlinedInput
                     sx={{
                       marginTop: 1,

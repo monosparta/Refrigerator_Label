@@ -40,18 +40,11 @@
 .login {
   position: relative;
   width: 550px;
-  height: 500px;
+  height: fit-content;
   top: 25vh;
   margin: 0 auto;
+  padding-bottom: 24px;
   /* border: solid 1px darkmagenta; */
-}
-.Account {
-  position: relative;
-  padding-top: 28px;
-}
-.Password {
-  position: relative;
-  padding-top: 20px;
 }
 .Keeplogin {
   position: relative;
@@ -93,20 +86,10 @@
 .mail_content {
   position: relative;
   margin-left: 25px;
-}
-.DataGrid {
-  position: relative;
-  width: 100vw;
-  height: 80vh;
-  /* background-image: url("../src/Pictures/monologo.jpg");
-  background-repeat: no-repeat; */
-  /* border: solid 1px chartreuse; */
+  margin-top: 1px;
 }
 .Bar {
   width: 100%;
-}
-.HomeBody {
-  position: relative;
 }
 .BtnG {
   position: relative;
@@ -114,11 +97,6 @@
   height: 36px;
   margin: 0 auto;
   /* border: solid 1px violet; */
-}
-
-.Remark {
-  width: 140px;
-  height: 35px;
 }
 .MailBox {
   position: relative;
@@ -157,15 +135,9 @@
   /* color: #ee9852; */
   /* border: solid rgb(6, 4, 6) 1px; */
 }
-.Message {
-  position: relative;
-  top: 10px;
-  left: 10px;
-}
 .ButtonGroup {
   position: relative;
   display: flex;
-  margin-top: 12px;
   left: 116px;
   width: 250px;
   height: fit-content;
@@ -177,7 +149,7 @@
 }
 .Diacontent {
   position: relative;
-  margin: 48px 50px;
+  margin: 22px 42px;
   /* border: solid 1px rgb(27, 12, 235); */
 }
 .DTittle {
@@ -208,7 +180,8 @@
   display: flex;
   width: fit-content;
   padding: 1vh 0;
-  margin-left: 2vw;
+  margin-left: auto;
+  margin-right: 2vw;
   /* border: solid 1px chartreuse; */
 }
 .DeleteBtn {
@@ -225,9 +198,7 @@
 .ChipData {
   position: relative;
   /* border: solid 1px black; */
-  width: 95%;
   min-height: 150px;
-  margin-top: 15px;
 }
 .Loadingpage {
   position: relative;
