@@ -1,16 +1,18 @@
-name: Node.js CI
+name: Refrigerator_Label_Front CI/CD
 
 on:
   push:
     branches: [ staging ]
   pull_request:
     branches: [ staging ]
-
+  
 jobs:
   build:
 
     runs-on: self-hosted
-
+    
+    environment: front
+    
     strategy:
       matrix:
         node-version: [17.x]
@@ -21,8 +23,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: back ci
-      run: npm --prefix ./refrigerator_label_back/ ci
     - name: front ci
       run: npm --prefix ./refrigerator_label_front/ ci
     - name: front test
