@@ -5,7 +5,7 @@ on:
     branches: [ staging ]
   pull_request:
     branches: [ staging ]
-  
+
 jobs:
   build:
 
@@ -14,6 +14,8 @@ jobs:
     strategy:
       matrix:
         node-version: [17.x]
+        
+    environment: staging 
     
     env:
       REACT_APP_BACK_END: ${{secrets.REACT_APP_BACK_END}}
