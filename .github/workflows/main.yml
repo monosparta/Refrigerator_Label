@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ staging ]
 
-env:
-  REACT_APP_BACK_END: ${{secrets.REACT_APP_BACK_END}}
-  
 jobs:
   build:
 
@@ -17,7 +14,9 @@ jobs:
     strategy:
       matrix:
         node-version: [17.x]
-
+        
+    environment: staging
+    
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
