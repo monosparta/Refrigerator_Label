@@ -27,13 +27,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: front ci
-      run: npm --prefix ./refrigerator_label_front/ ci
+      # run: npm --prefix ./refrigerator_label_front/ ci
     - name: front test
-      run: npm --prefix ./refrigerator_label_front/ test
+      # run: npm --prefix ./refrigerator_label_front/ test
     - name: front build
-      run: npm --prefix ./refrigerator_label_front/ run build --if-present
+      #　run: npm --prefix ./refrigerator_label_front/ run build --if-present
     - name: front ssh
-      run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+      # run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
   
   build_back:
     name: build_back
@@ -52,8 +52,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
-        run: 
-          touch ./refrigerator_label_back/.env
+        run: |
+          touch .env
           echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
           echo API_KEY="123" >> .env
           cat .env
