@@ -52,7 +52,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
-        run: |
+        run: 
           touch ./refrigerator_label_back/.env
           echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
           echo API_KEY="123" >> .env
