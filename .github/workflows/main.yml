@@ -1,4 +1,4 @@
-name: Refrigerator_Label_Front CI/CD
+name: Refrigerator_Label CI/CD
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
     branches: [ staging ]
 
 jobs:
-  build:
-
+  build_front:
+    name: build_front
     runs-on: self-hosted
-       
+     
     strategy:
       matrix:
         node-version: [17.x]
@@ -34,3 +34,28 @@ jobs:
       run: npm --prefix ./refrigerator_label_front/ run build --if-present
     - name: front ssh
       run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+  
+  build_back:
+    name: build_back
+    runs-on: self-hosted
+     
+    strategy:
+      matrix:
+        node-version: [17.x]
+        
+    environment: staging 
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: 'create back env file'
+        run: |
+          touch ./refrigerator_label_back/.env
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> .env
+          echo API_KEY="123" >> .env
+          cat .env
+      - name: back ci
+        run: npm --prefix ./refrigerator_label_back/ ci
