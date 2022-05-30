@@ -36,7 +36,7 @@ jobs:
       run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
   
   build_back:
-    name: build_back
+    name: build_back1
     runs-on: self-hosted
      
     strategy:
