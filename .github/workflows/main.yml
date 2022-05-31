@@ -53,6 +53,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
         run: |
-          touch .env
+          cat <<EOF > .env
+          aws_host="123123"
+          aws_port="213"
+          aws_pw="123"
+          aws_user="123"
+          dbname="123"
+          EOF
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
