@@ -61,7 +61,19 @@ jobs:
       - name: 'create back env file'
         run: |
           touch ./refrigerator_label_back/.env
-          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> ./refrigerator_label_back/.env
-          echo API_KEY="123" >> ./refrigerator_label_back/.env
+          echo PORT='${{ secrets.BACK_PORT }}' >> ./refrigerator_label_back/.env
+          echo WEB_URL='${{ secrets.REACT_APP_BACK_END }}' >> ./refrigerator_label_back/.env
+          echo CORN_SCHEDULE='${{ secrets.CORN_SCHEDULE }}' >> ./refrigerator_label_back/.env
+          echo NODEMAILER_USER='${{ secrets.NODEMAILER_USER }}' >> ./refrigerator_label_back/.env
+          echo NODEMAILER_PASSWORD='${{ secrets.NODEMAILER_PASSWORD }}' >> ./refrigerator_label_back/.env
+          echo SUPER_USER_USERNAME='${{ secrets.SUPER_USER_USERNAME }}' >> ./refrigerator_label_back/.env
+          echo SUPER_USER_PASSWORD='${{ secrets.SUPER_USER_PASSWORD }}' >> ./refrigerator_label_back/.env
+          echo SUPER_USER_MAIL='${{ secrets.SUPER_USER_MAIL }}' >> ./refrigerator_label_back/.env
+          echo JWT_SECRET='${{ secrets.JWT_SECRET }}' >> ./refrigerator_label_back/.env
+          echo DB_USERNAME='${{ secrets.DB_USERNAME }}' >> ./refrigerator_label_back/.env
+          echo DB_PASSWORD='${{ secrets.DB_PASSWORD }}' >> ./refrigerator_label_back/.env
+          echo DB_HOST='${{ secrets.DB_HOST }}' >> ./refrigerator_label_back/.env
+          echo DB_PORT='${{ secrets.DB_PORT }}' >> ./refrigerator_label_back/.env
+          echo DB_DIALECT='${{ secrets.DB_DIALECT }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
