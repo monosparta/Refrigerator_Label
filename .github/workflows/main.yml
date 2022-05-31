@@ -80,4 +80,4 @@ jobs:
       - name: back ssh rsync
         run: rsync -avz --exclude 'node_modules' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
       - name: back ssh install
-        run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} '${{ secrets.DEPLOY_PATH }}/refrigerator_label_back npm install'
+        run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} '${{ secrets.DEPLOY_PATH }} npm --prefix ./refrigerator_label_back/ install'
