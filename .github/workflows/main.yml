@@ -7,8 +7,15 @@ on:
     branches: [ staging ]
 
 jobs:
+  checkout:
+    name: checkout
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
   build_front:
     name: build_front
+    
+    needs: checkout
     runs-on: self-hosted
      
     strategy:
@@ -21,7 +28,6 @@ jobs:
       REACT_APP_BACK_END: ${{secrets.REACT_APP_BACK_END}}
       
     steps:
-    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -37,6 +43,8 @@ jobs:
   
   build_back:
     name: build_back
+    
+    needs: checkout
     runs-on: self-hosted
      
     strategy:
@@ -46,19 +54,14 @@ jobs:
     environment: staging 
     
     steps:
-      - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
         run: |
-          cat <<EOF > .env
-          aws_host="123123"
-          aws_port="213"
-          aws_pw="123"
-          aws_user="123"
-          dbname="123"
-          EOF
+          touch ./refrigerator_label_back/.env
+          echo API_ENDPOINT="https://xxx.execute-api.us-west-2.amazonaws.com" >> ./refrigerator_label_back/.env
+          echo API_KEY="123" >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
