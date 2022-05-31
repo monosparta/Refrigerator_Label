@@ -38,7 +38,7 @@ jobs:
       run: npm --prefix ./refrigerator_label_front/ test
     - name: front build
       run: npm --prefix ./refrigerator_label_front/ run build --if-present
-    - name: front ssh
+    - name: front ssh rsync
       run: rsync -avz -e 'ssh' ./refrigerator_label_front/build ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/refrigerator_label_front
   
   build_back:
@@ -77,3 +77,7 @@ jobs:
           echo DB_DIALECT='${{ secrets.DB_DIALECT }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
+      - name: back ssh rsync
+        run: rsync -avz --exclude 'node_modules' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+      - name: back ssh install
+        run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/refrigerator_label_back 'npm install'
