@@ -18,10 +18,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Logo from "../Pictures/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
-import LoadingScreen from "react-loading-screen";
 import { useEffect } from "react";
 import { TokenContext } from "../App.js";
 import "../App.css";
+import { styled } from "@mui/material/styles";
 
 function Login() {
   let navigate = useNavigate();
@@ -123,16 +123,38 @@ function Login() {
     }, 2500);
   }, []);
 
+  const Img = styled("img")({
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  });
   return (
     <div className="Login">
       {isLoading ? (
-        <LoadingScreen
-          loading={true}
-          bgColor="#363f4e"
-          textColor="#ffff"
-          text="雲端智慧標籤系統"
-          logoSrc={Logo}
-        />
+        <div loading={true} className="Loadingpage">
+          <Box
+            sx={{
+              width: "200px",
+              margin: " auto",
+              paddingTop: "40vh",
+            }}
+          >
+            <Img src={Logo} />
+            <Typography
+              sx={{
+                fontSize: 24,
+                color: "white",
+                margin: "16px auto",
+                fontWeight: "bold",
+              }}
+              color="text.secondary"
+              gutterBottom
+            >
+              雲端智慧標籤系統
+            </Typography>
+          </Box>
+        </div>
       ) : (
         <ThemeProvider theme={theme}>
           <Paper
@@ -141,6 +163,7 @@ function Login() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              margin: "auto ",
             }}
           >
             <div className="SigninTittle">
@@ -161,7 +184,9 @@ function Login() {
             ) : null}
             <Box component="form" onSubmit={onHandleLogin} noValidate>
               <div className="Account">
-                <Typography>帳號 Username or Email</Typography>
+                <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                  帳號 Username or Email
+                </Typography>
                 <OutlinedInput
                   error={inputErrorA}
                   fullWidth
@@ -180,7 +205,9 @@ function Login() {
               </div>
               <div className="Password">
                 <FormControl sx={{ width: "480px" }} variant="outlined">
-                  <Typography>密碼 Password</Typography>
+                  <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                    密碼 Password
+                  </Typography>
                   <OutlinedInput
                     sx={{
                       marginTop: 1,

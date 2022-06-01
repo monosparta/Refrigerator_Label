@@ -87,9 +87,9 @@ function ChildModal(props) {
                 display: "flex",
                 justifyContent: "left",
                 flexWrap: "wrap",
-                p: 0.5,
+                p: 2,
                 m: 2,
-                width: 320,
+                width: 300,
                 maxHeight: 450,
                 overflow: "scroll",
                 // border: 1,
@@ -186,7 +186,7 @@ export default function MailBtn(props) {
               <div className="owner" display="flex">
                 <Typography
                   variant="h7"
-                  sx={{ fontWeight: 700 }}
+                  sx={{ fontWeight: 400 }}
                   className="ownertext"
                 >
                   物品所屬人
@@ -200,7 +200,6 @@ export default function MailBtn(props) {
                       sx={{
                         display: "flex",
                         justifyContent: "left",
-                        flexWrap: "wrap",
                         listStyle: "none",
                         p: 0.5,
                         m: 0,
@@ -261,7 +260,7 @@ export default function MailBtn(props) {
               <div className="mailcontent" display="flex">
                 <Typography
                   variant="h7"
-                  sx={{ fontWeight: 700 }}
+                  sx={{ fontWeight: 400 }}
                   className="ownertext"
                 >
                   提醒內容
@@ -273,11 +272,18 @@ export default function MailBtn(props) {
                     placeholder="請輸入提醒內容"
                     onChange={onChangeContent}
                     name="mail_content"
-                    style={{ height: 100, width: 300 }}
+                    style={{ height: "92px", width: "287px", padding: "8px" }}
                   />
                 </div>
               </div>
-              <div className="ButtonGroup">
+              <Box
+                sx={{
+                  marginLeft: "115px",
+                  marginTop: "16px ",
+                  width: "250px",
+                  paddingTop: "8px",
+                }}
+              >
                 <ThemeProvider theme={theme}>
                   <LoadingButton
                     type="submit"
@@ -317,7 +323,7 @@ export default function MailBtn(props) {
                     取消
                   </Button>
                 </ThemeProvider>
-              </div>
+              </Box>
             </DialogContent>
           </form>
         </Paper>
