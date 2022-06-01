@@ -51,7 +51,7 @@ jobs:
       matrix:
         node-version: [17.x]
         
-    environment: staging 
+    environment: prod 
     
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
