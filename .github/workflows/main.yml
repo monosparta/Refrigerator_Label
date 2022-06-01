@@ -72,6 +72,7 @@ jobs:
           echo JWT_SECRET='${{ secrets.JWT_SECRET }}' >> ./refrigerator_label_back/.env
           echo DB_USERNAME='${{ secrets.DB_USERNAME }}' >> ./refrigerator_label_back/.env
           echo DB_PASSWORD='${{ secrets.DB_PASSWORD }}' >> ./refrigerator_label_back/.env
+          echo DB_DATABASE='${{ secrets.DB_DATABASE }}' >> ./refrigerator_label_back/.env
           echo DB_HOST='${{ secrets.DB_HOST }}' >> ./refrigerator_label_back/.env
           echo DB_PORT='${{ secrets.DB_PORT }}' >> ./refrigerator_label_back/.env
           echo DB_DIALECT='${{ secrets.DB_DIALECT }}' >> ./refrigerator_label_back/.env
