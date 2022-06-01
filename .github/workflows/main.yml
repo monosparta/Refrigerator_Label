@@ -78,6 +78,8 @@ jobs:
           echo DB_DIALECT='${{ secrets.DB_DIALECT }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
+      - name: back test
+        run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
         run: rsync -avz --exclude 'node_modules' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
       - name: back ssh install
