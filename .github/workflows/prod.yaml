@@ -22,7 +22,7 @@ jobs:
       matrix:
         node-version: [17.x]
         
-    environment: staging 
+    environment: prod
     
     env:
       REACT_APP_BACK_END: ${{secrets.REACT_APP_BACK_END}}
