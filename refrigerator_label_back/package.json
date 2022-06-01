@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "test": "node test/test.js"
+    "test": "node tests/test.js"
   },
   "devDependencies": {
     "supertest": "^6.2.3"
