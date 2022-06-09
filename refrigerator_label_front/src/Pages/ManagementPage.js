@@ -90,12 +90,6 @@ export default function ManagementPage() {
     setAlertText("編輯成功");
     setSeverity("success");
   };
-  //備註
-  // const [note, setNote] = React.useState("");
-  // //備註寫入
-  // // const onChangeNote = (e) => {
-  // //   setNote(e.target.value);
-  // // };
 
   const loadingData = React.useCallback(() => {
     const loadData = async () => {
@@ -305,7 +299,7 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height:"88vh"
+          height: "88vh",
         }}
       >
         <ThemeProvider theme={theme}>
@@ -332,8 +326,8 @@ export default function ManagementPage() {
           }}
           rows={rowData}
           columns={columns}
-          pageSize={100}
-          rowsPerPageOptions={[5]}
+          // pageSize={100}
+          // rowsPerPageOptions={[5]}
           checkboxSelection
           disableSelectionOnClick
           localeText={localizedTextsMap}
