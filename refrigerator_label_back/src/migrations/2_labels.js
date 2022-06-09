@@ -8,12 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      card_id: {
+      cardId: {
         allowNull: false,
         type: Sequelize.STRING,
         references:{
           model: 'Users',
-          key: 'card_id'
+          key: 'cardId'
         }
       },
       date: {

@@ -66,7 +66,7 @@ auto_send_mail = async (req, res) => {
     const diff_day = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
 
     if (diff_day === 7) {
-      let mail = await user_service.card_id_find_mail(time[i]["card_id"]);
+      let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

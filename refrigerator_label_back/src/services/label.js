@@ -31,7 +31,7 @@ delete_label = async (label_id) => {
 
 owner_information = async () => {
     const request = await db.Labels.findAll({
-        attributes: ['date','card_id','label_id']
+        attributes: ['date','cardId','label_id']
     })
         
     
@@ -65,12 +65,12 @@ create_label = async (body) => {
 
     const user = await db.Users.findOne({
         where: {
-            card_id:body.card_id
+            cardId:body.cardId
         }
     })
 
     const create_label = await db.Labels.create({
-        card_id: body.card_id,
+        cardId: body.cardId,
         date: body.date,
         label_id: date[1] + date[2] + body.data_id
     })

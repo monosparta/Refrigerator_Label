@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      card_id: {
+      cardId: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true
