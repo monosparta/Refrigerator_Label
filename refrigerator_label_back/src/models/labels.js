@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   Labels.init({
     cardId: DataTypes.STRING,
     date: DataTypes.STRING,
-    label_id: DataTypes.STRING,
+    labelId: DataTypes.STRING,
     note: DataTypes.STRING
   }, {
     sequelize,

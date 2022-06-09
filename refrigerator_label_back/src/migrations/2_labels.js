@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      label_id: {
+      labelId: {
         allowNull: false,
         type: Sequelize.STRING,
         unique: true

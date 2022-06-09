@@ -57,7 +57,7 @@ create_label = async (req, res) => {
         const label = await label_service.create_label(req.body);
         if (label) {
           return res.status(201).json({
-            label_id: label["dataValues"]["label_id"],
+            labelId: label["dataValues"]["labelId"],
             name: label.name
           });
         }
@@ -90,11 +90,11 @@ update_label = async (req, res) => {
 
 delete_label = async (req, res) => {
   try {
-    if (req.body.label_id === "") {
+    if (req.body.labelId === "") {
       return res.status(404).json({ message: "沒有標籤ID" });
     } else {
       const delete_label = await label_service.delete_label(
-        req.body["label_id"]
+        req.body["labelId"]
       );
       if (delete_label) {
         return res.status(200).json({ message: "刪除成功" });
