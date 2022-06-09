@@ -13,6 +13,8 @@ from pngMaker import pngMake
 # load env
 load_dotenv()
 
+os.system("sudo chmod 666 /dev/usb/lp0")
+
 # time setting
 tz = timezone(timedelta(hours=+8))
 dt = datetime.now(tz)
@@ -49,7 +51,7 @@ while True:
             "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
             headers={'token': jwt.encode(
                 {"IoT": "delete"}, os.getenv("JWT_SECRET"), algorithm="HS256")},
-            data={"label_id": input_data.replace("label:", "")}
+            data={"labelId": input_data.replace("label:", "")}
         )
         print(response.json())
     else:
@@ -62,14 +64,14 @@ while True:
             "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
             headers={'token': jwt.encode(
                 {"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256")},
-            data={"date": date_now, "card_id": input_data}
+            data={"date": date_now, "cardId": input_data}
         )
 
         if(response.status_code == 201):  # is member
             # make png
             response_json = response.json()
             pngMake(member_name=response_json["name"],
-                    label_id=response_json["label_id"], date=date_now.split(' ')[0])
+                    label_id=response_json["labelId"], date=date_now.split(' ')[0])
 
             # QL print
             label_img = Image.open("label.png")
@@ -99,7 +101,7 @@ while True:
             try:
                 action = send(instructions=instructions, printer_identifier=printer,
                               backend_identifier=backend, blocking=True)
-                if action['printer_state']['errors'].__len__() == 0:
+                if not action['printer_state']['errors']:
                     print("print label successful")
                 else:
                     # http post
@@ -107,7 +109,7 @@ while True:
                         "{}{}".format(os.getenv("SERVER_URL"), "api/label"),
                         headers={"token": jwt.encode(
                             {"IoT": "print"}, os.getenv("JWT_SECRET"), algorithm="HS256")},
-                        data={"label_id": response_json["label_id"]}
+                        data={"labelId": response_json["labelId"]}
                     )
             except PermissionError:
                 print("please checkout you have insert the label printer")
