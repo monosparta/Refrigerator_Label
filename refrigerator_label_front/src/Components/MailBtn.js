@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import "../App.css";
-import SendIcon from "@mui/icons-material/Send";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   Paper,
   Typography,
@@ -128,7 +128,7 @@ export default function MailBtn(props) {
     setBtnLoading(true);
     const mail_user_data = [];
     chipData.forEach(function (item) {
-      mail_user_data.push([item["mail"], item["label_id"]]);
+      mail_user_data.push([item["mail"], item["labelId"]]);
     });
     await props.handleSendMail(mail_user_data, mailContent);
     setOpen(false);
@@ -167,7 +167,7 @@ export default function MailBtn(props) {
       <ThemeProvider theme={theme}>
         <Button
           onClick={handleClickOpen}
-          startIcon={<SendIcon />}
+          startIcon={<MailOutlineIcon />}
           color="Button"
           variant="outlined"
         >
@@ -272,7 +272,12 @@ export default function MailBtn(props) {
                     placeholder="請輸入提醒內容"
                     onChange={onChangeContent}
                     name="mail_content"
-                    style={{ height: "92px", width: "287px", padding: "8px" }}
+                    style={{
+                      height: "92px",
+                      width: "287px",
+                      padding: "8px",
+                      resize: "none",
+                    }}
                   />
                 </div>
               </div>
@@ -281,7 +286,6 @@ export default function MailBtn(props) {
                   marginLeft: "115px",
                   marginTop: "16px ",
                   width: "250px",
-                  paddingTop: "8px",
                 }}
               >
                 <ThemeProvider theme={theme}>

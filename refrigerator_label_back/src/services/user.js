@@ -5,7 +5,7 @@ const db = require('../models/index.js');
 is_user = async (body) => {
     const is_user = await db.Users.findOne({
         where: {
-            card_id:body.card_id,
+            cardId:body.cardId,
         }
     })
     return is_user;
@@ -14,7 +14,7 @@ is_user = async (body) => {
 card_id_find_mail = async (body)=> {
     const request = await db.Users.findOne({
         attributes: ['mail'],
-        where: { card_id:body },
+        where: { cardId:body },
     })
 
     return request;
@@ -22,7 +22,7 @@ card_id_find_mail = async (body)=> {
 
 create_user = async (body) => {
     const user = await db.Users.create({
-        card_id:body.card_id,
+        cardId:body.cardId,
         name:body.name,
         mail:body.mail,
         phone:body.phone,

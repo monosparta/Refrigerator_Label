@@ -90,12 +90,6 @@ export default function ManagementPage() {
     setAlertText("編輯成功");
     setSeverity("success");
   };
-  //備註
-  // const [note, setNote] = React.useState("");
-  // //備註寫入
-  // // const onChangeNote = (e) => {
-  // //   setNote(e.target.value);
-  // // };
 
   const loadingData = React.useCallback(() => {
     const loadData = async () => {
@@ -139,12 +133,12 @@ export default function ManagementPage() {
   };
   //刪除功能
   const handleDelete = async () => {
-    const delete_data = getSelectData("label_id");
+    const delete_data = getSelectData("labelId");
     if (delete_data.length !== 0) {
       await axios
         .delete("api/label", {
           headers: { token: localStorage.getItem("login_token") },
-          data: { label_id: delete_data },
+          data: { labelId: delete_data },
         })
         .then((response) => {
           console.log(response);
@@ -175,7 +169,7 @@ export default function ManagementPage() {
   //讀取要寄信的人
   const handleMailPeople = () => {
     const get_mail_people = getSelectData("name");
-    const get_mail_label_id = getSelectData("label_id");
+    const get_mail_label_id = getSelectData("labelId");
     const get_mail_data = getSelectData("mail");
     const people = [];
 
@@ -184,7 +178,7 @@ export default function ManagementPage() {
         key: count,
         label: get_mail_people[count] + "-" + get_mail_label_id[count],
         mail: get_mail_data[count],
-        label_id: get_mail_label_id[count],
+        labelId: get_mail_label_id[count],
       });
     }
     return people;
@@ -238,7 +232,7 @@ export default function ManagementPage() {
       sortable: false,
     },
     {
-      field: "label_id",
+      field: "labelId",
       headerName: "ID",
       minWidth: 110,
       flex: 1,
@@ -305,7 +299,7 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height:"88vh"
+          height: "88vh",
         }}
       >
         <ThemeProvider theme={theme}>
@@ -332,8 +326,8 @@ export default function ManagementPage() {
           }}
           rows={rowData}
           columns={columns}
-          pageSize={100}
-          rowsPerPageOptions={[5]}
+          // pageSize={100}
+          // rowsPerPageOptions={[5]}
           checkboxSelection
           disableSelectionOnClick
           localeText={localizedTextsMap}

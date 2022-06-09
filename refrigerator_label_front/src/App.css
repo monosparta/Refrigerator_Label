@@ -15,16 +15,9 @@
 }
 .Login {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   background-color: #f5f5f5;
-}
-.SigninTittle {
-  position: relative;
-  width: 500px;
-  /* border: solid 1px blue; */
-  margin-left: 20px;
-  margin-top: 20px;
 }
 .Box {
   border: solid 2px rgb(255, 255, 255);
@@ -35,27 +28,6 @@
   width: 560px;
   height: 600px;
   background-color: #ffff;
-}
-
-.login {
-  position: relative;
-  width: 550px;
-  height: fit-content;
-  top: 25vh;
-  margin: 0 auto;
-  padding-bottom: 24px;
-  /* border: solid 1px darkmagenta; */
-}
-.Keeplogin {
-  position: relative;
-  padding-top: 15px;
-}
-.ButtonLogin {
-  position: relative;
-  width: 480px;
-  height: 64px;
-  padding-top: 28px;
-  /* border: solid 1px violet; */
 }
 .Home {
   position: relative;
@@ -160,9 +132,6 @@
 .BtnGroup {
   display: flex;
 }
-.BtnCancel {
-  position: relative;
-}
 .BtnNo {
   position: relative;
   margin-left: 12px;
@@ -172,20 +141,14 @@
   position: relative;
   margin-top: 12px;
 }
-.BtnOK {
-  position: relative;
-}
 .ButtonDeleteandMail {
   position: relative;
   display: flex;
   width: fit-content;
   padding: 1vh 0;
   margin-left: auto;
-  margin-right: 2vw;
+  margin-right: 1vw;
   /* border: solid 1px chartreuse; */
-}
-.DeleteBtn {
-  position: relative;
 }
 .MailBtn {
   position: relative;
@@ -197,7 +160,6 @@
 }
 .ChipData {
   position: relative;
-  /* border: solid 1px black; */
   min-height: 150px;
 }
 .Loadingpage {

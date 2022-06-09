@@ -8,7 +8,6 @@ import {
   IconButton,
   OutlinedInput,
   InputAdornment,
-  FormControl,
   Box,
   Paper,
   Alert,
@@ -156,109 +155,123 @@ function Login() {
           </Box>
         </div>
       ) : (
-        <ThemeProvider theme={theme}>
-          <Paper
-            className="login"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              margin: "auto ",
-            }}
-          >
-            <div className="SigninTittle">
-              <Typography component="h1" variant="h4">
-                Sign in
-              </Typography>
-            </div>
-            {!hidden ? (
-              <Alert severity="error" className="Alert" show="false">
-                <Typography
-                  color="black"
-                  variant="body2"
-                  sx={{ fontWeight: 700, width: 420, height: 2 }}
-                >
-                  {AlertText}
+        <Box sx={{ pt: "30vh" }}>
+          <ThemeProvider theme={theme}>
+            <Paper
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "auto ",
+                maxWidth: "550px",
+                maxHeight: "500px",
+                width: "70%",
+                height: "70%",
+              }}
+            >
+              <Box sx={{ m: "0 24px", mt: "16px" }}>
+                <Typography component="h1" variant="h4">
+                  Sign in
                 </Typography>
-              </Alert>
-            ) : null}
-            <Box component="form" onSubmit={onHandleLogin} noValidate>
-              <div className="Account">
-                <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
-                  帳號 Username or Email
-                </Typography>
-                <OutlinedInput
-                  error={inputErrorA}
-                  fullWidth
-                  required
-                  type="string"
-                  id="username"
-                  placeholder="user@example.com"
-                  name="username"
-                  autoComplete="username"
-                  autoFocus
-                  onChange={onChangeUsername}
-                  sx={{
-                    marginTop: 1,
-                  }}
-                />
-              </div>
-              <div className="Password">
-                <FormControl sx={{ width: "480px" }} variant="outlined">
+              </Box>
+              {!hidden ? (
+                <Box sx={{ width: "90%", m: "8px 24px" }}>
+                  <Alert severity="error" className="Alert" show="false">
+                    <Typography
+                      color="black"
+                      variant="body2"
+                      sx={{ fontWeight: 700 }}
+                    >
+                      {AlertText}
+                    </Typography>
+                  </Alert>
+                </Box>
+              ) : null}
+              <Box
+                component="form"
+                onSubmit={onHandleLogin}
+                noValidate
+                sx={{ width: "90%", m: "8px 16px" }}
+              >
+                <Box sx={{ m: "8px 8px" }}>
                   <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
-                    密碼 Password
+                    帳號 Username or Email
                   </Typography>
                   <OutlinedInput
+                    error={inputErrorA}
+                    fullWidth
+                    required
+                    type="string"
+                    id="username"
+                    placeholder="user@example.com"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    onChange={onChangeUsername}
                     sx={{
                       marginTop: 1,
                     }}
-                    placeholder="password"
-                    id="password"
-                    error={inputErrorP}
-                    type={password.showPassword ? "text" : "password"}
-                    value={password.password}
-                    onSubmit={onHandleLogin}
-                    onChange={onChangePassword("password")}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {password.showPassword ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    }
                   />
-                </FormControl>
-              </div>
-              <div className="Keeplogin">
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="保持登入"
-                />
-              </div>
-              <LoadingButton
-                loading={btnLoading}
-                type="submit"
-                variant="contained"
-                className="ButtonLogin"
-                color="Button"
-                disableElevation
-              >
-                <Typography variant="h5" color="white" fontWeight={540}>
-                  立即登入
-                </Typography>
-              </LoadingButton>
-            </Box>
-          </Paper>
-        </ThemeProvider>
+                  <Box sx={{ m: "8px 0" }}>
+                    <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                      密碼 Password
+                    </Typography>
+                    <OutlinedInput
+                      fullWidth
+                      sx={{
+                        marginTop: 1,
+                      }}
+                      placeholder="password"
+                      id="password"
+                      error={inputErrorP}
+                      type={password.showPassword ? "text" : "password"}
+                      value={password.password}
+                      onSubmit={onHandleLogin}
+                      onChange={onChangePassword("password")}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {password.showPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  </Box>
+                </Box>
+                <Box sx={{ m: "4px 16px" }}>
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="保持登入"
+                  />
+                </Box>
+                <Box sx={{ m: "8px 4px" }}>
+                  <LoadingButton
+                    loading={btnLoading}
+                    type="submit"
+                    variant="contained"
+                    className="ButtonLogin"
+                    color="Button"
+                    disableElevation
+                    fullWidth
+                    sx={{ mt: "8px" }}
+                  >
+                    <Typography variant="h5" color="white" fontWeight={540}>
+                      立即登入
+                    </Typography>
+                  </LoadingButton>
+                </Box>
+              </Box>
+            </Paper>
+          </ThemeProvider>
+        </Box>
       )}
     </div>
   );

@@ -26,7 +26,12 @@ find_label_all = async (req, res) => {
       item["dataValues"]["date"] = date;
       delete item["dataValues"]["User"];
     });
-    return res.status(200).json({ message: label });
+
+    //printer狀態
+    const printer_state = await label_service.printer_state();
+    return res
+      .status(200)
+      .json({ message: label, printer_state: printer_state });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -57,8 +62,8 @@ create_label = async (req, res) => {
         const label = await label_service.create_label(req.body);
         if (label) {
           return res.status(201).json({
-            label_id: label["dataValues"]["label_id"],
-            name: label.name
+            labelId: label["dataValues"]["labelId"],
+            name: label.name,
           });
         }
       } else {
@@ -71,18 +76,17 @@ create_label = async (req, res) => {
 };
 
 update_label = async (req, res) => {
-  const r =  /^[0-9]*[1-9][0-9]*$/
-  const id = await label_service.have_id(req.body.id)
+  const r = /^[0-9]*[1-9][0-9]*$/;
+  const id = await label_service.have_id(req.body.id);
   try {
-    if(r.test(req.body.id) && id){
+    if (r.test(req.body.id) && id) {
       const update_label = await label_service.update_label(req.body);
       if (update_label) {
         return res.status(200).json({ message: "修改成功" });
       }
-    }else{
+    } else {
       return res.status(417).json({ message: "執行失敗" });
     }
-    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -90,15 +94,35 @@ update_label = async (req, res) => {
 
 delete_label = async (req, res) => {
   try {
-    if (req.body.label_id === "") {
+    if (req.body.labelId === "") {
       return res.status(404).json({ message: "沒有標籤ID" });
     } else {
       const delete_label = await label_service.delete_label(
-        req.body["label_id"]
+        req.body["labelId"]
       );
       if (delete_label) {
         return res.status(200).json({ message: "刪除成功" });
       }
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+label_printer_state = async (req, res) => {
+  try {
+    if (!req.query.printerState) {
+      const printer_state = await label_service.printer_state(req.query);
+      return res
+        .status(201)
+        .json({ message: "狀態查詢成功", data: printer_state });
+    } else {
+      const printer_state_change = await label_service.printer_state_change(
+        req.query
+      );
+      return res
+        .status(201)
+        .json({ message: "狀態修改成功", data: printer_state_change });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -110,4 +134,5 @@ module.exports = {
   create_label,
   delete_label,
   update_label,
+  label_printer_state,
 };
