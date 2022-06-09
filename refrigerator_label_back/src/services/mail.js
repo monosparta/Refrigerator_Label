@@ -66,7 +66,7 @@ auto_send_mail = async (req, res) => {
     const diff_day = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
 
     if (diff_day === 7) {
-      let mail = await user_service.card_id_find_mail(time[i]["card_id"]);
+      let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -79,7 +79,7 @@ auto_send_mail = async (req, res) => {
         from: process.env.NODEMAILER_USER,
         to: mail["dataValues"]["mail"],
         subject: "冰箱物品管理系統提醒",
-        html:  mail_template_header + "<font color='black'>您的物品 <font color='blue'><b>#" + time[i]["label_id"] + " </b></font>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br><br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！</font>" + mail_template_footer
+        html:  mail_template_header + "<font color='black'>您的物品 <font color='blue'><b>#" + time[i]["labelId"] + " </b></font>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br><br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！</font>" + mail_template_footer
       };
     
       transporter.sendMail(mailOptions, function (error, info) {
