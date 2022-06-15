@@ -23,7 +23,7 @@ module.exports = function (router) {
 
   router.post("/api/label", label_controller.create_label);
 
-  router.get("/api/label_printer_state", label_controller.label_printer_state);
+  router.post("/api/printer_state_change", label_controller.printer_state_change);
 
   router.post("/api/create_user", user_controller.create_user);
   
