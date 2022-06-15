@@ -291,7 +291,7 @@ export default function ManagementPage() {
       },
     },
   ];
-
+  
   return (
     <div className="Home">
       <Bar />
