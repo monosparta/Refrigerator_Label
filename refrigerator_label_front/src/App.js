@@ -20,7 +20,8 @@ export default function App() {
     <TokenContext.Provider value={{ tokenContext, setTokenContext }}>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          
+          <Route path="/" element={!tokenContext?<Login />:<Navigate to="/ManagementPage" replace />} />
           <Route
             path="/ManagementPage"
             element={

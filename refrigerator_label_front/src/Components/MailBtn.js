@@ -128,7 +128,7 @@ export default function MailBtn(props) {
     setBtnLoading(true);
     const mail_user_data = [];
     chipData.forEach(function (item) {
-      mail_user_data.push([item["mail"], item["label_id"]]);
+      mail_user_data.push([item["mail"], item["labelId"]]);
     });
     await props.handleSendMail(mail_user_data, mailContent);
     setOpen(false);

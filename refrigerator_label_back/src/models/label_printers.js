@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   LabelPrinters.init({
-    printerName: DataTypes.STRING,
-    printerType: DataTypes.STRING,
-    printerState: DataTypes.STRING
+    name: DataTypes.STRING,
+    type: DataTypes.STRING,
+    state: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'LabelPrinters',

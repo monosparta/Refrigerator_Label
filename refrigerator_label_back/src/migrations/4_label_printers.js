@@ -8,16 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      printerName: {
+      name: {
         unique: true,
         allowNull: false,
         type: Sequelize.STRING
       },
-      printerType: {
+      type: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      printerState: {
+      state: {
         allowNull: false,
         type: Sequelize.STRING
       },

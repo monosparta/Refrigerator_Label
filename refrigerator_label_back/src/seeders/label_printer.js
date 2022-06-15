@@ -6,9 +6,9 @@ module.exports = {
       "LabelPrinters",
       [
         {
-          printerName: "basic_printer",
-          printerType: "QL-700",
-          printerState: "success",
+          name: "basic_printer",
+          type: "QL-700",
+          state: "success",
           createdAt: new Date(),
           updatedAt: new Date(),
         },

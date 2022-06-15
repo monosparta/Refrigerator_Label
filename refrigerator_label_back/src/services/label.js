@@ -9,6 +9,7 @@ find_label_all = async () => {
 
   return request;
 };
+
 have_id = async (id) => {
   const is_id = await db.Labels.findOne({
     raw: true,
@@ -77,23 +78,19 @@ create_label = async (body) => {
   return create_label;
 };
 
-printer_state = async (query) => {
-  const printer_state = await db.LabelPrinters.findOne({
-    where: {
-      printerName: query.printerName,
-    },
-  });
+printer_state = async () => {
+  const printer_state = await db.LabelPrinters.findAll();
   return printer_state;
 };
 
-printer_state_change = async (query) => {
+printer_state_change = async (body) => {
   const printer_state_change = await db.LabelPrinters.update(
     {
-      printerState: query.printerState,
+      state: body.state,
     },
     {
       where: {
-        printerName: query.printerName,
+        name: body.name,
       },
     }
   );

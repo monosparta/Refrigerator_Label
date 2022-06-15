@@ -26,7 +26,12 @@ find_label_all = async (req, res) => {
       item["dataValues"]["date"] = date;
       delete item["dataValues"]["User"];
     });
-    return res.status(200).json({ message: label });
+
+    //printer狀態
+    const printer_state = await label_service.printer_state();
+    return res
+      .status(200)
+      .json({ message: label, printer_state: printer_state });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -112,7 +117,9 @@ label_printer_state = async (req, res) => {
         .status(201)
         .json({ message: "狀態查詢成功", data: printer_state });
     } else {
-      const printer_state_change = await label_service.printer_state_change(req.query);
+      const printer_state_change = await label_service.printer_state_change(
+        req.query
+      );
       return res
         .status(201)
         .json({ message: "狀態修改成功", data: printer_state_change });
