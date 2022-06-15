@@ -8,10 +8,12 @@ import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
 import MailBtn from "../Components/MailBtn";
 import EditBtn from "../Components/EditBtn";
+import PrinterStates from "../Components/PrinterStates.js";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TokenContext } from "../App.js";
 
 const theme = createTheme({
   palette: {
@@ -38,27 +40,33 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function ManagementPage() {
   let navigate = useNavigate();
+  //token
+  const { setTokenContext } = React.useContext(TokenContext);
 
   // label_data
   const [rowData, setRowData] = React.useState([]);
+  // printer_state
+  const [printerState, setPrinterState] = React.useState();
+
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
+
   //snackbar
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
-
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  //關掉Alert
+
+  //close Alert
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
 
-  //儲存功能
+  //編輯功能
   const handleEdit = async (label_id, update_note) => {
     await axios
       .put(
@@ -74,11 +82,6 @@ export default function ManagementPage() {
       })
       .catch((error) => {
         console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
       });
     setState({
       open: true,
@@ -100,18 +103,21 @@ export default function ManagementPage() {
         .then((response) => {
           const label_data = response["data"]["message"];
           setRowData(label_data);
+          const printer_state = response["data"]["printer_state"][0]["state"];
+          setPrinterState(printer_state);
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
+            setTokenContext();
             navigate("/");
           }
         });
     };
     loadData();
-  }, [navigate]);
+  }, [navigate, setTokenContext]);
 
   React.useEffect(() => {
     const update = setInterval(() => {
@@ -131,6 +137,7 @@ export default function ManagementPage() {
     });
     return select_data;
   };
+
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("labelId");
@@ -145,11 +152,6 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
-          //overtime
-          if (error.response.status === 402 || 403) {
-            localStorage.removeItem("login_token");
-            navigate("/");
-          }
         });
 
       loadingData();
@@ -183,6 +185,7 @@ export default function ManagementPage() {
     }
     return people;
   };
+
   //寄信功能
   const handleSendMail = async (mail_users, mail_content) => {
     if (mail_users.length !== 0) {
@@ -202,11 +205,6 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           console.log(error.response.data["message"]);
-          //overtime
-          if (error.response.status === 402 || 403) {
-            localStorage.removeItem("login_token");
-            navigate("/");
-          }
         });
       setAlertText("寄信成功");
       setSeverity("success");
@@ -304,7 +302,10 @@ export default function ManagementPage() {
       >
         <ThemeProvider theme={theme}>
           <div className="ButtonDeleteandMail">
-            <div className="DeleteBtn">
+            <div style={{ marginLeft: "1.5%" }}>
+              <PrinterStates printerState={printerState} />
+            </div>
+            <div style={{ marginLeft: "auto" }}>
               <DeleteBtn handleDelete={handleDelete} />
             </div>
             <div className="MailBtn">
