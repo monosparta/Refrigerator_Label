@@ -52,7 +52,7 @@ update_label = async (body) => {
 
 last_id = async () => {
   const request = await db.Labels.findOne({
-    // raw:true,
+    raw:true,
     order: [["id", "DESC"]],
   });
   return request;
