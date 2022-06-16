@@ -2,6 +2,7 @@ require("dotenv").config();
 const db = require("../models/index.js");
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 is_admin = async (body) => {
   const is_admin = await db.Admins.findOne({
@@ -10,6 +11,22 @@ is_admin = async (body) => {
     },
   });
   return is_admin;
+};
+
+find_admin_all = async () => {
+  const admins = await db.Admins.findAll({
+    attributes: ["username", "mail"],
+  });
+  return admins;
+};
+
+admin_create = async (body) => {
+  const admin_create = await db.Admins.create({
+    username: body.username,
+    password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
+    mail: body.mail,
+  });
+  return admin_create;
 };
 
 token_create = async (admin_data) => {
@@ -31,7 +48,24 @@ token_create = async (admin_data) => {
   return token;
 };
 
+reset_password = async (body) => {
+  const reset_password = await db.Admins.update(
+    {
+      password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
+    },
+    {
+      where: {
+        username: body.username,
+      },
+    }
+  );
+  return reset_password;
+};
+
 module.exports = {
   is_admin,
+  find_admin_all,
+  admin_create,
   token_create,
+  reset_password,
 };
