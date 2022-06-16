@@ -50,13 +50,13 @@ update_label = async (body) => {
   return request;
 };
 
-last_id = async () =>{
-    const request = await db.Labels.findOne({
-        raw:true,
-        order: [['id', 'DESC']],
-    })
-    return request;
-}
+last_id = async () => {
+  const request = await db.Labels.findOne({
+    raw:true,
+    order: [["id", "DESC"]],
+  });
+  return request;
+};
 
 create_label = async (body) => {
   let array = body.date.split(" ");
