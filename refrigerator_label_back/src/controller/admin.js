@@ -51,6 +51,18 @@ admin_create = async (req, res) => {
   }
 };
 
+admin_delete = async (req, res) => {
+  try {
+    const admin = await admin_service.is_admin(req.body);
+    if (admin && bcrypt.compareSync(req.body.password, admin.password)) {
+      await admin_service.admin_delete(req.body.username);
+      return res.status(201).json({ message: "管理帳號刪除成功" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 reset_password = async (req, res) => {
   try {
     const admin = await admin_service.is_admin(req.body);
@@ -72,6 +84,7 @@ reset_password = async (req, res) => {
 module.exports = {
   login,
   find_admin_all,
-  reset_password,
   admin_create,
+  admin_delete,
+  reset_password,
 };

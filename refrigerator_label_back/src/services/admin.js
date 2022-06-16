@@ -29,6 +29,15 @@ admin_create = async (body) => {
   return admin_create;
 };
 
+admin_delete = async (username) => {
+  const admin_delete = await db.Admins.destroy({
+    where: {
+      username: username,
+    },
+  });
+  return admin_delete;
+};
+
 token_create = async (admin_data) => {
   const token = jwt.sign(
     { username: admin_data.username },
@@ -66,6 +75,7 @@ module.exports = {
   is_admin,
   find_admin_all,
   admin_create,
+  admin_delete,
   token_create,
   reset_password,
 };

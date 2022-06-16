@@ -24,8 +24,9 @@ module.exports = function (router) {
   router.put("/api/label", label_controller.update_label);
   router.post("/api/printer_state_change", label_controller.printer_state_change);
 
-  router.get("/api/find_admin_all", admin_controller.find_admin_all);
-  router.post("/api/admin_create", admin_controller.admin_create);
+  router.get("/api/admin", admin_controller.find_admin_all);
+  router.post("/api/admin", admin_controller.admin_create);
+  router.delete("/api/admin", admin_controller.admin_delete);
   router.put("/api/reset_password", admin_controller.reset_password);
 
 };
