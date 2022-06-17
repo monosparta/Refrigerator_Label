@@ -67,14 +67,14 @@ const StyledBadgeError = styled(Badge)(({ theme }) => ({
 
 export default function PrinterStates(props) {
   const [printerState, setPrinterState] = React.useState();
-  
+
   if (props.printerState !== printerState) {
     setPrinterState(props.printerState);
   }
 
   return (
     <div>
-      <Card sx={{ display: "flex" }}>
+      <Card sx={{ display: "flex", p: 1 }}>
         {printerState === "success" ? (
           <StyledBadge
             overlap="circular"

@@ -1,13 +1,11 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../App.js";
+import { Typography, Box, Button, Link } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +21,7 @@ const theme = createTheme({
   },
 });
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   let navigate = useNavigate();
 
   const { setTokenContext } = React.useContext(TokenContext);
@@ -39,15 +37,25 @@ export default function ButtonAppBar() {
       <ThemeProvider theme={theme}>
         <AppBar position="static" color="Button">
           <Toolbar>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, fontWeight: 600 }}
-              color="White"
-            >
-              雲端智慧標籤系統
-            </Typography>
+            <Link href="/" underline="none">
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1, fontWeight: 600 }}
+                color="White"
+              >
+                雲端智慧標籤系統
+              </Typography>
+            </Link>
             <ThemeProvider theme={theme}>
+              <Button
+                variant="outlined"
+                color="white"
+                href="/Admin"
+                sx={{ mr: "1vw", ml: "auto" }}
+              >
+                <Typography color="White">管理者們</Typography>
+              </Button>
               <Button
                 variant="outlined"
                 startIcon={<LogoutIcon />}

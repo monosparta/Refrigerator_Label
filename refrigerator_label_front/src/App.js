@@ -8,6 +8,8 @@ import {
 import Login from "./Pages/LoginPage";
 import Management from "./Pages/ManagementPage";
 import NoFoundPage from "./Pages/NotFoundPage";
+import Register from "./Pages/RegisterPage";
+import Admins from "./Pages/AdminListPage";
 
 export const TokenContext = React.createContext(null);
 
@@ -20,14 +22,24 @@ export default function App() {
     <TokenContext.Provider value={{ tokenContext, setTokenContext }}>
       <Router>
         <Routes>
-          
-          <Route path="/" element={!tokenContext?<Login />:<Navigate to="/ManagementPage" replace />} />
+          <Route
+            path="/"
+            element={
+              !tokenContext ? (
+                <Login />
+              ) : (
+                <Navigate to="/ManagementPage" replace />
+              )
+            }
+          />
           <Route
             path="/ManagementPage"
             element={
               !tokenContext ? <Navigate to="/" replace /> : <Management />
             }
           />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Admin" element={<Admins />} />
           <Route path="*" element={<NoFoundPage />} />
         </Routes>
       </Router>
