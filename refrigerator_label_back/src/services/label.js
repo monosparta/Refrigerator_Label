@@ -52,7 +52,7 @@ update_label = async (body) => {
 
 last_id = async () => {
   const request = await db.Labels.findOne({
-    // raw:true,
+    raw:true,
     order: [["id", "DESC"]],
   });
   return request;
@@ -86,7 +86,7 @@ printer_state = async () => {
 printer_state_change = async (body) => {
   const printer_state_change = await db.LabelPrinters.update(
     {
-      state: body.state,
+      state: body.printerState,
     },
     {
       where: {

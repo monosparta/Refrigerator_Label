@@ -109,21 +109,15 @@ delete_label = async (req, res) => {
   }
 };
 
-label_printer_state = async (req, res) => {
+printer_state_change = async (req, res) => {
   try {
-    if (!req.query.printerState) {
-      const printer_state = await label_service.printer_state(req.query);
-      return res
-        .status(201)
-        .json({ message: "狀態查詢成功", data: printer_state });
-    } else {
-      const printer_state_change = await label_service.printer_state_change(
-        req.query
-      );
-      return res
-        .status(201)
-        .json({ message: "狀態修改成功", data: printer_state_change });
+    if (!req.body.printerState) {
+      return res.status(201).json({ message: "未有狀態值" });
     }
+
+    await label_service.printer_state_change(req.body);
+    return res.status(201).json({ message: "狀態修改成功" });
+    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
@@ -134,5 +128,5 @@ module.exports = {
   create_label,
   delete_label,
   update_label,
-  label_printer_state,
+  printer_state_change,
 };
