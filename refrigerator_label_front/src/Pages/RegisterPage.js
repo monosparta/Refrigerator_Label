@@ -4,8 +4,6 @@ import "../App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/AppBar";
 
-
-
 const theme = createTheme({
   palette: {
     white: {
@@ -30,9 +28,9 @@ export default function Register() {
         }}
       >
         <Box sx={{ m: "0 auto", height: "40px" }}>
-          <Box sx={{ m: "25px 186px" }}>
+          <Box sx={{ m: "25px 146px" }}>
             <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-              註冊
+              新增管理者
             </Typography>
           </Box>
           <Box sx={{ width: "408px", m: "0 35px" }}>

@@ -5,8 +5,9 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Typography, Paper, Button } from "@mui/material";
+import { Paper } from "@mui/material";
 import DeleteAdmin from "../Components/DeleteAdminBtn";
+import Reset from "../Components/PasswordResetBtn";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function createData(name, calories, fat, carbs, protein) {
@@ -61,24 +62,7 @@ export default function BasicTable() {
               <TableCell align="right">{row.calories}</TableCell>
               <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">
-                <ThemeProvider theme={theme}>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      width: "124px",
-                      height: "44px",
-                      borderRadius: "10px",
-                    }}
-                    color="Button"
-                  >
-                    <Typography
-                      sx={{ fontSize: "14px", fontWeight: 400 }}
-                      color="White"
-                    >
-                      重設密碼
-                    </Typography>
-                  </Button>
-                </ThemeProvider>
+                <Reset />
               </TableCell>
               <TableCell align="left">
                 <ThemeProvider theme={theme}>
