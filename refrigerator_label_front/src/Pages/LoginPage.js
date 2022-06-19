@@ -107,10 +107,7 @@ function Login() {
       })
       .catch((error) => {
         setAlertText(error.response.data["message"]);
-        setInputErrorA(true);
-        setInputErrorP(true);
         setHidden(false);
-        setBtnLoading(false);
       });
     setBtnLoading(false);
   };
@@ -225,7 +222,6 @@ function Login() {
                       error={inputErrorP}
                       type={password.showPassword ? "text" : "password"}
                       value={password.password}
-                      onSubmit={onHandleLogin}
                       onChange={onChangePassword("password")}
                       endAdornment={
                         <InputAdornment position="end">

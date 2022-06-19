@@ -22,7 +22,7 @@ const theme2 = createTheme({
   },
 });
 
-export default function DeleteBtn(props) {
+export default function DeleteAdminBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [btnLoading, setBtnLoading] = React.useState(false);
 
@@ -37,12 +37,13 @@ export default function DeleteBtn(props) {
     setOpen(false);
   };
 
-  const handleDelete = async () => {
+  const handleDeleteAdmin = async () => {
     setBtnLoading(true);
-    await props.handleDelete();
+    await props.handleDeleteAdmin(props.username);
     setOpen(false);
     setBtnLoading(false);
   };
+
   const Img = styled("img")({
     margin: "auto",
     display: "block",
@@ -78,7 +79,7 @@ export default function DeleteBtn(props) {
                 <div className="BtnOK">
                   <LoadingButton
                     autoFocus
-                    onClick={handleDelete}
+                    onClick={handleDeleteAdmin}
                     loading={btnLoading}
                     variant="contained"
                     color="Button"

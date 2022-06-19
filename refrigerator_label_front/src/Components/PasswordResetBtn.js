@@ -18,12 +18,24 @@ const theme2 = createTheme({
   },
 });
 
-export default function DeleteBtn(props) {
-  const [open, setOpen] = React.useState(false);
-  //   const [btnLoading, setBtnLoading] = React.useState(false);
-
+export default function PasswordResetBtn(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = React.useState(false);
+  const [btnLoading, setBtnLoading] = React.useState(false);
+
+  const [newPassword, setNewPassword] = React.useState();
+  const [newPasswordAgain, setNewPasswordAgain] = React.useState();
+
+  const onChangeNewPassword = (e) => {
+    const newPassword = e.target.value;
+    setNewPassword(newPassword);
+  };
+
+  const onChangeNewPasswordAgain = (e) => {
+    const newPasswordAgain = e.target.value;
+    setNewPasswordAgain(newPasswordAgain);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,9 +46,20 @@ export default function DeleteBtn(props) {
   };
 
   const handleReset = async () => {
-    // setBtnLoading(true);
-    setOpen(false);
-    // setBtnLoading(false);
+    if (!newPassword && !newPasswordAgain) {
+      console.log("請輸入密碼");
+    } else if (!newPassword) {
+      console.log("請填密碼");
+    } else if (!newPasswordAgain) {
+      console.log("請再輸入一次密碼");
+    } else if (newPassword !== newPasswordAgain) {
+      console.log("密碼不一致");
+    } else {
+      setBtnLoading(true);
+      await props.handleResetPassword(props.username, newPassword);
+      setOpen(false);
+      setBtnLoading(false);
+    }
   };
 
   return (
@@ -68,11 +91,19 @@ export default function DeleteBtn(props) {
             </Typography>
           </Box>
           <Box sx={{ width: "300px", height: "100px", m: "0 auto" }}>
-            <TextField size="small" placeholder="輸入新密碼" fullWidth />
+            <TextField
+              size="small"
+              placeholder="輸入新密碼"
+              fullWidth
+              type="password"
+              onChange={onChangeNewPassword}
+            />
             <TextField
               size="small"
               placeholder="再次輸入新密碼"
               fullWidth
+              type="password"
+              onChange={onChangeNewPasswordAgain}
               sx={{ mt: "11px" }}
             />
           </Box>
@@ -81,7 +112,7 @@ export default function DeleteBtn(props) {
               <LoadingButton
                 autoFocus
                 onClick={handleReset}
-                // loading={btnLoading}
+                loading={btnLoading}
                 variant="contained"
                 color="Button"
                 style={{

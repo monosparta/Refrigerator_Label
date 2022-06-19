@@ -38,8 +38,14 @@ export default function App() {
               !tokenContext ? <Navigate to="/" replace /> : <Management />
             }
           />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Admin" element={<Admins />} />
+          <Route
+            path="/Register"
+            element={!tokenContext ? <Navigate to="/" replace /> : <Register />}
+          />
+          <Route
+            path="/Admin"
+            element={!tokenContext ? <Navigate to="/" replace /> : <Admins />}
+          />
           <Route path="*" element={<NoFoundPage />} />
         </Routes>
       </Router>

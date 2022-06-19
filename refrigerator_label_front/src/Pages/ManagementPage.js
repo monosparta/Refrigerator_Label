@@ -66,34 +66,6 @@ export default function ManagementPage() {
   };
   const { vertical, horizontal, open } = state;
 
-  //編輯功能
-  const handleEdit = async (label_id, update_note) => {
-    await axios
-      .put(
-        "api/label",
-        {
-          id: label_id,
-          note: update_note,
-        },
-        { headers: { token: localStorage.getItem("login_token") } }
-      )
-      .then((response) => {
-        console.log(response.data["message"]);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-      });
-    setState({
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center", //position of popout
-      },
-    });
-    setAlertText("編輯成功");
-    setSeverity("success");
-  };
-
   const loadingData = React.useCallback(() => {
     const loadData = async () => {
       await axios
@@ -107,7 +79,6 @@ export default function ManagementPage() {
           setPrinterState(printer_state);
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
@@ -138,6 +109,38 @@ export default function ManagementPage() {
     return select_data;
   };
 
+  //編輯功能
+  const handleEdit = async (label_id, update_note) => {
+    await axios
+      .put(
+        "api/label",
+        {
+          id: label_id,
+          note: update_note,
+        },
+        { headers: { token: localStorage.getItem("login_token") } }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(response.data["message"]);
+      })
+      .catch((error) => {
+        setAlertText(error.response.data["message"]);
+        setSeverity("error");
+      });
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center", //position of popout
+      },
+    });
+  };
+
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("labelId");
@@ -148,15 +151,18 @@ export default function ManagementPage() {
           data: { labelId: delete_data },
         })
         .then((response) => {
-          console.log(response);
+          if (response.status === 200) {
+            setSeverity("success");
+            loadingData();
+          } else {        
+            setSeverity("error");
+          }
+          setAlertText(response.data["message"]);
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
+          setAlertText(error.response.data["message"]);
+          setSeverity("error");
         });
-
-      loadingData();
-      setSeverity("success");
-      setAlertText("所選項目已刪除");
       setState({
         isLoading: true,
         open: true,
@@ -201,13 +207,17 @@ export default function ManagementPage() {
           }
         )
         .then((response) => {
-          console.log(response);
+          if (response.status === 200) {
+            setSeverity("success");
+          } else {
+            setSeverity("error");
+          }
+          setAlertText(response.data["message"]);
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
+          setAlertText(error.response.data["message"]);
+          setSeverity("error");
         });
-      setAlertText("寄信成功");
-      setSeverity("success");
       setState({
         open: true,
         ...{

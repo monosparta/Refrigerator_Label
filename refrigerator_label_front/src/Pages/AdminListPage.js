@@ -4,6 +4,11 @@ import "../App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/AppBar";
 import Admins from "../Components/AdminTable";
+import { useNavigate } from "react-router-dom";
+import axios from "../Axios.config.js";
+import { TokenContext } from "../App.js";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const theme = createTheme({
   palette: {
@@ -16,7 +21,121 @@ const theme = createTheme({
   },
 });
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function AdminList() {
+  let navigate = useNavigate();
+  //token
+  const { setTokenContext } = React.useContext(TokenContext);
+
+  // admin_data
+  const [adminData, setAdminData] = React.useState([]);
+
+  //snackbar
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const [AlertText, setAlertText] = React.useState("");
+  const [Severity, setSeverity] = React.useState("");
+  //close Alert
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+  const { vertical, horizontal, open } = state;
+
+  const loadingAdmin = React.useCallback(() => {
+    const loadAdmin = async () => {
+      await axios
+        .get("api/admin", {
+          headers: { token: localStorage.getItem("login_token") },
+        })
+        .then((response) => {
+          const admin_data = response["data"]["message"];
+          setAdminData(admin_data);
+        })
+        .catch((error) => {
+          console.log(error.response.data["message"]);
+          //overtime
+          if (error.response.status === 402 || 403) {
+            localStorage.removeItem("login_token");
+            setTokenContext();
+            navigate("/");
+          }
+        });
+    };
+    loadAdmin();
+  }, [navigate, setTokenContext]);
+
+  React.useEffect(() => {
+    loadingAdmin();
+  }, [loadingAdmin]);
+
+  //刪除管理者
+  const handleDeleteAdmin = async (username) => {
+    await axios
+      .delete("api/admin", {
+        headers: { token: localStorage.getItem("login_token") },
+        data: { username: username },
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          setSeverity("success");
+          loadingAdmin();
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(response.data["message"]);
+      })
+      .catch((error) => {
+        setAlertText(error.response.data["message"]);
+        setSeverity("error");
+      });
+    setState({
+      isLoading: true,
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
+  };
+
+  //修改密碼功能
+  const handleResetPassword = async (username, password) => {
+    await axios
+      .put(
+        "api/reset_password",
+        {
+          username: username,
+          password: password,
+        },
+        { headers: { token: localStorage.getItem("login_token") } }
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(response.data["message"]);
+      })
+      .catch((error) => {
+        setAlertText(error.response.data["message"]);
+        setSeverity("error");
+      });
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center", //position of popout
+      },
+    });
+  };
+
   return (
     <div>
       <Bar />
@@ -54,9 +173,24 @@ export default function AdminList() {
             m: "0 auto",
           }}
         >
-          <Admins />
+          <Admins
+            adminData={adminData}
+            handleDeleteAdmin={handleDeleteAdmin}
+            handleResetPassword={handleResetPassword}
+          />
         </Box>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        autoHideDuration={1500}
+        onClose={handleClose}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity={Severity} sx={{ width: "100%" }}>
+          {AlertText}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
