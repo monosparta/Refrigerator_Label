@@ -36,10 +36,7 @@ admin_create = async (req, res) => {
       const admin_create = await admin_service.admin_create(req.body);
 
       if (admin_create) {
-        const token = await admin_service.token_create(admin_create);
-        return res
-          .status(201)
-          .json({ message: "管理帳號新增成功", token: token });
+        return res.status(201).json({ message: "管理帳號新增成功" });
       } else {
         return res.status(402).json({ message: "管理帳號新增錯誤" });
       }
@@ -54,9 +51,14 @@ admin_create = async (req, res) => {
 admin_delete = async (req, res) => {
   try {
     const admin = await admin_service.is_admin(req.body);
-    if (admin && bcrypt.compareSync(req.body.password, admin.password)) {
+    const admins = await admin_service.find_admin_all();
+    if (admin && admins.length > 2) {
       await admin_service.admin_delete(req.body.username);
       return res.status(201).json({ message: "管理帳號刪除成功" });
+    } else if (admins.length < 2) {
+      return res.status(401).json({ message: "至少需要一個管理帳號存在" });
+    } else {
+      return res.status(404).json({ message: "無此管理帳號" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
