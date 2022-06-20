@@ -64,6 +64,7 @@ cd ..
 # start project
 echo -e "${YELLOW}Start Back Project${CLEAR}"
 pm2 start npm --name 'Back' -- start --watch --ignore-watch='node_modules' --prefix ./refrigerator_label_back/ 
+pm2 save
 
 echo -e "${YELLOW}Build Project Front${CLEAR}"
 npm --prefix ./refrigerator_label_front/ build
