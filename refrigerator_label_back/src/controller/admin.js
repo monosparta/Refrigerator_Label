@@ -67,6 +67,9 @@ admin_delete = async (req, res) => {
 
 reset_password = async (req, res) => {
   try {
+    if (req.decoded.username !== req.body.username) {
+      return res.status(402).json({ message: "只能修改自己的帳號" });
+    }
     const admin = await admin_service.is_admin(req.body);
     if (admin) {
       const reset_password = admin_service.reset_password(req.body);
