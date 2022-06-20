@@ -17,7 +17,7 @@ find_label_all = async (req, res) => {
       );
       const diff_time = Math.abs(date2 - date1);
       const diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-      let date = array[0] + " - " + diff_days + " day ago";
+      let date = array[0] + " - " + diff_days;
       //
       if (diff_days >= 2) {
         date += " days ago";
