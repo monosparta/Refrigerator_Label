@@ -62,9 +62,11 @@ cp .env.example .env
 cd ..
 
 # start project
-echo -e "${YELLOW}Start Project${CLEAR}"
+echo -e "${YELLOW}Start Back Project${CLEAR}"
 pm2 start npm --name 'Back' -- start --watch --ignore-watch='node_modules' --prefix ./refrigerator_label_back/ 
-pm2 start npm --name 'Front' -- start --watch --ignore-watch='node_modules' --prefix ./refrigerator_label_front/
+
+echo -e "${YELLOW}Build Project Front${CLEAR}"
+npm --prefix ./refrigerator_label_front/ build
 
 
 
