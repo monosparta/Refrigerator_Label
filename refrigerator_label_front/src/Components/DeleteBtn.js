@@ -67,8 +67,8 @@ export default function DeleteBtn(props) {
         <div className="Diacontent">
           <div className="DTittle">
             <DialogTitle id="responsive-dialog-title">
-              <Typography variant="boby2" sx={{ fontWeight: "700" }}>
-                確認刪除所選項目？
+              <Typography variant="boby2" sx={{ fontWeight: "400" }}>
+                確認刪除所選項目
               </Typography>
             </DialogTitle>
           </div>

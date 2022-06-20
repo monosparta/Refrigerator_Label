@@ -307,7 +307,7 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height: "88vh",
+          height: "85vh",
         }}
       >
         <ThemeProvider theme={theme}>
@@ -333,7 +333,7 @@ export default function ManagementPage() {
               {
                 outline: "none",
               },
-            margin: "0 16px",
+            margin: "0 24px",
           }}
           rows={rowData}
           columns={columns}
