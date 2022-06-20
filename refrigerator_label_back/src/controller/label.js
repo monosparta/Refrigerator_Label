@@ -17,7 +17,13 @@ find_label_all = async (req, res) => {
       );
       const diff_time = Math.abs(date2 - date1);
       const diff_days = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
-      const date = array[0] + " - " + diff_days + " day ago";
+      let date = array[0] + " - " + diff_days + " day ago";
+      //
+      if (diff_days >= 2) {
+        date += " days ago";
+      } else {
+        date += " day ago";
+      }
 
       const name = item["dataValues"]["User"]["dataValues"]["name"];
       const mail = item["dataValues"]["User"]["dataValues"]["mail"];
@@ -117,7 +123,6 @@ printer_state_change = async (req, res) => {
 
     await label_service.printer_state_change(req.body);
     return res.status(201).json({ message: "狀態修改成功" });
-    
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

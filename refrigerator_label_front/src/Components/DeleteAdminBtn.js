@@ -5,10 +5,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import DeleteIcon from "../Pictures/Vector.png";
+import { styled } from "@mui/material/styles";
 
 const theme2 = createTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme2 = createTheme({
   },
 });
 
-export default function DeleteBtn(props) {
+export default function DeleteAdminBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [btnLoading, setBtnLoading] = React.useState(false);
 
@@ -36,28 +37,25 @@ export default function DeleteBtn(props) {
     setOpen(false);
   };
 
-  const handleDelete = async () => {
+  const handleDeleteAdmin = async () => {
     setBtnLoading(true);
-    await props.handleDelete();
+    await props.handleDeleteAdmin(props.username);
     setOpen(false);
     setBtnLoading(false);
   };
 
+  const Img = styled("img")({
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  });
+
   return (
     <div>
-      <ThemeProvider theme={theme2}>
-        <Button
-          onClick={handleClickOpen}
-          startIcon={<DeleteIcon color="White" />}
-          color="Button"
-          variant="contained"
-          disableElevation
-        >
-          <Typography color="white" variant="h7" sx={{ pt: "2px" }}>
-            刪除
-          </Typography>
-        </Button>
-      </ThemeProvider>
+      <Button onClick={handleClickOpen} disableElevation>
+        <Img src={DeleteIcon} />
+      </Button>
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -67,8 +65,8 @@ export default function DeleteBtn(props) {
         <div className="Diacontent">
           <div className="DTittle">
             <DialogTitle id="responsive-dialog-title">
-              <Typography variant="boby2" sx={{ fontWeight: "400" }}>
-                確認刪除所選項目
+              <Typography variant="boby2" sx={{ fontWeight: "700" }}>
+                確認刪除此管理者？
               </Typography>
             </DialogTitle>
           </div>
@@ -78,7 +76,7 @@ export default function DeleteBtn(props) {
                 <div className="BtnOK">
                   <LoadingButton
                     autoFocus
-                    onClick={handleDelete}
+                    onClick={handleDeleteAdmin}
                     loading={btnLoading}
                     variant="contained"
                     color="Button"

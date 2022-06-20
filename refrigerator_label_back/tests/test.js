@@ -11,4 +11,8 @@ request(app)
   .expect('Content-Length', '12')
   .end(function(err, res) {
     if (err) throw err;
+<<<<<<< HEAD
   });
+=======
+  });
+>>>>>>> front
