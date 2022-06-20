@@ -90,7 +90,8 @@ export default function Register() {
       setHidden(false);
       setAlertText(alert_text + "!");
       process.exit();
-    }else if(password!==passwordAgain){ //not same
+    } else if (password !== passwordAgain) {
+      //not same
       setInputErrorP(true);
       setInputErrorPA(true);
       setAlertText("輸入密碼不一致!");
@@ -112,7 +113,7 @@ export default function Register() {
       )
       .then((response) => {
         console.log(response);
-        navigate("/Admin");
+        navigate("/Admins");
       })
       .catch((error) => {
         setAlertText(error.response.data["message"]);

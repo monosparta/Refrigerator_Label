@@ -51,10 +51,10 @@ export default function ButtonAppBar(props) {
               <Button
                 variant="outlined"
                 color="white"
-                href="/Admin"
+                href="/Admins"
                 sx={{ mr: "1vw", ml: "auto" }}
               >
-                <Typography color="White">管理者們</Typography>
+                <Typography color="White">管理者列表</Typography>
               </Button>
               <Button
                 variant="outlined"

@@ -21,7 +21,6 @@ const theme = createTheme({
   },
 });
 
-
 export default function BasicTable(props) {
   return (
     <TableContainer component={Paper}>
@@ -29,14 +28,10 @@ export default function BasicTable(props) {
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: "20%" }}>管理者名稱</TableCell>
-            <TableCell align="right" sx={{ width: "20%" }}>
-              信箱
-            </TableCell>
-            <TableCell align="right" sx={{ width: "20%" }}>
-              身分組
-            </TableCell>
-            <TableCell sx={{ width: "20%" }}></TableCell>
-            <TableCell sx={{ width: "20%" }}></TableCell>
+            <TableCell sx={{ width: "20%" }}>信箱</TableCell>
+            <TableCell sx={{ width: "20%" }}>身分組</TableCell>
+            <TableCell sx={{ width: "10%" }}></TableCell>
+            <TableCell sx={{ width: "1%" }}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -48,14 +43,20 @@ export default function BasicTable(props) {
               <TableCell component="th" scope="row">
                 {row.username}
               </TableCell>
-              <TableCell align="right">{row.mail}</TableCell>
-              <TableCell align="right">Admin</TableCell>
+              <TableCell>{row.mail}</TableCell>
+              <TableCell>Admin</TableCell>
               <TableCell align="right">
-                <Reset username={row.username} handleResetPassword={props.handleResetPassword}/>
+                <Reset
+                  username={row.username}
+                  handleResetPassword={props.handleResetPassword}
+                />
               </TableCell>
               <TableCell align="left">
                 <ThemeProvider theme={theme}>
-                  <DeleteAdmin username={row.username} handleDeleteAdmin={props.handleDeleteAdmin}/>
+                  <DeleteAdmin
+                    username={row.username}
+                    handleDeleteAdmin={props.handleDeleteAdmin}
+                  />
                 </ThemeProvider>
               </TableCell>
             </TableRow>

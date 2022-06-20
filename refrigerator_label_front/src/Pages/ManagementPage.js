@@ -154,7 +154,7 @@ export default function ManagementPage() {
           if (response.status === 200) {
             setSeverity("success");
             loadingData();
-          } else {        
+          } else {
             setSeverity("error");
           }
           setAlertText(response.data["message"]);
@@ -299,7 +299,7 @@ export default function ManagementPage() {
       },
     },
   ];
-  
+
   return (
     <div className="Home">
       <Bar />
