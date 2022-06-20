@@ -158,14 +158,14 @@ function Login() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                margin: "auto ",
+                margin: "auto",
                 maxWidth: "550px",
                 maxHeight: "500px",
                 width: "70%",
                 height: "70%",
               }}
             >
-              <Box sx={{ m: "0 24px", mt: "16px" }}>
+              <Box sx={{ m: "0 32px", mt: "16px" }}>
                 <Typography component="h1" variant="h4">
                   Sign in
                 </Typography>
@@ -187,7 +187,7 @@ function Login() {
                 component="form"
                 onSubmit={onHandleLogin}
                 noValidate
-                sx={{ width: "90%", m: "8px 16px" }}
+                sx={{ width: "90%", m: "8px 24px" }}
               >
                 <Box sx={{ m: "8px 8px" }}>
                   <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
