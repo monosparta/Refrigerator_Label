@@ -136,19 +136,19 @@ function Login() {
               paddingTop: "40vh",
             }}
           >
-            <Img src={Logo} />
             <Typography
               sx={{
                 fontSize: 24,
                 color: "white",
                 margin: "16px auto",
-                fontWeight: "bold",
+                fontWeight: 700,
               }}
               color="text.secondary"
               gutterBottom
             >
               雲端智慧標籤系統
             </Typography>
+            <Img src={Logo} />
           </Box>
         </div>
       ) : (
@@ -158,14 +158,12 @@ function Login() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                margin: "auto ",
+                margin: "auto",
                 maxWidth: "550px",
                 maxHeight: "500px",
-                width: "70%",
-                height: "70%",
               }}
             >
-              <Box sx={{ m: "0 24px", mt: "16px" }}>
+              <Box sx={{ m: "74px 36px 0 36px" }}>
                 <Typography component="h1" variant="h4">
                   Sign in
                 </Typography>
@@ -187,10 +185,10 @@ function Login() {
                 component="form"
                 onSubmit={onHandleLogin}
                 noValidate
-                sx={{ width: "90%", m: "8px 16px" }}
+                sx={{ m: "16px 36px" }}
               >
-                <Box sx={{ m: "8px 8px" }}>
-                  <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
+                <Box>
+                  <Typography sx={{ fontWeight: 500 }}>
                     帳號 Username or Email
                   </Typography>
                   <OutlinedInput
@@ -206,49 +204,51 @@ function Login() {
                     onChange={onChangeUsername}
                     sx={{
                       marginTop: 1,
+                      borderRadius: "4px",
                     }}
                   />
-                  <Box sx={{ m: "8px 0" }}>
-                    <Typography sx={{ padding: "8px 0", fontWeight: 500 }}>
-                      密碼 Password
-                    </Typography>
-                    <OutlinedInput
-                      fullWidth
-                      sx={{
-                        marginTop: 1,
-                      }}
-                      placeholder="password"
-                      id="password"
-                      error={inputErrorP}
-                      type={password.showPassword ? "text" : "password"}
-                      value={password.password}
-                      onChange={onChangePassword("password")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {password.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </Box>
                 </Box>
-                <Box sx={{ m: "4px 16px" }}>
+                <Box sx={{ m: "11px 0" }}>
+                  <Typography sx={{ fontWeight: 500 }}>
+                    密碼 Password
+                  </Typography>
+                  <OutlinedInput
+                    fullWidth
+                    sx={{
+                      marginTop: 1,
+                      borderRadius: "4px",
+                    }}
+                    placeholder="password"
+                    id="password"
+                    error={inputErrorP}
+                    type={password.showPassword ? "text" : "password"}
+                    value={password.password}
+                    onChange={onChangePassword("password")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {password.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </Box>
+                <Box>
                   <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="保持登入"
                   />
                 </Box>
-                <Box sx={{ m: "8px 4px" }}>
+                <Box sx={{ mb: "74px  " }}>
                   <LoadingButton
                     loading={btnLoading}
                     type="submit"
@@ -256,8 +256,7 @@ function Login() {
                     className="ButtonLogin"
                     color="Button"
                     disableElevation
-                    fullWidth
-                    sx={{ mt: "8px" }}
+                    sx={{ width: "480px", height: "64px" }}
                   >
                     <Typography variant="h5" color="white" fontWeight={540}>
                       立即登入

@@ -63,7 +63,7 @@ export default function ButtonAppBar(props) {
                 onClick={handleLogout}
                 href="/"
               >
-                <Typography color="White">Logout</Typography>
+                <Typography color="White" sx={{fontSize:"14px"}}>Logout</Typography>
               </Button>
             </ThemeProvider>
           </Toolbar>

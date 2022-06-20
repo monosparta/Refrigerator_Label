@@ -307,25 +307,27 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height: "88vh",
+          height: "85vh",
         }}
       >
         <ThemeProvider theme={theme}>
-          <div className="ButtonDeleteandMail">
-            <div style={{ marginLeft: "1.5%" }}>
+          <Box sx={{ display: "flex", m: "8px 24px" }}>
+            <Box>
               <PrinterStates printerState={printerState} />
-            </div>
-            <div style={{ marginLeft: "auto" }}>
-              <DeleteBtn handleDelete={handleDelete} />
-            </div>
-            <div className="MailBtn">
-              <MailBtn
-                endIcon={<SendIcon />}
-                handleSendMail={handleSendMail}
-                handleMailPeople={handleMailPeople}
-              />
-            </div>
-          </div>
+            </Box>
+            <Box sx={{ display: "flex", p: "1vh 0 1vh 1vh", ml: "auto" }}>
+              <Box>
+                <DeleteBtn handleDelete={handleDelete} />
+              </Box>
+              <Box sx={{ ml: "16px" }}>
+                <MailBtn
+                  endIcon={<SendIcon />}
+                  handleSendMail={handleSendMail}
+                  handleMailPeople={handleMailPeople}
+                />
+              </Box>
+            </Box>
+          </Box>
         </ThemeProvider>
         <DataGrid
           sx={{
@@ -333,7 +335,7 @@ export default function ManagementPage() {
               {
                 outline: "none",
               },
-            margin: "0 16px",
+            margin: "0 24px",
           }}
           rows={rowData}
           columns={columns}
