@@ -53,10 +53,7 @@ export default function DeleteAdminBtn(props) {
 
   return (
     <div>
-      <Button
-        onClick={handleClickOpen}
-        disableElevation
-      >
+      <Button onClick={handleClickOpen} disableElevation>
         <Img src={DeleteIcon} />
       </Button>
       <Dialog

@@ -43,7 +43,7 @@ export default function App() {
             element={!tokenContext ? <Navigate to="/" replace /> : <Register />}
           />
           <Route
-            path="/Admin"
+            path="/Admins"
             element={!tokenContext ? <Navigate to="/" replace /> : <Admins />}
           />
           <Route path="*" element={<NoFoundPage />} />

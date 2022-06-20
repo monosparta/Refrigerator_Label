@@ -90,12 +90,19 @@ export default function PasswordResetBtn(props) {
               重設密碼
             </Typography>
           </Box>
-          <Box sx={{ width: "300px", height: "100px", m: "0 auto" }}>
+          <Box sx={{ width: "300px", height: "150px", m: "0 auto" }}>
+            <TextField
+              size="small"
+              placeholder="輸入舊密碼"
+              fullWidth
+              type="password"
+            />
             <TextField
               size="small"
               placeholder="輸入新密碼"
               fullWidth
               type="password"
+              sx={{ mt: "11px" }}
               onChange={onChangeNewPassword}
             />
             <TextField
