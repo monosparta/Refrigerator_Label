@@ -52,7 +52,7 @@ admin_delete = async (req, res) => {
   try {
     const admin = await admin_service.is_admin(req.body);
     const admins = await admin_service.find_admin_all();
-    if (admin && admins.length > 2) {
+    if (admin && admins.length >= 2) {
       await admin_service.admin_delete(req.body.username);
       return res.status(201).json({ message: "管理帳號刪除成功" });
     } else if (admins.length < 2) {
