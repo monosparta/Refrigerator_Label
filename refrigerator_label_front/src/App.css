@@ -141,18 +141,6 @@
   position: relative;
   margin-top: 12px;
 }
-.ButtonDeleteandMail {
-  position: relative;
-  display: flex;
-  padding: 2vh 0;
-  margin-left: auto;
-  margin-right: 1.6vw;
-  /* border: solid 1px chartreuse; */
-}
-.MailBtn {
-  position: relative;
-  margin-left: 16px;
-}
 .Choosen {
   position: relative;
   display: flex;
