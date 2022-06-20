@@ -41,7 +41,7 @@ export default function ButtonAppBar(props) {
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ flexGrow: 1, fontWeight: 600 }}
+                sx={{ flexGrow: 1, fontWeight: 600, fontSize: "24px" }}
                 color="White"
               >
                 雲端智慧標籤系統
@@ -63,7 +63,9 @@ export default function ButtonAppBar(props) {
                 onClick={handleLogout}
                 href="/"
               >
-                <Typography color="White" sx={{fontSize:"14px"}}>Logout</Typography>
+                <Typography color="White" sx={{ fontSize: "14px" }}>
+                  Logout
+                </Typography>
               </Button>
             </ThemeProvider>
           </Toolbar>

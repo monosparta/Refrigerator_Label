@@ -161,6 +161,7 @@ function Login() {
                 margin: "auto",
                 maxWidth: "550px",
                 maxHeight: "500px",
+                borderRadius: "10px",
               }}
             >
               <Box sx={{ m: "74px 36px 0 36px" }}>
@@ -248,7 +249,7 @@ function Login() {
                     label="保持登入"
                   />
                 </Box>
-                <Box sx={{ mb: "74px  " }}>
+                <Box sx={{ mb: "74px", mt: "16px" }}>
                   <LoadingButton
                     loading={btnLoading}
                     type="submit"

@@ -75,7 +75,7 @@ export default function PrinterStates(props) {
   return (
     <div>
       <Card sx={{ display: "flex", p: 1 }}>
-        {printerState === "success" ? (
+        {printerState === "裝置運行中" ? (
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

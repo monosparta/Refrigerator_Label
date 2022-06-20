@@ -76,7 +76,9 @@ export default function ManagementPage() {
           const label_data = response["data"]["message"];
           setRowData(label_data);
           const printer_state = response["data"]["printer_state"][0]["state"];
-          setPrinterState(printer_state);
+          printer_state === "success"
+            ? setPrinterState("裝置運行中")
+            : setPrinterState("裝置停止中");
         })
         .catch((error) => {
           //overtime
