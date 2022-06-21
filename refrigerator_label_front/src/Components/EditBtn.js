@@ -78,7 +78,6 @@ export default function EditBtn(props) {
           >
             <TextField
               sx={{
-                
                 width: "50%",
                 marginTop: "6px",
                 marginLeft: "auto",

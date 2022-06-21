@@ -15,19 +15,18 @@ module.exports = function (router) {
   
   router.get("/api/find_user_all", user_controller.find_user_all);
 
-  router.get("/api/find_label_all", label_controller.find_label_all);
-
   router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
-
   router.post("/api/manual_send_mail", mail_controller.manual_send_mail);
 
+  router.get("/api/find_label_all", label_controller.find_label_all);
   router.post("/api/label", label_controller.create_label);
-
-  router.get("/api/label_printer_state", label_controller.label_printer_state);
-
-  router.post("/api/create_user", user_controller.create_user);
-  
   router.delete("/api/label", label_controller.delete_label);
-
   router.put("/api/label", label_controller.update_label);
+  router.post("/api/printer_state_change", label_controller.printer_state_change);
+
+  router.get("/api/admin", admin_controller.find_admin_all);
+  router.post("/api/admin", admin_controller.admin_create);
+  router.delete("/api/admin", admin_controller.admin_delete);
+  router.put("/api/reset_password", admin_controller.reset_password);
+
 };

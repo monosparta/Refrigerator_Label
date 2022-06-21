@@ -9,18 +9,6 @@ find_user_all = async (req, res) => {
   }
 };
 
-create_user = async (req, res) => {
-  try {
-    const user = await user_service.create_user(req.body);
-    if (user) {
-      return res.status(201).json({ message: "新增成功" });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-};
-
 module.exports = {
   find_user_all,
-  create_user,
 };

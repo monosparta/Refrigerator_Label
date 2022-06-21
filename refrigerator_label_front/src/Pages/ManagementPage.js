@@ -8,10 +8,12 @@ import DeleteBtn from "../Components/DeleteBtn";
 import { useNavigate } from "react-router-dom";
 import MailBtn from "../Components/MailBtn";
 import EditBtn from "../Components/EditBtn";
+import PrinterStates from "../Components/PrinterStates.js";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { TokenContext } from "../App.js";
 
 const theme = createTheme({
   palette: {
@@ -38,58 +40,31 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function ManagementPage() {
   let navigate = useNavigate();
+  //token
+  const { setTokenContext } = React.useContext(TokenContext);
 
   // label_data
   const [rowData, setRowData] = React.useState([]);
+  // printer_state
+  const [printerState, setPrinterState] = React.useState();
+
   // select_data_id
   const [select_data_id, setSelectDataId] = React.useState([]);
+
   //snackbar
   const [state, setState] = React.useState({
     open: false,
     vertical: "top",
     horizontal: "center",
   });
-
   const [AlertText, setAlertText] = React.useState("");
   const [Severity, setSeverity] = React.useState("");
-  //關掉Alert
+
+  //close Alert
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
-
-  //儲存功能
-  const handleEdit = async (label_id, update_note) => {
-    await axios
-      .put(
-        "api/label",
-        {
-          id: label_id,
-          note: update_note,
-        },
-        { headers: { token: localStorage.getItem("login_token") } }
-      )
-      .then((response) => {
-        console.log(response.data["message"]);
-      })
-      .catch((error) => {
-        console.log(error.response.data["message"]);
-        //overtime
-        if (error.response.status === 402 || 403) {
-          localStorage.removeItem("login_token");
-          navigate("/");
-        }
-      });
-    setState({
-      open: true,
-      ...{
-        vertical: "top",
-        horizontal: "center", //position of popout
-      },
-    });
-    setAlertText("編輯成功");
-    setSeverity("success");
-  };
 
   const loadingData = React.useCallback(() => {
     const loadData = async () => {
@@ -100,18 +75,22 @@ export default function ManagementPage() {
         .then((response) => {
           const label_data = response["data"]["message"];
           setRowData(label_data);
+          const printer_state = response["data"]["printer_state"][0]["state"];
+          printer_state === "success"
+            ? setPrinterState("裝置運行中")
+            : setPrinterState("裝置停止中");
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
           //overtime
           if (error.response.status === 402 || 403) {
             localStorage.removeItem("login_token");
+            setTokenContext();
             navigate("/");
           }
         });
     };
     loadData();
-  }, [navigate]);
+  }, [navigate, setTokenContext]);
 
   React.useEffect(() => {
     const update = setInterval(() => {
@@ -131,6 +110,39 @@ export default function ManagementPage() {
     });
     return select_data;
   };
+
+  //編輯功能
+  const handleEdit = async (label_id, update_note) => {
+    await axios
+      .put(
+        "api/label",
+        {
+          id: label_id,
+          note: update_note,
+        },
+        { headers: { token: localStorage.getItem("login_token") } }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(response.data["message"]);
+      })
+      .catch((error) => {
+        setAlertText(error.response.data["message"]);
+        setSeverity("error");
+      });
+    setState({
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center", //position of popout
+      },
+    });
+  };
+
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("labelId");
@@ -141,20 +153,18 @@ export default function ManagementPage() {
           data: { labelId: delete_data },
         })
         .then((response) => {
-          console.log(response);
+          if (response.status === 200) {
+            setSeverity("success");
+            loadingData();
+          } else {
+            setSeverity("error");
+          }
+          setAlertText(response.data["message"]);
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
-          //overtime
-          if (error.response.status === 402 || 403) {
-            localStorage.removeItem("login_token");
-            navigate("/");
-          }
+          setAlertText(error.response.data["message"]);
+          setSeverity("error");
         });
-
-      loadingData();
-      setSeverity("success");
-      setAlertText("所選項目已刪除");
       setState({
         isLoading: true,
         open: true,
@@ -183,6 +193,7 @@ export default function ManagementPage() {
     }
     return people;
   };
+
   //寄信功能
   const handleSendMail = async (mail_users, mail_content) => {
     if (mail_users.length !== 0) {
@@ -198,18 +209,17 @@ export default function ManagementPage() {
           }
         )
         .then((response) => {
-          console.log(response);
+          if (response.status === 200) {
+            setSeverity("success");
+          } else {
+            setSeverity("error");
+          }
+          setAlertText(response.data["message"]);
         })
         .catch((error) => {
-          console.log(error.response.data["message"]);
-          //overtime
-          if (error.response.status === 402 || 403) {
-            localStorage.removeItem("login_token");
-            navigate("/");
-          }
+          setAlertText(error.response.data["message"]);
+          setSeverity("error");
         });
-      setAlertText("寄信成功");
-      setSeverity("success");
       setState({
         open: true,
         ...{
@@ -299,22 +309,27 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height: "88vh",
+          height: "85vh",
         }}
       >
         <ThemeProvider theme={theme}>
-          <div className="ButtonDeleteandMail">
-            <div className="DeleteBtn">
-              <DeleteBtn handleDelete={handleDelete} />
-            </div>
-            <div className="MailBtn">
-              <MailBtn
-                endIcon={<SendIcon />}
-                handleSendMail={handleSendMail}
-                handleMailPeople={handleMailPeople}
-              />
-            </div>
-          </div>
+          <Box sx={{ display: "flex", m: "8px 24px" }}>
+            <Box>
+              <PrinterStates printerState={printerState} />
+            </Box>
+            <Box sx={{ display: "flex", p: "1vh 0 1vh 1vh", ml: "auto" }}>
+              <Box>
+                <DeleteBtn handleDelete={handleDelete} />
+              </Box>
+              <Box sx={{ ml: "16px" }}>
+                <MailBtn
+                  endIcon={<SendIcon />}
+                  handleSendMail={handleSendMail}
+                  handleMailPeople={handleMailPeople}
+                />
+              </Box>
+            </Box>
+          </Box>
         </ThemeProvider>
         <DataGrid
           sx={{
@@ -322,7 +337,7 @@ export default function ManagementPage() {
               {
                 outline: "none",
               },
-            margin: "0 16px",
+            margin: "0 24px",
           }}
           rows={rowData}
           columns={columns}
