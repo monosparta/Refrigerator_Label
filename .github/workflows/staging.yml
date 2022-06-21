@@ -76,6 +76,7 @@ jobs:
           echo DB_HOST='${{ secrets.DB_HOST }}' >> ./refrigerator_label_back/.env
           echo DB_PORT='${{ secrets.DB_PORT }}' >> ./refrigerator_label_back/.env
           echo DB_DIALECT='${{ secrets.DB_DIALECT }}' >> ./refrigerator_label_back/.env
+          echo USER_GET_URL='${{ secrets.USER_GET_URL }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
       - name: back test
