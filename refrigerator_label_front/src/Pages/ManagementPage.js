@@ -259,7 +259,7 @@ export default function ManagementPage() {
       renderCell: (params) => {
         const string = params.value.split("- ");
         let chip_color = "#6cba6f";
-        if (params.value.split("- ").pop().split(" day ago")[0] >= 7) {
+        if (params.value.split("- ").pop().split(" days ago")[0] >= 7) {
           chip_color = "#ee9852";
         }
         return (
