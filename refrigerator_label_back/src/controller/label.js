@@ -45,8 +45,8 @@ find_label_all = async (req, res) => {
 
 create_label = async (req, res) => {
   try {
-    if (req.body.date === "") {
-      return res.status(401).json({ message: "沒有日期" });
+    if (!req.body.date || !req.body.cardId) {
+      return res.status(404).json({ message: "資料不齊全" });
     } else {
       const is_user = await user_service.is_user(req.body);
       if (is_user) {
@@ -73,7 +73,7 @@ create_label = async (req, res) => {
           });
         }
       } else {
-        return res.status(401).json({ message: "沒有使用者" });
+        return res.status(404).json({ message: "沒有使用者" });
       }
     }
   } catch (err) {
