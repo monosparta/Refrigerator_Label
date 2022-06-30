@@ -80,9 +80,9 @@ jobs:
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
       - name: test database create
-        run: npx --prefix ./refrigerator_label_back/ sequelize db:migrate --env test
+        run: cd refrigerator_label_back && npx sequelize db:migrate --env test && cd ..
       - name: test data input
-        run: npx --prefix ./refrigerator_label_back/ sequelize db:seed:all --env test 
+        run: cd refrigerator_label_back && npx sequelize db:seed:all --env test && cd ..
       - name: back test
         run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
