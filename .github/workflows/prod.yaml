@@ -79,6 +79,10 @@ jobs:
           echo USER_GET_URL='${{ secrets.USER_GET_URL }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
+      - name: test database create
+        run: cd refrigerator_label_back && npx sequelize db:migrate --env test && cd ..
+      - name: test data input
+        run: cd refrigerator_label_back && npx sequelize db:seed:all --env test && cd ..
       - name: back test
         run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
