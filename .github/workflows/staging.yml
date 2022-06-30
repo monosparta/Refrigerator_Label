@@ -79,9 +79,13 @@ jobs:
           echo USER_GET_URL='${{ secrets.USER_GET_URL }}' >> ./refrigerator_label_back/.env
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
+      - name: test database create
+        run: npx --prefix ./refrigerator_label_back/ sequelize db:migrate --env test
+      - name: test data input
+        run: npx --prefix ./refrigerator_label_back/ sequelize db:seed:all --env test 
       - name: back test
         run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
-        run: rsync -avz --exclude 'node_modules' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+        run: rsync -avz --exclude 'node_modules' --exclude '*.sqlite3' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
       - name: back ssh install
         run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} 'npm --prefix ${{ secrets.DEPLOY_PATH }}/refrigerator_label_back install'
