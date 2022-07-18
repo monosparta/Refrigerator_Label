@@ -32,7 +32,7 @@ var cron = require("node-cron");
 const jwt = require("jsonwebtoken");
 cron.schedule(process.env.CORN_SCHEDULE, async () => {
   await axios.get(
-    process.env.WEB_URL + ":" + process.env.PORT + "/api/auto_send_mail",
+    process.env.IP_ADDRESS + ":" + process.env.PORT + "/api/auto_send_mail",
     {
       headers: {
         token: jwt.sign({ "auto-send": "mail" }, process.env.JWT_SECRET),
