@@ -172,12 +172,13 @@ function Login() {
                   display: "flex",
                   flexDirection: "column",
                   margin: "auto",
-                  maxWidth: "550px",
-                  maxHeight: "500px",
+                  width: "550px",
+                  height: "90%",
+                  minHeight: "500px",
                   borderRadius: "10px",
                 }}
               >
-                <Box sx={{ m: "74px 36px 0 36px" }}>
+                <Box sx={{ m: "60px 36px 0 36px" }}>
                   <Typography component="h1" variant="h4">
                     Sign in
                   </Typography>
@@ -194,7 +195,7 @@ function Login() {
                       </Typography>
                     </Alert>
                   </Box>
-                ) : null}
+                ) : (<Box sx={{ width: "90%", m: "8px 24px" }}></Box>)}
                 <Box
                   component="form"
                   onSubmit={onHandleLogin}
@@ -262,7 +263,7 @@ function Login() {
                       label="保持登入"
                     />
                   </Box>
-                  <Box sx={{ mt: "16px" }}>
+                  <Box sx={{ mb: "30px", mt: "16px" }}>
                     <LoadingButton
                       loading={btnLoading}
                       type="submit"
@@ -270,7 +271,7 @@ function Login() {
                       className="ButtonLogin"
                       color="Button"
                       disableElevation
-                      sx={{ width: "480px", height: "64px" }}
+                      sx={{ width: "100%", height: "100%" }}
                     >
                       <Typography variant="h5" color="white" fontWeight={540}>
                         立即登入
