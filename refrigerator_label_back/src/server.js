@@ -16,17 +16,6 @@ const router = express.Router();
 require("./routes/index.js")(router);
 server.use("/", router);
 
-//cron
-var cron = require("node-cron");
-const jwt = require("jsonwebtoken");
-cron.schedule(process.env.CORN_SCHEDULE, () => {
-  axios.get(process.env.WEB_URL + "api/auto_send_mail", {
-    headers: {
-      token: jwt.sign({ "auto-send": "mail" }, process.env.JWT_SECRET),
-    },
-  });
-});
-
 //port
 const PORT = process.env.PORT || 3000;
 
@@ -36,4 +25,18 @@ server.listen(PORT, (err) => {
     return;
   }
   console.log(`Server is running on port ${PORT}.`);
+});
+
+//cron
+var cron = require("node-cron");
+const jwt = require("jsonwebtoken");
+cron.schedule(process.env.CORN_SCHEDULE, async () => {
+  await axios.get(
+    process.env.IP_ADDRESS + ":" + process.env.PORT + "/api/auto_send_mail",
+    {
+      headers: {
+        token: jwt.sign({ "auto-send": "mail" }, process.env.JWT_SECRET),
+      },
+    }
+  );
 });

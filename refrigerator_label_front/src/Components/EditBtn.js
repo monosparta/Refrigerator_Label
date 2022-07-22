@@ -1,8 +1,14 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import "../App.css";
 import EditIcon from "@mui/icons-material/Edit";
-import { Grid, TextField, Popover, Typography } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Popover,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -45,14 +51,14 @@ export default function EditBtn(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Button
-          onClick={handleClickOpen}
-          startIcon={<EditIcon />}
+        <IconButton
           color="Button"
-          variant="outlined"
+          aria-label="upload picture"
+          component="span"
+          onClick={handleClickOpen}
         >
-          編輯
-        </Button>
+          <EditIcon />
+        </IconButton>
         <Popover
           id={id}
           open={open}

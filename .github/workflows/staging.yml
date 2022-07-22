@@ -62,7 +62,7 @@ jobs:
         run: |
           touch ./refrigerator_label_back/.env
           echo PORT='${{ secrets.BACK_PORT }}' >> ./refrigerator_label_back/.env
-          echo WEB_URL='${{ secrets.REACT_APP_BACK_END }}' >> ./refrigerator_label_back/.env
+          echo IP_ADDRESS='${{ secrets.IP_ADDRESS }}' >> ./refrigerator_label_back/.env
           echo CORN_SCHEDULE='${{ secrets.CORN_SCHEDULE }}' >> ./refrigerator_label_back/.env
           echo NODEMAILER_USER='${{ secrets.NODEMAILER_USER }}' >> ./refrigerator_label_back/.env
           echo NODEMAILER_PASSWORD='${{ secrets.NODEMAILER_PASSWORD }}' >> ./refrigerator_label_back/.env
@@ -80,9 +80,9 @@ jobs:
       - name: back ci
         run: npm --prefix ./refrigerator_label_back/ ci
       - name: test database create
-        run: npx --prefix ./refrigerator_label_back/ sequelize db:migrate --env test
+        run: cd refrigerator_label_back && npx sequelize db:migrate --env test && cd ..
       - name: test data input
-        run: npx --prefix ./refrigerator_label_back/ sequelize db:seed:all --env test 
+        run: cd refrigerator_label_back && npx sequelize db:seed:all --env test && cd ..
       - name: back test
         run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
