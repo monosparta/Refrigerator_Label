@@ -19,7 +19,6 @@ import Logo from "../Pictures/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
 import { TokenContext } from "../App.js";
-import { styled } from "@mui/material/styles";
 
 function Login() {
   let navigate = useNavigate();
@@ -61,29 +60,28 @@ function Login() {
 
   const onHandleLogin = async (event) => {
     event.preventDefault();
-    if (username === "" && password.password === "") {
-      setAlertText("請輸入帳號密碼!");
+    let checkError = false;
+    let errorText = "請輸入";
+    setInputErrorA(false);
+    setInputErrorP(false);
+    setHidden(true);
+
+    if (!username) {
+      checkError = true;
+      errorText += "帳號"
       setInputErrorA(true);
-      setInputErrorP(true);
-      setHidden(false);
-      process.exit();
-    } else if (username === "") {
-      setAlertText("請輸入帳號!");
-      setInputErrorA(true);
-      setInputErrorP(false);
-      setHidden(false);
-      process.exit();
-    } else if (password.password === "") {
-      setAlertText("請輸入密碼!");
-      setInputErrorA(false);
-      setInputErrorP(true);
-      setHidden(false);
-      process.exit();
-    } else {
-      setInputErrorA(false);
-      setInputErrorP(false);
-      setHidden(true);
     }
+    if (!password.password) {
+      checkError = true;
+      errorText += "密碼"
+      setInputErrorP(true);
+    }
+    if (checkError === true) {
+      setAlertText(errorText+"!");
+      setHidden(false);
+      process.exit();
+    }
+
     setBtnLoading(true);
     await axios
       .post("api/login", {
@@ -109,13 +107,6 @@ function Login() {
       setisLoading(false);
     }, 2500);
   }, []);
-
-  const Img = styled("img")({
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
-  });
 
   return (
     <div>
@@ -143,7 +134,14 @@ function Login() {
             >
               雲端智慧標籤系統
             </Typography>
-            <Img src={Logo} />
+            <img
+              style={{
+                margin: "auto",
+                display: "block",
+              }}
+              src={Logo}
+              alt="Logo"
+            />
           </Box>
         </div>
       ) : (
@@ -172,13 +170,13 @@ function Login() {
                   display: "flex",
                   flexDirection: "column",
                   margin: "auto",
-                  width: "550px",
-                  height: "90%",
-                  minHeight: "500px",
+                  width: "500px",
+                  height: "80%",
+                  minHeight: "400px",
                   borderRadius: "10px",
                 }}
               >
-                <Box sx={{ m: "60px 36px 0 36px" }}>
+                <Box sx={{ m: "40px 36px 0 36px" }}>
                   <Typography component="h1" variant="h4">
                     Sign in
                   </Typography>
@@ -195,7 +193,9 @@ function Login() {
                       </Typography>
                     </Alert>
                   </Box>
-                ) : (<Box sx={{ width: "90%", m: "8px 24px" }}></Box>)}
+                ) : (
+                  <Box sx={{ width: "90%", m: "8px 24px" }}></Box>
+                )}
                 <Box
                   component="form"
                   onSubmit={onHandleLogin}
