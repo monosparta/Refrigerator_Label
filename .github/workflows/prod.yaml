@@ -60,9 +60,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
         run: |
-          touch ./refrigerator_label_back/.env
           echo PORT='${{ secrets.BACK_PORT }}' >> ./refrigerator_label_back/.env
-          echo WEB_URL='${{ secrets.REACT_APP_BACK_END }}' >> ./refrigerator_label_back/.env
+          echo IP_ADDRESS='${{ secrets.IP_ADDRESS }}' >> ./refrigerator_label_back/.env
           echo CORN_SCHEDULE='${{ secrets.CORN_SCHEDULE }}' >> ./refrigerator_label_back/.env
           echo NODEMAILER_USER='${{ secrets.NODEMAILER_USER }}' >> ./refrigerator_label_back/.env
           echo NODEMAILER_PASSWORD='${{ secrets.NODEMAILER_PASSWORD }}' >> ./refrigerator_label_back/.env
