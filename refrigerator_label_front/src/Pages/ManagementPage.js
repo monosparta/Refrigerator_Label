@@ -279,17 +279,18 @@ export default function ManagementPage() {
       field: "note",
       headerName: "備註",
       minWidth: 180,
-      flex: 2,
+      flex: 4,
       disableColumnMenu: true,
       sortable: false,
     },
     {
       field: "actions",
       type: "actions",
-      minWidth: 100,
+      minWidth: 50,
       flex: 1,
       cellClassName: "actions",
       align: "center",
+      // headerAlign:"left"
       getActions: (params) => {
         return [
           <EditBtn

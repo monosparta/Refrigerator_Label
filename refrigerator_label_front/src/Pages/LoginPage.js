@@ -19,19 +19,10 @@ import Logo from "../Pictures/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
 import { TokenContext } from "../App.js";
-import "../App.css";
 import { styled } from "@mui/material/styles";
 
 function Login() {
   let navigate = useNavigate();
-
-  const theme = createTheme({
-    palette: {
-      Button: {
-        main: "#363F4E",
-      },
-    },
-  });
 
   const { setTokenContext } = React.useContext(TokenContext);
   const [username, setUsername] = React.useState("");
@@ -125,17 +116,21 @@ function Login() {
     maxWidth: "100%",
     maxHeight: "100%",
   });
+
   return (
-    <div className="Login">
+    <div>
       {isLoading ? (
-        <div loading={true} className="Loadingpage">
-          <Box
-            sx={{
-              width: "200px",
-              margin: " auto",
-              paddingTop: "40vh",
-            }}
-          >
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            backgroundColor: "#363f4e",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Box>
             <Typography
               sx={{
                 fontSize: 24,
@@ -152,122 +147,141 @@ function Login() {
           </Box>
         </div>
       ) : (
-        <Box sx={{ pt: "30vh" }}>
-          <ThemeProvider theme={theme}>
-            <Paper
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                margin: "auto",
-                maxWidth: "550px",
-                maxHeight: "500px",
-                borderRadius: "10px",
-              }}
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            backgroundColor: "#f5f5f5",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Box>
+            <ThemeProvider
+              theme={createTheme({
+                palette: {
+                  Button: {
+                    main: "#363F4E",
+                  },
+                },
+              })}
             >
-              <Box sx={{ m: "74px 36px 0 36px" }}>
-                <Typography component="h1" variant="h4">
-                  Sign in
-                </Typography>
-              </Box>
-              {!hidden ? (
-                <Box sx={{ width: "90%", m: "8px 24px" }}>
-                  <Alert severity="error" className="Alert" show="false">
-                    <Typography
-                      color="black"
-                      variant="body2"
-                      sx={{ fontWeight: 700 }}
-                    >
-                      {AlertText}
-                    </Typography>
-                  </Alert>
-                </Box>
-              ) : null}
-              <Box
-                component="form"
-                onSubmit={onHandleLogin}
-                noValidate
-                sx={{ m: "16px 36px" }}
+              <Paper
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: "auto",
+                  maxWidth: "550px",
+                  maxHeight: "500px",
+                  borderRadius: "10px",
+                }}
               >
-                <Box>
-                  <Typography sx={{ fontWeight: 500 }}>
-                    帳號 Username or Email
+                <Box sx={{ m: "74px 36px 0 36px" }}>
+                  <Typography component="h1" variant="h4">
+                    Sign in
                   </Typography>
-                  <OutlinedInput
-                    error={inputErrorA}
-                    fullWidth
-                    required
-                    type="string"
-                    id="username"
-                    placeholder="user@example.com"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                    onChange={onChangeUsername}
-                    sx={{
-                      marginTop: 1,
-                      borderRadius: "4px",
-                    }}
-                  />
                 </Box>
-                <Box sx={{ m: "11px 0" }}>
-                  <Typography sx={{ fontWeight: 500 }}>
-                    密碼 Password
-                  </Typography>
-                  <OutlinedInput
-                    fullWidth
-                    sx={{
-                      marginTop: 1,
-                      borderRadius: "4px",
-                    }}
-                    placeholder="password"
-                    id="password"
-                    error={inputErrorP}
-                    type={password.showPassword ? "text" : "password"}
-                    value={password.password}
-                    onChange={onChangePassword("password")}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {password.showPassword ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </Box>
-                <Box>
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="保持登入"
-                  />
-                </Box>
-                <Box sx={{ mb: "74px", mt: "16px" }}>
-                  <LoadingButton
-                    loading={btnLoading}
-                    type="submit"
-                    variant="contained"
-                    className="ButtonLogin"
-                    color="Button"
-                    disableElevation
-                    sx={{ width: "480px", height: "64px" }}
-                  >
-                    <Typography variant="h5" color="white" fontWeight={540}>
-                      立即登入
+                {!hidden ? (
+                  <Box sx={{ width: "90%", m: "8px 24px" }}>
+                    <Alert severity="error" className="Alert" show="false">
+                      <Typography
+                        color="black"
+                        variant="body2"
+                        sx={{ fontWeight: 700 }}
+                      >
+                        {AlertText}
+                      </Typography>
+                    </Alert>
+                  </Box>
+                ) : null}
+                <Box
+                  component="form"
+                  onSubmit={onHandleLogin}
+                  noValidate
+                  sx={{ m: "16px 36px" }}
+                >
+                  <Box>
+                    <Typography sx={{ fontWeight: 500 }}>
+                      帳號 USERNAME
                     </Typography>
-                  </LoadingButton>
+                    <OutlinedInput
+                      error={inputErrorA}
+                      fullWidth
+                      required
+                      type="string"
+                      id="username"
+                      placeholder="Enter your username or email"
+                      name="username"
+                      autoComplete="username"
+                      autoFocus
+                      onChange={onChangeUsername}
+                      sx={{
+                        marginTop: 1,
+                        borderRadius: "4px",
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ m: "11px 0" }}>
+                    <Typography sx={{ fontWeight: 500 }}>
+                      密碼 PASSWORD
+                    </Typography>
+                    <OutlinedInput
+                      fullWidth
+                      sx={{
+                        marginTop: 1,
+                        borderRadius: "4px",
+                      }}
+                      placeholder="Enter your password"
+                      id="password"
+                      error={inputErrorP}
+                      type={password.showPassword ? "text" : "password"}
+                      value={password.password}
+                      onChange={onChangePassword("password")}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {password.showPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  </Box>
+                  <Box>
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="保持登入"
+                    />
+                  </Box>
+                  <Box sx={{ mt: "16px" }}>
+                    <LoadingButton
+                      loading={btnLoading}
+                      type="submit"
+                      variant="contained"
+                      className="ButtonLogin"
+                      color="Button"
+                      disableElevation
+                      sx={{ width: "480px", height: "64px" }}
+                    >
+                      <Typography variant="h5" color="white" fontWeight={540}>
+                        立即登入
+                      </Typography>
+                    </LoadingButton>
+                  </Box>
                 </Box>
-              </Box>
-            </Paper>
-          </ThemeProvider>
-        </Box>
+              </Paper>
+            </ThemeProvider>
+          </Box>
+        </div>
       )}
     </div>
   );
