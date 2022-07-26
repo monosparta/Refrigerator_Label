@@ -1,3 +1,10 @@
 {
-  "projectTitle": "雲端智慧標籤系統"
+  "Project Title": "雲端智慧標籤系統",
+  "Sign In": "登入",
+  "Username": "帳號",
+  "Enter Your Username or Email": "請輸入帳號或Email",
+  "Password": "密碼",
+  "Enter Your Password": "請輸入密碼",
+  "Keep Signed In": "保持登入",
+  "Sign Now": "立即登入"
 }

@@ -134,7 +134,7 @@ function Login() {
               color="text.secondary"
               gutterBottom
             >
-              {t("projectTitle")}
+              {t("Project Title")}
             </Typography>
             <img
               style={{
@@ -180,7 +180,7 @@ function Login() {
               >
                 <Box sx={{ m: "40px 36px 0 36px" }}>
                   <Typography component="h1" variant="h4">
-                    Sign in
+                    {t("Sign In")}
                   </Typography>
                 </Box>
                 {!hidden ? (
@@ -206,7 +206,7 @@ function Login() {
                 >
                   <Box>
                     <Typography sx={{ fontWeight: 500 }}>
-                      帳號 USERNAME
+                      {t("Username")}
                     </Typography>
                     <OutlinedInput
                       error={inputErrorA}
@@ -214,7 +214,7 @@ function Login() {
                       required
                       type="string"
                       id="username"
-                      placeholder="Enter your username or email"
+                      placeholder={t("Enter Your Username or Email")}
                       name="username"
                       autoComplete="username"
                       autoFocus
@@ -227,7 +227,7 @@ function Login() {
                   </Box>
                   <Box sx={{ m: "11px 0" }}>
                     <Typography sx={{ fontWeight: 500 }}>
-                      密碼 PASSWORD
+                      {t("Password")}
                     </Typography>
                     <OutlinedInput
                       fullWidth
@@ -235,7 +235,7 @@ function Login() {
                         marginTop: 1,
                         borderRadius: "4px",
                       }}
-                      placeholder="Enter your password"
+                      placeholder={t("Enter Your Password")}
                       id="password"
                       error={inputErrorP}
                       type={password.showPassword ? "text" : "password"}
@@ -262,7 +262,7 @@ function Login() {
                   <Box>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
-                      label="保持登入"
+                      label={t("Keep Signed In")}
                     />
                   </Box>
                   <Box sx={{ mb: "30px", mt: "16px" }}>
@@ -276,7 +276,7 @@ function Login() {
                       sx={{ width: "100%", height: "100%" }}
                     >
                       <Typography variant="h5" color="white" fontWeight={540}>
-                        立即登入
+                        {t("Sign Now")}
                       </Typography>
                     </LoadingButton>
                   </Box>

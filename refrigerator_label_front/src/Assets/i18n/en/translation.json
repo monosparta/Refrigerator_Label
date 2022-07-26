@@ -1,3 +1,10 @@
 {
-    "projectTitle": "Cloud Smart Label System"
- }
+  "Project Title": "Cloud Smart Label System",
+  "Sign In": "Sign In",
+  "Username": "Username",
+  "Enter Your Username or Email": "Enter Your Username or Email",
+  "Password": "Password",
+  "Enter Your Password": "Enter Your Password",
+  "Keep Signed In": "Keep Signed In",
+  "Sign Now": "Sign Now"
+}
