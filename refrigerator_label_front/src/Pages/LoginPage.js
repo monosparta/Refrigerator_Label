@@ -19,9 +19,11 @@ import Logo from "../Assets/image/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
 import { TokenContext } from "../App.js";
+import { useTranslation } from "react-i18next";
 
 function Login() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { setTokenContext } = React.useContext(TokenContext);
   const [username, setUsername] = React.useState("");
@@ -68,16 +70,16 @@ function Login() {
 
     if (!username) {
       checkError = true;
-      errorText += "帳號"
+      errorText += "帳號";
       setInputErrorA(true);
     }
     if (!password.password) {
       checkError = true;
-      errorText += "密碼"
+      errorText += "密碼";
       setInputErrorP(true);
     }
     if (checkError === true) {
-      setAlertText(errorText+"!");
+      setAlertText(errorText + "!");
       setHidden(false);
       process.exit();
     }
@@ -132,7 +134,7 @@ function Login() {
               color="text.secondary"
               gutterBottom
             >
-              雲端智慧標籤系統
+              {t("projectTitle")}
             </Typography>
             <img
               style={{
