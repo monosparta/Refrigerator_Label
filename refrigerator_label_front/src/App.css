@@ -1,60 +1,152 @@
-.App {
-  height: 5vh;
-  width: 80vw;
-  margin: 0 auto ;
+* {
+  -ms-overflow-style: none;
 }
-.Body{
-  position: relative;
-  width: 50vw;
-  height: 30vh;
-  margin: 0 auto;
-  top: 30vh;
-  text-align: center;
-  /* border: solid 1px black; */
+::-webkit-scrollbar {
+  display: none;
 }
-.Tittle{
+.Body {
   position: relative;
-  margin: 2vh auto;
-  width: 30vw;
-  height: 5vh;
-  /* border: solid 1px rgb(228, 6, 6); */
-}
-.Logo{
-  position: relative;
-  margin: 1.5vh auto;
-  width: 25vw;
-  height: 25vh;
+  width: fit-content;
   height: fit-content;
-  /* border: solid 1px rgb(35, 201, 63); */
+  margin: 0 auto;
+  top: 40vh;
+  text-align: center;
+  /* border: solid 1px rgb(251, 250, 250); */
 }
-.Box{
-  border: solid 2px rgb(123, 123, 123);
+
+.Box {
+  border: solid 2px rgb(255, 255, 255);
   position: relative;
-  margin: 25vh auto;
+  margin: 0 104px;
+  top: 212px;
   border-radius: 3%;
-  width: 60vw;
-  height: 42vh;
+  width: 560px;
+  height: 600px;
+  background-color: #ffff;
 }
-.Keyin{
-  /* border: solid 2px rgb(215, 130, 130); */
+.Home {
   position: relative;
-  margin: 5vh auto;
-  width: 50vw;
-  height: 20vh;
+  width: 100%;
+  height: 100%;
 }
-.Account{
-  position: relative;
-  padding-top: 1vh;
+.owner {
+  /* border:solid 1px blue; */
+  display: flex;
+  margin-left: 15px;
 }
-.Password{
+.ownertext {
   position: relative;
-  padding-top: 1vh;
+  padding-top: 10px;
+  width: fit-content;
+  height: fit-content;
+  /* border: solid 1px khaki; */
 }
-.ButtonLogin{
+.mailcontent {
   position: relative;
-  padding-top: 1vh;
+  display: flex;
+  width: 420px;
+  height: 120px;
+  margin-top: 5px;
+  margin-left: 15px;
+  /* border: solid 1px green; */
 }
-.Keeplogin{
+.mail_content {
   position: relative;
-  padding-top: 1vh;
+  margin-left: 25px;
+  margin-top: 1px;
+}
+.Bar {
+  width: 100%;
+}
+.BtnG {
+  position: relative;
+  width: 228px;
+  height: 36px;
+  margin: 0 auto;
+  /* border: solid 1px violet; */
+}
+.MailBox {
+  position: relative;
+  width: 435px;
+  height: 200px;
+  /* border: solid chartreuse 1px; */
+}
+.User {
+  position: relative;
+  width: 425px;
+  margin-left: 4px;
+  margin-top: 8px;
+  display: flex;
+  /* border: solid rgb(242, 34, 180) 1px; */
+}
+.Belone {
+  position: relative;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 10px;
+  /* border: solid rgb(9, 106, 197) 1px; */
+}
+.chips {
+  position: relative;
+  width: 330px;
+  margin-left: 18px;
+  display: block;
+  /* border: solid rgb(203, 225, 4) 1px; */
+}
+.contentBox {
+  position: relative;
+  width: fit-content;
+  height: 120px;
+  top: 14px;
+  margin-left: 12px;
+  /* color: #ee9852; */
+  /* border: solid rgb(6, 4, 6) 1px; */
+}
+.ButtonGroup {
+  position: relative;
+  display: flex;
+  left: 116px;
+  width: 250px;
+  height: fit-content;
+  /* border: solid rgb(242, 34, 180) 1px; */
+}
+.BtnNosend {
+  position: relative;
+  left: 10px;
+}
+.Diacontent {
+  position: relative;
+  margin: 22px 42px;
+  /* border: solid 1px rgb(27, 12, 235); */
+}
+.DTittle {
+  position: relative;
+  text-align: center;
+  /* border: solid 1px violet; */
+}
+.BtnGroup {
+  display: flex;
+}
+.BtnNo {
+  position: relative;
+  margin-left: 12px;
+  margin-right: 0;
+}
+.Alert {
+  position: relative;
+  margin-top: 12px;
+}
+.Choosen {
+  position: relative;
+  display: flex;
+}
+.ChipData {
+  position: relative;
+  min-height: 150px;
+}
+.Loadingpage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #363f4e;
 }
