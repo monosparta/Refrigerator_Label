@@ -15,7 +15,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Logo from "../Pictures/monologo.jpg";
+import Logo from "../Assets/image/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
 import { TokenContext } from "../App.js";

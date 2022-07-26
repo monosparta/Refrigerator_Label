@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
-import LabelPrinter from "../Pictures/label_printer.jpg";
+import LabelPrinter from "../Assets/image/label_printer.jpg";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 

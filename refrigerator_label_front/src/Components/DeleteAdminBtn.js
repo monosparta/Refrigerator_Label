@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
-import DeleteIcon from "../Pictures/Vector.png";
+import DeleteIcon from "../Assets/image/Vector.png";
 import { styled } from "@mui/material/styles";
 
 const theme2 = createTheme({
