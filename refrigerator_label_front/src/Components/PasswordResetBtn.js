@@ -6,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField, Typography, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const theme2 = createTheme({
   palette: {
@@ -19,6 +20,7 @@ const theme2 = createTheme({
 });
 
 export default function PasswordResetBtn(props) {
+  const { t } = useTranslation();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = React.useState(false);
@@ -72,7 +74,7 @@ export default function PasswordResetBtn(props) {
           color="Button"
         >
           <Typography sx={{ fontSize: "14px", fontWeight: 400 }} color="white">
-            重設密碼
+            {t("Reset Password")}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -87,13 +89,13 @@ export default function PasswordResetBtn(props) {
             <Typography
               sx={{ fontWeight: "700", fontSize: "26px", m: "0 140px" }}
             >
-              重設密碼
+              {t("Reset Password")}
             </Typography>
           </Box>
           <Box sx={{ width: "300px", height: "110px", m: "0 auto" }}>
             <TextField
               size="small"
-              placeholder="輸入新密碼"
+              placeholder={t("Enter Your New Password")}
               fullWidth
               type="password"
               sx={{ mt: "11px" }}
@@ -101,7 +103,7 @@ export default function PasswordResetBtn(props) {
             />
             <TextField
               size="small"
-              placeholder="再次輸入新密碼"
+              placeholder={t("Enter Your New Password Again")}
               fullWidth
               type="password"
               onChange={onChangeNewPasswordAgain}
@@ -123,7 +125,7 @@ export default function PasswordResetBtn(props) {
                   minHeight: "36px",
                 }}
               >
-                <Typography color="white">確認</Typography>
+                <Typography color="white">{t("Confirm")}</Typography>
               </LoadingButton>
               <Button
                 onClick={handleClose}
@@ -138,7 +140,7 @@ export default function PasswordResetBtn(props) {
                 }}
                 sx={{ ml: "16px" }}
               >
-                取消
+                {t("Cancel")}
               </Button>
             </ThemeProvider>
           </Box>
