@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../App.css";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Grid,

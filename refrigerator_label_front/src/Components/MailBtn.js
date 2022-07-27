@@ -1,7 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import "../App.css";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   Paper,
