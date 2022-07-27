@@ -1,5 +1,6 @@
 import * as React from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PublicIcon from "@mui/icons-material/Public";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
@@ -12,8 +13,7 @@ import {
   Button,
   Link,
   MenuItem,
-  FormControl,
-  Select,
+  Menu,
 } from "@mui/material";
 
 const theme = createTheme({
@@ -32,9 +32,16 @@ export default function NavBar() {
   const { t, i18n } = useTranslation();
 
   const { setTokenContext } = React.useContext(TokenContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
-  const handleChangeLanguage = (event) => {
-    i18n.changeLanguage(event.target.value);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    setAnchorEl(null);
   };
 
   const handleLogout = () => {
@@ -56,46 +63,57 @@ export default function NavBar() {
                   sx={{ flexGrow: 1, fontWeight: 600, fontSize: "24px" }}
                   color="White"
                 >
-                  {t("Project Title")}
+                  {t("Project title")}
                 </Typography>
               </Link>
             </Box>
             <Box sx={{ ml: "auto" }}>
               <ThemeProvider theme={theme}>
-                <FormControl size="small" sx={{ mr: "1vw", ml: "auto" }}>
-                  <Select
-                    labelId="select-language"
-                    id="select-language-id"
-                    defaultValue={i18n.language}
-                    onChange={handleChangeLanguage}
-                    autoWidth
-                    sx={[
-                      (theme) => ({
-                        ".MuiSelect-select": {
-                          color: "White",
-                        },
-                        ".MuiSelect-icon": {
-                          color: "White",
-                        },
-                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                          border: "White",
-                          borderRadius: "5px",
-                        },
-                      }),
-                    ]}
-                    label="language"
-                  >
-                    <MenuItem value={"en"}>English</MenuItem>
-                    <MenuItem value={"zh-TW"}>中文-繁體</MenuItem>
-                  </Select>
-                </FormControl>
+                <Button
+                  id="language-button"
+                  aria-controls={open ? "language" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="white"
+                  sx={{ mr: "1vw", ml: "auto" }}
+                >
+                  <PublicIcon />
+                  &nbsp;
+                  {t("Language")}
+                </Button>
+                <Menu
+                  id="language"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={() => setAnchorEl(null)}
+                  MenuListProps={{
+                    "aria-labelledby": "language-button",
+                  }}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <MenuItem onClick={() => handleChangeLanguage("en")}>
+                    English
+                  </MenuItem>
+                  <MenuItem onClick={() => handleChangeLanguage("zh-TW")}>
+                    繁體中文
+                  </MenuItem>
+                </Menu>
                 <Button
                   variant="outlined"
                   color="white"
                   href="/Admins"
                   sx={{ mr: "1vw", ml: "auto" }}
                 >
-                  <Typography color="White">管理者列表</Typography>
+                  <Typography color="White">{t("Admin list")}</Typography>
                 </Button>
                 <Button
                   variant="outlined"
@@ -104,7 +122,7 @@ export default function NavBar() {
                   onClick={handleLogout}
                 >
                   <Typography color="White" sx={{ fontSize: "14px" }}>
-                    Logout
+                    {t("Sign out")}
                   </Typography>
                 </Button>
               </ThemeProvider>

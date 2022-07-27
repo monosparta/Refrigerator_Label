@@ -27,7 +27,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function AdminList() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
 
@@ -163,7 +163,7 @@ export default function AdminList() {
               sx={{ ml: "auto", width: "124px", height: "44px" }}
               href="/Register"
             >
-              <Typography>{t("Add a admin")}</Typography>
+              <Typography>{t("Add admin")}</Typography>
             </Button>
           </ThemeProvider>
         </Box>

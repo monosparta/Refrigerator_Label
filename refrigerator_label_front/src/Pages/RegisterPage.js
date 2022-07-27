@@ -141,7 +141,7 @@ export default function Register() {
         >
           <Box sx={{ m: "25px 146px" }}>
             <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-              {t("Add a admin")}
+              {t("Add admin")}
             </Typography>
           </Box>
           {!hidden ? (

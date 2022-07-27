@@ -70,7 +70,7 @@ export default function DeleteBtn(props) {
           <div className="DTittle">
             <DialogTitle id="responsive-dialog-title">
               <Typography variant="boby2" sx={{ fontWeight: "400" }}>
-                {t("Confirm deletion of selected items")}
+                {t("Confirm deletion of selected items?")}
               </Typography>
             </DialogTitle>
           </div>
@@ -107,7 +107,7 @@ export default function DeleteBtn(props) {
                       minHeight: "36px",
                     }}
                   >
-                    {t("Delete")}
+                    {t("Cancel")}
                   </Button>
                 </div>
               </ThemeProvider>

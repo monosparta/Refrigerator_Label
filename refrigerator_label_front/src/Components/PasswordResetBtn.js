@@ -74,7 +74,7 @@ export default function PasswordResetBtn(props) {
           color="Button"
         >
           <Typography sx={{ fontSize: "14px", fontWeight: 400 }} color="white">
-            {t("Reset Password")}
+            {t("Reset password")}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -89,13 +89,13 @@ export default function PasswordResetBtn(props) {
             <Typography
               sx={{ fontWeight: "700", fontSize: "26px", m: "0 140px" }}
             >
-              {t("Reset Password")}
+              {t("Reset password")}
             </Typography>
           </Box>
           <Box sx={{ width: "300px", height: "110px", m: "0 auto" }}>
             <TextField
               size="small"
-              placeholder={t("Enter Your New Password")}
+              placeholder={t("Enter your new password")}
               fullWidth
               type="password"
               sx={{ mt: "11px" }}
@@ -103,7 +103,7 @@ export default function PasswordResetBtn(props) {
             />
             <TextField
               size="small"
-              placeholder={t("Enter Your New Password Again")}
+              placeholder={t("Enter your new password again")}
               fullWidth
               type="password"
               onChange={onChangeNewPasswordAgain}

@@ -134,7 +134,7 @@ function Login() {
               color="text.secondary"
               gutterBottom
             >
-              {t("Project Title")}
+              {t("Project title")}
             </Typography>
             <img
               style={{
@@ -180,7 +180,7 @@ function Login() {
               >
                 <Box sx={{ m: "40px 36px 0 36px" }}>
                   <Typography component="h1" variant="h4">
-                    {t("Sign In")}
+                    {t("Sign in")}
                   </Typography>
                 </Box>
                 {!hidden ? (
@@ -214,7 +214,7 @@ function Login() {
                       required
                       type="string"
                       id="username"
-                      placeholder={t("Enter Your Username or Email")}
+                      placeholder={t("Enter your username or email")}
                       name="username"
                       autoComplete="username"
                       autoFocus
@@ -235,7 +235,7 @@ function Login() {
                         marginTop: 1,
                         borderRadius: "4px",
                       }}
-                      placeholder={t("Enter Your Password")}
+                      placeholder={t("Enter your password")}
                       id="password"
                       error={inputErrorP}
                       type={password.showPassword ? "text" : "password"}
@@ -262,7 +262,7 @@ function Login() {
                   <Box>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
-                      label={t("Keep Signed In")}
+                      label={t("Keep signed in")}
                     />
                   </Box>
                   <Box sx={{ mb: "30px", mt: "16px" }}>
@@ -276,7 +276,7 @@ function Login() {
                       sx={{ width: "100%", height: "100%" }}
                     >
                       <Typography variant="h5" color="white" fontWeight={540}>
-                        {t("Sign Now")}
+                        {t("Sign now")}
                       </Typography>
                     </LoadingButton>
                   </Box>
