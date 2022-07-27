@@ -2,12 +2,12 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import App from "./App.js";
-import "./i18n";
+import Routers from "./Routers.js";
+
 
 ReactDOM.render(
   <Suspense fallback="loading">
-    <App />
+    <Routers />
   </Suspense>,
   document.getElementById("root")
 );
