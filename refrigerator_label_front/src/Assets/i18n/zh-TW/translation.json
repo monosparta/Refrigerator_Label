@@ -30,5 +30,6 @@
   "Reset password": "重設密碼",
   "Confirm password": "確認密碼",
   "Confirm to delete admin?": "確認刪除此管理者?",
-  "Register": "註冊"
+  "Register": "註冊",
+  "Edit note":"編輯備註"
 }

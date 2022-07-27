@@ -10,8 +10,10 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 export default function EditBtn(props) {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -89,7 +91,7 @@ export default function EditBtn(props) {
                 marginRight: "auto",
               }}
               size="small"
-              placeholder="編輯備註"
+              placeholder={t("Edit note")}
               defaultValue={props.textValue}
               onChange={onChangeNote}
               fullWidth
@@ -108,7 +110,7 @@ export default function EditBtn(props) {
                 }}
               >
                 <Typography variant="h7" color="white" sx={{ fontWeight: 500 }}>
-                  確認
+                {t("Confirm")}
                 </Typography>
               </LoadingButton>
               <Button
@@ -123,7 +125,7 @@ export default function EditBtn(props) {
                   marginTop: "6px",
                 }}
               >
-                取消
+                {t("Cancel")}
               </Button>
             </div>
           </Grid>

@@ -30,5 +30,6 @@
   "Reset password": "Reset password",
   "Confirm password": "Confirm password",
   "Confirm to delete admin?": "Confirm to delete admin?",
-  "Register": "Register"
+  "Register": "Register",
+  "Edit note":"Edit note"
 }
