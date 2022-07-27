@@ -31,5 +31,7 @@
   "Confirm password": "確認密碼",
   "Confirm to delete admin?": "確認刪除此管理者?",
   "Register": "註冊",
-  "Edit note":"編輯備註"
+  "Edit note":"編輯備註",
+  "Enter Your New Password":"請輸入新密碼",
+  "Enter Your New Password Again":"請再次輸入新密碼"
 }
