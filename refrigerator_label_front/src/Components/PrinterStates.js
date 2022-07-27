@@ -77,7 +77,7 @@ export default function PrinterStates(props) {
   return (
     <div>
       <Card sx={{ display: "flex", p: 1 }}>
-        {printerState === "裝置運行中" ? (
+        {printerState === "Device online" ? (
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -99,7 +99,6 @@ export default function PrinterStates(props) {
             display: "flex",
             flexDirection: "column",
             minWidth: "200px",
-            width: "70%",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -110,7 +109,7 @@ export default function PrinterStates(props) {
             component="div"
             fontWeight="bold"
           >
-            {t("Label machine status")}: {props.printerState}
+            {t("Label machine status")}: {t(props.printerState)}
           </Typography>
         </Box>
       </Card>

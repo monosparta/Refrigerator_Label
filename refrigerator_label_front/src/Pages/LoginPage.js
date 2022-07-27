@@ -63,23 +63,23 @@ function Login() {
   const onHandleLogin = async (event) => {
     event.preventDefault();
     let checkError = false;
-    let errorText = "請輸入";
+    let errorText = t("Please enter");
     setInputErrorA(false);
     setInputErrorP(false);
     setHidden(true);
 
     if (!username) {
       checkError = true;
-      errorText += "帳號";
+      errorText += " " + t("Username");
       setInputErrorA(true);
     }
     if (!password.password) {
       checkError = true;
-      errorText += "密碼";
+      errorText += " " + t("Password");
       setInputErrorP(true);
     }
     if (checkError === true) {
-      setAlertText(errorText + "!");
+      setAlertText(errorText + " " + t("!"));
       setHidden(false);
       process.exit();
     }
@@ -97,7 +97,7 @@ function Login() {
         navigate("/ManagementPage");
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setHidden(false);
       });
     setBtnLoading(false);

@@ -28,6 +28,8 @@ export default function PasswordResetBtn(props) {
 
   const [newPassword, setNewPassword] = React.useState();
   const [newPasswordAgain, setNewPasswordAgain] = React.useState();
+  const [inputErrorNP, setInputErrorNP] = React.useState(false);
+  const [inputErrorNPA, setInputErrorNPA] = React.useState(false);
 
   const onChangeNewPassword = (e) => {
     const newPassword = e.target.value;
@@ -44,18 +46,46 @@ export default function PasswordResetBtn(props) {
   };
 
   const handleClose = () => {
+    setInputErrorNP(false);
+    setInputErrorNPA(false);
     setOpen(false);
   };
 
   const handleReset = async () => {
-    if (!newPassword && !newPasswordAgain) {
-      console.log("請輸入密碼");
-    } else if (!newPassword) {
-      console.log("請填密碼");
-    } else if (!newPasswordAgain) {
-      console.log("請再輸入一次密碼");
-    } else if (newPassword !== newPasswordAgain) {
-      console.log("密碼不一致");
+    let checkError = false;
+    let errorText = t("Please enter");
+    props.setSeverity("error");
+    setInputErrorNP(false);
+    setInputErrorNPA(false);
+
+    if (!newPassword) {
+      checkError = true;
+      setInputErrorNP(true);
+      errorText += " " + t("Password");
+    }
+
+    if (!newPasswordAgain) {
+      checkError = true;
+      setInputErrorNPA(true);
+      errorText += " " + t("Confirm password");
+    }
+
+    if (newPassword !== newPasswordAgain) {
+      checkError = true;
+      setInputErrorNP(true);
+      setInputErrorNPA(true);
+      errorText = t("Two passwords aren't same !");
+    }
+
+    if (checkError) {
+      props.setAlertText(errorText);
+      props.setState({
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } else {
       setBtnLoading(true);
       await props.handleResetPassword(props.username, newPassword);
@@ -94,6 +124,7 @@ export default function PasswordResetBtn(props) {
           </Box>
           <Box sx={{ width: "300px", height: "110px", m: "0 auto" }}>
             <TextField
+              error={inputErrorNP}
               size="small"
               placeholder={t("Enter your new password")}
               fullWidth
@@ -102,6 +133,7 @@ export default function PasswordResetBtn(props) {
               onChange={onChangeNewPassword}
             />
             <TextField
+              error={inputErrorNPA}
               size="small"
               placeholder={t("Enter your new password again")}
               fullWidth

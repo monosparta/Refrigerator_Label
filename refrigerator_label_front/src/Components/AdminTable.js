@@ -11,7 +11,6 @@ import Reset from "../Components/PasswordResetBtn";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 
-
 const theme = createTheme({
   palette: {
     white: {
@@ -52,6 +51,9 @@ export default function BasicTable(props) {
                 <Reset
                   username={row.username}
                   handleResetPassword={props.handleResetPassword}
+                  setState={props.setState}
+                  setAlertText={props.setAlertText}
+                  setSeverity={props.setSeverity}
                 />
               </TableCell>
               <TableCell align="left">

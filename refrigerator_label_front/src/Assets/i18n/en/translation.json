@@ -15,6 +15,8 @@
   "Note": "Note",
   "Confirm": "Confirm",
   "Cancel": "Cancel",
+  "Please enter": "Please enter",
+  "!": "!",
   "Send a Email": "Send a Email",
   "Send Due Reminder Email": "Send Due Reminder Email",
   "Reminder content": "Reminder content",
@@ -35,5 +37,18 @@
   "Register": "Register",
   "Edit note": "Edit note",
   "Enter your new password": "Enter your new password",
-  "Enter your new password again": "Enter your new password again"
+  "Enter your new password again": "Enter your new password again",
+  "Please enter all password !": "Please enter all password !",
+  "Two passwords aren't same !": "Two passwords aren't same !",
+  "Device online": "device online",
+  "Device offline": "device offline",
+  "帳號或密碼錯誤": "Username or Password error",
+  "刪除成功": "Deleted successfully",
+  "寄信成功": "Sent successfully",
+  "修改成功": "Edited successfully",
+  "管理帳號重複": "Username already exists",
+  "Email錯誤": "Email error",
+  "管理帳號刪除成功": "Account delete successfully",
+  "至少需要一個管理帳號存在": "At least need one account exists",
+  "密碼修改成功": "Password reseted successfully"
 }

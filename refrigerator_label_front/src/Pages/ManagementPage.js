@@ -79,8 +79,8 @@ export default function ManagementPage() {
           setRowData(label_data);
           const printer_state = response["data"]["printer_state"][0]["state"];
           printer_state === "success"
-            ? setPrinterState("裝置運行中")
-            : setPrinterState("裝置停止中");
+            ? setPrinterState("Device online")
+            : setPrinterState("Device offline");
         })
         .catch((error) => {
           //overtime
@@ -130,7 +130,7 @@ export default function ManagementPage() {
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
         setAlertText(error.response.data["message"]);
@@ -161,7 +161,7 @@ export default function ManagementPage() {
           } else {
             setSeverity("error");
           }
-          setAlertText(response.data["message"]);
+          setAlertText(t(response.data["message"]));
         })
         .catch((error) => {
           setAlertText(error.response.data["message"]);
@@ -216,7 +216,7 @@ export default function ManagementPage() {
           } else {
             setSeverity("error");
           }
-          setAlertText(response.data["message"]);
+          setAlertText(t(response.data["message"]));
         })
         .catch((error) => {
           setAlertText(error.response.data["message"]);

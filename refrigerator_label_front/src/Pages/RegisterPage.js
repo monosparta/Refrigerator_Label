@@ -64,38 +64,38 @@ export default function Register() {
     setInputErrorPA(false);
     event.preventDefault();
     let check = false;
-    let alert_text = "請輸入";
+    let alert_text = t("Please enter");
 
     if (!username) {
       setInputErrorU(true);
-      alert_text += " 使用者名稱 ";
+      alert_text += " " + t("Username");
       check = true;
     }
     if (!mail) {
       setInputErrorM(true);
-      alert_text += " 電子郵件 ";
+      alert_text += " " + t("Email");
       check = true;
     }
     if (!password) {
       setInputErrorP(true);
-      alert_text += " 密碼 ";
+      alert_text += " " + t("Password");
       check = true;
     }
     if (!passwordAgain) {
       setInputErrorPA(true);
-      alert_text += " 再一次密碼 ";
+      alert_text += " " + t("Confirm password");
       check = true;
     }
     //show
     if (check === true) {
       setHidden(false);
-      setAlertText(alert_text + "!");
+      setAlertText(alert_text + " " + t("!"));
       process.exit();
     } else if (password !== passwordAgain) {
       //not same
       setInputErrorP(true);
       setInputErrorPA(true);
-      setAlertText("輸入密碼不一致!");
+      setAlertText(t("Two passwords aren't same !"));
       process.exit();
     }
 
@@ -113,16 +113,15 @@ export default function Register() {
         }
       )
       .then((response) => {
-        console.log(response);
         navigate("/Admins");
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
       });
     setBtnLoading(false);
   };
 
-  return (    
+  return (
     <div>
       <Bar />
       <Paper

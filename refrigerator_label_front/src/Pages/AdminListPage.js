@@ -83,16 +83,16 @@ export default function AdminList() {
         data: { username: username },
       })
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           setSeverity("success");
           loadingAdmin();
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -122,10 +122,10 @@ export default function AdminList() {
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -179,6 +179,9 @@ export default function AdminList() {
             adminData={adminData}
             handleDeleteAdmin={handleDeleteAdmin}
             handleResetPassword={handleResetPassword}
+            setAlertText={setAlertText}
+            setSeverity={setSeverity}
+            setState={setState}
           />
         </Box>
       </Box>
