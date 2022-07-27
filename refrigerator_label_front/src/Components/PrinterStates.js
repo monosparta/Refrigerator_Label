@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import LabelPrinter from "../Assets/image/label_printer.jpg";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import { useTranslation } from "react-i18next";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -66,6 +67,7 @@ const StyledBadgeError = styled(Badge)(({ theme }) => ({
 }));
 
 export default function PrinterStates(props) {
+  const { t } = useTranslation();
   const [printerState, setPrinterState] = React.useState();
 
   if (props.printerState !== printerState) {
@@ -108,7 +110,7 @@ export default function PrinterStates(props) {
             component="div"
             fontWeight="bold"
           >
-            標籤機狀態: {props.printerState}
+            {t("Label machine status")}: {props.printerState}
           </Typography>
         </Box>
       </Card>
