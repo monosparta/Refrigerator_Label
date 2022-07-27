@@ -6,6 +6,7 @@ import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ const theme = createTheme({
 
 export default function Register() {
   let navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [btnLoading, setBtnLoading] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
@@ -65,7 +67,6 @@ export default function Register() {
     let alert_text = "請輸入";
 
     if (!username) {
-      console.log("ㄐㄐ");
       setInputErrorU(true);
       alert_text += " 使用者名稱 ";
       check = true;
@@ -121,7 +122,7 @@ export default function Register() {
     setBtnLoading(false);
   };
 
-  return (
+  return (    
     <div>
       <Bar />
       <Paper
@@ -140,7 +141,7 @@ export default function Register() {
         >
           <Box sx={{ m: "25px 146px" }}>
             <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-              新增管理者
+              {t("Add a admin")}
             </Typography>
           </Box>
           {!hidden ? (
@@ -161,14 +162,14 @@ export default function Register() {
               error={inputErrorU}
               size="small"
               fullWidth
-              placeholder="使用者名稱"
+              placeholder={t("Username")}
               onChange={onChangeUsername}
             />
             <TextField
               error={inputErrorM}
               size="small"
               fullWidth
-              placeholder="電子郵件"
+              placeholder={t("Email")}
               type="email"
               onChange={onChangeMail}
               sx={{ mt: "11px" }}
@@ -177,7 +178,7 @@ export default function Register() {
               error={inputErrorP}
               size="small"
               fullWidth
-              placeholder="密碼"
+              placeholder={t("Password")}
               type="password"
               onChange={onChangePassword}
               sx={{ mt: "11px" }}
@@ -186,7 +187,7 @@ export default function Register() {
               error={inputErrorPA}
               size="small"
               fullWidth
-              placeholder="再次輸入密碼"
+              placeholder={t("Confirm password")}
               type="password"
               onChange={onChangePasswordAgain}
               sx={{ mt: "11px" }}
@@ -207,7 +208,7 @@ export default function Register() {
                   color="White"
                   className="Signup"
                 >
-                  註冊
+                  {t("Register")}
                 </Typography>
               </LoadingButton>
             </ThemeProvider>

@@ -9,6 +9,7 @@ import axios from "../Axios.config.js";
 import { TokenContext } from "../Routers.js";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -135,6 +136,7 @@ export default function AdminList() {
       },
     });
   };
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -152,7 +154,7 @@ export default function AdminList() {
           }}
         >
           <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-            管理者
+            {t("Admin")}
           </Typography>
           <ThemeProvider theme={theme}>
             <Button
@@ -161,7 +163,7 @@ export default function AdminList() {
               sx={{ ml: "auto", width: "124px", height: "44px" }}
               href="/Register"
             >
-              <Typography>新增管理者</Typography>
+              <Typography>{t("Add a admin")}</Typography>
             </Button>
           </ThemeProvider>
         </Box>
