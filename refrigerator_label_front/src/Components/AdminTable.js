@@ -10,6 +10,7 @@ import DeleteAdmin from "../Components/DeleteAdminBtn";
 import Reset from "../Components/PasswordResetBtn";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+
 const theme = createTheme({
   palette: {
     white: {
