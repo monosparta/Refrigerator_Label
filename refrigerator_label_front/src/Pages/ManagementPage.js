@@ -14,6 +14,7 @@ import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function ManagementPage() {
+  const { t } = useTranslation();
   let navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
@@ -235,7 +237,7 @@ export default function ManagementPage() {
   const columns = [
     {
       field: "name",
-      headerName: "物品所屬者",
+      headerName: t("Owner"),
       minWidth: 110,
       flex: 1,
       disableColumnMenu: true,
@@ -251,7 +253,7 @@ export default function ManagementPage() {
     },
     {
       field: "date",
-      headerName: "放入日期",
+      headerName: t("Date of placement"),
       type: "date",
       minWidth: 220,
       flex: 2,
@@ -277,7 +279,7 @@ export default function ManagementPage() {
     },
     {
       field: "note",
-      headerName: "備註",
+      headerName: t("Note"),
       minWidth: 180,
       flex: 4,
       disableColumnMenu: true,
