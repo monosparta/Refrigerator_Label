@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "../App.css";
+import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/AppBar";
 import Admins from "../Components/AdminTable";
