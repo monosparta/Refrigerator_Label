@@ -21,14 +21,15 @@
   "Label machine status":"標籤機狀態",
   "Device running":"裝置運行中",
   "Device is stopped":"裝置停止",
-  "Manager list":"管理者列表",
-  "Add a manager":"新增管理者",
-  "Manager name":"管理者名稱",
+  "Admin list":"管理者列表",
+  "Add a admin":"新增管理者",
+  "Admin name":"管理者名稱",
   "Email":"信箱",
-  "Manager":"管理員",
+  "Admin":"管理員",
   "Identity group":"身分組",
   "Reset password":"重設密碼",
   "Confirm password":"確認密碼",
-  "Confirm the removal of this manager?":"確認刪除此管理者?"
+  "Confirm to delete admin?":"確認刪除此管理者?",
+  "Register":"註冊"
 
 }
