@@ -1,4 +1,4 @@
-# 冰箱自動標籤與管理系統(Refrigerator Label & management system)
+# 雲端智慧標籤系統(Refrigerator Label & management system)
 
 ## 系統需求：
 ### 冰箱物品標籤🏷️  
