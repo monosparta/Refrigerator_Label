@@ -2,7 +2,7 @@ const db = require('../models/index.js');
 
 
 
-is_user = async (body) => {
+const is_user = async (body) => {
     const is_user = await db.Users.findOne({
         where: {
             cardId:body.cardId,
@@ -11,7 +11,7 @@ is_user = async (body) => {
     return is_user;
 }
 
-card_id_find_mail = async (body)=> {
+const card_id_find_mail = async (body)=> {
     const request = await db.Users.findOne({
         attributes: ['mail'],
         where: { cardId:body },
@@ -20,7 +20,7 @@ card_id_find_mail = async (body)=> {
     return request;
 }
 
-create_user = async (body) => {
+const create_user = async (body) => {
     const user = await db.Users.create({
         cardId:body.cardId,
         name:body.name,
@@ -30,7 +30,7 @@ create_user = async (body) => {
     return user;
 }
 
-select_user_all = async () => {
+const select_user_all = async () => {
     const request = await db.Users.findAll()
     return request;
 

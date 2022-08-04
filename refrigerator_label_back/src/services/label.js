@@ -1,6 +1,6 @@
 const db = require("../models/index.js");
 
-find_label_all = async () => {
+const find_label_all = async () => {
   const request = await db.Labels.findAll({
     include: { model: db.Users, attributes: ["name", "mail"] },
     order: [["id", "ASC"]],
@@ -10,7 +10,7 @@ find_label_all = async () => {
   return request;
 };
 
-have_id = async (id) => {
+const have_id = async (id) => {
   const is_id = await db.Labels.findOne({
     raw: true,
     attributes: ["id"],
@@ -19,7 +19,7 @@ have_id = async (id) => {
   return is_id;
 };
 
-delete_label = async (labelId) => {
+const delete_label = async (labelId) => {
   const request = await db.Labels.destroy({
     where: {
       labelId: labelId,
@@ -28,7 +28,7 @@ delete_label = async (labelId) => {
   return request;
 };
 
-owner_information = async () => {
+const owner_information = async () => {
   const request = await db.Labels.findAll({
     attributes: ["date", "cardId", "labelId"],
   });
@@ -36,7 +36,7 @@ owner_information = async () => {
   return request;
 };
 
-update_label = async (body) => {
+const update_label = async (body) => {
   const request = await db.Labels.update(
     {
       note: body.note,
@@ -50,7 +50,7 @@ update_label = async (body) => {
   return request;
 };
 
-last_id = async () => {
+const last_id = async () => {
   const request = await db.Labels.findOne({
     raw:true,
     order: [["id", "DESC"]],
@@ -58,7 +58,7 @@ last_id = async () => {
   return request;
 };
 
-create_label = async (body) => {
+const create_label = async (body) => {
   let array = body.date.split(" ");
   let date = array[0].split("-");
 
@@ -78,12 +78,12 @@ create_label = async (body) => {
   return create_label;
 };
 
-printer_state = async () => {
+const printer_state = async () => {
   const printer_state = await db.LabelPrinters.findAll();
   return printer_state;
 };
 
-printer_state_change = async (body) => {
+const printer_state_change = async (body) => {
   const printer_state_change = await db.LabelPrinters.update(
     {
       state: body.printerState,

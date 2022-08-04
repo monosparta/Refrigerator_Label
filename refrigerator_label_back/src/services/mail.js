@@ -4,7 +4,7 @@ const label_service = require("./label.js");
 const user_service = require("./user.js");
 
 
-manual_send_mail = async (mail) => {
+const manual_send_mail = async (mail) => {
   for(i=0;i<mail['users'].length;i++){
       const five_date_later = new Date(new Date().setDate(new Date().getDate() + 5))
       const expiry_date = five_date_later.getFullYear()+"-"+(five_date_later.getMonth()+1)+"-"+(five_date_later.getDate())
@@ -44,7 +44,7 @@ manual_send_mail = async (mail) => {
   }
 };
 
-auto_send_mail = async (req, res) => {
+const auto_send_mail = async (req, res) => {
   const time = await label_service.owner_information();
   for (let i = 0; i < time.length; i++) {
     let array = time[i]["date"].split(" ");

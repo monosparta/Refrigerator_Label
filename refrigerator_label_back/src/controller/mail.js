@@ -1,6 +1,6 @@
 const mail_service = require("../services/mail.js");
 
-auto_send_mail = async (req, res) => {
+const auto_send_mail = async (_req, res) => {
   try {
     await mail_service.auto_send_mail();
     return res.status(200).json({ message: "寄信成功" });
@@ -9,7 +9,7 @@ auto_send_mail = async (req, res) => {
   }
 };
 
-manual_send_mail = async (req, res) => {
+const manual_send_mail = async (req, res) => {
   try {
     await mail_service.manual_send_mail(req.body);
     return res.status(200).json({ message: "寄信成功" });
