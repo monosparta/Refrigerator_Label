@@ -4,8 +4,10 @@ import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import en from "./Assets/i18n/en/translation.json";
-import tw from "./Assets/i18n/zh-TW/translation.json";
+import en from "./Assets/i18n/en.json";
+import tw from "./Assets/i18n/zh-TW.json";
+import th from "./Assets/i18n/th.json";
+import Lt from "./Assets/i18n/Lt-uz-UZ.json";
 
 const resources = {
   en: {
@@ -13,6 +15,12 @@ const resources = {
   },
   "zh-TW": {
     translation: tw,
+  },
+  th: {
+    translation: th,
+  },
+  "Lt-uz-UZ": {
+    translation: Lt,
   },
 };
 
