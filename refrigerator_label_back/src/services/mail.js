@@ -10,8 +10,10 @@ manual_send_mail = async (mail) => {
       const expiry_date = five_date_later.getFullYear()+"-"+(five_date_later.getMonth()+1)+"-"+(five_date_later.getDate())
       console.log(expiry_date)
 
-      var transporter = nodemailer.createTransport({
+      let transporter = nodemailer.createTransport({
         service: "gmail",
+        secure: true, // Compliant
+        requireTLS: true, // Compliant
         auth: {
           user: process.env.NODEMAILER_USER,
           pass: process.env.NODEMAILER_PASSWORD,
@@ -20,7 +22,7 @@ manual_send_mail = async (mail) => {
 
       !mail['text']?content = "":content = mail['text']
     
-      var mailOptions = {
+      let mailOptions = {
         to: mail['users'][i][0],
         from: process.env.NODEMAILER_USER,
         subject: "冰箱物品管理系統提醒",
@@ -40,17 +42,6 @@ manual_send_mail = async (mail) => {
     
     
   }
-  //console.log(mail['users'].length);
-
-  var transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASSWORD,
-    },
-  });
-
-  
 };
 
 auto_send_mail = async (req, res) => {
@@ -67,8 +58,10 @@ auto_send_mail = async (req, res) => {
 
     if (diff_day === 7) {
       let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
-      var transporter = nodemailer.createTransport({
+      let transporter = nodemailer.createTransport({
         service: "gmail",
+        secure: true, // Compliant
+        requireTLS: true, // Compliant
         auth: {
           user: process.env.NODEMAILER_USER,
           pass: process.env.NODEMAILER_PASSWORD,

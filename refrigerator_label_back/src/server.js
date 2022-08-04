@@ -8,7 +8,12 @@ const server = express();
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use(cors());
+const corsOptions = {
+  origin: [process.env.FRONTEND_URL],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+server.use(cors(corsOptions));
 server.use(express.static(__dirname + "/public"));
 
 //router
