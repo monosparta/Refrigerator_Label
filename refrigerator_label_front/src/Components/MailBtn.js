@@ -1,7 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import "../App.css";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import {
   Paper,
@@ -20,6 +19,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
 function ChildModal(props) {
   const { Chips } = props;
@@ -106,6 +106,7 @@ function ChildModal(props) {
 }
 
 export default function MailBtn(props) {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const [mailContent, setMailContent] = React.useState();
   const [btnLoading, setBtnLoading] = React.useState(false);
@@ -172,7 +173,7 @@ export default function MailBtn(props) {
           variant="outlined"
         >
           <Typography variant="h7" sx={{ pt: "2px" }}>
-            寄信
+            {t("Send a Email")}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -181,7 +182,7 @@ export default function MailBtn(props) {
           <form>
             <DialogContent>
               <Typography variant="h6" sx={{ fontWeight: 700 }} align="center">
-                寄送到期提醒信件
+                {t("Send Due Reminder Email")}
               </Typography>
               <div className="owner" display="flex">
                 <Typography
@@ -189,7 +190,7 @@ export default function MailBtn(props) {
                   sx={{ fontWeight: 400 }}
                   className="ownertext"
                 >
-                  物品所屬人
+                  {t("Owner")}
                 </Typography>
                 <div className="chips">
                   <div className="Choosen">
@@ -263,13 +264,13 @@ export default function MailBtn(props) {
                   sx={{ fontWeight: 400 }}
                   className="ownertext"
                 >
-                  提醒內容
+                  {t("Reminder content")}
                 </Typography>
                 <div className="contentBox">
                   <TextareaAutosize
                     className="mail_content"
                     id="mail_content"
-                    placeholder="請輸入提醒內容"
+                    placeholder={t("Please enter reminder content")}
                     onChange={onChangeContent}
                     name="mail_content"
                     style={{
@@ -308,7 +309,7 @@ export default function MailBtn(props) {
                       color="white"
                       sx={{ fontWeight: 500 }}
                     >
-                      確認
+                      {t("Confirm")}
                     </Typography>
                   </LoadingButton>
                   <Button
@@ -324,7 +325,7 @@ export default function MailBtn(props) {
                       minHeight: "36px",
                     }}
                   >
-                    取消
+                    {t("Cancel")}
                   </Button>
                 </ThemeProvider>
               </Box>

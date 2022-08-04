@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Typography, Box, Paper, TextField, Alert } from "@mui/material";
-import "../App.css";
+import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/AppBar";
 import axios from "../Axios.config.js";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ const theme = createTheme({
 
 export default function Register() {
   let navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [btnLoading, setBtnLoading] = React.useState(false);
   const [hidden, setHidden] = React.useState(true);
@@ -62,39 +64,38 @@ export default function Register() {
     setInputErrorPA(false);
     event.preventDefault();
     let check = false;
-    let alert_text = "請輸入";
+    let alert_text = t("Please enter");
 
     if (!username) {
-      console.log("ㄐㄐ");
       setInputErrorU(true);
-      alert_text += " 使用者名稱 ";
+      alert_text += " " + t("Username");
       check = true;
     }
     if (!mail) {
       setInputErrorM(true);
-      alert_text += " 電子郵件 ";
+      alert_text += " " + t("Email");
       check = true;
     }
     if (!password) {
       setInputErrorP(true);
-      alert_text += " 密碼 ";
+      alert_text += " " + t("Password");
       check = true;
     }
     if (!passwordAgain) {
       setInputErrorPA(true);
-      alert_text += " 再一次密碼 ";
+      alert_text += " " + t("Confirm password");
       check = true;
     }
     //show
     if (check === true) {
       setHidden(false);
-      setAlertText(alert_text + "!");
+      setAlertText(alert_text + " " + t("!"));
       process.exit();
     } else if (password !== passwordAgain) {
       //not same
       setInputErrorP(true);
       setInputErrorPA(true);
-      setAlertText("輸入密碼不一致!");
+      setAlertText(t("Two passwords aren't same !"));
       process.exit();
     }
 
@@ -112,11 +113,10 @@ export default function Register() {
         }
       )
       .then((response) => {
-        console.log(response);
         navigate("/Admins");
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
       });
     setBtnLoading(false);
   };
@@ -140,7 +140,7 @@ export default function Register() {
         >
           <Box sx={{ m: "25px 146px" }}>
             <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-              新增管理者
+              {t("Add admin")}
             </Typography>
           </Box>
           {!hidden ? (
@@ -161,14 +161,14 @@ export default function Register() {
               error={inputErrorU}
               size="small"
               fullWidth
-              placeholder="使用者名稱"
+              placeholder={t("Username")}
               onChange={onChangeUsername}
             />
             <TextField
               error={inputErrorM}
               size="small"
               fullWidth
-              placeholder="電子郵件"
+              placeholder={t("Email")}
               type="email"
               onChange={onChangeMail}
               sx={{ mt: "11px" }}
@@ -177,7 +177,7 @@ export default function Register() {
               error={inputErrorP}
               size="small"
               fullWidth
-              placeholder="密碼"
+              placeholder={t("Password")}
               type="password"
               onChange={onChangePassword}
               sx={{ mt: "11px" }}
@@ -186,7 +186,7 @@ export default function Register() {
               error={inputErrorPA}
               size="small"
               fullWidth
-              placeholder="再次輸入密碼"
+              placeholder={t("Confirm password")}
               type="password"
               onChange={onChangePasswordAgain}
               sx={{ mt: "11px" }}
@@ -207,7 +207,7 @@ export default function Register() {
                   color="White"
                   className="Signup"
                 >
-                  註冊
+                  {t("Register")}
                 </Typography>
               </LoadingButton>
             </ThemeProvider>

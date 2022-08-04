@@ -1,11 +1,20 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PublicIcon from "@mui/icons-material/Public";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { TokenContext } from "../App.js";
-import { Typography, Box, Button, Link } from "@mui/material";
+import { TokenContext } from "../Routers.js";
+import { useTranslation } from "react-i18next";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  Link,
+  MenuItem,
+  Menu,
+} from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -15,16 +24,25 @@ const theme = createTheme({
     Button: {
       main: "#363F4E",
     },
-    Log: {
-      main: "#5CB4FD",
-    },
   },
 });
 
-export default function ButtonAppBar(props) {
-  let navigate = useNavigate();
+export default function NavBar() {
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const { setTokenContext } = React.useContext(TokenContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    setAnchorEl(null);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("login_token");
@@ -33,44 +51,91 @@ export default function ButtonAppBar(props) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <ThemeProvider theme={theme}>
-        <AppBar position="static" color="Button">
+    <ThemeProvider theme={theme}>
+      <AppBar position="static" color="Button">
+        <Box alignItems="center">
           <Toolbar>
-            <Link href="/" underline="none">
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, fontWeight: 600, fontSize: "24px" }}
-                color="White"
-              >
-                雲端智慧標籤系統
-              </Typography>
-            </Link>
-            <ThemeProvider theme={theme}>
-              <Button
-                variant="outlined"
-                color="white"
-                href="/Admins"
-                sx={{ mr: "1vw", ml: "auto" }}
-              >
-                <Typography color="White">管理者列表</Typography>
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<LogoutIcon />}
-                color="white"
-                onClick={handleLogout}
-                href="/"
-              >
-                <Typography color="White" sx={{ fontSize: "14px" }}>
-                  Logout
+            <Box>
+              <Link href="/" underline="none">
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1, fontWeight: 600, fontSize: "24px" }}
+                  color="White"
+                >
+                  {t("Project title")}
                 </Typography>
-              </Button>
-            </ThemeProvider>
+              </Link>
+            </Box>
+            <Box sx={{ ml: "auto" }}>
+              <ThemeProvider theme={theme}>
+                <Button
+                  id="language-button"
+                  aria-controls={open ? "language" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="white"
+                  sx={{ mr: "1vw", ml: "auto" }}
+                >
+                  <PublicIcon />
+                  &nbsp;
+                  {t("Language")}
+                </Button>
+                <Menu
+                  id="language"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={() => setAnchorEl(null)}
+                  MenuListProps={{
+                    "aria-labelledby": "language-button",
+                  }}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <MenuItem onClick={() => handleChangeLanguage("en")}>
+                    English
+                  </MenuItem>
+                  <MenuItem onClick={() => handleChangeLanguage("zh-TW")}>
+                    繁體中文
+                  </MenuItem>
+                  <MenuItem onClick={() => handleChangeLanguage("th")}>
+                    ภาษาไทย
+                  </MenuItem>
+                  <MenuItem onClick={() => handleChangeLanguage("Lt-uz-UZ")}>
+                    Latinus
+                  </MenuItem>
+                </Menu>
+                <Button
+                  variant="outlined"
+                  color="white"
+                  href="/Admins"
+                  sx={{ mr: "1vw", ml: "auto" }}
+                >
+                  <Typography color="White">{t("Admin list")}</Typography>
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<LogoutIcon />}
+                  color="white"
+                  onClick={handleLogout}
+                >
+                  <Typography color="White" sx={{ fontSize: "14px" }}>
+                    {t("Sign out")}
+                  </Typography>
+                </Button>
+              </ThemeProvider>
+            </Box>
           </Toolbar>
-        </AppBar>
-      </ThemeProvider>
-    </Box>
+        </Box>
+      </AppBar>
+    </ThemeProvider>
   );
 }

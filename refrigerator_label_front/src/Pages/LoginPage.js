@@ -15,13 +15,15 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Logo from "../Pictures/monologo.jpg";
+import Logo from "../Assets/image/monologo.jpg";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useEffect } from "react";
-import { TokenContext } from "../App.js";
+import { TokenContext } from "../Routers.js";
+import { useTranslation } from "react-i18next";
 
 function Login() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { setTokenContext } = React.useContext(TokenContext);
   const [username, setUsername] = React.useState("");
@@ -61,23 +63,23 @@ function Login() {
   const onHandleLogin = async (event) => {
     event.preventDefault();
     let checkError = false;
-    let errorText = "請輸入";
+    let errorText = t("Please enter");
     setInputErrorA(false);
     setInputErrorP(false);
     setHidden(true);
 
     if (!username) {
       checkError = true;
-      errorText += "帳號"
+      errorText += " " + t("Username");
       setInputErrorA(true);
     }
     if (!password.password) {
       checkError = true;
-      errorText += "密碼"
+      errorText += " " + t("Password");
       setInputErrorP(true);
     }
     if (checkError === true) {
-      setAlertText(errorText+"!");
+      setAlertText(errorText + " " + t("!"));
       setHidden(false);
       process.exit();
     }
@@ -95,7 +97,7 @@ function Login() {
         navigate("/ManagementPage");
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setHidden(false);
       });
     setBtnLoading(false);
@@ -132,7 +134,7 @@ function Login() {
               color="text.secondary"
               gutterBottom
             >
-              雲端智慧標籤系統
+              {t("Project title")}
             </Typography>
             <img
               style={{
@@ -178,7 +180,7 @@ function Login() {
               >
                 <Box sx={{ m: "40px 36px 0 36px" }}>
                   <Typography component="h1" variant="h4">
-                    Sign in
+                    {t("Sign in")}
                   </Typography>
                 </Box>
                 {!hidden ? (
@@ -204,7 +206,7 @@ function Login() {
                 >
                   <Box>
                     <Typography sx={{ fontWeight: 500 }}>
-                      帳號 USERNAME
+                      {t("Username")}
                     </Typography>
                     <OutlinedInput
                       error={inputErrorA}
@@ -212,7 +214,7 @@ function Login() {
                       required
                       type="string"
                       id="username"
-                      placeholder="Enter your username or email"
+                      placeholder={t("Enter your username or email")}
                       name="username"
                       autoComplete="username"
                       autoFocus
@@ -225,7 +227,7 @@ function Login() {
                   </Box>
                   <Box sx={{ m: "11px 0" }}>
                     <Typography sx={{ fontWeight: 500 }}>
-                      密碼 PASSWORD
+                      {t("Password")}
                     </Typography>
                     <OutlinedInput
                       fullWidth
@@ -233,7 +235,7 @@ function Login() {
                         marginTop: 1,
                         borderRadius: "4px",
                       }}
-                      placeholder="Enter your password"
+                      placeholder={t("Enter your password")}
                       id="password"
                       error={inputErrorP}
                       type={password.showPassword ? "text" : "password"}
@@ -260,7 +262,7 @@ function Login() {
                   <Box>
                     <FormControlLabel
                       control={<Checkbox value="remember" color="primary" />}
-                      label="保持登入"
+                      label={t("Keep signed in")}
                     />
                   </Box>
                   <Box sx={{ mb: "30px", mt: "16px" }}>
@@ -274,7 +276,7 @@ function Login() {
                       sx={{ width: "100%", height: "100%" }}
                     >
                       <Typography variant="h5" color="white" fontWeight={540}>
-                        立即登入
+                        {t("Sign now")}
                       </Typography>
                     </LoadingButton>
                   </Box>

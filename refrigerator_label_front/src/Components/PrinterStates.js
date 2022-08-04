@@ -3,9 +3,10 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
-import LabelPrinter from "../Pictures/label_printer.jpg";
+import LabelPrinter from "../Assets/image/label_printer.jpg";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import { useTranslation } from "react-i18next";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -66,6 +67,7 @@ const StyledBadgeError = styled(Badge)(({ theme }) => ({
 }));
 
 export default function PrinterStates(props) {
+  const { t } = useTranslation();
   const [printerState, setPrinterState] = React.useState();
 
   if (props.printerState !== printerState) {
@@ -75,7 +77,7 @@ export default function PrinterStates(props) {
   return (
     <div>
       <Card sx={{ display: "flex", p: 1 }}>
-        {printerState === "裝置運行中" ? (
+        {printerState === "Device online" ? (
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -97,7 +99,6 @@ export default function PrinterStates(props) {
             display: "flex",
             flexDirection: "column",
             minWidth: "200px",
-            width: "70%",
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -108,7 +109,7 @@ export default function PrinterStates(props) {
             component="div"
             fontWeight="bold"
           >
-            標籤機狀態: {props.printerState}
+            {t("Label machine status")}: {t(props.printerState)}
           </Typography>
         </Box>
       </Card>

@@ -1,5 +1,4 @@
-import bg from "../Pictures/404.png";
-import "../App.css";
+import bg from "../Assets/image/404.png";
 
 function App() {
   return (
