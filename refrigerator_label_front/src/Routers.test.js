@@ -3,6 +3,6 @@ import Routers from './Routers';
 
 test('renders learn react link', () => {
   render(<Routers />);
-  const linkElement = screen.getByText(/雲端智慧標籤系統/i);
+  const linkElement = screen.getByText(/Cloud Smart Label System/i);
   expect(linkElement).toBeInTheDocument();
 });
