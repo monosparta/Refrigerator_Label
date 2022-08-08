@@ -1,5 +1,5 @@
 import * as React from "react";
-import Bar from "../Components/AppBar";
+import Bar from "../Components/NavBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { Chip } from "@mui/material";

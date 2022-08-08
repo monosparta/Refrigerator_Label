@@ -2,7 +2,7 @@ import * as React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Bar from "../Components/AppBar";
+import Bar from "../Components/NavBar";
 import Admins from "../Components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios.config.js";
