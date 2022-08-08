@@ -5,37 +5,33 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const is_admin = async (body) => {
-  const is_admin = await db.Admins.findOne({
+  return await db.Admins.findOne({
     where: {
       [Op.or]: [{ username: body.username }, { mail: body.username }],
     },
   });
-  return is_admin;
 };
 
 const find_admin_all = async () => {
-  const admins = await db.Admins.findAll({
+  return await db.Admins.findAll({
     attributes: ["username", "mail"],
   });
-  return admins;
 };
 
 const admin_create = async (body) => {
-  const admin_create = await db.Admins.create({
+  return await db.Admins.create({
     username: body.username,
     password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
     mail: body.mail,
   });
-  return admin_create;
 };
 
 const admin_delete = async (username) => {
-  const admin_delete = await db.Admins.destroy({
+  return await db.Admins.destroy({
     where: {
       username: username,
     },
   });
-  return admin_delete;
 };
 
 const token_create = async (admin_data) => {
@@ -58,7 +54,7 @@ const token_create = async (admin_data) => {
 };
 
 const reset_password = async (body) => {
-  const reset_password = await db.Admins.update(
+  return await db.Admins.update(
     {
       password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
     },
@@ -68,7 +64,6 @@ const reset_password = async (body) => {
       },
     }
   );
-  return reset_password;
 };
 
 module.exports = {

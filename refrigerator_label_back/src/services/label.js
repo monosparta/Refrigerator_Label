@@ -1,43 +1,37 @@
 const db = require("../models/index.js");
 
 const find_label_all = async () => {
-  const request = await db.Labels.findAll({
+  return await db.Labels.findAll({
     include: { model: db.Users, attributes: ["name", "mail"] },
     order: [["id", "ASC"]],
     attributes: ["id", "date", "labelId", "note"],
   });
-
-  return request;
 };
 
 const have_id = async (id) => {
-  const is_id = await db.Labels.findOne({
+  return await db.Labels.findOne({
     raw: true,
     attributes: ["id"],
     where: { id: id },
   });
-  return is_id;
 };
 
 const delete_label = async (labelId) => {
-  const request = await db.Labels.destroy({
+  return await db.Labels.destroy({
     where: {
       labelId: labelId,
     },
   });
-  return request;
 };
 
 const owner_information = async () => {
-  const request = await db.Labels.findAll({
+  return await db.Labels.findAll({
     attributes: ["date", "cardId", "labelId"],
   });
-
-  return request;
 };
 
 const update_label = async (body) => {
-  const request = await db.Labels.update(
+  return await db.Labels.update(
     {
       note: body.note,
     },
@@ -47,15 +41,13 @@ const update_label = async (body) => {
       },
     }
   );
-  return request;
 };
 
 const last_id = async () => {
-  const request = await db.Labels.findOne({
-    raw:true,
+  return await db.Labels.findOne({
+    raw: true,
     order: [["id", "DESC"]],
   });
-  return request;
 };
 
 const create_label = async (body) => {
@@ -79,12 +71,11 @@ const create_label = async (body) => {
 };
 
 const printer_state = async () => {
-  const printer_state = await db.LabelPrinters.findAll();
-  return printer_state;
+  return await db.LabelPrinters.findAll();
 };
 
 const printer_state_change = async (body) => {
-  const printer_state_change = await db.LabelPrinters.update(
+  return await db.LabelPrinters.update(
     {
       state: body.printerState,
     },
@@ -94,7 +85,6 @@ const printer_state_change = async (body) => {
       },
     }
   );
-  return printer_state_change;
 };
 
 module.exports = {

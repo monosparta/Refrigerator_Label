@@ -51,6 +51,7 @@ const create_label = async (req, res) => {
       const is_user = await user_service.is_user(req.body);
       if (is_user) {
         const final_id = await label_service.last_id();
+        let data_id = "";
         if (!final_id) {
           data_id = "001";
         } else if (final_id.id > 0 && final_id.id + 1 < 10) {
@@ -108,7 +109,6 @@ const delete_label = async (req, res) => {
     if (delete_label) {
       return res.status(200).json({ message: "刪除成功" });
     }
-
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
