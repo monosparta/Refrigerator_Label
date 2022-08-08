@@ -4,6 +4,16 @@ const label_service = require("./label.js");
 const user_service = require("./user.js");
 
 const mail_send = (mailOptions) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    secure: true, // Compliant
+    requireTLS: true, // Compliant
+    auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD,
+    },
+  });
+
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
@@ -26,16 +36,6 @@ const manual_send_mail = async (mail) => {
       "-" +
       five_date_later.getDate();
     console.log(expiry_date);
-
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      secure: true, // Compliant
-      requireTLS: true, // Compliant
-      auth: {
-        user: process.env.NODEMAILER_USER,
-        pass: process.env.NODEMAILER_PASSWORD,
-      },
-    });
 
     !mail["text"] ? (content = "") : (content = mail["text"]);
 
@@ -73,15 +73,6 @@ const auto_send_mail = async (req, res) => {
 
     if (diff_day === 7) {
       let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
-      let transporter = nodemailer.createTransport({
-        service: "gmail",
-        secure: true, // Compliant
-        requireTLS: true, // Compliant
-        auth: {
-          user: process.env.NODEMAILER_USER,
-          pass: process.env.NODEMAILER_PASSWORD,
-        },
-      });
 
       var mailOptions = {
         from: process.env.NODEMAILER_USER,

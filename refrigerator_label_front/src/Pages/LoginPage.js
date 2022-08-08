@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 
-function LoginPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -288,5 +288,3 @@ function LoginPage() {
     </div>
   );
 }
-
-export default Login;
