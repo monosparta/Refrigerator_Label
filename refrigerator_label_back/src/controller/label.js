@@ -1,7 +1,7 @@
 const label_service = require("../services/label.js");
 const user_service = require("../services/user.js");
 
-find_label_all = async (req, res) => {
+const find_label_all = async (_req, res) => {
   try {
     const label = await label_service.find_label_all();
     label.forEach((item) => {
@@ -43,7 +43,7 @@ find_label_all = async (req, res) => {
   }
 };
 
-create_label = async (req, res) => {
+const create_label = async (req, res) => {
   try {
     if (!req.body.date || !req.body.cardId) {
       return res.status(403).json({ message: "資料不齊全" });
@@ -51,6 +51,7 @@ create_label = async (req, res) => {
       const is_user = await user_service.is_user(req.body);
       if (is_user) {
         const final_id = await label_service.last_id();
+        let data_id = "";
         if (!final_id) {
           data_id = "001";
         } else if (final_id.id > 0 && final_id.id + 1 < 10) {
@@ -81,8 +82,8 @@ create_label = async (req, res) => {
   }
 };
 
-update_label = async (req, res) => {
-  const r = /^[0-9]*[1-9][0-9]*$/;
+const update_label = async (req, res) => {
+  const r = /^[0-9]{3}$/;
   const id = await label_service.have_id(req.body.id);
   try {
     if (r.test(req.body.id) && id) {
@@ -98,7 +99,7 @@ update_label = async (req, res) => {
   }
 };
 
-delete_label = async (req, res) => {
+const delete_label = async (req, res) => {
   try {
     if (!req.body.labelId) {
       return res.status(403).json({ message: "沒有標籤ID" });
@@ -108,13 +109,12 @@ delete_label = async (req, res) => {
     if (delete_label) {
       return res.status(200).json({ message: "刪除成功" });
     }
-
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-printer_state_change = async (req, res) => {
+const printer_state_change = async (req, res) => {
   try {
     if (!req.body.printerState) {
       return res.status(403).json({ message: "未有狀態值" });

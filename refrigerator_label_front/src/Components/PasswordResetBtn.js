@@ -2,8 +2,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTheme,createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField, Typography, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useTranslation } from "react-i18next";
@@ -32,13 +31,11 @@ export default function PasswordResetBtn(props) {
   const [inputErrorNPA, setInputErrorNPA] = React.useState(false);
 
   const onChangeNewPassword = (e) => {
-    const newPassword = e.target.value;
-    setNewPassword(newPassword);
+    setNewPassword(e.target.value);
   };
 
   const onChangeNewPasswordAgain = (e) => {
-    const newPasswordAgain = e.target.value;
-    setNewPasswordAgain(newPasswordAgain);
+    setNewPasswordAgain(e.target.value);
   };
 
   const handleClickOpen = () => {

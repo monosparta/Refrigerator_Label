@@ -30,6 +30,7 @@ function ChildModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
   const theme = createTheme({
     palette: {
       Button: {
@@ -37,6 +38,7 @@ function ChildModal(props) {
       },
     },
   });
+  
   return (
     <React.Fragment>
       <IconButton

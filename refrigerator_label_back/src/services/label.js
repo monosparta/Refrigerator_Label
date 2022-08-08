@@ -1,43 +1,37 @@
 const db = require("../models/index.js");
 
-find_label_all = async () => {
-  const request = await db.Labels.findAll({
+const find_label_all = async () => {
+  return await db.Labels.findAll({
     include: { model: db.Users, attributes: ["name", "mail"] },
     order: [["id", "ASC"]],
     attributes: ["id", "date", "labelId", "note"],
   });
-
-  return request;
 };
 
-have_id = async (id) => {
-  const is_id = await db.Labels.findOne({
+const have_id = async (id) => {
+  return await db.Labels.findOne({
     raw: true,
     attributes: ["id"],
     where: { id: id },
   });
-  return is_id;
 };
 
-delete_label = async (labelId) => {
-  const request = await db.Labels.destroy({
+const delete_label = async (labelId) => {
+  return await db.Labels.destroy({
     where: {
       labelId: labelId,
     },
   });
-  return request;
 };
 
-owner_information = async () => {
-  const request = await db.Labels.findAll({
+const owner_information = async () => {
+  return await db.Labels.findAll({
     attributes: ["date", "cardId", "labelId"],
   });
-
-  return request;
 };
 
-update_label = async (body) => {
-  const request = await db.Labels.update(
+const update_label = async (body) => {
+  return await db.Labels.update(
     {
       note: body.note,
     },
@@ -47,18 +41,16 @@ update_label = async (body) => {
       },
     }
   );
-  return request;
 };
 
-last_id = async () => {
-  const request = await db.Labels.findOne({
-    raw:true,
+const last_id = async () => {
+  return await db.Labels.findOne({
+    raw: true,
     order: [["id", "DESC"]],
   });
-  return request;
 };
 
-create_label = async (body) => {
+const create_label = async (body) => {
   let array = body.date.split(" ");
   let date = array[0].split("-");
 
@@ -78,13 +70,12 @@ create_label = async (body) => {
   return create_label;
 };
 
-printer_state = async () => {
-  const printer_state = await db.LabelPrinters.findAll();
-  return printer_state;
+const printer_state = async () => {
+  return await db.LabelPrinters.findAll();
 };
 
-printer_state_change = async (body) => {
-  const printer_state_change = await db.LabelPrinters.update(
+const printer_state_change = async (body) => {
+  return await db.LabelPrinters.update(
     {
       state: body.printerState,
     },
@@ -94,7 +85,6 @@ printer_state_change = async (body) => {
       },
     }
   );
-  return printer_state_change;
 };
 
 module.exports = {

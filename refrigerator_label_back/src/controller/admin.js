@@ -2,7 +2,7 @@ const admin_service = require("../services/admin.js");
 const bcrypt = require("bcrypt");
 const form_verification = require("../services/form_verification.js");
 
-login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const admin = await admin_service.is_admin(req.body);
     if (admin && bcrypt.compareSync(req.body.password, admin.password)) {
@@ -16,7 +16,7 @@ login = async (req, res) => {
   }
 };
 
-find_admin_all = async (req, res) => {
+const find_admin_all = async (_req, res) => {
   try {
     const admins = await admin_service.find_admin_all();
     return res.status(200).json({ message: admins });
@@ -25,7 +25,7 @@ find_admin_all = async (req, res) => {
   }
 };
 
-admin_create = async (req, res) => {
+const admin_create = async (req, res) => {
   try {
     if (!req.body.username || !req.body.password || !req.body.mail) {
       return res.status(402).json({ message: "資料不齊全" });
@@ -51,7 +51,7 @@ admin_create = async (req, res) => {
   }
 };
 
-admin_delete = async (req, res) => {
+const admin_delete = async (req, res) => {
   try {
     if (!req.body.username) {
       return res.status(402).json({ message: "資料不齊全" });
@@ -71,7 +71,7 @@ admin_delete = async (req, res) => {
   }
 };
 
-reset_password = async (req, res) => {
+const reset_password = async (req, res) => {
   try {
     if (!req.body.username) {
       return res.status(402).json({ message: "資料不齊全" });
