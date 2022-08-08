@@ -19,7 +19,7 @@ const theme = createTheme({
   },
 });
 
-export default function Register() {
+export default function RegisterPage() {
   let navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -37,23 +37,19 @@ export default function Register() {
   const [passwordAgain, setPasswordAgain] = React.useState();
 
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    setUsername(e.target.value);
   };
 
   const onChangeMail = (e) => {
-    const mail = e.target.value;
-    setMail(mail);
+    setMail(e.target.value);
   };
 
   const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
+    setPassword(e.target.value);
   };
 
   const onChangePasswordAgain = (e) => {
-    const passwordAgain = e.target.value;
-    setPasswordAgain(passwordAgain);
+    setPasswordAgain(e.target.value);
   };
 
   //創建使用者功能

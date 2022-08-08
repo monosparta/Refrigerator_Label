@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 
-function Login() {
+function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -38,14 +38,13 @@ function Login() {
   const [hidden, setHidden] = React.useState(true);
 
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    setUsername(e.target.value);
   };
 
-  const onChangePassword = (prop) => (event) => {
+  const onChangePassword = (prop) => (e) => {
     setPassword({
       ...password,
-      [prop]: event.target.value,
+      [prop]: e.target.value,
     });
   };
 

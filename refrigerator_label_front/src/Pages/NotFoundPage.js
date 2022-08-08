@@ -1,6 +1,6 @@
 import bg from "../Assets/image/404.png";
 
-function App() {
+function NotFoundPage() {
   return (
     <div>
       <img src={bg} alt="Background" />
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default NotFoundPage;

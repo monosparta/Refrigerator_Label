@@ -5,11 +5,10 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import DeleteIcon from "../Assets/image/Vector.png";
-import { styled } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 
 const theme2 = createTheme({

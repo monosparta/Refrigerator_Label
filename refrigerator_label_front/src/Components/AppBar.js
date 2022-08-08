@@ -27,7 +27,7 @@ const theme = createTheme({
   },
 });
 
-export default function NavBar() {
+export default function AppBar() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 

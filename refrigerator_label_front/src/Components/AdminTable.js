@@ -22,7 +22,7 @@ const theme = createTheme({
   },
 });
 
-export default function BasicTable(props) {
+export default function AdminTable(props) {
   const { t } = useTranslation();
   return (
     <TableContainer component={Paper}>
