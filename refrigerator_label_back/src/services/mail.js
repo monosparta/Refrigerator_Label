@@ -74,7 +74,7 @@ const auto_send_mail = async (req, res) => {
     if (diff_day === 7) {
       let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
 
-      var mailOptions = {
+      let mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: mail["dataValues"]["mail"],
         subject: "冰箱物品管理系統提醒",
