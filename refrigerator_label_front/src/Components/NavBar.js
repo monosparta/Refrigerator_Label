@@ -106,11 +106,8 @@ export default function NavBar() {
                   <MenuItem onClick={() => handleChangeLanguage("zh-TW")}>
                     繁體中文
                   </MenuItem>
-                  <MenuItem onClick={() => handleChangeLanguage("th")}>
-                    ภาษาไทย
-                  </MenuItem>
-                  <MenuItem onClick={() => handleChangeLanguage("Lt-uz-UZ")}>
-                    Latinus
+                  <MenuItem onClick={() => handleChangeLanguage("jp")}>
+                    日本語
                   </MenuItem>
                 </Menu>
                 <Button

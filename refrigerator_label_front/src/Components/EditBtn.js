@@ -74,7 +74,7 @@ export default function EditBtn(props) {
             horizontal: "right",
           }}
           PaperProps={{
-            style: { width: "40vw", height: "50px" },
+            style: { minWidth: "40vw", height: "50px" },
           }}
         >
           <Grid
@@ -104,6 +104,7 @@ export default function EditBtn(props) {
                 variant="contained"
                 color="Button"
                 style={{
+                  minWidth: "10%",
                   marginLeft: "auto",
                   marginRight: "auto",
                   marginTop: "6px",
@@ -119,7 +120,7 @@ export default function EditBtn(props) {
                 variant="outlined"
                 color="Button"
                 style={{
-                  width: "10%",
+                  minWidth: "10%",
                   marginLeft: "8px",
                   marginRight: "8px",
                   marginTop: "6px",
