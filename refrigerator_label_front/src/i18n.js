@@ -6,21 +6,18 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en from "./Assets/i18n/en.json";
 import tw from "./Assets/i18n/zh-TW.json";
-import th from "./Assets/i18n/th.json";
-import Lt from "./Assets/i18n/Lt-uz-UZ.json";
+import jp from "./Assets/i18n/jp.json";
+
 
 const resources = {
-  en: {
-    translation: en,
-  },
   "zh-TW": {
     translation: tw,
   },
-  th: {
-    translation: th,
+  en: {
+    translation: en,
   },
-  "Lt-uz-UZ": {
-    translation: Lt,
+  jp: {
+    translation: jp,
   },
 };
 
