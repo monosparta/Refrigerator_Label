@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/NavBar";
 import Admins from "../Components/AdminTable";
@@ -160,10 +159,18 @@ export default function AdminListPage() {
             <Button
               variant="outlined"
               color="Button"
-              sx={{ ml: "auto", width: "124px", height: "44px" }}
+              sx={{ ml: "auto", minWidth: "124px", height: "44px" }}
               href="/Register"
             >
               <Typography>{t("Add admin")}</Typography>
+            </Button>
+            <Button
+              variant="outlined"
+              color="success"
+              sx={{ ml: "1%", minWidth: "124px", height: "44px" }}
+              href="/Register"
+            >
+              <Typography>{t("Update User")}</Typography>
             </Button>
           </ThemeProvider>
         </Box>

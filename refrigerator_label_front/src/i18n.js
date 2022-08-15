@@ -6,7 +6,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import en from "./Assets/i18n/en.json";
 import tw from "./Assets/i18n/zh-TW.json";
-import jp from "./Assets/i18n/jp.json";
+import jp from "./Assets/i18n/ja-jp.json";
 
 
 const resources = {

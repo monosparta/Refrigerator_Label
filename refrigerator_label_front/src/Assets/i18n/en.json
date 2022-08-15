@@ -50,5 +50,6 @@
   "Email錯誤": "Email error",
   "管理帳號刪除成功": "Account delete successfully",
   "至少需要一個管理帳號存在": "At least need one account exists",
-  "密碼修改成功": "Password reseted successfully"
+  "密碼修改成功": "Password reseted successfully",
+  "Update User": "Update User"
 }
