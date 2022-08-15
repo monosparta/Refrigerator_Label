@@ -32,7 +32,7 @@ export default function AdminTable(props) {
             <TableCell sx={{ width: "20%" }}>{t("Admin name")}</TableCell>
             <TableCell sx={{ width: "20%" }}>{t("Email")}</TableCell>
             <TableCell sx={{ width: "20%" }}>{t("Identity group")}</TableCell>
-            <TableCell sx={{ width: "10%" }}></TableCell>
+            <TableCell sx={{ width: "15%" }}></TableCell>
             <TableCell sx={{ width: "1%" }}></TableCell>
           </TableRow>
         </TableHead>

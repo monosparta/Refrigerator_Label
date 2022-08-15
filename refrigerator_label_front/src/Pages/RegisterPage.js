@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Typography, Box, Paper, TextField, Alert } from "@mui/material";
-import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Bar from "../Components/NavBar";
 import axios from "../Axios.config.js";
@@ -123,7 +122,8 @@ export default function RegisterPage() {
       <Paper
         sx={{
           width: "478px",
-          height: "470px",
+          height: "80%",
+          minHeight: "470px",
           m: "20vh auto",
           display: "flex",
         }}
@@ -132,15 +132,19 @@ export default function RegisterPage() {
           component="form"
           onSubmit={handleCreateAdmin}
           noValidate
-          sx={{ m: "0 auto", height: "40px" }}
+          sx={{ m: "auto" }}
         >
-          <Box sx={{ m: "25px 146px" }}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            sx={{ mx: "auto", my: "5%", width: "80%" }}
+          >
             <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
               {t("Add admin")}
             </Typography>
           </Box>
           {!hidden ? (
-            <Box sx={{ width: "90%", m: "8px 24px" }}>
+            <Box sx={{ width: "90%", mx: "auto", my: "5%" }}>
               <Alert severity="error" className="Alert" show="false">
                 <Typography
                   color="black"
@@ -152,7 +156,7 @@ export default function RegisterPage() {
               </Alert>
             </Box>
           ) : null}
-          <Box sx={{ width: "408px", m: "0 35px" }}>
+          <Box sx={{ width: "80%", m: "auto" }}>
             <TextField
               error={inputErrorU}
               size="small"
@@ -188,14 +192,14 @@ export default function RegisterPage() {
               sx={{ mt: "11px" }}
             />
           </Box>
-          <Box sx={{ width: "408px", m: "55px 35px 71px 35px" }}>
+          <Box sx={{ width: "80%", mx: "auto", my: "5%" }}>
             <ThemeProvider theme={theme}>
               <LoadingButton
                 loading={btnLoading}
                 type="submit"
                 variant="contained"
                 fullWidth
-                sx={{ height: "44px" }}
+                sx={{ width: "100%", height: "100%" }}
                 color="Button"
               >
                 <Typography
