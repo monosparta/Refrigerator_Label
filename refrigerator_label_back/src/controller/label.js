@@ -83,10 +83,9 @@ const create_label = async (req, res) => {
 };
 
 const update_label = async (req, res) => {
-  const r = /^[0-9]{3}$/;
   const id = await label_service.have_id(req.body.id);
   try {
-    if (r.test(req.body.id) && id) {
+    if (/\d/.test(req.body.id) && id) {
       const update_label = await label_service.update_label(req.body);
       if (update_label) {
         return res.status(200).json({ message: "修改成功" });
