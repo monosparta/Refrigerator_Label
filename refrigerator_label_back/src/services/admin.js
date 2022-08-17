@@ -4,30 +4,30 @@ const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const is_admin = async (body) => {
-  return await db.Admins.findOne({
+const is_admin = (body) => {
+  return db.Admins.findOne({
     where: {
       [Op.or]: [{ username: body.username }, { mail: body.username }],
     },
   });
 };
 
-const find_admin_all = async () => {
-  return await db.Admins.findAll({
+const find_admin_all = () => {
+  return db.Admins.findAll({
     attributes: ["username", "mail"],
   });
 };
 
-const admin_create = async (body) => {
-  return await db.Admins.create({
+const admin_create = (body) => {
+  return db.Admins.create({
     username: body.username,
     password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
     mail: body.mail,
   });
 };
 
-const admin_delete = async (username) => {
-  return await db.Admins.destroy({
+const admin_delete = (username) => {
+  return db.Admins.destroy({
     where: {
       username: username,
     },
@@ -53,8 +53,8 @@ const token_create = async (admin_data) => {
   return token;
 };
 
-const reset_password = async (body) => {
-  return await db.Admins.update(
+const reset_password = (body) => {
+  return db.Admins.update(
     {
       password: bcrypt.hashSync(body.password, bcrypt.genSaltSync(10)),
     },

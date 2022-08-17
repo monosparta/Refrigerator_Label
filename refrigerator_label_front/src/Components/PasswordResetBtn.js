@@ -112,7 +112,7 @@ export default function PasswordResetBtn(props) {
         aria-labelledby="responsive-dialog-title"
       >
         <Box sx={{ p: 1 }}>
-          <Box sx={{ width: "400px", height: "40px" }}>
+          <Box sx={{ height: "40px" }}>
             <Typography
               sx={{ fontWeight: "700", fontSize: "26px", m: "0 140px" }}
             >

@@ -10,8 +10,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 const corsOptions = {
   origin: [process.env.FRONTEND_URL],
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: "GET,PUT,PATCH,POST,DELETE,OPTIONS",
 };
 server.use(cors(corsOptions));
 server.use(express.static(__dirname + "/public"));
