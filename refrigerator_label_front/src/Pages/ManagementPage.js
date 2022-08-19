@@ -15,6 +15,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
+import "./App.css";
 
 const theme = createTheme({
   palette: {
@@ -260,9 +261,9 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       renderCell: (params) => {
         const string = params.value.split("- ");
-        let chip_color = "#6cba6f";
+        let chipColor = "#6cba6f";
         if (params.value.split("- ").pop().split(" days ago")[0] >= 7) {
-          chip_color = "#ee9852";
+          chipColor = "#ee9852";
         }
         return (
           <div>
@@ -271,7 +272,7 @@ export default function ManagementPage() {
               size="small"
               label={string[1]}
               color="primary"
-              sx={{ backgroundColor: chip_color, borderRadius: "8px", ml: 1 }}
+              sx={{ backgroundColor: chipColor, borderRadius: "8px", ml: 1 }}
             />
           </div>
         );
@@ -284,6 +285,32 @@ export default function ManagementPage() {
       flex: 4,
       disableColumnMenu: true,
       sortable: false,
+      renderCell: (params) => {
+        const noteSplit = params.value.split("-");
+        let chipColor = null;
+        let noteContent = params.value;
+        if (noteSplit[0] === "Upper(refrigerator)") {
+          chipColor = "#2894FF";
+          noteContent = noteSplit.slice(1).join("-");
+        } else if (noteSplit[0] === "Lower(freezer)") {
+          chipColor = "#00CACA";
+          noteContent = noteSplit.slice(1).join("-");
+        }
+
+        return (
+          <div>
+            {chipColor ? (
+              <Chip
+                size="small"
+                color="primary"
+                label={t(noteSplit[0])}
+                sx={{ backgroundColor: chipColor, borderRadius: "8px", mr: 1 }}
+              />
+            ) : null}
+            {noteContent}
+          </div>
+        );
+      },
     },
     {
       field: "actions",
@@ -297,7 +324,7 @@ export default function ManagementPage() {
         return [
           <EditBtn
             id={params.row.id}
-            textValue={params.row.note}
+            note={params.row.note}
             handleEdit={handleEdit}
           />,
         ];
