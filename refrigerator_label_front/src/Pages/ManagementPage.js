@@ -286,19 +286,16 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: (params) => {
-        let noteContent = params.value;
-        let chipColor = null;
-        let noteSplit = null;
+        const noteSplit = params.value ? params.value.split("-") : [""];
 
-        if (noteContent) {
-          noteSplit = params.value.split("-");
-          if (noteSplit[0] === "Upper(refrigerator)") {
-            chipColor = "#2894FF";
-          } else if (noteSplit[0] === "Lower(freezer)") {
-            chipColor = "#00CACA";
-          }
+        let chipColor = null;
+        let noteContent = params.value;
+        if (noteSplit[0] === "Upper(refrigerator)") {
+          chipColor = "#2894FF";
           noteContent = noteSplit.slice(1).join("-");
-          noteSplit = noteSplit[0];
+        } else if (noteSplit[0] === "Lower(freezer)") {
+          chipColor = "#00CACA";
+          noteContent = noteSplit.slice(1).join("-");
         }
 
         return (
@@ -307,7 +304,7 @@ export default function ManagementPage() {
               <Chip
                 size="small"
                 color="primary"
-                label={t(noteSplit)}
+                label={t(noteSplit[0])}
                 sx={{ backgroundColor: chipColor, borderRadius: "8px", mr: 1 }}
               />
             ) : null}
