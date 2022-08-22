@@ -63,8 +63,6 @@ export default function EditBtn(props) {
     await props.handleEdit(props.id, itemLocation + noteContent);
     setAnchorEl(null);
     setBtnLoading(false);
-    setItemLocation(itemLocationCheck);
-    setNoteContent(noteContentCheck);
   };
 
   const handleClickOpen = (e) => {
@@ -128,10 +126,10 @@ export default function EditBtn(props) {
               }}
               size="small"
             >
-              <InputLabel id="demo-select-small"></InputLabel>
+              <InputLabel id="select-item-location"></InputLabel>
               <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
+                labelId="select-item-location"
+                id="select-location"
                 value={itemLocation}
                 onChange={handleChangeSelect}
               >
