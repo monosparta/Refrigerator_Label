@@ -131,6 +131,7 @@ export default function EditBtn(props) {
                 labelId="select-item-location"
                 id="select-location"
                 value={itemLocation}
+                displayEmpty
                 onChange={handleChangeSelect}
               >
                 <MenuItem value={"Upper(refrigerator)-"}>
