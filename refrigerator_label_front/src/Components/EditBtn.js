@@ -26,7 +26,7 @@ export default function EditBtn(props) {
 
   //備註-內容
   const noteContentCheck = () => {
-    let contentSplit = props.note ? props.note.split("-") : null;
+    let contentSplit = props.note ? props.note.split("-") : [""];
     if (
       contentSplit[0] === "Upper(refrigerator)" ||
       contentSplit[0] === "Lower(freezer)"
@@ -39,7 +39,7 @@ export default function EditBtn(props) {
 
   //備註-存放位置
   const itemLocationCheck = () => {
-    let contentSplit = props.note ? props.note.split("-") : null;
+    let contentSplit = props.note ? props.note.split("-") : [""];
     if (
       contentSplit[0] === "Upper(refrigerator)" ||
       contentSplit[0] === "Lower(freezer)"
