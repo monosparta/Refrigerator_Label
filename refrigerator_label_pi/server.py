@@ -30,10 +30,6 @@ def handle_timeout(signum, frame):
     raise TimeoutError('function timeout')
 
 
-# Time Setting
-tz = timezone(timedelta(hours=+8))
-dt = datetime.now(tz)
-
 # curses wait(code wait)
 screen = curses.initscr()
 
@@ -48,7 +44,6 @@ def stop(curse):
 while True:
     # data clear check
     data_clear = False
-    continue_check = False
 
     while True:
         result_code = os.system("sudo chmod 666 {}".format(printer))
@@ -78,6 +73,8 @@ while True:
     else:
         print("print label start!")
         # now date
+        tz = timezone(timedelta(hours=+8))
+        dt = datetime.now(tz)
         date_now = dt.strftime("%Y-%m-%d %H:%M:%S")
 
         # http post
@@ -106,7 +103,7 @@ while True:
                 hq=True,    # False for low quality.
                 cut=True
             )
-
+            
             while True:
                 signal.signal(signal.SIGALRM, handle_timeout)
                 signal.alarm(10)
@@ -121,7 +118,7 @@ while True:
                     print("No printer! Please insert the label printer!")
                     data_clear = True
                 except TimeoutError:
-                    print("Please close your printer!")
+                    print("Please close your printer and checkout")
                     if printer_state:
                         printer_state = False
                         change_printer_state_api("error")
