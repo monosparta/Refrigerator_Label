@@ -286,6 +286,7 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: (params) => {
+        params.value = null
         const noteSplit = params.value ? params.value.split("-") : "";
         let chipColor = null;
         let noteContent = params.value;
