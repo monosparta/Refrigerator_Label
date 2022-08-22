@@ -286,7 +286,7 @@ export default function ManagementPage() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: (params) => {
-        const noteSplit = params.value.split("-");
+        const noteSplit = params.value.split("-") || "";
         let chipColor = null;
         let noteContent = params.value;
         if (noteSplit[0] === "Upper(refrigerator)") {
