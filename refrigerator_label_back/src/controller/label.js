@@ -46,7 +46,7 @@ const find_label_all = async (_req, res) => {
 const create_label = async (req, res) => {
   try {
     if (!req.body.date || !req.body.cardId) {
-      return res.status(403).json({ message: "資料不齊全" });
+      return res.status(403).json({ message: "Information missing" });
     } else {
       const is_user = await user_service.is_user(req.body);
       if (is_user) {
@@ -74,7 +74,7 @@ const create_label = async (req, res) => {
           });
         }
       } else {
-        return res.status(403).json({ message: "沒有使用者" });
+        return res.status(403).json({ message: "User does not exist" });
       }
     }
   } catch (err) {
@@ -88,10 +88,10 @@ const update_label = async (req, res) => {
     if (/\d/.test(req.body.id) && id) {
       const update_label = await label_service.update_label(req.body);
       if (update_label) {
-        return res.status(200).json({ message: "修改成功" });
+        return res.status(200).json({ message: "Edited successfully" });
       }
     } else {
-      return res.status(417).json({ message: "執行失敗" });
+      return res.status(417).json({ message: "Failed to execute" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -101,12 +101,12 @@ const update_label = async (req, res) => {
 const delete_label = async (req, res) => {
   try {
     if (!req.body.labelId) {
-      return res.status(403).json({ message: "沒有標籤ID" });
+      return res.status(403).json({ message: "Information missing" });
     }
 
     const delete_label = await label_service.delete_label(req.body["labelId"]);
     if (delete_label) {
-      return res.status(200).json({ message: "刪除成功" });
+      return res.status(200).json({ message: "Deleted successfully" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -116,11 +116,11 @@ const delete_label = async (req, res) => {
 const printer_state_change = async (req, res) => {
   try {
     if (!req.body.printerState) {
-      return res.status(403).json({ message: "未有狀態值" });
+      return res.status(403).json({ message: "Information missing" });
     }
 
     await label_service.printer_state_change(req.body);
-    return res.status(201).json({ message: "狀態修改成功" });
+    return res.status(201).json({ message: "State change successfully" });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
