@@ -32,5 +32,5 @@ module.exports = {
   select_user_all,
   create_user,
   is_user,
-  card_id_find_mail,
+  find_mail,
 };
