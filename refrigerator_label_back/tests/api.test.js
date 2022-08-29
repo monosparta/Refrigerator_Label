@@ -161,7 +161,7 @@ describe("Admin Test", () => {
         mail: "test_root@mail.com",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -178,7 +178,7 @@ describe("Admin Test", () => {
         mail: "test_root@mail.com",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -195,7 +195,7 @@ describe("Admin Test", () => {
         password: "test_root",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -245,7 +245,7 @@ describe("Admin Test", () => {
       .set("token", test_token)
       .send({})
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -273,7 +273,7 @@ describe("Admin Test", () => {
       .set("token", test_token)
       .send({})
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();

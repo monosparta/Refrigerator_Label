@@ -3,60 +3,66 @@ const nodemailer = require("nodemailer");
 const label_service = require("./label.js");
 const user_service = require("./user.js");
 
-
-manual_send_mail = async (mail) => {
-  for(i=0;i<mail['users'].length;i++){
-      const five_date_later = new Date(new Date().setDate(new Date().getDate() + 5))
-      const expiry_date = five_date_later.getFullYear()+"-"+(five_date_later.getMonth()+1)+"-"+(five_date_later.getDate())
-      console.log(expiry_date)
-
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.NODEMAILER_USER,
-          pass: process.env.NODEMAILER_PASSWORD,
-        },
-      });
-
-      !mail['text']?content = "":content = mail['text']
-    
-      var mailOptions = {
-        to: mail['users'][i][0],
-        from: process.env.NODEMAILER_USER,
-        subject: "冰箱物品管理系統提醒",
-        html: mail_template_header + "<font color='black'>別忘了您的物品  <font color='blue'><b>#" + mail['users'][i][1] + " </b></font> 還在 Monospace 公共冰箱哦！<br>為維護空間會員使用權益，暫存冰箱物品以七日為限，逾保存期限、放置超過七日之物品將依空間管理規範清除。<br><br>提醒您請儘速於 <font color='red'><b>" + expiry_date + "</b></font> 前取回物品，逾期未取將由值班人員協助清除。<br>謝謝您的配合！<br><br>" + content + "</font>" + mail_template_footer
-    
-      };
-    
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(info);
-        }
-      });
-      transporter.close();
-
-    
-    
-  }
-  //console.log(mail['users'].length);
-
-  var transporter = nodemailer.createTransport({
+const mail_send = (mailOptions) => {
+  let transporter = nodemailer.createTransport({
     service: "gmail",
+    secure: true, // Compliant
+    requireTLS: true, // Compliant
     auth: {
       user: process.env.NODEMAILER_USER,
       pass: process.env.NODEMAILER_PASSWORD,
     },
   });
 
-  
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(info);
+    }
+  });
+  transporter.close();
 };
 
-auto_send_mail = async (req, res) => {
-  const time = await label_service.owner_information();
-  for (let i = 0; i < time.length; i++) {
-    let array = time[i]["date"].split(" ");
+const manual_send_mail = async (mail) => {
+  for (i = 0; i < mail["users"].length; i++) {
+    const five_date_later = new Date(
+      new Date().setDate(new Date().getDate() + 5)
+    );
+    const expiry_date =
+      five_date_later.getFullYear() +
+      "-" +
+      (five_date_later.getMonth() + 1) +
+      "-" +
+      five_date_later.getDate();
+    console.log(expiry_date);
+
+    !mail["text"] ? (content = "") : (content = mail["text"]);
+
+    let mailOptions = {
+      to: mail["users"][i][0],
+      from: process.env.NODEMAILER_USER,
+      subject: "冰箱物品管理系統提醒",
+      html:
+        mail_template_header +
+        "<font color='black'>別忘了您的物品  <font color='blue'><b>#" +
+        mail["users"][i][1] +
+        " </b></font> 還在 Monospace 公共冰箱哦！<br>為維護空間會員使用權益，暫存冰箱物品以七日為限，逾保存期限、放置超過七日之物品將依空間管理規範清除。<br><br>提醒您請儘速於 <font color='red'><b>" +
+        expiry_date +
+        "</b></font> 前取回物品，逾期未取將由值班人員協助清除。<br>謝謝您的配合！<br><br>" +
+        content +
+        "</font>" +
+        mail_template_footer,
+    };
+
+    mail_send(mailOptions);
+  }
+};
+
+const auto_send_mail = async () => {
+  const label = await label_service.owner_information();
+  for (let i = 0; i < label.length; i++) {
+    let array = label[i]["date"].split(" ");
     let Today = new Date();
     const date1 = new Date(array[0]);
     const date2 = new Date(
@@ -66,35 +72,24 @@ auto_send_mail = async (req, res) => {
     const diff_day = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
 
     if (diff_day === 7) {
-      let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.NODEMAILER_USER,
-          pass: process.env.NODEMAILER_PASSWORD,
-        },
-      });
-    
-      var mailOptions = {
+      let mail = await user_service.find_mail(label[i]["userId"]);
+
+      let mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: mail["dataValues"]["mail"],
         subject: "冰箱物品管理系統提醒",
-        html:  mail_template_header + "<font color='black'>您的物品 <font color='blue'><b>#" + time[i]["labelId"] + " </b></font>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br><br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！</font>" + mail_template_footer
+        html:
+          mail_template_header +
+          "<font color='black'>您的物品 <font color='blue'><b>#" +
+          label[i]["labelId"] +
+          " </b></font>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br><br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！</font>" +
+          mail_template_footer,
       };
-    
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(info);
-        }
-      });
-      transporter.close();
-    }
 
+      mail_send(mailOptions);
+    }
   }
 };
-
 
 const mail_template_header = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
@@ -204,7 +199,7 @@ a[x-apple-data-detectors] {
                       <td align="left" style="padding:0;Margin:0;padding-bottom:5px;padding-top:20px"><h3 style="Margin:0;line-height:22px;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;font-style:normal;font-weight:bold;color:#333333">親愛的會員您好：</h3></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
-                      <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#777777;font-size:16px">`
+                      <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#777777;font-size:16px">`;
 
 const mail_template_footer = `</p></td> 
                       </tr> 
@@ -261,16 +256,7 @@ const mail_template_footer = `</p></td>
    </div>  
   </body>
  </html>
-`
-
-
-
-
-
-
-
-
-
+`;
 
 module.exports = {
   manual_send_mail,

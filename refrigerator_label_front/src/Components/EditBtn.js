@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../App.css";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Grid,
@@ -8,34 +7,71 @@ import {
   Typography,
   Button,
   IconButton,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Select,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 export default function EditBtn(props) {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   const [btnLoading, setBtnLoading] = React.useState(false);
 
-  //備註
-  const [note, setNote] = React.useState("");
-  const onChangeNote = (e) => {
-    setNote(e.target.value);
+  //備註-內容
+  const noteContentCheck = () => {
+    let contentSplit = props.note ? props.note.split("-") : [""];
+    if (
+      contentSplit[0] === "Upper(refrigerator)" ||
+      contentSplit[0] === "Lower(freezer)"
+    ) {
+      return contentSplit.slice(1).join("-");
+    }
+    return props.note;
+  };
+  const [noteContent, setNoteContent] = React.useState(noteContentCheck);
+
+  //備註-存放位置
+  const itemLocationCheck = () => {
+    let contentSplit = props.note ? props.note.split("-") : [""];
+    if (
+      contentSplit[0] === "Upper(refrigerator)" ||
+      contentSplit[0] === "Lower(freezer)"
+    ) {
+      return contentSplit[0] + "-";
+    }
+    return "";
+  };
+  const [itemLocation, setItemLocation] = React.useState(itemLocationCheck);
+
+  const handleChangeSelect = (e) => {
+    setItemLocation(e.target.value);
+  };
+
+  const handleChangeNoteContent = (e) => {
+    setNoteContent(e.target.value);
   };
 
   const handleEdit = async () => {
     setBtnLoading(true);
-    await props.handleEdit(props.id, note);
+    await props.handleEdit(props.id, itemLocation + noteContent);
     setAnchorEl(null);
     setBtnLoading(false);
   };
-  const handleClickOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleClickOpen = (e) => {
+    setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
+    setItemLocation(itemLocationCheck);
+    setNoteContent(noteContentCheck);
     setAnchorEl(null);
     setBtnLoading(false);
   };
@@ -73,7 +109,7 @@ export default function EditBtn(props) {
             horizontal: "right",
           }}
           PaperProps={{
-            style: { width: "40vw", height: "50px" },
+            style: { width: "85vw", height: "50px" },
           }}
         >
           <Grid
@@ -82,6 +118,31 @@ export default function EditBtn(props) {
             justifyContent="center"
             alignItems="center"
           >
+            <FormControl
+              sx={{
+                marginTop: "6px",
+                marginLeft: "8px",
+                minWidth: 120,
+              }}
+              size="small"
+            >
+              <InputLabel id="select-item-location"></InputLabel>
+              <Select
+                labelId="select-item-location"
+                id="select-location"
+                value={itemLocation}
+                displayEmpty
+                onChange={handleChangeSelect}
+              >
+                <MenuItem value={"Upper(refrigerator)-"}>
+                  {t("Upper(refrigerator)")}
+                </MenuItem>
+                <MenuItem value={"Lower(freezer)-"}>
+                  {t("Lower(freezer)")}
+                </MenuItem>
+                <MenuItem value={""}>{t("None")}</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               sx={{
                 width: "50%",
@@ -90,9 +151,9 @@ export default function EditBtn(props) {
                 marginRight: "auto",
               }}
               size="small"
-              placeholder="編輯備註"
-              defaultValue={props.textValue}
-              onChange={onChangeNote}
+              placeholder={t("Edit note")}
+              defaultValue={noteContent}
+              onChange={handleChangeNoteContent}
               fullWidth
             />
             <div>
@@ -103,13 +164,14 @@ export default function EditBtn(props) {
                 variant="contained"
                 color="Button"
                 style={{
+                  minWidth: "10%",
                   marginLeft: "auto",
                   marginRight: "auto",
                   marginTop: "6px",
                 }}
               >
                 <Typography variant="h7" color="white" sx={{ fontWeight: 500 }}>
-                  確認
+                  {t("Confirm")}
                 </Typography>
               </LoadingButton>
               <Button
@@ -118,13 +180,13 @@ export default function EditBtn(props) {
                 variant="outlined"
                 color="Button"
                 style={{
-                  width: "10%",
+                  minWidth: "10%",
                   marginLeft: "8px",
                   marginRight: "8px",
                   marginTop: "6px",
                 }}
               >
-                取消
+                {t("Cancel")}
               </Button>
             </div>
           </Grid>

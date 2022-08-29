@@ -1,14 +1,14 @@
 import * as React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "../App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Bar from "../Components/AppBar";
+import Bar from "../Components/NavBar";
 import Admins from "../Components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios.config.js";
-import { TokenContext } from "../App.js";
+import { TokenContext } from "../Routers.js";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -25,8 +25,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function AdminList() {
-  let navigate = useNavigate();
+export default function AdminListPage() {
+  const navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
 
@@ -82,16 +82,16 @@ export default function AdminList() {
         data: { username: username },
       })
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           setSeverity("success");
           loadingAdmin();
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -121,10 +121,10 @@ export default function AdminList() {
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -135,6 +135,7 @@ export default function AdminList() {
       },
     });
   };
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -152,16 +153,24 @@ export default function AdminList() {
           }}
         >
           <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-            管理者
+            {t("Admin")}
           </Typography>
           <ThemeProvider theme={theme}>
             <Button
               variant="outlined"
               color="Button"
-              sx={{ ml: "auto", width: "124px", height: "44px" }}
+              sx={{ ml: "auto", minWidth: "124px", height: "44px" }}
               href="/Register"
             >
-              <Typography>新增管理者</Typography>
+              <Typography>{t("Add admin")}</Typography>
+            </Button>
+            <Button
+              variant="outlined"
+              color="success"
+              sx={{ ml: "1%", minWidth: "124px", height: "44px" }}
+              href="/Register"
+            >
+              <Typography>{t("Update User")}</Typography>
             </Button>
           </ThemeProvider>
         </Box>
@@ -177,6 +186,9 @@ export default function AdminList() {
             adminData={adminData}
             handleDeleteAdmin={handleDeleteAdmin}
             handleResetPassword={handleResetPassword}
+            setAlertText={setAlertText}
+            setSeverity={setSeverity}
+            setState={setState}
           />
         </Box>
       </Box>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Bar from "../Components/AppBar";
+import Bar from "../Components/NavBar";
 import axios from "../Axios.config.js";
 import { DataGrid } from "@mui/x-data-grid";
 import { Chip } from "@mui/material";
@@ -13,7 +13,9 @@ import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { TokenContext } from "../App.js";
+import { TokenContext } from "../Routers.js";
+import { useTranslation } from "react-i18next";
+import "./App.css";
 
 const theme = createTheme({
   palette: {
@@ -39,6 +41,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function ManagementPage() {
+  const { t } = useTranslation();
   let navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
@@ -77,8 +80,8 @@ export default function ManagementPage() {
           setRowData(label_data);
           const printer_state = response["data"]["printer_state"][0]["state"];
           printer_state === "success"
-            ? setPrinterState("裝置運行中")
-            : setPrinterState("裝置停止中");
+            ? setPrinterState("Device online")
+            : setPrinterState("Device offline");
         })
         .catch((error) => {
           //overtime
@@ -128,7 +131,7 @@ export default function ManagementPage() {
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
         setAlertText(error.response.data["message"]);
@@ -159,7 +162,7 @@ export default function ManagementPage() {
           } else {
             setSeverity("error");
           }
-          setAlertText(response.data["message"]);
+          setAlertText(t(response.data["message"]));
         })
         .catch((error) => {
           setAlertText(error.response.data["message"]);
@@ -214,7 +217,7 @@ export default function ManagementPage() {
           } else {
             setSeverity("error");
           }
-          setAlertText(response.data["message"]);
+          setAlertText(t(response.data["message"]));
         })
         .catch((error) => {
           setAlertText(error.response.data["message"]);
@@ -235,7 +238,7 @@ export default function ManagementPage() {
   const columns = [
     {
       field: "name",
-      headerName: "物品所屬者",
+      headerName: t("Owner"),
       minWidth: 110,
       flex: 1,
       disableColumnMenu: true,
@@ -251,16 +254,16 @@ export default function ManagementPage() {
     },
     {
       field: "date",
-      headerName: "放入日期",
+      headerName: t("Date of placement"),
       type: "date",
       minWidth: 220,
       flex: 2,
       disableColumnMenu: true,
       renderCell: (params) => {
         const string = params.value.split("- ");
-        let chip_color = "#6cba6f";
-        if (params.value.split("- ").pop().split("days ago")[0] >= 7) {
-          chip_color = "#ee9852";
+        let chipColor = "#6cba6f";
+        if (params.value.split("- ").pop().split(" days ago")[0] >= 7) {
+          chipColor = "#ee9852";
         }
         return (
           <div>
@@ -269,7 +272,7 @@ export default function ManagementPage() {
               size="small"
               label={string[1]}
               color="primary"
-              sx={{ backgroundColor: chip_color, borderRadius: "8px", ml: 1 }}
+              sx={{ backgroundColor: chipColor, borderRadius: "8px", ml: 1 }}
             />
           </div>
         );
@@ -277,11 +280,38 @@ export default function ManagementPage() {
     },
     {
       field: "note",
-      headerName: "備註",
+      headerName: t("Note"),
       minWidth: 180,
       flex: 4,
       disableColumnMenu: true,
       sortable: false,
+      renderCell: (params) => {
+        const noteSplit = params.value ? params.value.split("-") : [""];
+
+        let chipColor = null;
+        let noteContent = params.value;
+        if (noteSplit[0] === "Upper(refrigerator)") {
+          chipColor = "#2894FF";
+          noteContent = noteSplit.slice(1).join("-");
+        } else if (noteSplit[0] === "Lower(freezer)") {
+          chipColor = "#00CACA";
+          noteContent = noteSplit.slice(1).join("-");
+        }
+
+        return (
+          <div>
+            {chipColor ? (
+              <Chip
+                size="small"
+                color="primary"
+                label={t(noteSplit[0])}
+                sx={{ backgroundColor: chipColor, borderRadius: "8px", mr: 1 }}
+              />
+            ) : null}
+            {noteContent}
+          </div>
+        );
+      },
     },
     {
       field: "actions",
@@ -295,7 +325,7 @@ export default function ManagementPage() {
         return [
           <EditBtn
             id={params.row.id}
-            textValue={params.row.note}
+            note={params.row.note}
             handleEdit={handleEdit}
           />,
         ];

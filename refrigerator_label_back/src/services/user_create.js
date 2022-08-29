@@ -3,7 +3,7 @@ const axios = require("axios");
 const db = require("../models/index.js");
 const user_service = require("./user.js");
 
-async function user_create() {
+const user_create = async () => {
   let user_list = [];
 
   await axios
@@ -19,13 +19,32 @@ async function user_create() {
     const user = await user_service.is_user(user_list[i]);
     if (!user) {
       await db.Users.create({
+        id: user_list[i].uuid,
         cardId: user_list[i].cardId,
         name: user_list[i].name,
         mail: user_list[i].email,
         phone: user_list[i].phone,
       });
+    } else {
+      await db.Users.update(
+        {
+          cardId: user_list[i].cardId,
+          name: user_list[i].name,
+          mail: user_list[i].email,
+          phone: user_list[i].phone,
+        },
+        {
+          where: {
+            id: user_list[i].uuid,
+          },
+        }
+      );
     }
   }
-}
+};
+
+// module.exports = {
+//   user_create
+// };
 
 user_create();

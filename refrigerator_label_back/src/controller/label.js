@@ -1,7 +1,7 @@
 const label_service = require("../services/label.js");
 const user_service = require("../services/user.js");
 
-find_label_all = async (req, res) => {
+const find_label_all = async (_req, res) => {
   try {
     const label = await label_service.find_label_all();
     label.forEach((item) => {
@@ -43,14 +43,15 @@ find_label_all = async (req, res) => {
   }
 };
 
-create_label = async (req, res) => {
+const create_label = async (req, res) => {
   try {
     if (!req.body.date || !req.body.cardId) {
-      return res.status(403).json({ message: "資料不齊全" });
+      return res.status(403).json({ message: "Information missing" });
     } else {
       const is_user = await user_service.is_user(req.body);
       if (is_user) {
         const final_id = await label_service.last_id();
+        let data_id = "";
         if (!final_id) {
           data_id = "001";
         } else if (final_id.id > 0 && final_id.id + 1 < 10) {
@@ -63,7 +64,9 @@ create_label = async (req, res) => {
           data_id = String(final_id.id + 1).slice(-3);
         }
 
-        req.body.data_id = data_id;
+        req.body.dataId = data_id;
+        req.body.userId = is_user.id;
+        req.body.username = is_user.name;
 
         const label = await label_service.create_label(req.body);
         if (label) {
@@ -73,7 +76,7 @@ create_label = async (req, res) => {
           });
         }
       } else {
-        return res.status(403).json({ message: "沒有使用者" });
+        return res.status(403).json({ message: "User does not exist" });
       }
     }
   } catch (err) {
@@ -81,47 +84,45 @@ create_label = async (req, res) => {
   }
 };
 
-update_label = async (req, res) => {
-  const r = /^[0-9]*[1-9][0-9]*$/;
+const update_label = async (req, res) => {
   const id = await label_service.have_id(req.body.id);
   try {
-    if (r.test(req.body.id) && id) {
+    if (/\d/.test(req.body.id) && id) {
       const update_label = await label_service.update_label(req.body);
       if (update_label) {
-        return res.status(200).json({ message: "修改成功" });
+        return res.status(200).json({ message: "Edited successfully" });
       }
     } else {
-      return res.status(417).json({ message: "執行失敗" });
+      return res.status(417).json({ message: "Failed to execute" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-delete_label = async (req, res) => {
+const delete_label = async (req, res) => {
   try {
     if (!req.body.labelId) {
-      return res.status(403).json({ message: "沒有標籤ID" });
+      return res.status(403).json({ message: "Information missing" });
     }
 
     const delete_label = await label_service.delete_label(req.body["labelId"]);
     if (delete_label) {
-      return res.status(200).json({ message: "刪除成功" });
+      return res.status(200).json({ message: "Deleted successfully" });
     }
-
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
 
-printer_state_change = async (req, res) => {
+const printer_state_change = async (req, res) => {
   try {
     if (!req.body.printerState) {
-      return res.status(403).json({ message: "未有狀態值" });
+      return res.status(403).json({ message: "Information missing" });
     }
 
     await label_service.printer_state_change(req.body);
-    return res.status(201).json({ message: "狀態修改成功" });
+    return res.status(201).json({ message: "State change successfully" });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
