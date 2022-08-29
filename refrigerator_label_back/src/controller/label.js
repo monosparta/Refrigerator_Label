@@ -64,7 +64,9 @@ const create_label = async (req, res) => {
           data_id = String(final_id.id + 1).slice(-3);
         }
 
-        req.body.data_id = data_id;
+        req.body.dataId = data_id;
+        req.body.userId = is_user.id;
+        req.body.username = is_user.name;
 
         const label = await label_service.create_label(req.body);
         if (label) {
