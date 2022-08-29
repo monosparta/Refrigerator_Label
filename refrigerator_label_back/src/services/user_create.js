@@ -19,11 +19,26 @@ async function user_create() {
     const user = await user_service.is_user(user_list[i]);
     if (!user) {
       await db.Users.create({
+        id: user_list[i].uuid,
         cardId: user_list[i].cardId,
         name: user_list[i].name,
         mail: user_list[i].email,
         phone: user_list[i].phone,
       });
+    } else {
+      await db.Users.update(
+        {
+          cardId: user_list[i].cardId,
+          name: user_list[i].name,
+          mail: user_list[i].email,
+          phone: user_list[i].phone,
+        },
+        {
+          where: {
+            id: user_list[i].uuid,
+          },
+        }
+      );
     }
   }
 }
