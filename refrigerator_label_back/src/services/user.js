@@ -1,3 +1,5 @@
+require("dotenv").config({ path: "../../.env" });
+const axios = require("axios");
 const db = require("../models/index.js");
 
 const is_user = (body) => {
@@ -15,22 +17,48 @@ const find_mail = (body) => {
   });
 };
 
-const create_user = (body) => {
-  return db.Users.create({
-    cardId: body.cardId,
-    name: body.name,
-    mail: body.mail,
-    phone: body.phone,
-  });
-};
+const user_update = async () => {
+  let user_list = [];
 
-const select_user_all = () => {
-  return db.Users.findAll();
+  await axios
+    .get(process.env.USER_GET_URL)
+    .then((res) => {
+      user_list = res.data["users"];
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  for (let i = 0; i < user_list.length; i++) {
+    const user = await is_user(user_list[i]);
+    if (!user) {
+      await db.Users.create({
+        id: user_list[i].uuid,
+        cardId: user_list[i].cardId,
+        name: user_list[i].name,
+        mail: user_list[i].email,
+        phone: user_list[i].phone,
+      });
+    } else {
+      await db.Users.update(
+        {
+          cardId: user_list[i].cardId,
+          name: user_list[i].name,
+          mail: user_list[i].email,
+          phone: user_list[i].phone,
+        },
+        {
+          where: {
+            id: user_list[i].uuid,
+          },
+        }
+      );
+    }
+  }
 };
 
 module.exports = {
-  select_user_all,
-  create_user,
   is_user,
   find_mail,
+  user_update,
 };
