@@ -53,20 +53,14 @@ const last_id = () => {
 const create_label = async (body) => {
   let array = body.date.split(" ");
   let date = array[0].split("-");
-
-  const user = await db.Users.findOne({
-    where: {
-      cardId: body.cardId,
-    },
-  });
-
+  
   const create_label = await db.Labels.create({
-    cardId: body.cardId,
+    userId: body.userId,
     date: body.date,
-    labelId: date[1] + date[2] + body.data_id,
+    labelId: date[1] + date[2] + body.dataId,
   });
 
-  create_label.name = user.name;
+  create_label.name = body.username;
   return create_label;
 };
 

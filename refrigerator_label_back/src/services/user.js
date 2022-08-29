@@ -8,10 +8,10 @@ const is_user = (body) => {
   });
 };
 
-const card_id_find_mail = (body) => {
+const find_mail = (body) => {
   return db.Users.findOne({
     attributes: ["mail"],
-    where: { cardId: body },
+    where: { userId: body },
   });
 };
 

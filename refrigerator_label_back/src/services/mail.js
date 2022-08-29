@@ -60,9 +60,9 @@ const manual_send_mail = async (mail) => {
 };
 
 const auto_send_mail = async (req, res) => {
-  const time = await label_service.owner_information();
-  for (let i = 0; i < time.length; i++) {
-    let array = time[i]["date"].split(" ");
+  const label = await label_service.owner_information();
+  for (let i = 0; i < label.length; i++) {
+    let array = label[i]["date"].split(" ");
     let Today = new Date();
     const date1 = new Date(array[0]);
     const date2 = new Date(
@@ -72,7 +72,7 @@ const auto_send_mail = async (req, res) => {
     const diff_day = Math.ceil(diff_time / (1000 * 60 * 60 * 24));
 
     if (diff_day === 7) {
-      let mail = await user_service.card_id_find_mail(time[i]["cardId"]);
+      let mail = await user_service.find_mail(label[i]["userId"]);
 
       let mailOptions = {
         from: process.env.NODEMAILER_USER,
@@ -81,7 +81,7 @@ const auto_send_mail = async (req, res) => {
         html:
           mail_template_header +
           "<font color='black'>您的物品 <font color='blue'><b>#" +
-          time[i]["labelId"] +
+          label[i]["labelId"] +
           " </b></font>已在 Monospace 公共冰箱放置滿七天囉。<br>為維護空間會員使用權益，暫存冰箱之物品以七日為限，超過七日將依空間管理規範清除。<br><br>提醒您記得儘速取回，取出時別忘了掃描條碼哦。<br>謝謝您的配合！</font>" +
           mail_template_footer,
       };
