@@ -3,7 +3,7 @@ const axios = require("axios");
 const db = require("../models/index.js");
 const user_service = require("./user.js");
 
-async function user_create() {
+const user_create = async () => {
   let user_list = [];
 
   await axios
@@ -41,6 +41,10 @@ async function user_create() {
       );
     }
   }
-}
+};
+
+// module.exports = {
+//   user_create
+// };
 
 user_create();

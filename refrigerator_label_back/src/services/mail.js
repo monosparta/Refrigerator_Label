@@ -59,7 +59,7 @@ const manual_send_mail = async (mail) => {
   }
 };
 
-const auto_send_mail = async (req, res) => {
+const auto_send_mail = async () => {
   const label = await label_service.owner_information();
   for (let i = 0; i < label.length; i++) {
     let array = label[i]["date"].split(" ");
