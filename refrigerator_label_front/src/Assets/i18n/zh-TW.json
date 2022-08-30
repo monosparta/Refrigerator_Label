@@ -57,5 +57,6 @@
   "None": "無",
   "Account does not exist": "帳號不存在",
   "Can only reset your own account": "只能重置您自己的帳戶",
-  "Failed to execute": "執行失敗"
+  "Failed to execute": "執行失敗",
+  "Update successfully": "更新成功"
 }

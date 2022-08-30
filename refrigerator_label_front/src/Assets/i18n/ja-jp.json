@@ -57,5 +57,6 @@
   "None": "なし",
   "Account does not exist": "アカウントが存在しません",
   "Can only reset your own account": "自分のアカウントのみをリセットできます",
-  "Failed to execute": "実行に失敗しました"
+  "Failed to execute": "実行に失敗しました",
+  "Update successfully": "正常に更新"
 }

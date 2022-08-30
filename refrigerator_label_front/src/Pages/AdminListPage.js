@@ -9,6 +9,7 @@ import { TokenContext } from "../Routers.js";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useTranslation } from "react-i18next";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme = createTheme({
   palette: {
@@ -39,13 +40,50 @@ export default function AdminListPage() {
     vertical: "top",
     horizontal: "center",
   });
-  const [AlertText, setAlertText] = React.useState("");
-  const [Severity, setSeverity] = React.useState("");
+  const [alertText, setAlertText] = React.useState("");
+  const [severity, setSeverity] = React.useState("");
   //close Alert
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
+
+  const [btnLoading, setBtnLoading] = React.useState(false);
+
+  const handleUserUpdate = async () => {
+    setBtnLoading(true);
+    await axios
+      .get("api/user", {
+        headers: { token: localStorage.getItem("login_token") },
+        timeout: 20000,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(t(response.data["message"]));
+      })
+      .catch((error) => {
+        if (error.response.status === 402 || 403) {
+          localStorage.removeItem("login_token");
+          setTokenContext();
+          navigate("/");
+        }
+        setAlertText(t(error.response.data["message"]));
+        setSeverity("error");
+      });
+    setBtnLoading(false);
+    setState({
+      isLoading: true,
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
+  };
 
   const loadingAdmin = React.useCallback(() => {
     const loadAdmin = async () => {
@@ -164,14 +202,15 @@ export default function AdminListPage() {
             >
               <Typography>{t("Add admin")}</Typography>
             </Button>
-            <Button
+            <LoadingButton
+              loading={btnLoading}
               variant="outlined"
               color="success"
               sx={{ ml: "1%", minWidth: "124px", height: "44px" }}
-              href="/Register"
+              onClick={handleUserUpdate}
             >
               <Typography>{t("Update User")}</Typography>
-            </Button>
+            </LoadingButton>
           </ThemeProvider>
         </Box>
         <Box
@@ -199,8 +238,8 @@ export default function AdminListPage() {
         onClose={handleClose}
         key={vertical + horizontal}
       >
-        <Alert onClose={handleClose} severity={Severity} sx={{ width: "100%" }}>
-          {AlertText}
+        <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
+          {alertText}
         </Alert>
       </Snackbar>
     </div>
