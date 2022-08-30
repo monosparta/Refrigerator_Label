@@ -55,7 +55,8 @@
   "Lower(freezer)": "lower",
   "Upper(refrigerator)": "upper",
   "None": "None",
-  "Account does not exist":"Account does not exist",
-  "Failed to execute":"Failed to execute",
-  "Can only reset your own account":"Can only reset your own account"
+  "Account does not exist": "Account does not exist",
+  "Failed to execute": "Failed to execute",
+  "Can only reset your own account": "Can only reset your own account",
+  "Update successfully": "Update successfully"
 }
