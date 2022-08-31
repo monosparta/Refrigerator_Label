@@ -87,7 +87,7 @@ const create_label = async (req, res) => {
 const update_label = async (req, res) => {
   const id = await label_service.have_id(req.body.id);
   try {
-    if (/\d/.test(req.body.id) && id) {
+    if (/^\d+$/.test(req.body.id) && id) {
       const update_label = await label_service.update_label(req.body);
       if (update_label) {
         return res.status(200).json({ message: "Edited successfully" });
