@@ -9,6 +9,7 @@ import { Paper } from "@mui/material";
 import DeleteAdmin from "../Components/DeleteAdminBtn";
 import Reset from "../Components/PasswordResetBtn";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   palette: {
@@ -21,16 +22,17 @@ const theme = createTheme({
   },
 });
 
-export default function BasicTable(props) {
+export default function AdminTable(props) {
+  const { t } = useTranslation();
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ width: "20%" }}>管理者名稱</TableCell>
-            <TableCell sx={{ width: "20%" }}>信箱</TableCell>
-            <TableCell sx={{ width: "20%" }}>身分組</TableCell>
-            <TableCell sx={{ width: "10%" }}></TableCell>
+            <TableCell sx={{ width: "20%" }}>{t("Admin name")}</TableCell>
+            <TableCell sx={{ width: "20%" }}>{t("Email")}</TableCell>
+            <TableCell sx={{ width: "20%" }}>{t("Identity group")}</TableCell>
+            <TableCell sx={{ width: "15%" }}></TableCell>
             <TableCell sx={{ width: "1%" }}></TableCell>
           </TableRow>
         </TableHead>
@@ -49,6 +51,9 @@ export default function BasicTable(props) {
                 <Reset
                   username={row.username}
                   handleResetPassword={props.handleResetPassword}
+                  setState={props.setState}
+                  setAlertText={props.setAlertText}
+                  setSeverity={props.setSeverity}
                 />
               </TableCell>
               <TableCell align="left">

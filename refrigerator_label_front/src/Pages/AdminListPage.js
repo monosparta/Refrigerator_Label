@@ -1,14 +1,15 @@
 import * as React from "react";
 import { Typography, Box, Button } from "@mui/material";
-import "../App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Bar from "../Components/AppBar";
+import Bar from "../Components/NavBar";
 import Admins from "../Components/AdminTable";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios.config.js";
-import { TokenContext } from "../App.js";
+import { TokenContext } from "../Routers.js";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { useTranslation } from "react-i18next";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const theme = createTheme({
   palette: {
@@ -25,8 +26,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function AdminList() {
-  let navigate = useNavigate();
+export default function AdminListPage() {
+  const navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
 
@@ -39,13 +40,50 @@ export default function AdminList() {
     vertical: "top",
     horizontal: "center",
   });
-  const [AlertText, setAlertText] = React.useState("");
-  const [Severity, setSeverity] = React.useState("");
+  const [alertText, setAlertText] = React.useState("");
+  const [severity, setSeverity] = React.useState("");
   //close Alert
   const handleClose = () => {
     setState({ ...state, open: false });
   };
   const { vertical, horizontal, open } = state;
+
+  const [btnLoading, setBtnLoading] = React.useState(false);
+
+  const handleUserUpdate = async () => {
+    setBtnLoading(true);
+    await axios
+      .get("api/user", {
+        headers: { token: localStorage.getItem("login_token") },
+        timeout: 20000,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setSeverity("success");
+        } else {
+          setSeverity("error");
+        }
+        setAlertText(t(response.data["message"]));
+      })
+      .catch((error) => {
+        if (error.response.status === 402 || 403) {
+          localStorage.removeItem("login_token");
+          setTokenContext();
+          navigate("/");
+        }
+        setAlertText(t(error.response.data["message"]));
+        setSeverity("error");
+      });
+    setBtnLoading(false);
+    setState({
+      isLoading: true,
+      open: true,
+      ...{
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
+  };
 
   const loadingAdmin = React.useCallback(() => {
     const loadAdmin = async () => {
@@ -82,16 +120,16 @@ export default function AdminList() {
         data: { username: username },
       })
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           setSeverity("success");
           loadingAdmin();
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -121,10 +159,10 @@ export default function AdminList() {
         } else {
           setSeverity("error");
         }
-        setAlertText(response.data["message"]);
+        setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        setAlertText(error.response.data["message"]);
+        setAlertText(t(error.response.data["message"]));
         setSeverity("error");
       });
     setState({
@@ -135,6 +173,7 @@ export default function AdminList() {
       },
     });
   };
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -152,17 +191,26 @@ export default function AdminList() {
           }}
         >
           <Typography sx={{ fontSize: "36px", fontWeight: 700 }}>
-            管理者
+            {t("Admin")}
           </Typography>
           <ThemeProvider theme={theme}>
             <Button
               variant="outlined"
               color="Button"
-              sx={{ ml: "auto", width: "124px", height: "44px" }}
+              sx={{ ml: "auto", minWidth: "124px", height: "44px" }}
               href="/Register"
             >
-              <Typography>新增管理者</Typography>
+              <Typography>{t("Add admin")}</Typography>
             </Button>
+            <LoadingButton
+              loading={btnLoading}
+              variant="outlined"
+              color="success"
+              sx={{ ml: "1%", minWidth: "124px", height: "44px" }}
+              onClick={handleUserUpdate}
+            >
+              <Typography>{t("Update User")}</Typography>
+            </LoadingButton>
           </ThemeProvider>
         </Box>
         <Box
@@ -177,6 +225,9 @@ export default function AdminList() {
             adminData={adminData}
             handleDeleteAdmin={handleDeleteAdmin}
             handleResetPassword={handleResetPassword}
+            setAlertText={setAlertText}
+            setSeverity={setSeverity}
+            setState={setState}
           />
         </Box>
       </Box>
@@ -187,8 +238,8 @@ export default function AdminList() {
         onClose={handleClose}
         key={vertical + horizontal}
       >
-        <Alert onClose={handleClose} severity={Severity} sx={{ width: "100%" }}>
-          {AlertText}
+        <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
+          {alertText}
         </Alert>
       </Snackbar>
     </div>

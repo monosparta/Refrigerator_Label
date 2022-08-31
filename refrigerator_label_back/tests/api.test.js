@@ -21,20 +21,6 @@ test("Backend Start Test", (done) => {
     });
 });
 
-describe("User Test", () => {
-  test("Get user", (done) => {
-    request(app)
-      .get("/api/find_user_all")
-      .set("Accept", "application/json")
-      .set("token", test_token)
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .end(function (err, res) {
-        if (err) return done(err);
-        return done();
-      });
-  });
-});
 
 describe("Label Test", () => {
   let label_id = "";
@@ -161,7 +147,7 @@ describe("Admin Test", () => {
         mail: "test_root@mail.com",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -178,7 +164,7 @@ describe("Admin Test", () => {
         mail: "test_root@mail.com",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -195,7 +181,7 @@ describe("Admin Test", () => {
         password: "test_root",
       })
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -245,7 +231,7 @@ describe("Admin Test", () => {
       .set("token", test_token)
       .send({})
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();
@@ -273,7 +259,7 @@ describe("Admin Test", () => {
       .set("token", test_token)
       .send({})
       .expect("Content-Type", /json/)
-      .expect(402)
+      .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
         return done();

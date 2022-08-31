@@ -2,10 +2,10 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTheme,createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField, Typography, Box } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const theme2 = createTheme({
   palette: {
@@ -19,6 +19,7 @@ const theme2 = createTheme({
 });
 
 export default function PasswordResetBtn(props) {
+  const { t } = useTranslation();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = React.useState(false);
@@ -26,15 +27,15 @@ export default function PasswordResetBtn(props) {
 
   const [newPassword, setNewPassword] = React.useState();
   const [newPasswordAgain, setNewPasswordAgain] = React.useState();
+  const [inputErrorNP, setInputErrorNP] = React.useState(false);
+  const [inputErrorNPA, setInputErrorNPA] = React.useState(false);
 
   const onChangeNewPassword = (e) => {
-    const newPassword = e.target.value;
-    setNewPassword(newPassword);
+    setNewPassword(e.target.value);
   };
 
   const onChangeNewPasswordAgain = (e) => {
-    const newPasswordAgain = e.target.value;
-    setNewPasswordAgain(newPasswordAgain);
+    setNewPasswordAgain(e.target.value);
   };
 
   const handleClickOpen = () => {
@@ -42,18 +43,46 @@ export default function PasswordResetBtn(props) {
   };
 
   const handleClose = () => {
+    setInputErrorNP(false);
+    setInputErrorNPA(false);
     setOpen(false);
   };
 
   const handleReset = async () => {
-    if (!newPassword && !newPasswordAgain) {
-      console.log("請輸入密碼");
-    } else if (!newPassword) {
-      console.log("請填密碼");
-    } else if (!newPasswordAgain) {
-      console.log("請再輸入一次密碼");
-    } else if (newPassword !== newPasswordAgain) {
-      console.log("密碼不一致");
+    let checkError = false;
+    let errorText = t("Please enter");
+    props.setSeverity("error");
+    setInputErrorNP(false);
+    setInputErrorNPA(false);
+
+    if (!newPassword) {
+      checkError = true;
+      setInputErrorNP(true);
+      errorText += " " + t("Password");
+    }
+
+    if (!newPasswordAgain) {
+      checkError = true;
+      setInputErrorNPA(true);
+      errorText += " " + t("Confirm password");
+    }
+
+    if (newPassword !== newPasswordAgain) {
+      checkError = true;
+      setInputErrorNP(true);
+      setInputErrorNPA(true);
+      errorText = t("Two passwords aren't same !");
+    }
+
+    if (checkError) {
+      props.setAlertText(errorText);
+      props.setState({
+        open: true,
+        ...{
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } else {
       setBtnLoading(true);
       await props.handleResetPassword(props.username, newPassword);
@@ -72,7 +101,7 @@ export default function PasswordResetBtn(props) {
           color="Button"
         >
           <Typography sx={{ fontSize: "14px", fontWeight: 400 }} color="white">
-            重設密碼
+            {t("Reset password")}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -83,25 +112,27 @@ export default function PasswordResetBtn(props) {
         aria-labelledby="responsive-dialog-title"
       >
         <Box sx={{ p: 1 }}>
-          <Box sx={{ width: "400px", height: "40px" }}>
+          <Box sx={{ height: "40px" }}>
             <Typography
               sx={{ fontWeight: "700", fontSize: "26px", m: "0 140px" }}
             >
-              重設密碼
+              {t("Reset password")}
             </Typography>
           </Box>
           <Box sx={{ width: "300px", height: "110px", m: "0 auto" }}>
             <TextField
+              error={inputErrorNP}
               size="small"
-              placeholder="輸入新密碼"
+              placeholder={t("Enter your new password")}
               fullWidth
               type="password"
               sx={{ mt: "11px" }}
               onChange={onChangeNewPassword}
             />
             <TextField
+              error={inputErrorNPA}
               size="small"
-              placeholder="再次輸入新密碼"
+              placeholder={t("Enter your new password again")}
               fullWidth
               type="password"
               onChange={onChangeNewPasswordAgain}
@@ -123,7 +154,7 @@ export default function PasswordResetBtn(props) {
                   minHeight: "36px",
                 }}
               >
-                <Typography color="white">確認</Typography>
+                <Typography color="white">{t("Confirm")}</Typography>
               </LoadingButton>
               <Button
                 onClick={handleClose}
@@ -138,7 +169,7 @@ export default function PasswordResetBtn(props) {
                 }}
                 sx={{ ml: "16px" }}
               >
-                取消
+                {t("Cancel")}
               </Button>
             </ThemeProvider>
           </Box>

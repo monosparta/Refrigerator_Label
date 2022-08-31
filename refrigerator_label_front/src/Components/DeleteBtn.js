@@ -4,11 +4,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useTranslation } from "react-i18next";
 
 const theme2 = createTheme({
   palette: {
@@ -22,6 +22,7 @@ const theme2 = createTheme({
 });
 
 export default function DeleteBtn(props) {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const [btnLoading, setBtnLoading] = React.useState(false);
 
@@ -54,7 +55,7 @@ export default function DeleteBtn(props) {
           disableElevation
         >
           <Typography color="white" variant="h7" sx={{ pt: "2px" }}>
-            刪除
+            {t("Delete")}
           </Typography>
         </Button>
       </ThemeProvider>
@@ -68,7 +69,7 @@ export default function DeleteBtn(props) {
           <div className="DTittle">
             <DialogTitle id="responsive-dialog-title">
               <Typography variant="boby2" sx={{ fontWeight: "400" }}>
-                確認刪除所選項目
+                {t("Confirm deletion of selected items?")}
               </Typography>
             </DialogTitle>
           </div>
@@ -89,7 +90,7 @@ export default function DeleteBtn(props) {
                       minHeight: "36px",
                     }}
                   >
-                    <Typography color="white">確認</Typography>
+                    <Typography color="white">{t("Confirm")}</Typography>
                   </LoadingButton>
                 </div>
                 <div className="BtnNo">
@@ -105,7 +106,7 @@ export default function DeleteBtn(props) {
                       minHeight: "36px",
                     }}
                   >
-                    取消
+                    {t("Cancel")}
                   </Button>
                 </div>
               </ThemeProvider>
