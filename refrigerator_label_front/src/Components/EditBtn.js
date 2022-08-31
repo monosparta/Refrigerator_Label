@@ -33,7 +33,7 @@ export default function EditBtn(props) {
     ) {
       return contentSplit.slice(1).join("-");
     }
-    return props.note;
+    return props.note || [""];
   };
   const [noteContent, setNoteContent] = React.useState(noteContentCheck);
 
@@ -61,6 +61,8 @@ export default function EditBtn(props) {
   const handleEdit = async () => {
     setBtnLoading(true);
     await props.handleEdit(props.id, itemLocation + noteContent);
+    console.log(itemLocation)
+    console.log(noteContent)
     setAnchorEl(null);
     setBtnLoading(false);
   };
