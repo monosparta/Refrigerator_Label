@@ -85,7 +85,7 @@ export default function ManagementPage() {
         })
         .catch((error) => {
           //overtime
-          if (error.response.status === 402 || 403) {
+          if (error.response.status === 402 || error.response.status === 403) {
             localStorage.removeItem("login_token");
             setTokenContext();
             navigate("/");
@@ -365,9 +365,9 @@ export default function ManagementPage() {
         <DataGrid
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus, &.MuiDataGrid-root .MuiDataGrid-cell:focus":
-              {
-                outline: "none",
-              },
+            {
+              outline: "none",
+            },
             margin: "0 24px",
           }}
           rows={rowData}
