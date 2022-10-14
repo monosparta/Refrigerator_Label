@@ -50,6 +50,7 @@ export default function AdminListPage() {
 
   const [btnLoading, setBtnLoading] = React.useState(false);
 
+  //更新使用者
   const handleUserUpdate = async () => {
     setBtnLoading(true);
     await axios
@@ -66,7 +67,7 @@ export default function AdminListPage() {
         setAlertText(t(response.data["message"]));
       })
       .catch((error) => {
-        if (error.response.status === 402 || 403) {
+        if (error.response.status === 402 || error.response.status === 403) {
           localStorage.removeItem("login_token");
           setTokenContext();
           navigate("/");
@@ -98,7 +99,7 @@ export default function AdminListPage() {
         .catch((error) => {
           console.log(error.response.data["message"]);
           //overtime
-          if (error.response.status === 402 || 403) {
+          if (error.response.status === 402 || error.response.status === 403) {
             localStorage.removeItem("login_token");
             setTokenContext();
             navigate("/");

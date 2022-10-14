@@ -52,11 +52,12 @@
   "Username already exists": "ユーザー名は既に存在します",
   "At least one account exists": "少なくとも 1 つのアカウントが存在する必要があります",
   "Update User": "ユーザーの更新",
-  "Lower(freezer)": "低い",
-  "Upper(refrigerator)": "アッパー",
+  "Lower(freezer)": "冷凍",
+  "Upper(refrigerator)": "冷蔵",
   "None": "なし",
   "Account does not exist": "アカウントが存在しません",
   "Can only reset your own account": "自分のアカウントのみをリセットできます",
   "Failed to execute": "実行に失敗しました",
-  "Update successfully": "正常に更新"
+  "Update successfully": "正常に更新",
+  "Validation error": "フォーム検証エラー"
 }
