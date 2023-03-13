@@ -62,11 +62,11 @@ function ChildModal(props) {
         >
           <Box
             sx={{
-              width: "350px",
+              width: "364px",
               bgcolor: "#F5F5F5	",
               pt: 2,
               px: 4,
-              pb: 3,
+              pb: 4,
               margin: "30vh auto",
               borderRadius: "8px",
             }}
@@ -88,7 +88,7 @@ function ChildModal(props) {
               className="ChipData"
               sx={{
                 display: "flex",
-                justifyContent: "left",
+                justifyContent: "center",
                 flexWrap: "wrap",
                 p: 2,
                 m: 2,
