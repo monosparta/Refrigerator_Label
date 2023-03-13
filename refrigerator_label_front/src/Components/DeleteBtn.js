@@ -93,6 +93,7 @@ export default function DeleteBtn(props) {
                     <Typography color="white">{t("Confirm")}</Typography>
                   </LoadingButton>
                 </div>
+                
                 <div className="BtnNo">
                   <Button
                     onClick={handleClose}

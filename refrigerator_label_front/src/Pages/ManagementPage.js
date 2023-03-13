@@ -11,10 +11,11 @@ import EditBtn from "../Components/EditBtn";
 import PrinterStates from "../Components/PrinterStates.js";
 import MuiAlert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-import SendIcon from "@mui/icons-material/Send";
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
+
 import "./App.css";
 
 const theme = createTheme({
@@ -177,6 +178,10 @@ export default function ManagementPage() {
         },
       });
     }
+    else if (delete_data.length == 0){
+      
+      alert("請選擇要刪除的項目");
+    }
   };
 
   //讀取要寄信的人
@@ -234,7 +239,7 @@ export default function ManagementPage() {
     }
   };
 
-  // data grid columns definition
+  // data grid columns definition 物品所屬者列
   const columns = [
     {
       field: "name",
@@ -340,7 +345,7 @@ export default function ManagementPage() {
         className="DataGrid"
         sx={{
           width: "100%",
-          height: "85vh",
+          height: "80vh",
         }}
       >
         <ThemeProvider theme={theme}>
@@ -354,7 +359,7 @@ export default function ManagementPage() {
               </Box>
               <Box sx={{ ml: "16px" }}>
                 <MailBtn
-                  endIcon={<SendIcon />}
+                  endIcon={<SendRoundedIcon />}
                   handleSendMail={handleSendMail}
                   handleMailPeople={handleMailPeople}
                 />
@@ -362,13 +367,15 @@ export default function ManagementPage() {
             </Box>
           </Box>
         </ThemeProvider>
+        
         <DataGrid
           sx={{
             "&.MuiDataGrid-root .MuiDataGrid-columnHeader:focus, &.MuiDataGrid-root .MuiDataGrid-cell:focus":
             {
               outline: "none",
             },
-            margin: "0 24px",
+            margin: "0 20px",
+        
           }}
           rows={rowData}
           columns={columns}
