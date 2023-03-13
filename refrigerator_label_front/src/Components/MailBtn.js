@@ -14,6 +14,7 @@ import {
   Box,
   Modal,
   Backdrop,
+  Alert,
 } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -62,11 +63,11 @@ function ChildModal(props) {
         >
           <Box
             sx={{
-              width: "350px",
+              width: "364px",
               bgcolor: "#F5F5F5	",
               pt: 2,
               px: 4,
-              pb: 3,
+              pb: 4,
               margin: "30vh auto",
               borderRadius: "8px",
             }}
@@ -88,7 +89,7 @@ function ChildModal(props) {
               className="ChipData"
               sx={{
                 display: "flex",
-                justifyContent: "left",
+                justifyContent: "center",
                 flexWrap: "wrap",
                 p: 2,
                 m: 2,
@@ -115,6 +116,7 @@ export default function MailBtn(props) {
   const [btnLoading, setBtnLoading] = React.useState(false);
   const [chipData, setChipData] = React.useState([]);
   const [hidden, setHidden] = React.useState(true);
+  const [mailChoose, setmailChoose] = React.useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -166,6 +168,21 @@ export default function MailBtn(props) {
     },
   });
 
+  // 定義是否有選擇物品所屬者
+  const sendChoose = () => {
+    let alertColor = null;
+    const mail_people = props.handleMailPeople();
+    if (mail_people != 0) {
+      setmailChoose("false")
+    } else {
+      alertColor = "#EB7A77";
+      setmailChoose("true")
+    }
+  };
+  React.useEffect(()=>{
+    sendChoose();
+  })
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -214,6 +231,17 @@ export default function MailBtn(props) {
                       component="ul"
                       elevation={0}
                     >
+                      {mailChoose =="false" ? (
+                        <div></div>
+                        ) : 
+                          <Alert
+                            sx={{ fontWeight: 500, borderRadius: 15,}}
+                            className="ownertext"
+                            severity="error"
+                          >
+                            未選擇物品所屬者
+                        </Alert> 
+                      }
                       {chipData.slice(0, 2).map((data) => {
                         let icon;
                         return (
