@@ -123,7 +123,9 @@ export default function AdminListPage() {
       .then((response) => {
         if (response.status === 200) {
           setSeverity("success");
-          loadingAdmin();
+          localStorage.removeItem("login_token");
+          setTokenContext(null);
+          navigate("/");
         } else {
           setSeverity("error");
         }
