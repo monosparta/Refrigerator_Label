@@ -9,7 +9,7 @@ const login = async (req, res) => {
       const token = await admin_service.token_create(admin);
       return res
         .status(201)
-        .json({ message: "Login successfully", token: token });
+        .json({ message: "Login successfully", token: token , username: admin.username});
     } else {
       return res.status(401).json({ message: "Username or Password error" });
     }

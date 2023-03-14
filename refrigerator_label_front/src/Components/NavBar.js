@@ -14,6 +14,8 @@ import {
   Link,
   MenuItem,
   Menu,
+  Text,
+  Chip,
 } from "@mui/material";
 
 const theme = createTheme({
@@ -26,6 +28,8 @@ const theme = createTheme({
     },
   },
 });
+
+const username='12345678';
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -69,6 +73,7 @@ export default function NavBar() {
             </Box>
             <Box sx={{ ml: "auto" }}>
               <ThemeProvider theme={theme}>
+                <Chip label={"帳號：" + username } variant="outlined" sx={{ mr: "1vw", ml: "auto", color: "#FFFFFF" }} ></Chip>
                 <Button
                   id="language-button"
                   aria-controls={open ? "language" : undefined}
