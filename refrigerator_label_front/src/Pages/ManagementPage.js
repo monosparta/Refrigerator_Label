@@ -368,7 +368,12 @@ export default function ManagementPage() {
             {
               outline: "none",
             },
-            margin: "0 24px",
+            "&.MuiDataGrid-root .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator": 
+            {
+              visibility: 'hidden',
+            },
+            margin: "0 20px",
+        
           }}
           rows={rowData}
           columns={columns}
