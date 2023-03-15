@@ -14,7 +14,6 @@ module.exports = function (router) {
   router.use(token_authentication_middleware);
   
   router.get("/api/user", user_controller.user_update);
-
   router.get("/api/auto_send_mail", mail_controller.auto_send_mail);
   router.post("/api/manual_send_mail", mail_controller.manual_send_mail);
 
