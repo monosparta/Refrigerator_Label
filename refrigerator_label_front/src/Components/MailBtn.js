@@ -170,14 +170,13 @@ export default function MailBtn(props) {
 
   // 定義是否有選擇物品所屬者
   const sendChoose = () => {
-    let alertColor = null;
     const mail_people = props.handleMailPeople();
-    if (mail_people != 0) {
+    if (mail_people.length !== 0) {
       setmailChoose("false")
     } else {
-      alertColor = "#EB7A77";
       setmailChoose("true")
     }
+    
   };
   React.useEffect(()=>{
     sendChoose();
@@ -231,7 +230,7 @@ export default function MailBtn(props) {
                       component="ul"
                       elevation={0}
                     >
-                      {mailChoose =="false" ? (
+                      {mailChoose === "false" ? (
                         <div></div>
                         ) : 
                           <Alert

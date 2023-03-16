@@ -21,13 +21,15 @@ import { useEffect } from "react";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 
+// export const {setLoginUsername} = React.createContext(null);
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const { setTokenContext } = React.useContext(TokenContext);
-  const [loginUsername, setLoginUsername] = React.useState({});
-  const [username, setUsername] = React.useState("");
+
+  const [username, setUsername] = React.useState({});
   const [password, setPassword] = React.useState({
     password: "",
     showPassword: false,
@@ -92,12 +94,10 @@ export default function LoginPage() {
       .then((response) => {
         const token = response["data"]["token"];
         localStorage.setItem("login_token", token);
-        //setTokenContext(token);
-        // navigate("/ManagementPage");
-        const username = response["data"]["username"];
-        // loginUsername = username;
-        // setLoginUsername(username);
-        console.log(username);
+        setTokenContext(token);
+        navigate("/ManagementPage");
+        // const username = response["data"]["username"];
+        // console.log(username);
       })
       .catch((error) => {
         setAlertText(t(error.response.data["message"]));
