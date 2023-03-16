@@ -16,7 +16,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import AlertTitle from "@mui/material/AlertTitle";
 
 const theme = createTheme({
   palette: {
@@ -25,7 +24,6 @@ const theme = createTheme({
     },
   },
 });
-
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
