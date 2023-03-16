@@ -1,8 +1,8 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-// import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import MailOutlineIcon from '@mui/icons-material/Send';
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+
 import {
   Paper,
   Typography,

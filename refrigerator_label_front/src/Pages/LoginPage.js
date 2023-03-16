@@ -21,8 +21,6 @@ import { useEffect } from "react";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 
-// export const {setLoginUsername} = React.createContext(null);
-
 export default function LoginPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -96,8 +94,6 @@ export default function LoginPage() {
         localStorage.setItem("login_token", token);
         setTokenContext(token);
         navigate("/ManagementPage");
-        // const username = response["data"]["username"];
-        // console.log(username);
       })
       .catch((error) => {
         setAlertText(t(error.response.data["message"]));

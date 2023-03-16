@@ -69,7 +69,6 @@ export default function NavBar() {
             </Box>
             <Box sx={{ ml: "auto" }}>
               <ThemeProvider theme={theme}>
-                {/* <Chip label={"帳號：" + username } variant="outlined" sx={{ mr: "1vw", ml: "auto", color: "#FFFFFF" }} ></Chip> */}
                 <Button
                   id="language-button"
                   aria-controls={open ? "language" : undefined}

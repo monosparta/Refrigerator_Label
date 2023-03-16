@@ -52,24 +52,6 @@ export default function AdminListPage() {
 
   const [btnLoading, setBtnLoading] = React.useState(false);
 
-  // const [username, setUsername] = React.useState();
-  // const ifroot = async () => {
-  //   await axios
-  //     .post("api/login", {
-  //       username: username,
-  //     })
-  //     .then((response) => {
-  //       // setUsername = response["data"]["username"];
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       setAlertText(t(error.response.data["message"]));
-  //     });
-  // };
-  // React.useEffect(()=>{
-  //   ifroot();
-  // })
-
   //更新使用者
   const handleUserUpdate = async () => {
     setBtnLoading(true);
