@@ -59,5 +59,6 @@
   "Failed to execute": "Failed to execute",
   "Can only reset your own account": "Can only reset your own account",
   "Update successfully": "Update successfully",
-  "Validation error": "Form validation error"
+  "Validation error": "Form validation error",
+  "No choose Sendpeople": "Item owner not selected"
 }

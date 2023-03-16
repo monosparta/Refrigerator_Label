@@ -59,5 +59,6 @@
   "Can only reset your own account": "自分のアカウントのみをリセットできます",
   "Failed to execute": "実行に失敗しました",
   "Update successfully": "正常に更新",
-  "Validation error": "フォーム検証エラー"
+  "Validation error": "フォーム検証エラー",
+  "No choose Sendpeople": "アイテムの所有者が選択されていません"
 }

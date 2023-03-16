@@ -24,6 +24,7 @@ const theme = createTheme({
     },
   },
 });
+
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
@@ -176,13 +177,13 @@ export default function ManagementPage() {
         },
       });
     } else if ( delete_data.length === 0 ){
-    //   return[
-    //     <Alert
-    //       sx={{ fontWeight: 500, borderRadius: 15,}}
-    //       className="ownertext"
-    //       severity="error"
-    //     >未選擇物品所屬者 </Alert> ,
-    //   ];
+      // return[
+      //   <Alert
+      //     sx={{ fontWeight: 500, borderRadius: 15,}}
+      //     className="ownertext"
+      //     severity="error"
+      //   >未選擇物品所屬者 </Alert> ,
+      // ];
       window.alert("沒有選擇物品項目")
     }
     // }

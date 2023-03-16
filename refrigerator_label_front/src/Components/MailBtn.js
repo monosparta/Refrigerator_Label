@@ -234,11 +234,11 @@ export default function MailBtn(props) {
                         <div></div>
                         ) : 
                           <Alert
-                            sx={{ fontWeight: 500, borderRadius: 15,}}
+                            sx={{ fontWeight: 500, borderRadius: 15, paddingX: 1.5, paddingY: 0}}
                             className="ownertext"
                             severity="error"
                           >
-                            未選擇物品所屬者
+                            {t("No choose Sendpeople")}
                         </Alert> 
                       }
                       {chipData.slice(0, 2).map((data) => {
