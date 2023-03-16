@@ -24,7 +24,6 @@ const theme = createTheme({
     },
   },
 });
-
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
