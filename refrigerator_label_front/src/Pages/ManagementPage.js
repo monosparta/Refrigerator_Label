@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 import "./App.css";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const theme = createTheme({
   palette: {
@@ -149,7 +150,7 @@ export default function ManagementPage() {
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("labelId");
-    if (delete_data.length !== 0) {
+    if (delete_data.length !== 0 ) {
       await axios
         .delete("api/label", {
           headers: { token: localStorage.getItem("login_token") },
@@ -176,7 +177,17 @@ export default function ManagementPage() {
           horizontal: "center",
         },
       });
+    } else if ( delete_data.length === 0 ){
+    //   return[
+    //     <Alert
+    //       sx={{ fontWeight: 500, borderRadius: 15,}}
+    //       className="ownertext"
+    //       severity="error"
+    //     >未選擇物品所屬者 </Alert> ,
+    //   ];
+      window.alert("沒有選擇物品項目")
     }
+    // }
   };
 
   //讀取要寄信的人
