@@ -16,7 +16,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TokenContext } from "../Routers.js";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import AlertTitle from "@mui/material/AlertTitle";
 
 const theme = createTheme({
   palette: {
