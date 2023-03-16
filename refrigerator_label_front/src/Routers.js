@@ -20,8 +20,6 @@ export default function App() {
     localStorage.getItem("login_token")
   );
 
- 
-
   return (
     <TokenContext.Provider value={{ tokenContext, setTokenContext }}>
       <I18nextProvider i18n={i18n}>

@@ -14,7 +14,6 @@ import {
   Link,
   MenuItem,
   Menu,
-  Text,
   Chip,
 } from "@mui/material";
 
@@ -28,8 +27,6 @@ const theme = createTheme({
     },
   },
 });
-
-const username='12345678';
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -54,6 +51,8 @@ export default function NavBar() {
     navigate("/");
   };
 
+  const username='12345678';
+  
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="Button">

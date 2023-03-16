@@ -9,10 +9,6 @@ const user_update = async (_req, res) => {
   }
 };
 
-const find_logined_user = async (_req, res) => {
-  
-}
-
 module.exports = {
   user_update,
 };
