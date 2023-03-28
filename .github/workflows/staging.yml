@@ -3,8 +3,8 @@ name: Refrigerator_Label CI/CD
 on:
   push:
     branches: [ staging ]
-  pull_request:
-    branches: [ staging ]
+  # pull_request:
+  #   branches: [ staging ]
 
 jobs:
   checkout:

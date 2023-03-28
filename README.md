@@ -1,4 +1,4 @@
-# 冰箱自動標籤與管理系統(Refrigerator Label & management system)
+# 雲端智慧標籤系統(Refrigerator Label & management system)
 
 ## 系統需求：
 ### 冰箱物品標籤🏷️  
@@ -54,3 +54,57 @@
 ## 預期目標：
 1. 使用者能利用刷卡自動列印資料標籤，省去自行書寫的時間。
 2. 管理者可以利用管理系統更好管控冰箱內容物。
+
+## 啟動專案：
+---
+### 後端：
+`cd ./refrigerator_label_back/ ` -> 進入後端資料夾
+
+`cp .env.example .env` -> 複製.env.example檔 產生.env檔
+
+修改env檔設定
+```
+FRONTEND_URL='http://localhost:xxxx' -> 前端網站port號
+
+SUPER_USER_USERNAME='root'
+SUPER_USER_PASSWORD='root'
+SUPER_USER_MAIL='test@gmail.com'
+
+JWT_SECRET='test'
+
+DB_USERNAME='root'
+DB_PASSWORD='root'  -> 為設定mysql時所輸入的密碼
+DB_DATABASE='db'
+DB_HOST='localhost'
+DB_PORT='3306'      -> 為設定mysql時所設定的port號
+DB_DIALECT='mysql' 
+```
+
+`npm install`  -> 下載套件
+
+**於資料庫先新增名為"db"的資料庫**
+
+`npx sequelize db:migrate`   -> 建立資料表
+
+`npx sequelize db:seed:all`  -> 塞入假資料
+
+**確認"admin"的資料表是否有root資料**
+
+`npm start`  -> 啟動後端server
+
+---
+### 前端：
+`cd ./refrigerator_label_front/ ` -> 進入前端資料夾
+
+`cp .env.example .env` -> 複製.env.example檔 產生.env檔
+
+修改env檔設定
+```
+REACT_APP_BACK_END='http://localhost:xxxx' ->後端網站port號
+```
+
+`npm install`  -> 下載套件
+
+`npm start`  -> 啟動前端
+
+### **root身份登入 進行維護**

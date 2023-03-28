@@ -3,8 +3,8 @@ name: Refrigerator_Label CI/CD
 on:
   push:
     branches: [ prod ]
-  pull_request:
-    branches: [ prod ]
+  # pull_request:
+  #   branches: [ prod ]
 
 jobs:
   checkout:
@@ -60,6 +60,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: 'create back env file'
         run: |
+          touch ./refrigerator_label_back/.env
           echo PORT='${{ secrets.BACK_PORT }}' >> ./refrigerator_label_back/.env
           echo IP_ADDRESS='${{ secrets.IP_ADDRESS }}' >> ./refrigerator_label_back/.env
           echo FRONTEND_URL='${{ secrets.FRONTEND_URL }}' >> ./refrigerator_label_back/.env
@@ -86,6 +87,6 @@ jobs:
       - name: back test
         run: npm --prefix ./refrigerator_label_back/ test
       - name: back ssh rsync
-        run: rsync -avz --exclude 'node_modules' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
+        run: rsync -avz --exclude 'node_modules' --exclude '*.sqlite3' -e 'ssh' ./refrigerator_label_back ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}
       - name: back ssh install
         run: ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} 'npm --prefix ${{ secrets.DEPLOY_PATH }}/refrigerator_label_back install'
