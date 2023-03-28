@@ -24,7 +24,6 @@ const theme = createTheme({
     },
   },
 });
-
 // 我為Menu功能，進行中文化，但我鎖住了，不用理
 const localizedTextsMap = {
   columnMenuUnsort: "原始排列",
@@ -149,7 +148,7 @@ export default function ManagementPage() {
   //刪除功能
   const handleDelete = async () => {
     const delete_data = getSelectData("labelId");
-    if (delete_data.length !== 0) {
+    if (delete_data.length !== 0 ) {
       await axios
         .delete("api/label", {
           headers: { token: localStorage.getItem("login_token") },
@@ -176,7 +175,17 @@ export default function ManagementPage() {
           horizontal: "center",
         },
       });
+    } else if ( delete_data.length === 0 ){
+    //   return[
+    //     <Alert
+    //       sx={{ fontWeight: 500, borderRadius: 15,}}
+    //       className="ownertext"
+    //       severity="error"
+    //     >未選擇物品所屬者 </Alert> ,
+    //   ];
+      window.alert("沒有選擇物品項目")
     }
+    // }
   };
 
   //讀取要寄信的人
@@ -368,7 +377,12 @@ export default function ManagementPage() {
             {
               outline: "none",
             },
-            margin: "0 24px",
+            "&.MuiDataGrid-root .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator": 
+            {
+              visibility: 'hidden',
+            },
+            margin: "0 20px",
+        
           }}
           rows={rowData}
           columns={columns}

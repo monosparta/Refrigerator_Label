@@ -10,6 +10,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useTranslation } from "react-i18next";
 import LoadingButton from "@mui/lab/LoadingButton";
+import username from './LoginPage';
 
 const theme = createTheme({
   palette: {
@@ -27,6 +28,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function AdminListPage() {
+  console.log(username);
   const navigate = useNavigate();
   //token
   const { setTokenContext } = React.useContext(TokenContext);
@@ -49,6 +51,24 @@ export default function AdminListPage() {
   const { vertical, horizontal, open } = state;
 
   const [btnLoading, setBtnLoading] = React.useState(false);
+
+  // const [username, setUsername] = React.useState();
+  // const ifroot = async () => {
+  //   await axios
+  //     .post("api/login", {
+  //       username: username,
+  //     })
+  //     .then((response) => {
+  //       // setUsername = response["data"]["username"];
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       setAlertText(t(error.response.data["message"]));
+  //     });
+  // };
+  // React.useEffect(()=>{
+  //   ifroot();
+  // })
 
   //更新使用者
   const handleUserUpdate = async () => {
@@ -123,7 +143,9 @@ export default function AdminListPage() {
       .then((response) => {
         if (response.status === 200) {
           setSeverity("success");
-          loadingAdmin();
+          localStorage.removeItem("login_token");
+          setTokenContext(null);
+          navigate("/");
         } else {
           setSeverity("error");
         }
